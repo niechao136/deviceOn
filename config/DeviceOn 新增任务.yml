@@ -1,0 +1,350 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: DeviceOn 新增任务
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: code
+      id: 1743490828636-source-1743491874908-target
+      source: '1743490828636'
+      sourceHandle: source
+      target: '1743491874908'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1743491874908-source-1743491889393-target
+      source: '1743491874908'
+      sourceHandle: source
+      target: '1743491889393'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1743491889393-source-1743491904849-target
+      source: '1743491889393'
+      sourceHandle: source
+      target: '1743491904849'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: end
+      id: 1743491904849-source-1743491925947-target
+      source: '1743491904849'
+      sourceHandle: source
+      target: '1743491925947'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: content
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: content
+        - label: timezone
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: timezone
+        - label: api
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: api
+        - label: token
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: token
+      height: 168
+      id: '1743490828636'
+      position:
+        x: 30
+        y: 284
+      positionAbsolute:
+        x: 30
+        y: 284
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 确认任务信息\n */\nfunction timeStringToCron(timeStr) {\n  // 分割日期部分和时间部分\n\
+          \  const [datePart, timePart] = timeStr.split(' ');\n  if (!datePart ||\
+          \ !timePart) {\n    throw new Error('时间字符串格式错误，应为 \"YYYY/MM/DD HH:mm:ss\"\
+          ');\n  }\n  // 分割出年、月、日\n  const [year, month, day] = datePart.split('/');\n\
+          \  // 分割出时、分、秒\n  const [hour, minute, second] = timePart.split(':');\n\n\
+          \  // 构造 Cron 表达式，Quartz 格式为 \"ss mm HH dd MM ? YYYY-YYYY\"\n  return `${Number(second)}\
+          \ ${Number(minute)} ${Number(hour)} ${Number(day)} ${Number(month)} ? ${year}-${year}`;\n\
+          }\nfunction main({content, timezone, api}) {\n  const res = JSON.parse(content)\n\
+          \  let url = ''\n  let request = ''\n  switch (res.type) {\n    case 'control_task':\n\
+          \      const scheduleType = res.data.schedule.scheduleType\n      const\
+          \ control_code = res.data.actionCode\n      let parameter = {}\n      if\
+          \ (control_code === '90003') {\n        if (!!res.data.audioMute) {\n  \
+          \        parameter = {\n            audioMute: true,\n          }\n    \
+          \    } else {\n          parameter = {\n            volume: res.data.value,\n\
+          \          }\n        }\n      } else if (control_code === '90004') {\n\
+          \        parameter = {\n          brightness: res.data.value,\n        }\n\
+          \      }\n      const targetDevices = Array.isArray(res?.data?.targetDevices)\
+          \ ? Array.from(res.data.targetDevices).map(o => {\n        return {\n  \
+          \        deviceId: o.id,\n          deviceOs: o.os,\n          timezone:\
+          \ o.timezone,\n        };\n      }) : [];\n      switch (scheduleType) {\n\
+          \        case 'NONE':\n          url = '/walle/ai/onceTask/addCommonImmediateTask'\n\
+          \          request = JSON.stringify({\n            actionCode: control_code,\n\
+          \            parameter,\n            targetDevices,\n          })\n    \
+          \      break\n        case 'ONLINE':\n          url = '/walle/ai/onceTask/addCommonOnlineTask'\n\
+          \          request = JSON.stringify({\n            actionCode: control_code,\n\
+          \            parameter,\n            targetDevices,\n          })\n    \
+          \      break\n        case 'CRON ONCE':\n          url = '/walle/ai/onceTask/addCommonCronTask'\n\
+          \          request = JSON.stringify({\n            actionCode: control_code,\n\
+          \            parameter,\n            targetDevices,\n            userTimeZone:\
+          \ timezone,\n            timezoneLocalEnabled: !!res.data?.schedule?.timezoneLocalEnabled,\n\
+          \            scheduleCron: timeStringToCron(res.data?.schedule?.scheduleCron)\n\
+          \          })\n          break\n      }\n      break\n    case 'trigger_task':\n\
+          \      const trigger_code = res.data.actionCode\n      let trigger_param\
+          \ = {}\n      if (trigger_code === '90003') {\n        if (!!res.data.audioMute)\
+          \ {\n          trigger_param = {\n            audioMute: true,\n       \
+          \   }\n        } else {\n          trigger_param = {\n            volume:\
+          \ res.data.value,\n          }\n        }\n      } else if (trigger_code\
+          \ === '90004') {\n        trigger_param = {\n          brightness: res.data.value,\n\
+          \        }\n      }\n      const trigger_device = Array.isArray(res?.data?.targetDevices)\
+          \ ? Array.from(res.data.targetDevices).map(o => {\n        return {\n  \
+          \        deviceId: o.id,\n          deviceOs: o.os,\n          timezone:\
+          \ o.timezone,\n        };\n      }) : []\n      const baseUrl = String(api).endsWith('/api')\
+          \ ? String(api).slice(0, -4) : api\n      url = '/walle/ai/triggerTask/addCommonTriggerTask'\n\
+          \      request = JSON.stringify({\n        actionCode: trigger_code,\n \
+          \       baseUrl,\n        parameter: trigger_param,\n        targetDevices:\
+          \ trigger_device,\n      })\n      break\n  }\n  return {\n    request,\n\
+          \    url,\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          request:
+            children: null
+            type: string
+          url:
+            children: null
+            type: string
+        selected: false
+        title: 确认任务信息
+        type: code
+        variables:
+        - value_selector:
+          - '1743490828636'
+          - content
+          variable: content
+        - value_selector:
+          - '1743490828636'
+          - timezone
+          variable: timezone
+        - value_selector:
+          - '1743490828636'
+          - api
+          variable: api
+      height: 54
+      id: '1743491874908'
+      position:
+        x: 334
+        y: 284
+      positionAbsolute:
+        x: 334
+        y: 284
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1
+            key: ''
+            type: text
+            value: '{{#1743491874908.request#}}'
+          type: json
+        desc: ''
+        headers: Authorization:{{#1743490828636.token#}}
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 新增任务
+        type: http-request
+        url: '{{#1743490828636.api#}}{{#1743491874908.url#}}'
+        variables: []
+      height: 142
+      id: '1743491889393'
+      position:
+        x: 638
+        y: 284
+      positionAbsolute:
+        x: 638
+        y: 284
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\n/**\n * 处理返回信息\n */\nfunction main({content, body}) {\n  const res\
+          \ = JSON.parse(content)\n  const result = JSON.parse(body)\n  return {\n\
+          \    result: JSON.stringify({\n      ...res,\n      result,\n    }),\n \
+          \   content: '',\n    type: '',\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          content:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理返回信息
+        type: code
+        variables:
+        - value_selector:
+          - '1743490828636'
+          - content
+          variable: content
+        - value_selector:
+          - '1743491889393'
+          - body
+          variable: body
+      height: 54
+      id: '1743491904849'
+      position:
+        x: 942
+        y: 284
+      positionAbsolute:
+        x: 942
+        y: 284
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1743491904849'
+          - result
+          variable: result
+        - value_selector:
+          - '1743491904849'
+          - content
+          variable: content
+        - value_selector:
+          - '1743491904849'
+          - type
+          variable: type
+        selected: false
+        title: 返回数据
+        type: end
+      height: 142
+      id: '1743491925947'
+      position:
+        x: 1246
+        y: 284
+      positionAbsolute:
+        x: 1246
+        y: 284
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -760.0306466082498
+      y: -337.48927503882703
+      zoom: 1.8473110750820527

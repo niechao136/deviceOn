@@ -1,0 +1,1963 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: DeviceOn 工作流 逻辑拆分
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables:
+  - description: 缓存类型
+    id: 65615826-d819-468b-b4d4-fe6c1679a448
+    name: cache_type
+    selector:
+    - conversation
+    - cache_type
+    value: ''
+    value_type: string
+  - description: 缓存内容
+    id: 526c8778-80d7-4100-8df9-954f6e7a8a7d
+    name: cache_content
+    selector:
+    - conversation
+    - cache_content
+    value: ''
+    value_type: string
+  environment_variables:
+  - description: ''
+    id: de9e36a2-b72c-4b04-a5bb-75b6d15124a9
+    name: user_reply
+    selector:
+    - env
+    - user_reply
+    value: app-QDKEagg7OujpojWVvPaG7suZ
+    value_type: string
+  - description: ''
+    id: 5538d734-824b-41ee-ae69-52826d02fe2a
+    name: other
+    selector:
+    - env
+    - other
+    value: app-qGW55Y3WAy5urBkHZTRhMOmY
+    value_type: string
+  - description: ''
+    id: 45cc85dd-4125-4847-bbe6-2ca59b2cabde
+    name: remote_desktop
+    selector:
+    - env
+    - remote_desktop
+    value: app-572m5unmOrUAIkiHLQTIgcay
+    value_type: string
+  - description: ''
+    id: ef2c77fc-28a3-4d2c-be42-f91ee4f20b17
+    name: device_control
+    selector:
+    - env
+    - device_control
+    value: app-q6Fb44URXirNCeYQmm3lQko0
+    value_type: string
+  - description: ''
+    id: 22dbbf82-11a1-451a-ad4f-aaeb4a1baa45
+    name: filter_device
+    selector:
+    - env
+    - filter_device
+    value: app-Xvq7Qhc5XuMqV1op7yUIzHxx
+    value_type: string
+  - description: ''
+    id: b6d78f8e-fe29-4ce7-92b4-b31922045920
+    name: path
+    selector:
+    - env
+    - path
+    value: http://172.21.161.126/v1/workflows/run
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      auto_submit:
+        enabled: false
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: question-classifier
+      id: 1741253202911-1-1741313721976-target
+      source: '1741253202911'
+      sourceHandle: '1'
+      target: '1741313721976'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1743494686748-source-1743495286032-target
+      source: '1743494686748'
+      sourceHandle: source
+      target: '1743495286032'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: assigner
+      id: 1743495286032-source-1743495672805-target
+      source: '1743495286032'
+      sourceHandle: source
+      target: '1743495672805'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1743495672805-source-1743495720342-target
+      source: '1743495672805'
+      sourceHandle: source
+      target: '1743495720342'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1743558716858-source-1743558934288-target
+      source: '1743558716858'
+      sourceHandle: source
+      target: '1743558934288'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: assigner
+      id: 1743558934288-source-1743559018717-target
+      source: '1743558934288'
+      sourceHandle: source
+      target: '1743559018717'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1743559018717-source-1741160670510-target
+      source: '1743559018717'
+      sourceHandle: source
+      target: '1741160670510'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1741313721976-2-1743559114857-target
+      source: '1741313721976'
+      sourceHandle: '2'
+      target: '1743559114857'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1743559114857-source-1741158173806-target
+      source: '1743559114857'
+      sourceHandle: source
+      target: '1741158173806'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1743560378540-source-1743560482524-target
+      source: '1743560378540'
+      sourceHandle: source
+      target: '1743560482524'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: assigner
+      id: 1743560482524-source-17435606359880-target
+      source: '1743560482524'
+      sourceHandle: source
+      target: '17435606359880'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 17435606359880-source-1741158135928-target
+      source: '17435606359880'
+      sourceHandle: source
+      target: '1741158135928'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: assigner
+      id: 1741253202911-1741253251984-17435607078390-target
+      source: '1741253202911'
+      sourceHandle: '1741253251984'
+      target: '17435607078390'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 17435607078390-source-1741157326098-target
+      source: '17435607078390'
+      sourceHandle: source
+      target: '1741157326098'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1743564146858-source-1743564151868-target
+      source: '1743564146858'
+      sourceHandle: source
+      target: '1743564151868'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 1743564155266-source-1741157785828-target
+      source: '1743564155266'
+      sourceHandle: source
+      target: '1741157785828'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1741313721976-1-1743564959419-target
+      source: '1741313721976'
+      sourceHandle: '1'
+      target: '1743564959419'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1743564959419-source-1743558716858-target
+      source: '1743564959419'
+      sourceHandle: source
+      target: '1743558716858'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1741313721976-1741313754483-1743565139005-target
+      source: '1741313721976'
+      sourceHandle: '1741313754483'
+      target: '1743565139005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1743565139005-source-1743560378540-target
+      source: '1743565139005'
+      sourceHandle: source
+      target: '1743560378540'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1741253202911-2-1743565243320-target
+      source: '1741253202911'
+      sourceHandle: '2'
+      target: '1743565243320'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1743565243320-source-1743494686748-target
+      source: '1743565243320'
+      sourceHandle: source
+      target: '1743494686748'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1741253202911-1741253265381-1743565330314-target
+      source: '1741253202911'
+      sourceHandle: '1741253265381'
+      target: '1743565330314'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1743565330314-source-1743564146858-target
+      source: '1743565330314'
+      sourceHandle: source
+      target: '1743564146858'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: if-else
+      id: 1743564151868-source-1743575162350-target
+      source: '1743564151868'
+      sourceHandle: source
+      target: '1743575162350'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1743575162350-false-1743564155266-target
+      source: '1743575162350'
+      sourceHandle: 'false'
+      target: '1743564155266'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1743575162350-true-1743575197314-target
+      source: '1743575162350'
+      sourceHandle: 'true'
+      target: '1743575197314'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1743575197314-source-1743575286019-target
+      source: '1743575197314'
+      sourceHandle: source
+      target: '1743575286019'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: assigner
+      id: 1743575286019-source-17435753774250-target
+      source: '1743575286019'
+      sourceHandle: source
+      target: '17435753774250'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: answer
+      id: 17435753774250-source-1743575387750-target
+      source: '17435753774250'
+      sourceHandle: source
+      target: '1743575387750'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1741065173647-source-1743665972900-target
+      source: '1741065173647'
+      sourceHandle: source
+      target: '1743665972900'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1743665972900-source-1743665976785-target
+      source: '1743665972900'
+      sourceHandle: source
+      target: '1743665976785'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1743665976785-source-1743665979987-target
+      source: '1743665976785'
+      sourceHandle: source
+      target: '1743665979987'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1743665979987-source-1743666463997-target
+      source: '1743665979987'
+      sourceHandle: source
+      target: '1743666463997'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1743666463997-source-1743666382237-target
+      source: '1743666463997'
+      sourceHandle: source
+      target: '1743666382237'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1743666382237-true-1741253202911-target
+      source: '1743666382237'
+      sourceHandle: 'true'
+      target: '1741253202911'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1743666382237-false-1743666436043-target
+      source: '1743666382237'
+      sourceHandle: 'false'
+      target: '1743666436043'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: api
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: api
+        - label: token
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: token
+        - label: timezone
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: timezone
+      height: 142
+      id: '1741065173647'
+      position:
+        x: 30
+        y: 324
+      positionAbsolute:
+        x: 30
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 目前暂不支持回答历史资料类问题
+        desc: ''
+        selected: false
+        title: 回复历史资料类问题
+        type: answer
+        variables: []
+      height: 102
+      id: '1741157326098'
+      position:
+        x: 2462
+        y: 764.5
+      positionAbsolute:
+        x: 2462
+        y: 764.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1743564151868.result#}}'
+        desc: ''
+        selected: false
+        title: 回复其他类问题
+        type: answer
+        variables: []
+      height: 105
+      id: '1741157785828'
+      position:
+        x: 3678
+        y: 1073
+      positionAbsolute:
+        x: 3678
+        y: 1073
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1743560482524.result#}}'
+        desc: ''
+        selected: false
+        title: 回复远程桌面任务
+        type: answer
+        variables: []
+      height: 105
+      id: '1741158135928'
+      position:
+        x: 3678
+        y: 639.5
+      positionAbsolute:
+        x: 3678
+        y: 639.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 目前暂不支持远程更新任务
+        desc: ''
+        selected: false
+        title: 回复远程更新任务
+        type: answer
+        variables: []
+      height: 102
+      id: '1741158173806'
+      position:
+        x: 2766
+        y: 324
+      positionAbsolute:
+        x: 2766
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1743558934288.result#}}'
+        desc: ''
+        selected: false
+        title: 回复设备控制任务
+        type: answer
+        variables: []
+      height: 105
+      id: '1741160670510'
+      position:
+        x: 3678
+        y: 476.5
+      positionAbsolute:
+        x: 3678
+        y: 476.5
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        classes:
+        - id: '1'
+          name: 执行任务类
+        - id: '2'
+          name: 巡查类
+        - id: '1741253251984'
+          name: 历史资料类
+        - id: '1741253265381'
+          name: 其他类
+        desc: ''
+        instruction: "# 问题分类规则\n请严格根据以下分类规则和示例，将用户问题归类为 **执行任务类、巡查类、历史资料类、其他类**：\n\
+          \n## 分类定义\n1. **执行任务类**\n    - **定义**：需要系统执行具体操作（如修改状态、触发动作）。\n    - **关键词**：[\"\
+          重启\", \"关机\", \"更新\", \"调节（亮度、音量等）\", \"静音\", \"远程（桌面、更新等）\", \"连接\"]\n\
+          \    - **示例**：\n        - \"请重启设备A\" → 执行任务类\n        - \"将音量调至50%\" → 执行任务类\n\
+          \        - \"请连接设备A\" → 执行任务类\n\n2. **巡查类**\n    - **定义**：需要系统检索、展示、检查设备的**当前状态**或列表，不涉及任何修改操作。\n\
+          \        - **注意**：仅针对设备的当前状态；如果问题涉及获取设备之前的状态，则应归类为历史资料类。\n    - **关键词**：[\"\
+          找出\", \"列出\", \"显示\", \"检索\", \"查看\", \"检查\", \"报告\"]\n    - **附加规则**：\n\
+          \        - 如果问题中包含 `列出`、`显示`、`查看` 等动词，且后接名词（如设备、列表），且明确指当前状态，则归为巡查类。\n \
+          \       - 即使包含其他词汇（如“离线”），只要动作词匹配且明确指当前状态，仍属于巡查类。\n    - **示例**：\n     \
+          \   - \"请列出离线的设备\" → 巡查类\n        - \"检查当前设备状态\" → 巡查类\n\n3. **历史资料类**\n\
+          \    - **定义**：需要查询历史记录、日志、变更或过去状态的数据。\n        - **注意**：如果问题中涉及设备之前的状态信息，则应归类为历史资料类。\n\
+          \    - **关键词**：[\"记录\", \"日志\", \"历史\", \"变更记录\", \"过往\", \"清单\"]\n    -\
+          \ **示例**：\n        - \"查看昨天的变更记录\" → 历史资料类\n        - \"查询设备之前的状态\" → 历史资料类\n\
+          \n4. **其他类**\n    - **定义**：无法匹配上述任何类别的问题。\n    - **兜底规则**：仅在完全不匹配前三类时使用。\n\
+          \    - **示例**：\n        - \"确认\" → 其他类\n        - \"设备A\" → 其他类\n\n## 分类优先级\n\
+          1. 优先匹配 **执行任务类 → 巡查类 → 历史资料类**，最后才是其他类。\n2. 若问题同时匹配多个类别，按优先级顺序选择第一个匹配项。"
+        instructions: ''
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: qwq:latest
+          provider: langgenius/ollama/ollama
+        query_variable_selector:
+        - '1741065173647'
+        - sys.query
+        selected: false
+        title: 问题分类
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 248
+      id: '1741253202911'
+      position:
+        x: 1854
+        y: 324
+      positionAbsolute:
+        x: 1854
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        classes:
+        - id: '1'
+          name: 设备控制
+        - id: '2'
+          name: 远程更新
+        - id: '1741313754483'
+          name: 远程桌面
+        desc: ''
+        instruction: "# 问题分类规则\n请严格根据以下分类规则和示例，将用户问题归类为 **设备控制类**、**远程更新类**、**远程桌面类**：\n\
+          \n## 分类定义\n1. **设备控制**\n    - 包含：设备「重启」「关机」「调节音量」「静音」「调节亮度」等操作指令\n    -\
+          \ 示例：关闭会议室设备、调低屏幕亮度\n\n2. **远程更新**\n    - 包含：系统/软件「更新」「升级」「安装」「打补丁」等动词\n\
+          \    - 示例：升级设备系统、安装最新补丁\n\n3. **远程桌面**\n    - 包含：「连接」「远程连接」「远程访问」「远程桌面」「远程操作」等关键词\n\
+          \    - 示例：建立远程桌面连接、远程控制设备\n"
+        instructions: ''
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: qwq:latest
+          provider: langgenius/ollama/ollama
+        query_variable_selector:
+        - '1741065173647'
+        - sys.query
+        selected: false
+        title: 执行任务分类
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 210
+      id: '1741313721976'
+      position:
+        x: 2158
+        y: 324
+      positionAbsolute:
+        x: 2158
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config:
+            api_key: app-Xvq7Qhc5XuMqV1op7yUIzHxx
+            type: bearer
+          type: no-auth
+        body:
+          data:
+          - id: key-value-19
+            key: ''
+            type: text
+            value: '{{#1743565243320.request#}}'
+          type: json
+        desc: ''
+        headers: 'Authorization:Bearer {{#env.filter_device#}}
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 设备筛选
+        type: http-request
+        url: '{{#env.path#}}'
+        variables: []
+      height: 123
+      id: '1743494686748'
+      position:
+        x: 2462
+        y: 906.5
+      positionAbsolute:
+        x: 2462
+        y: 906.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 处理设备筛选\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
+          \  const outputs = obj?.data?.outputs ?? {}\n  return {\n    result: outputs?.result\
+          \ ?? '',\n    content: outputs?.content ?? '',\n    type: outputs?.type\
+          \ ?? '',\n    is_find_device: Number(outputs?.is_find_device) ?? 0,\n  }\n\
+          }"
+        code_language: javascript
+        desc: ''
+        outputs:
+          content:
+            children: null
+            type: string
+          is_find_device:
+            children: null
+            type: number
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理设备筛选
+        type: code
+        variables:
+        - value_selector:
+          - '1743494686748'
+          - body
+          variable: body
+      height: 54
+      id: '1743495286032'
+      position:
+        x: 2766
+        y: 934
+      positionAbsolute:
+        x: 2766
+        y: 934
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743495286032'
+          - type
+          variable_selector:
+          - conversation
+          - cache_type
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743495286032'
+          - content
+          variable_selector:
+          - conversation
+          - cache_content
+          write_mode: over-write
+        selected: false
+        title: 处理缓存
+        type: assigner
+        version: '2'
+      height: 116
+      id: '1743495672805'
+      position:
+        x: 3070
+        y: 879
+      positionAbsolute:
+        x: 3070
+        y: 879
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1743495286032.result#}}'
+        desc: ''
+        selected: false
+        title: 回复巡检
+        type: answer
+        variables: []
+      height: 105
+      id: '1743495720342'
+      position:
+        x: 3374
+        y: 915.5
+      positionAbsolute:
+        x: 3374
+        y: 915.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-190
+            key: ''
+            type: text
+            value: '{{#1743564959419.request#}}'
+          type: json
+        desc: ''
+        headers: 'Authorization:Bearer {{#env.device_control#}}
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 设备控制任务
+        type: http-request
+        url: '{{#env.path#}}'
+        variables: []
+      height: 123
+      id: '1743558716858'
+      position:
+        x: 2766
+        y: 466
+      positionAbsolute:
+        x: 2766
+        y: 466
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 处理设备控制任务\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
+          \  const outputs = obj?.data?.outputs ?? {}\n  return {\n    result: outputs?.result\
+          \ ?? '',\n    content: outputs?.content ?? '',\n    type: outputs?.type\
+          \ ?? '',\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          content:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理设备控制任务
+        type: code
+        variables:
+        - value_selector:
+          - '1743558716858'
+          - body
+          variable: body
+      height: 54
+      id: '1743558934288'
+      position:
+        x: 3070
+        y: 476.5
+      positionAbsolute:
+        x: 3070
+        y: 476.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743558934288'
+          - type
+          variable_selector:
+          - conversation
+          - cache_type
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743558934288'
+          - content
+          variable_selector:
+          - conversation
+          - cache_content
+          write_mode: over-write
+        selected: false
+        title: 处理缓存
+        type: assigner
+        version: '2'
+      height: 116
+      id: '1743559018717'
+      position:
+        x: 3374
+        y: 476.5
+      positionAbsolute:
+        x: 3374
+        y: 476.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - cache_type
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - cache_content
+          write_mode: over-write
+        selected: false
+        title: 处理缓存
+        type: assigner
+        version: '2'
+      height: 116
+      id: '1743559114857'
+      position:
+        x: 2462
+        y: 324
+      positionAbsolute:
+        x: 2462
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-67
+            key: ''
+            type: text
+            value: '{{#1743565139005.request#}}'
+          type: json
+        desc: ''
+        headers: 'Authorization:Bearer {{#env.remote_desktop#}}
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 远程桌面
+        type: http-request
+        url: '{{#env.path#}}'
+        variables: []
+      height: 123
+      id: '1743560378540'
+      position:
+        x: 2766
+        y: 629
+      positionAbsolute:
+        x: 2766
+        y: 629
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 处理远程桌面\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
+          \  const outputs = obj?.data?.outputs ?? {}\n  return {\n    result: outputs?.result\
+          \ ?? '',\n    content: outputs?.content ?? '',\n    type: outputs?.type\
+          \ ?? '',\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          content:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理远程桌面
+        type: code
+        variables:
+        - value_selector:
+          - '1743560378540'
+          - body
+          variable: body
+      height: 54
+      id: '1743560482524'
+      position:
+        x: 3070
+        y: 639.5
+      positionAbsolute:
+        x: 3070
+        y: 639.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743560482524'
+          - type
+          variable_selector:
+          - conversation
+          - cache_type
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743560482524'
+          - content
+          variable_selector:
+          - conversation
+          - cache_content
+          write_mode: over-write
+        selected: false
+        title: 处理缓存
+        type: assigner
+        version: '2'
+      height: 116
+      id: '17435606359880'
+      position:
+        x: 3374
+        y: 639.5
+      positionAbsolute:
+        x: 3374
+        y: 639.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - cache_type
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - cache_content
+          write_mode: over-write
+        selected: false
+        title: 处理缓存
+        type: assigner
+        version: '2'
+      height: 116
+      id: '17435607078390'
+      position:
+        x: 2158
+        y: 804.5
+      positionAbsolute:
+        x: 2158
+        y: 804.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-188
+            key: ''
+            type: text
+            value: '{{#1743565330314.request#}}'
+          type: json
+        desc: ''
+        headers: 'Authorization:Bearer {{#env.other#}}
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 其他类问题
+        type: http-request
+        url: '{{#env.path#}}'
+        variables: []
+      height: 123
+      id: '1743564146858'
+      position:
+        x: 2462
+        y: 1069.5
+      positionAbsolute:
+        x: 2462
+        y: 1069.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 处理其他类问题\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
+          \  const outputs = obj?.data?.outputs ?? {}\n  return {\n    result: outputs?.result\
+          \ ?? '',\n    content: outputs?.content ?? '',\n    type: outputs?.type\
+          \ ?? '',\n    need_answer: Number(outputs?.need_answer) ?? 1\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          content:
+            children: null
+            type: string
+          need_answer:
+            children: null
+            type: number
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理其他类问题
+        type: code
+        variables:
+        - value_selector:
+          - '1743564146858'
+          - body
+          variable: body
+      height: 54
+      id: '1743564151868'
+      position:
+        x: 2766
+        y: 1097
+      positionAbsolute:
+        x: 2766
+        y: 1097
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743564151868'
+          - type
+          variable_selector:
+          - conversation
+          - cache_type
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743564151868'
+          - content
+          variable_selector:
+          - conversation
+          - cache_content
+          write_mode: over-write
+        selected: false
+        title: 处理缓存
+        type: assigner
+        version: '2'
+      height: 116
+      id: '1743564155266'
+      position:
+        x: 3374
+        y: 1073
+      positionAbsolute:
+        x: 3374
+        y: 1073
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 设备控制任务 Request\n */\nfunction main({cache_type, cache_content,\
+          \ query, timezone, api, token}) {\n  return {\n    request: JSON.stringify({\n\
+          \      inputs: {\n        content: cache_content,\n        type: cache_type,\n\
+          \        question: query,\n        timezone,\n        api,\n        token\n\
+          \      },\n      response_mode: 'blocking',\n      user: 'deviceOn'\n  \
+          \  })\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 设备控制任务 Request
+        type: code
+        variables:
+        - value_selector:
+          - '1741065173647'
+          - api
+          variable: api
+        - value_selector:
+          - '1741065173647'
+          - token
+          variable: token
+        - value_selector:
+          - '1741065173647'
+          - timezone
+          variable: timezone
+        - value_selector:
+          - conversation
+          - cache_type
+          variable: cache_type
+        - value_selector:
+          - conversation
+          - cache_content
+          variable: cache_content
+        - value_selector:
+          - sys
+          - query
+          variable: query
+      height: 54
+      id: '1743564959419'
+      position:
+        x: 2462
+        y: 507.5
+      positionAbsolute:
+        x: 2462
+        y: 507.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 远程桌面 Request\n */\nfunction main({cache_type, cache_content,\
+          \ query, timezone, api, token}) {\n  return {\n    request: JSON.stringify({\n\
+          \      inputs: {\n        content: cache_content,\n        type: cache_type,\n\
+          \        question: query,\n        timezone,\n        api,\n        token\n\
+          \      },\n      response_mode: 'blocking',\n      user: 'deviceOn'\n  \
+          \  })\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 远程桌面 Request
+        type: code
+        variables:
+        - value_selector:
+          - '1741065173647'
+          - api
+          variable: api
+        - value_selector:
+          - '1741065173647'
+          - token
+          variable: token
+        - value_selector:
+          - '1741065173647'
+          - timezone
+          variable: timezone
+        - value_selector:
+          - sys
+          - query
+          variable: query
+        - value_selector:
+          - conversation
+          - cache_type
+          variable: cache_type
+        - value_selector:
+          - conversation
+          - cache_content
+          variable: cache_content
+      height: 54
+      id: '1743565139005'
+      position:
+        x: 2462
+        y: 670.5
+      positionAbsolute:
+        x: 2462
+        y: 670.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 设备筛选 Request\n */\nfunction main({cache_type, cache_content,\
+          \ query, timezone, api, token}) {\n  return {\n    request: JSON.stringify({\n\
+          \      inputs: {\n        content: cache_content,\n        type: cache_type,\n\
+          \        question: query,\n        timezone,\n        api,\n        token\n\
+          \      },\n      response_mode: 'blocking',\n      user: 'deviceOn'\n  \
+          \  })\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 设备筛选 Request
+        type: code
+        variables:
+        - value_selector:
+          - '1741065173647'
+          - api
+          variable: api
+        - value_selector:
+          - '1741065173647'
+          - token
+          variable: token
+        - value_selector:
+          - '1741065173647'
+          - timezone
+          variable: timezone
+        - value_selector:
+          - sys
+          - query
+          variable: query
+        - value_selector:
+          - conversation
+          - cache_type
+          variable: cache_type
+        - value_selector:
+          - conversation
+          - cache_content
+          variable: cache_content
+      height: 54
+      id: '1743565243320'
+      position:
+        x: 2158
+        y: 988
+      positionAbsolute:
+        x: 2158
+        y: 988
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 其他类问题 Request\n */\nfunction main({cache_type, cache_content,\
+          \ query, timezone, api, token}) {\n  return {\n    request: JSON.stringify({\n\
+          \      inputs: {\n        content: cache_content,\n        type: cache_type,\n\
+          \        question: query,\n        timezone,\n        api,\n        token\n\
+          \      },\n      response_mode: 'blocking',\n      user: 'deviceOn'\n  \
+          \  })\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 其他类问题 Request
+        type: code
+        variables:
+        - value_selector:
+          - '1741065173647'
+          - api
+          variable: api
+        - value_selector:
+          - '1741065173647'
+          - token
+          variable: token
+        - value_selector:
+          - '1741065173647'
+          - timezone
+          variable: timezone
+        - value_selector:
+          - sys
+          - query
+          variable: query
+        - value_selector:
+          - conversation
+          - cache_type
+          variable: cache_type
+        - value_selector:
+          - conversation
+          - cache_content
+          variable: cache_content
+      height: 54
+      id: '1743565330314'
+      position:
+        x: 2158
+        y: 1151
+      positionAbsolute:
+        x: 2158
+        y: 1151
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: e9938b28-5178-4e22-88a7-30759b109218
+            value: '1'
+            varType: number
+            variable_selector:
+            - '1743564151868'
+            - need_answer
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否回答
+        type: if-else
+      height: 126
+      id: '1743575162350'
+      position:
+        x: 3070
+        y: 1037
+      positionAbsolute:
+        x: 3070
+        y: 1037
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - sys
+          - query
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: e4d8dd2a-01d4-4858-beaa-89f4c50580dd
+          role: system
+          text: "# 问题回答指令\n\n**要求模型：**\n1. 首先检查当前会话的记忆上下文：\n    - **若上下文能回答问题**，请结合上下文生成回答；\n\
+            \    - **若上下文不足**，请基于问题本身给出回答，并提供相应建议，以帮助用户获得更多信息或启发思路。\n2. 回答时：\n   \
+            \ - 保持与问题语言一致；\n    - 使用清晰、简洁的表述；\n    - 结构化呈现核心信息（可分点说明）；\n    - 避免冗余修饰和复杂句式；\n\
+            3. 禁止编造或推测答案。\n\n## 问题\n{{#context#}}"
+        - id: 8a5316aa-fdf8-42f4-808e-7fbb4e787f84
+          role: user
+          text: '{{#context#}}'
+        selected: false
+        title: LLM 直接回答
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1743575197314'
+      position:
+        x: 3374
+        y: 1229
+      positionAbsolute:
+        x: 3374
+        y: 1229
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 处理回答\n */\nfunction main({text}) {\n  return {\n    result:\
+          \ String(text).replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '').replaceAll(/<details[\\\
+          s\\S]*?<\\/details>/g, ''),\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 处理回答
+        type: code
+        variables:
+        - value_selector:
+          - '1743575197314'
+          - text
+          variable: text
+      height: 54
+      id: '1743575286019'
+      position:
+        x: 3678
+        y: 1241.5
+      positionAbsolute:
+        x: 3678
+        y: 1241.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - cache_type
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - cache_content
+          write_mode: over-write
+        selected: false
+        title: 处理缓存
+        type: assigner
+        version: '2'
+      height: 116
+      id: '17435753774250'
+      position:
+        x: 3982
+        y: 1216
+      positionAbsolute:
+        x: 3982
+        y: 1216
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1743575286019.result#}}'
+        desc: ''
+        selected: false
+        title: 回复直接回答
+        type: answer
+        variables: []
+      height: 105
+      id: '1743575387750'
+      position:
+        x: 4286
+        y: 1216
+      positionAbsolute:
+        x: 4286
+        y: 1216
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 用户回复 Request\n */\nfunction main({cache_type, cache_content,\
+          \ query, timezone, api, token}) {\n  return {\n    request: JSON.stringify({\n\
+          \      inputs: {\n        content: cache_content,\n        type: cache_type,\n\
+          \        question: query,\n        timezone,\n        api,\n        token\n\
+          \      },\n      response_mode: 'blocking',\n      user: 'deviceOn'\n  \
+          \  })\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 用户回复 Request
+        type: code
+        variables:
+        - value_selector:
+          - '1741065173647'
+          - api
+          variable: api
+        - value_selector:
+          - '1741065173647'
+          - token
+          variable: token
+        - value_selector:
+          - '1741065173647'
+          - timezone
+          variable: timezone
+        - value_selector:
+          - sys
+          - query
+          variable: query
+        - value_selector:
+          - conversation
+          - cache_type
+          variable: cache_type
+        - value_selector:
+          - conversation
+          - cache_content
+          variable: cache_content
+      height: 54
+      id: '1743665972900'
+      position:
+        x: 334
+        y: 324
+      positionAbsolute:
+        x: 334
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-29
+            key: ''
+            type: text
+            value: '{{#1743665972900.request#}}'
+          type: json
+        desc: ''
+        headers: 'Authorization:Bearer {{#env.user_reply#}}
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 用户回复
+        type: http-request
+        url: '{{#env.path#}}'
+        variables: []
+      height: 123
+      id: '1743665976785'
+      position:
+        x: 638
+        y: 324
+      positionAbsolute:
+        x: 638
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\n/**\n * 处理用户回复\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
+          \  const outputs = obj?.data?.outputs ?? {}\n  return {\n    result: outputs?.result\
+          \ ?? '',\n    content: outputs?.content ?? '',\n    type: outputs?.type\
+          \ ?? '',\n    answer: Number(outputs?.answer) ?? 0\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          answer:
+            children: null
+            type: number
+          content:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理用户回复
+        type: code
+        variables:
+        - value_selector:
+          - '1743665976785'
+          - body
+          variable: body
+      height: 54
+      id: '1743665979987'
+      position:
+        x: 942
+        y: 324
+      positionAbsolute:
+        x: 942
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: b2fdcd53-04aa-4860-9c0f-a9d434a2beed
+            value: '0'
+            varType: number
+            variable_selector:
+            - '1743665979987'
+            - answer
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否直接回复
+        type: if-else
+      height: 126
+      id: '1743666382237'
+      position:
+        x: 1550
+        y: 324
+      positionAbsolute:
+        x: 1550
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1743665979987.result#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 105
+      id: '1743666436043'
+      position:
+        x: 1854
+        y: 612
+      positionAbsolute:
+        x: 1854
+        y: 612
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743665979987'
+          - type
+          variable_selector:
+          - conversation
+          - cache_type
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1743665979987'
+          - content
+          variable_selector:
+          - conversation
+          - cache_content
+          write_mode: over-write
+        selected: false
+        title: 处理缓存
+        type: assigner
+        version: '2'
+      height: 116
+      id: '1743666463997'
+      position:
+        x: 1246
+        y: 324
+      positionAbsolute:
+        x: 1246
+        y: 324
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -243
+      y: -65
+      zoom: 0.7

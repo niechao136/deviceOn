@@ -1,0 +1,477 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: DeviceOn 远程桌面
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: http-request
+      id: 1743559189395-source-1743560003474-target
+      source: '1743559189395'
+      sourceHandle: source
+      target: '1743560003474'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1743560003474-source-1743560050237-target
+      source: '1743560003474'
+      sourceHandle: source
+      target: '1743560050237'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: llm
+      id: 1743560050237-source-1743560132465-target
+      source: '1743560050237'
+      sourceHandle: source
+      target: '1743560132465'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1743560132465-source-1743560205449-target
+      source: '1743560132465'
+      sourceHandle: source
+      target: '1743560205449'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: end
+      id: 1743560205449-source-1743560278150-target
+      source: '1743560205449'
+      sourceHandle: source
+      target: '1743560278150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: question
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: question
+        - label: content
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: content
+        - label: type
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: type
+        - label: timezone
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: timezone
+        - label: api
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: api
+        - label: token
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: token
+      height: 220
+      id: '1743559189395'
+      position:
+        x: 30
+        y: 310
+      positionAbsolute:
+        x: 30
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: Authorization:{{#1743559189395.token#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取设备列表
+        type: http-request
+        url: '{{#1743559189395.api#}}/walle/ai/device/list'
+        variables: []
+      height: 139
+      id: '1743560003474'
+      position:
+        x: 334
+        y: 310
+      positionAbsolute:
+        x: 334
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction convertToTimeZone(timezone) {\n  // 检查格式是否以 \"UTC\" 开头\n\
+          \  if (!timezone.startsWith(\"UTC\")) {\n    throw new Error(\"时区格式必须以 'UTC'\
+          \ 开头\");\n  }\n  // 获取符号和小时、分钟部分\n  const sign = timezone[3]; // '+' 或 '-'\n\
+          \  if (sign !== '+' && sign !== '-') {\n    throw new Error(\"无效的时区格式\"\
+          );\n  }\n  const hourStr = timezone.substr(4, 2);\n  const minuteStr = timezone.substr(7,\
+          \ 2);\n  const offsetHours = parseInt(hourStr, 10);\n  const offsetMinutes\
+          \ = parseInt(minuteStr, 10);\n  // 计算总偏移分钟数（正值代表比 UTC 晚，负值代表比 UTC 早）\n \
+          \ let totalOffset = offsetHours * 60 + offsetMinutes;\n  if (sign === '-')\
+          \ {\n    totalOffset = -totalOffset;\n  }\n  // 当前的 UTC 毫秒数（Date.now() 返回的是自1970年1月1日\
+          \ UTC 以来的毫秒数）\n  const nowMs = Date.now();\n  // 目标时区的毫秒数 = 当前 UTC 毫秒数 +\
+          \ 时区偏移分钟数转换为毫秒\n  const targetMs = nowMs + totalOffset * 60000;\n  const\
+          \ targetDate = new Date(targetMs);\n  // 使用 getUTC* 方法来提取目标时区的各部分\n  const\
+          \ year = targetDate.getUTCFullYear();\n  const month = String(targetDate.getUTCMonth()\
+          \ + 1).padStart(2, '0'); // 月份从 0 开始\n  const day = String(targetDate.getUTCDate()).padStart(2,\
+          \ '0');\n  const hours = String(targetDate.getUTCHours()).padStart(2, '0');\n\
+          \  const minutes = String(targetDate.getUTCMinutes()).padStart(2, '0');\n\
+          \  const seconds = String(targetDate.getUTCSeconds()).padStart(2, '0');\n\
+          \n  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;\n}\n\
+          function main({body, timezone}) {\n  const res = JSON.parse(body)\n  const\
+          \ device = Array.isArray(res?.rows) ? Array.from(res.rows).map(o => {\n\
+          \    return {\n      id: o.deviceId,\n      nm: o.deviceName,\n      os:\
+          \ o.deviceOs,\n      ip: o.deviceIp,\n      l1: o.labelDeviceName1,\n  \
+          \    l2: o.labelDeviceName2,\n      st: o.onlineStatus,\n      tz: o.timezone,\n\
+          \      hw: o.hardwareError,\n      sw: o.softwareError,\n      bt: o.batteryError,\n\
+          \      pp: o.peripheralsError,\n      sc: o.securityError,\n    }\n  })\
+          \ : []\n  const id = Array.from(new Set(device.map(o => o.id).filter(o =>\
+          \ !!o)))\n  const name = Array.from(new Set(device.map(o => o.nm).filter(o\
+          \ => !!o)))\n  const ip = Array.from(new Set(device.map(o => o.ip).filter(o\
+          \ => !!o)))\n  const label1 = Array.from(new Set(device.map(o => o.l1).filter(o\
+          \ => !!o)))\n  const label2 = Array.from(new Set(device.map(o => o.l2).filter(o\
+          \ => !!o)))\n  const date = convertToTimeZone(timezone);\n  return {\n \
+          \   device: JSON.stringify(device),\n    id: JSON.stringify(id, null, 2),\n\
+          \    name: JSON.stringify(name, null, 2),\n    ip: JSON.stringify(ip, null,\
+          \ 2),\n    label1: JSON.stringify(label1, null, 2),\n    label2: JSON.stringify(label2,\
+          \ null, 2),\n    date,\n  }\n}\n\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          date:
+            children: null
+            type: string
+          device:
+            children: null
+            type: string
+          id:
+            children: null
+            type: string
+          ip:
+            children: null
+            type: string
+          label1:
+            children: null
+            type: string
+          label2:
+            children: null
+            type: string
+          name:
+            children: null
+            type: string
+        selected: false
+        title: 处理设备列表
+        type: code
+        variables:
+        - value_selector:
+          - '1743560003474'
+          - body
+          variable: body
+        - value_selector:
+          - '1743559189395'
+          - timezone
+          variable: timezone
+      height: 54
+      id: '1743560050237'
+      position:
+        x: 638
+        y: 310
+      positionAbsolute:
+        x: 638
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1743559189395'
+          - question
+        desc: ''
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: a813bf19-e687-459c-845f-aa2bd74cd972
+          role: system
+          text: "# 信息提取提示词\n\n## `问题`: `{{#context#}}`\n\n---\n\n## 处理流程\n\n### 设备信息提取\n\
+            \n1. **判断是否使用下标指定设备：**\n    - 如果`问题`文本中出现诸如 `第一个`、`第二个` 等指代下标的词时，则设置 `assign_index\
+            \ = 相应的数字`。\n    - 如果`问题`文本中出现诸如 `最后`、`倒数` 等指代反转的词时，则设置 `assign_last =\
+            \ true`。\n\n2. **字段提取（所有字段均返回数组；若无匹配返回空数组）：**\n\n    - **ID字段 (`id`)：**\n\
+            \        - 在`问题`文本中**精确匹配**`{{#1743560050237.id#}}`内的任一元素，将所有匹配项存入 `id`\
+            \ 字段。\n\n    - **名称字段 (`name`)：**\n        - 在`问题`文本中**精确匹配**`{{#1743560050237.name#}}`内的任一元素，将所有匹配项存入\
+            \ `name` 字段。\n\n    - **IP字段 (`ip`)：**\n        - 在`问题`文本中**精确匹配**`{{#1743560050237.ip#}}`内的任一元素，将所有匹配项存入\
+            \ `ip` 字段。\n\n3. **条件标记：**\n\n   根据`问题`文本中的描述设置以下标记：\n    - **ID标记 (`assign_id`)**:\n\
+            \        - 当`问题`中包含 `设备ID为...`、`ID为...` 等类似描述时 → `assign_id = true`\n\
+            \    - **名称标记 (`assign_name`)**:\n        - 当`问题`中包含 `设备名称为...`、`名为...`\
+            \ 等类似描述时 → `assign_name = true`\n    - **IP标记 (`assign_ip`)**:\n     \
+            \   - 当`问题`中包含 `设备IP为...`、`IP为...` 等类似描述时 → `assign_ip = true`\n\n---\n\
+            \n### 语言设置\n\n**根据`问题`文本语言自动确定 `lang` 值：**\n- 简体中文 → `zh-CN`\n- 繁體中文 →\
+            \ `zh-TW`\n- 英文 → `en-US`\n- 日文 → `ja-JP`\n\n---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n\
+            ```json\n{\n  \"assign_index\": \"<number, 默认为-1>\",\n  \"assign_last\"\
+            : \"<boolean>\",\n  \"lang\": \"<zh-CN | zh-TW | ja-JP | en-US>\",\n \
+            \ \"targetDevices\": {\n    \"id\": \"<数组>\",\n    \"name\": \"<数组>\"\
+            ,\n    \"ip\": \"<数组>\",\n    \"assign_id\": \"<boolean>\",\n    \"assign_name\"\
+            : \"<boolean>\",\n    \"assign_ip\": \"<boolean>\"\n  },\n}\n```\n\n---"
+        - id: a0934cdb-518e-4a39-a761-4205162e116d
+          role: user
+          text: '{{#context#}}'
+        selected: false
+        title: LLM 远程桌面参数提取
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1743560132465'
+      position:
+        x: 942
+        y: 310
+      positionAbsolute:
+        x: 942
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 处理远程桌面\n */\nfunction handleLLM(text) {\n  const regex = /```json([\\\
+          s\\S]*?)```/\n  const _res = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g,\
+          \ '')\n  const match = _res.match(regex);\n  const res = !!match ? match[1].trim()\
+          \ : _res\n  const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\\
+          /\\*[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
+          \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text,\
+          \ device, content, type}) {\n  device = JSON.parse(device)\n  const list\
+          \ = Array.isArray(device) ? Array.from(device) : []\n  const by_id = {}\n\
+          \  list.forEach(o => {\n    by_id[o.id] = o\n  })\n  const obj = handleLLM(text)\n\
+          \  const assign_index = Number(obj?.assign_index)\n  const assign_last =\
+          \ !!obj?.assign_last\n  const id = Array.isArray(obj?.targetDevices?.id)\
+          \ ? Array.from(obj.targetDevices.id) : []\n  const name = Array.isArray(obj?.targetDevices?.name)\
+          \ ? Array.from(obj.targetDevices.name) : []\n  const ip = Array.isArray(obj?.targetDevices?.ip)\
+          \ ? Array.from(obj.targetDevices.ip) : []\n  const assign_id = !!obj?.targetDevices?.assign_id\n\
+          \  const assign_name = !!obj?.targetDevices?.assign_name\n  const assign_ip\
+          \ = !!obj?.targetDevices?.assign_ip\n  let filter_id = [], filter_device\
+          \ = list.map(o => o)\n  if (!!content && type === 'find_device') {\n   \
+          \ const obj = JSON.parse(content)\n    filter_device = Array.isArray(obj?.data?.targetDevices)\
+          \ ? Array.from(obj?.data?.targetDevices).map(o => by_id[o.id]) : []\n  \
+          \  if (!Number.isNaN(assign_index) && assign_index > 0 && assign_index <=\
+          \ filter_device.length) {\n      let index = assign_index - 1\n      if\
+          \ (assign_last) index = filter_device.length - 1 - index\n      filter_id\
+          \ = [filter_device[index].id]\n    }\n    if (filter_id.length === 0 &&\
+          \ !assign_id && !assign_name && !assign_ip\n      && id.length === 0 &&\
+          \ name.length === 0 && ip.length === 0) {\n      filter_id = filter_device.map(o\
+          \ => o.id)\n    }\n  }\n  if (filter_id.length === 0) {\n    filter_id =\
+          \ filter_device.filter(o => {\n      const match_id = id.includes(o.id)\n\
+          \      const match_name = name.includes(o.nm)\n      const match_ip = ip.includes(o.ip)\n\
+          \      if (!assign_id && !assign_name && !assign_ip) {\n        return match_id\
+          \ || match_name || match_ip\n      }\n      let match = true\n      if (assign_id)\
+          \ match = match && match_id\n      if (assign_name) match = match && match_name\n\
+          \      if (assign_ip) match = match && match_ip\n      return match\n  \
+          \  }).map(o => o.id)\n  }\n\n  const filter = filter_id.map(id => {\n  \
+          \  const o = by_id[id]\n    return {\n      id: o.id,\n      name: o.nm,\n\
+          \      os: o.os,\n      timezone: o.tz,\n      ip: o.ip,\n      status:\
+          \ o.st,\n    }\n  })\n  const result = JSON.stringify({\n    type: 'remote_desktop',\n\
+          \    data: {\n      ...obj,\n      targetDevices: filter,\n    },\n  })\n\
+          \  const task = filter.length > 1 ? result : ''\n\n  return {\n    result,\n\
+          \    content: task,\n    type: !!task ? 'remote_desktop' : '',\n    device:\
+          \ obj,\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          content:
+            children: null
+            type: string
+          device:
+            children: null
+            type: object
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理远程桌面
+        type: code
+        variables:
+        - value_selector:
+          - '1743560132465'
+          - text
+          variable: text
+        - value_selector:
+          - '1743560050237'
+          - device
+          variable: device
+        - value_selector:
+          - '1743559189395'
+          - content
+          variable: content
+        - value_selector:
+          - '1743559189395'
+          - type
+          variable: type
+      height: 54
+      id: '1743560205449'
+      position:
+        x: 1246
+        y: 310
+      positionAbsolute:
+        x: 1246
+        y: 310
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1743560205449'
+          - result
+          variable: result
+        - value_selector:
+          - '1743560205449'
+          - content
+          variable: content
+        - value_selector:
+          - '1743560205449'
+          - type
+          variable: type
+        selected: false
+        title: 返回数据
+        type: end
+      height: 142
+      id: '1743560278150'
+      position:
+        x: 1550
+        y: 310
+      positionAbsolute:
+        x: 1550
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 115
+      y: 145.99999999999994
+      zoom: 0.7

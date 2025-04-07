@@ -1,0 +1,480 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: DeviceOn 其他类问题
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: a23b4c24-1f33-4fb3-bf99-8aeab6781829
+    name: filter_device
+    selector:
+    - env
+    - filter_device
+    value: app-Xvq7Qhc5XuMqV1op7yUIzHxx
+    value_type: string
+  - description: ''
+    id: 36c3c014-f56d-4881-9dad-735e9bd461e3
+    name: remote_desktop
+    selector:
+    - env
+    - remote_desktop
+    value: app-572m5unmOrUAIkiHLQTIgcay
+    value_type: string
+  - description: ''
+    id: f1edc141-c8db-4d06-9350-d97b460fffbd
+    name: add_task
+    selector:
+    - env
+    - add_task
+    value: app-qw3E0MI5rY47UbIvqhiM7FCu
+    value_type: string
+  - description: ''
+    id: aeed55d0-c874-4832-888a-3d576ab9ec6e
+    name: path
+    selector:
+    - env
+    - path
+    value: http://172.21.161.126/v1/workflows/run
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: if-else
+      id: 1743561285662-source-1743561398620-target
+      source: '1743561285662'
+      sourceHandle: source
+      target: '1743561398620'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1743561775497-source-1743561777927-target
+      source: '1743561775497'
+      sourceHandle: source
+      target: '1743561777927'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1743561398620-75aa98d2-4979-4d2e-816d-ac701681ca21-1743565521565-target
+      source: '1743561398620'
+      sourceHandle: 75aa98d2-4979-4d2e-816d-ac701681ca21
+      target: '1743565521565'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1743565521565-source-1743561775497-target
+      source: '1743565521565'
+      sourceHandle: source
+      target: '1743561775497'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: end
+      id: 1743561777927-source-1743561786800-target
+      source: '1743561777927'
+      sourceHandle: source
+      target: '1743561786800'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1743561398620-false-1743575013406-target
+      source: '1743561398620'
+      sourceHandle: 'false'
+      target: '1743575013406'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: end
+      id: 1743575013406-source-1743561810809-target
+      source: '1743575013406'
+      sourceHandle: source
+      target: '1743561810809'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: question
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: question
+        - label: content
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: content
+        - label: type
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: type
+        - label: timezone
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: timezone
+        - label: api
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: api
+        - label: token
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: token
+      height: 220
+      id: '1743561285662'
+      position:
+        x: 30
+        y: 310
+      positionAbsolute:
+        x: 30
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 75aa98d2-4979-4d2e-816d-ac701681ca21
+          conditions:
+          - comparison_operator: contains
+            id: d0bb2e1b-74dc-410e-adcc-0569258a9717
+            value: find_device
+            varType: string
+            variable_selector:
+            - '1743561285662'
+            - type
+          id: 75aa98d2-4979-4d2e-816d-ac701681ca21
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断回复类型
+        type: if-else
+      height: 126
+      id: '1743561398620'
+      position:
+        x: 334
+        y: 310
+      positionAbsolute:
+        x: 334
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-183
+            key: ''
+            type: text
+            value: '{{#1743565521565.request#}}'
+          type: json
+        desc: ''
+        headers: 'Authorization:Bearer {{#env.filter_device#}}
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 设备筛选
+        type: http-request
+        url: '{{#env.path#}}'
+        variables: []
+      height: 123
+      id: '1743561775497'
+      position:
+        x: 942
+        y: 310
+      positionAbsolute:
+        x: 942
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 处理设备筛选\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
+          \  const outputs = obj?.data?.outputs ?? {}\n  const is_find_device = Number(outputs?.is_find_device)\
+          \ ?? 0\n  return {\n    result: outputs?.result ?? '',\n    content: outputs?.content\
+          \ ?? '',\n    type: outputs?.type ?? '',\n    need_answer: is_find_device\
+          \ === 1 ? 0 : 1,\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          content:
+            children: null
+            type: string
+          need_answer:
+            children: null
+            type: number
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理设备筛选
+        type: code
+        variables:
+        - value_selector:
+          - '1743561775497'
+          - body
+          variable: body
+      height: 54
+      id: '1743561777927'
+      position:
+        x: 1246
+        y: 310
+      positionAbsolute:
+        x: 1246
+        y: 310
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1743561777927'
+          - result
+          variable: result
+        - value_selector:
+          - '1743561777927'
+          - content
+          variable: content
+        - value_selector:
+          - '1743561777927'
+          - type
+          variable: type
+        - value_selector:
+          - '1743561777927'
+          - need_answer
+          variable: need_answer
+        selected: false
+        title: 返回数据
+        type: end
+      height: 168
+      id: '1743561786800'
+      position:
+        x: 1550
+        y: 310
+      positionAbsolute:
+        x: 1550
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1743575013406'
+          - need_answer
+          variable: need_answer
+        selected: false
+        title: 返回数据
+        type: end
+      height: 90
+      id: '1743561810809'
+      position:
+        x: 942
+        y: 473
+      positionAbsolute:
+        x: 942
+        y: 473
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "/**\n * 设备筛选 Request\n */\nfunction main({type, content, question,\
+          \ timezone, api, token}) {\n  return {\n    request: JSON.stringify({\n\
+          \      inputs: {\n        content: content,\n        type: type,\n     \
+          \   question: question,\n        timezone,\n        api,\n        token\n\
+          \      },\n      response_mode: 'blocking',\n      user: 'deviceOn other'\n\
+          \    })\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 设备筛选 Request
+        type: code
+        variables:
+        - value_selector:
+          - '1743561285662'
+          - question
+          variable: question
+        - value_selector:
+          - '1743561285662'
+          - content
+          variable: content
+        - value_selector:
+          - '1743561285662'
+          - type
+          variable: type
+        - value_selector:
+          - '1743561285662'
+          - timezone
+          variable: timezone
+        - value_selector:
+          - '1743561285662'
+          - token
+          variable: token
+        - value_selector:
+          - '1743561285662'
+          - api
+          variable: api
+      height: 54
+      id: '1743565521565'
+      position:
+        x: 638
+        y: 310
+      positionAbsolute:
+        x: 638
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({}) {\n    return {\n        need_answer: 1\n    }\n\
+          }\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          need_answer:
+            children: null
+            type: number
+        selected: false
+        title: 处理回答
+        type: code
+        variables: []
+      height: 54
+      id: '1743575013406'
+      position:
+        x: 638
+        y: 456.5
+      positionAbsolute:
+        x: 638
+        y: 456.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 10
+      y: 67.99999999999996
+      zoom: 0.7
