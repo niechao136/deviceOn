@@ -518,73 +518,74 @@ workflow:
           \ assign_peripheral = !!obj?.targetDevices?.assign_peripheral\n  const assign_security\
           \ = !!obj?.targetDevices?.assign_security\n  const actionCode = obj?.actionCode\n\
           \  let filter_id = [], filter_device = list.map(o => o)\n  const find_device\
-          \ = !!content && type === 'find_device'\n  if (find_device) {\n    const\
-          \ obj = JSON.parse(content)\n    filter_device = Array.isArray(obj?.data?.targetDevices)\
-          \ ? Array.from(obj?.data?.targetDevices).map(o => by_id[o.id]) : []\n  \
-          \  if (!Number.isNaN(assign_index) && assign_index > 0 && assign_index <=\
-          \ filter_device.length) {\n      let index = assign_index - 1\n      if\
-          \ (assign_last) index = filter_device.length - 1 - index\n      filter_id\
-          \ = [filter_device[index].id]\n    }\n    if (filter_id.length === 0 &&\
-          \ id.length === 0 && name.length === 0 && ip.length === 0 && os.length ===\
-          \ 0\n      && label1.length === 0 && label2.length === 0 && !assign_id &&\
-          \ !assign_name && !assign_ip && !assign_os\n      && !assign_label1 && !assign_label2\
-          \ && !assign_online && !assign_offline && !assign_error\n      && !assign_hardware\
-          \ && !assign_software && !assign_battery && !assign_peripheral && !assign_security)\
-          \ {\n      filter_id = filter_device.map(o => o.id)\n    }\n  }\n  if (filter_id.length\
-          \ === 0) {\n    filter_id = filter_device.filter(o => {\n      const match_id\
-          \ = id.includes(o.id)\n      const match_name = name.includes(o.nm)\n  \
-          \    const match_ip = ip.includes(o.ip)\n      const match_os = os.includes(o.os)\n\
-          \      const match_label1 = label1.includes(o.l1)\n      const match_label2\
-          \ = label2.includes(o.l2)\n      const match_online = assign_online && Number(o.st)\
-          \ === 1\n      const match_offline = assign_offline && Number(o.st) ===\
-          \ 0\n      const match_status = match_online || match_offline || (!assign_online\
-          \ && !assign_offline)\n      const hardware = Number(o.hw) > 0\n      const\
-          \ software = Number(o.sw) > 0\n      const battery = Number(o.bt) > 0\n\
-          \      const peripheral = Number(o.pp) > 0\n      const security = Number(o.hw)\
-          \ > 0\n      const match_error = assign_error && (hardware || software ||\
-          \ battery || peripheral || security)\n      const match_hardware = assign_hardware\
-          \ && hardware\n      const match_software = assign_software && software\n\
-          \      const match_battery = assign_battery && battery\n      const match_peripheral\
-          \ = assign_peripheral && peripheral\n      const match_security = assign_security\
-          \ && security\n      let match = true\n      // 当只指定了异常时，只筛选异常相关\n     \
-          \ if (id.length === 0 && name.length === 0 && ip.length === 0 && os.length\
-          \ === 0 && label1.length === 0 && label2.length === 0\n        && !assign_online\
-          \ && !assign_offline\n        && (assign_error || assign_hardware || assign_software\
-          \ || assign_battery || assign_peripheral || assign_security)) {\n      \
-          \  if (assign_error) match = match && match_error\n        if (assign_hardware)\
-          \ match = match && match_hardware\n        if (assign_software) match =\
-          \ match && match_software\n        if (assign_battery) match = match &&\
-          \ match_battery\n        if (assign_peripheral) match = match && match_peripheral\n\
-          \        if (assign_security) match = match && match_security\n        return\
-          \ match\n      }\n      // 当只指定了在线或者离线时，只筛选status\n      if (id.length ===\
-          \ 0 && name.length === 0 && ip.length === 0 && os.length === 0 && label1.length\
-          \ === 0 && label2.length === 0\n        && (assign_online || assign_offline))\
-          \ {\n        match = match_online || match_offline\n      }\n      // 当没有指定具体栏位时，只要满足一个条件就行\n\
-          \      else if (!assign_id && !assign_name && !assign_ip && !assign_os &&\
-          \ !assign_label1 && !assign_label2) {\n        match = (match_id || match_name\
-          \ || match_ip || match_os || match_label1 || match_label2) && match_status\n\
-          \      }\n      // 当有指定具体栏位时，需要满足所有指定栏位\n      else {\n        match = match\
-          \ && match_status\n        if (assign_id) match = match && match_id\n  \
-          \      if (assign_name) match = match && match_name\n        if (assign_ip)\
-          \ match = match && match_ip\n        if (assign_os) match = match && match_os\n\
-          \        if (assign_label1 && !assign_label2) match = match && match_label1\n\
-          \        if (!assign_label1 && assign_label2) match = match && match_label2\n\
-          \        if (assign_label1 && assign_label2) match = match && (match_label2\
-          \ || match_label1)\n      }\n      if (assign_error) match = match && match_error\n\
-          \      if (assign_hardware) match = match && match_hardware\n      if (assign_software)\
-          \ match = match && match_software\n      if (assign_battery) match = match\
-          \ && match_battery\n      if (assign_peripheral) match = match && match_peripheral\n\
-          \      if (assign_security) match = match && match_security\n      return\
-          \ match\n    }).map(o => o.id)\n  }\n\n  const filter = filter_id.map(id\
-          \ => {\n    const o = by_id[id]\n    return {\n      id: o.id,\n      name:\
-          \ o.nm,\n      os: o.os,\n      timezone: o.tz,\n    }\n  })\n  const result\
-          \ = JSON.stringify({\n    type: is_trigger ? 'trigger_task' : 'control_task',\n\
-          \    data: {\n      ...obj,\n      targetDevices: filter,\n    },\n  })\n\
-          \  const no_confirm = actionCode === '90001' && !is_trigger && !!find_device\n\
-          \  && filter.length === 1 && filter_device.length === 1 ? 1 : 0\n  const\
-          \ task = filter.length > 0 ? result : ''\n\n  return {\n    result,\n  \
-          \  content: task,\n    type: !!task ? 'control_task' : '',\n    device:\
-          \ obj,\n    no_confirm,\n  }\n}"
+          \ = !!content && (type === 'find_device' || type === 'find_error')\n  if\
+          \ (find_device) {\n    const obj = JSON.parse(content)\n    filter_device\
+          \ = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o\
+          \ => by_id[o.id]) : []\n    if (!Number.isNaN(assign_index) && assign_index\
+          \ > 0 && assign_index <= filter_device.length) {\n      let index = assign_index\
+          \ - 1\n      if (assign_last) index = filter_device.length - 1 - index\n\
+          \      filter_id = [filter_device[index].id]\n    }\n    if (filter_id.length\
+          \ === 0 && id.length === 0 && name.length === 0 && ip.length === 0 && os.length\
+          \ === 0\n      && label1.length === 0 && label2.length === 0 && !assign_id\
+          \ && !assign_name && !assign_ip && !assign_os\n      && !assign_label1 &&\
+          \ !assign_label2 && !assign_online && !assign_offline && !assign_error\n\
+          \      && !assign_hardware && !assign_software && !assign_battery && !assign_peripheral\
+          \ && !assign_security) {\n      filter_id = filter_device.map(o => o.id)\n\
+          \    }\n  }\n  if (filter_id.length === 0) {\n    filter_id = filter_device.filter(o\
+          \ => {\n      const match_id = id.includes(o.id)\n      const match_name\
+          \ = name.includes(o.nm)\n      const match_ip = ip.includes(o.ip)\n    \
+          \  const match_os = os.includes(o.os)\n      const match_label1 = label1.includes(o.l1)\n\
+          \      const match_label2 = label2.includes(o.l2)\n      const match_online\
+          \ = assign_online && Number(o.st) === 1\n      const match_offline = assign_offline\
+          \ && Number(o.st) === 0\n      const match_status = match_online || match_offline\
+          \ || (!assign_online && !assign_offline)\n      const hardware = Number(o.hw)\
+          \ > 0\n      const software = Number(o.sw) > 0\n      const battery = Number(o.bt)\
+          \ > 0\n      const peripheral = Number(o.pp) > 0\n      const security =\
+          \ Number(o.hw) > 0\n      const match_error = assign_error && (hardware\
+          \ || software || battery || peripheral || security)\n      const match_hardware\
+          \ = assign_hardware && hardware\n      const match_software = assign_software\
+          \ && software\n      const match_battery = assign_battery && battery\n \
+          \     const match_peripheral = assign_peripheral && peripheral\n      const\
+          \ match_security = assign_security && security\n      let match = true\n\
+          \      // 当只指定了异常时，只筛选异常相关\n      if (id.length === 0 && name.length ===\
+          \ 0 && ip.length === 0 && os.length === 0 && label1.length === 0 && label2.length\
+          \ === 0\n        && !assign_online && !assign_offline\n        && (assign_error\
+          \ || assign_hardware || assign_software || assign_battery || assign_peripheral\
+          \ || assign_security)) {\n        if (assign_error) match = match && match_error\n\
+          \        if (assign_hardware) match = match && match_hardware\n        if\
+          \ (assign_software) match = match && match_software\n        if (assign_battery)\
+          \ match = match && match_battery\n        if (assign_peripheral) match =\
+          \ match && match_peripheral\n        if (assign_security) match = match\
+          \ && match_security\n        return match\n      }\n      // 当只指定了在线或者离线时，只筛选status\n\
+          \      if (id.length === 0 && name.length === 0 && ip.length === 0 && os.length\
+          \ === 0 && label1.length === 0 && label2.length === 0\n        && (assign_online\
+          \ || assign_offline)) {\n        match = match_online || match_offline\n\
+          \      }\n      // 当没有指定具体栏位时，只要满足一个条件就行\n      else if (!assign_id && !assign_name\
+          \ && !assign_ip && !assign_os && !assign_label1 && !assign_label2) {\n \
+          \       match = (match_id || match_name || match_ip || match_os || match_label1\
+          \ || match_label2) && match_status\n      }\n      // 当有指定具体栏位时，需要满足所有指定栏位\n\
+          \      else {\n        match = match && match_status\n        if (assign_id)\
+          \ match = match && match_id\n        if (assign_name) match = match && match_name\n\
+          \        if (assign_ip) match = match && match_ip\n        if (assign_os)\
+          \ match = match && match_os\n        if (assign_label1 && !assign_label2)\
+          \ match = match && match_label1\n        if (!assign_label1 && assign_label2)\
+          \ match = match && match_label2\n        if (assign_label1 && assign_label2)\
+          \ match = match && (match_label2 || match_label1)\n      }\n      if (assign_error)\
+          \ match = match && match_error\n      if (assign_hardware) match = match\
+          \ && match_hardware\n      if (assign_software) match = match && match_software\n\
+          \      if (assign_battery) match = match && match_battery\n      if (assign_peripheral)\
+          \ match = match && match_peripheral\n      if (assign_security) match =\
+          \ match && match_security\n      return match\n    }).map(o => o.id)\n \
+          \ }\n\n  const filter = filter_id.map(id => {\n    const o = by_id[id]\n\
+          \    return {\n      id: o.id,\n      name: o.nm,\n      os: o.os,\n   \
+          \   timezone: o.tz,\n    }\n  })\n  const result = JSON.stringify({\n  \
+          \  type: is_trigger ? 'trigger_task' : 'control_task',\n    data: {\n  \
+          \    ...obj,\n      targetDevices: filter,\n    },\n  })\n  const no_confirm\
+          \ = actionCode === '90001' && !is_trigger && !!find_device\n  && filter.length\
+          \ === 1 && filter_device.length === 1 ? 1 : 0\n  const task = filter.length\
+          \ > 0 ? result : ''\n\n  return {\n    result,\n    content: task,\n   \
+          \ type: !!task ? 'control_task' : '',\n    device: obj,\n    no_confirm,\n\
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -851,6 +852,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: 21.83416033423873
-      y: -207.88557492884206
-      zoom: 1.2187707886145749
+      x: 155.3474519311792
+      y: 84.09939439672053
+      zoom: 0.7000000000000005

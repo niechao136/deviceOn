@@ -951,7 +951,7 @@ workflow:
       positionAbsolute:
         x: 2158
         y: 408.5
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -971,7 +971,7 @@ workflow:
         headers: 'Authorization:{{#1744013620630.bearer#}}
 
           Content-Type:application/json'
-        method: get
+        method: post
         params: ''
         retry_config:
           max_retries: 3
@@ -1040,12 +1040,12 @@ workflow:
       positionAbsolute:
         x: 2766
         y: 408.5
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     viewport:
-      x: 19.99999999999949
-      y: 124
+      x: 297.9999999999993
+      y: 101.00000000000001
       zoom: 0.7

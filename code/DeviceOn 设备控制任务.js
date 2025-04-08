@@ -122,7 +122,7 @@ function main({text, device, type, content}) {
   const assign_security = !!obj?.targetDevices?.assign_security
   const actionCode = obj?.actionCode
   let filter_id = [], filter_device = list.map(o => o)
-  const find_device = !!content && type === 'find_device'
+  const find_device = !!content && (type === 'find_device' || type === 'find_error')
   if (find_device) {
     const obj = JSON.parse(content)
     filter_device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o => by_id[o.id]) : []

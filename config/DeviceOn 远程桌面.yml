@@ -368,15 +368,15 @@ workflow:
           \ ? Array.from(obj.targetDevices.ip) : []\n  const assign_id = !!obj?.targetDevices?.assign_id\n\
           \  const assign_name = !!obj?.targetDevices?.assign_name\n  const assign_ip\
           \ = !!obj?.targetDevices?.assign_ip\n  let filter_id = [], filter_device\
-          \ = list.map(o => o)\n  if (!!content && type === 'find_device') {\n   \
-          \ const obj = JSON.parse(content)\n    filter_device = Array.isArray(obj?.data?.targetDevices)\
-          \ ? Array.from(obj?.data?.targetDevices).map(o => by_id[o.id]) : []\n  \
-          \  if (!Number.isNaN(assign_index) && assign_index > 0 && assign_index <=\
-          \ filter_device.length) {\n      let index = assign_index - 1\n      if\
-          \ (assign_last) index = filter_device.length - 1 - index\n      filter_id\
-          \ = [filter_device[index].id]\n    }\n    if (filter_id.length === 0 &&\
-          \ !assign_id && !assign_name && !assign_ip\n      && id.length === 0 &&\
-          \ name.length === 0 && ip.length === 0) {\n      filter_id = filter_device.map(o\
+          \ = list.map(o => o)\n  if (!!content && (type === 'find_device' || type\
+          \ === 'find_error')) {\n    const obj = JSON.parse(content)\n    filter_device\
+          \ = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o\
+          \ => by_id[o.id]) : []\n    if (!Number.isNaN(assign_index) && assign_index\
+          \ > 0 && assign_index <= filter_device.length) {\n      let index = assign_index\
+          \ - 1\n      if (assign_last) index = filter_device.length - 1 - index\n\
+          \      filter_id = [filter_device[index].id]\n    }\n    if (filter_id.length\
+          \ === 0 && !assign_id && !assign_name && !assign_ip\n      && id.length\
+          \ === 0 && name.length === 0 && ip.length === 0) {\n      filter_id = filter_device.map(o\
           \ => o.id)\n    }\n  }\n  if (filter_id.length === 0) {\n    filter_id =\
           \ filter_device.filter(o => {\n      const match_id = id.includes(o.id)\n\
           \      const match_name = name.includes(o.nm)\n      const match_ip = ip.includes(o.ip)\n\
@@ -472,6 +472,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: 115
-      y: 145.99999999999994
+      x: 70
+      y: 181.99999999999994
       zoom: 0.7

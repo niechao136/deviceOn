@@ -127,7 +127,7 @@ function main({text, device, type, content}) {
   const lang = String(obj?.lang ?? '')
   const has_error = assign_error || assign_up_down || assign_hardware || assign_software || assign_battery || assign_peripheral || assign_security
   const not_prop = id.length === 0 && name.length === 0 && ip.length === 0 && os.length === 0 && label1.length === 0 && label2.length === 0
-  const find_device = !!content && type === 'find_device'
+  const find_device = !!content && (type === 'find_device' || type === 'find_error')
   let result = '', res = '', params = '', range = []
   if (!has_error || (has_error && assign_now)) {
     let filter_id = [], filter_device = list.map(o => o)
@@ -292,6 +292,7 @@ function main({body, device, range}) {
     if (error.includes('7')) obj = { ...obj, sc_n: 0 }
     by_id[o.id] = {
       id: o.id,
+      nm: o.nm,
       ...obj,
     }
   })
@@ -325,7 +326,7 @@ function main({body, device, range}) {
   })
   return {
     device: JSON.stringify(Object.values(by_id), null, 2),
-    error: JSON.stringify(by_id)
+    error: by_id,
   }
 }
 

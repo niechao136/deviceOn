@@ -121,13 +121,84 @@ workflow:
       type: custom
       zIndex: 0
     - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1743489451080-source-1744079978969-target
+      source: '1743489451080'
+      sourceHandle: source
+      target: '1744079978969'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1744079978969-true-1743493674581-target
+      source: '1744079978969'
+      sourceHandle: 'true'
+      target: '1743493674581'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1744079978969-false-1744080001595-target
+      source: '1744079978969'
+      sourceHandle: 'false'
+      target: '1744080001595'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1744080001595-source-1744082994767-target
+      source: '1744080001595'
+      sourceHandle: source
+      target: '1744082994767'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1744082994767-source-1744088908813-target
+      source: '1744082994767'
+      sourceHandle: source
+      target: '1744088908813'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1744088908813-source-1744090964422-target
+      source: '1744088908813'
+      sourceHandle: source
+      target: '1744090964422'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
         isInLoop: false
         sourceType: code
         targetType: end
-      id: 1743489451080-source-1743493674581-target
-      source: '1743489451080'
+      id: 1744090964422-source-17440918290280-target
+      source: '1744090964422'
       sourceHandle: source
-      target: '1743493674581'
+      target: '17440918290280'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -204,14 +275,12 @@ workflow:
         prompt_template:
         - id: 9ad2fbeb-32d6-47bb-bcdd-30364ecf98f8
           role: system
-          text: "# 信息提取提示词\n\n## `问题`: `{{#context#}}`\n\n---\n\n## 设备相关性判断\n判断`问题`所求是否涉及设备：\n\
-            - **如果`问题`所求为设备**，则设置 `assign_device = true` ；\n- **否则**，设置 `assign_device\
-            \ = false`。\n\n---\n\n## 设备信息提取\n\n1. **判断是否使用下标指定设备：**\n    - 如果`问题`文本中出现诸如\
-            \ `第一个`、`第二个` 等指代下标的词时，则设置 `assign_index = 相应的数字`。\n    - 如果`问题`文本中出现诸如\
-            \ `最后`、`倒数` 等指代反转的词时，则设置 `assign_last = true`。\n    - **示例：**\n      \
-            \  - 对于文本`请远程连接倒数第二个设备`，由于出现`第二个`指代下标，因此设置 `assign_index = 2`；由于出现`倒数`表示反转，因此设置\
-            \ `assign_last = true`。\n\n2. **字段提取（所有字段均返回数组；若无匹配返回空数组）：**\n\n    -\
-            \ **ID字段 (`id`)：**\n        - 在`问题`文本中**精确匹配** `{{#1743556351963.id#}}`\
+          text: "# 信息提取提示词\n\n## `问题`: `{{#context#}}`\n\n---\n\n## 设备信息提取\n\n1. **判断是否使用下标指定设备：**\n\
+            \    - 如果`问题`文本中出现诸如 `第一个`、`第二个` 等指代下标的词时，则设置 `assign_index = 相应的数字`。\n\
+            \    - 如果`问题`文本中出现诸如 `最后`、`倒数` 等指代反转的词时，则设置 `assign_last = true`。\n  \
+            \  - **示例：**\n        - 对于文本`请远程连接倒数第二个设备`，由于出现`第二个`指代下标，因此设置 `assign_index\
+            \ = 2`；由于出现`倒数`表示反转，因此设置 `assign_last = true`。\n\n2. **字段提取（所有字段均返回数组；若无匹配返回空数组）：**\n\
+            \n    - **ID字段 (`id`)：**\n        - 在`问题`文本中**精确匹配** `{{#1743556351963.id#}}`\
             \ 内的任一元素，将所有匹配项存入 `id` 字段。\n\n    - **名称字段 (`name`)：**\n        - 在`问题`文本中**精确匹配**\
             \ `{{#1743556351963.name#}}` 内的任一元素，将所有匹配项存入 `name` 字段。\n\n    - **IP字段\
             \ (`ip`)：**\n        - 在`问题`文本中**精确匹配** `{{#1743556351963.ip#}}` 内的任一元素，将所有匹配项存入\
@@ -249,32 +318,36 @@ workflow:
             \            - 对于文本`请将在线的安卓设备关机`，则`assign_online = true`。\n\n    - **离线标记\
             \ (`assign_offline`)**:\n        - 当`问题`中包含 `离线设备` 或 `离线...` 或 `断线中...`\
             \ 等描述时，设置 `assign_offline = true`；\n        - **示例：**\n            - 对于文本`请将离线的安卓设备关机`，则`assign_offline\
-            \ = true`。\n\n    - **异常状态标记：**\n        - **assign_error**：\n       \
-            \     - 当`问题`中提及 `异常` 但未提及下列具体异常（`硬件异常`、`软件异常`、`电池异常`、`周边设备异常`、`设备安全异常`）时，设置\
-            \ `assign_error = true`；\n            - 当`问题`中包含 `断线中` 等类似描述时 → `assign_error\
-            \ = false`\n        - **assign_hardware**：当`问题`中提及 `硬件异常` 时，设置 `assign_hardware\
-            \ = true`；\n        - **assign_software**：当`问题`中提及 `软件异常` 时，设置 `assign_software\
-            \ = true`；\n        - **assign_battery**：当`问题`中提及 `电池异常` 时，设置 `assign_battery\
-            \ = true`；\n        - **assign_peripheral**：当`问题`中提及 `周边外设异常` 时，设置 `assign_peripheral\
-            \ = true`；\n        - **assign_security**：当`问题`中提及 `设备安全异常` 时，设置 `assign_security\
-            \ = true`。\n\n---\n\n## 语言设置\n根据`问题`文本语言自动确定 `lang` 值：\n- 简体中文 → `zh-CN`\n\
-            - 繁體中文 → `zh-TW`\n- 英文 → `en-US`\n- 日文 → `ja-JP`\n\n---\n\n## 输出格式\n输出\
-            \ JSON 格式必须符合以下结构：\n```json\n{\n  \"assign_device\": \"<boolean>\",\n\
-            \  \"assign_index\": \"<number, 默认为-1>\",\n  \"assign_last\": \"<boolean>\"\
-            ,\n  \"id\": \"<数组>\",\n  \"name\": \"<数组>\",\n  \"ip\": \"<数组>\",\n \
-            \ \"os\": \"<数组，windows | android | linux>\",\n  \"label1\": \"<数组>\"\
-            ,\n  \"label2\": \"<数组>\",\n  \"assign_id\": \"<boolean>\",\n  \"assign_name\"\
-            : \"<boolean>\",\n  \"assign_ip\": \"<boolean>\",\n  \"assign_os\": \"\
-            <boolean>\",\n  \"assign_label1\": \"<boolean>\",\n  \"assign_label2\"\
-            : \"<boolean>\",\n  \"assign_online\": \"<boolean>\",\n  \"assign_offline\"\
-            : \"<boolean>\",\n  \"assign_error\": \"<boolean>\",\n  \"assign_hardware\"\
-            : \"<boolean>\",\n  \"assign_software\": \"<boolean>\",\n  \"assign_battery\"\
-            : \"<boolean>\",\n  \"assign_peripheral\": \"<boolean>\",\n  \"assign_security\"\
-            : \"<boolean>\",\n  \"lang\": \"<zh-CN | zh-TW | ja-JP | en-US>\"\n}\n\
-            ```\n\n---\n"
-        - id: cf0d7b93-fdeb-4b9c-8ee7-76d47de5ecd0
-          role: user
-          text: '{{#context#}}'
+            \ = true`。\n\n---\n\n## 异常信息提取\n\n1. **异常状态标记：**\n    - **assign_error**：\n\
+            \        - 当`问题`中提及 `异常` 但未提及下列具体异常（`上下线异常`、`硬件异常`、`软件异常`、`电池异常`、`周边设备异常`、`设备安全异常`）时，设置\
+            \ `assign_error = true`；\n        - 当`问题`中包含 `断线中` 等类似描述时 → `assign_error\
+            \ = false`\n    - **assign_hardware**：当`问题`中提及 `上下线异常` 时，设置 `assign_up_down\
+            \ = true`；\n    - **assign_hardware**：当`问题`中提及 `硬件异常` 时，设置 `assign_hardware\
+            \ = true`；\n    - **assign_software**：当`问题`中提及 `软件异常` 时，设置 `assign_software\
+            \ = true`；\n    - **assign_battery**：当`问题`中提及 `电池异常` 时，设置 `assign_battery\
+            \ = true`；\n    - **assign_peripheral**：当`问题`中提及 `周边外设异常` 时，设置 `assign_peripheral\
+            \ = true`；\n    - **assign_security**：当`问题`中提及 `设备安全异常` 时，设置 `assign_security\
+            \ = true`。\n\n2. **异常时间判断：**\n    - 如果`问题`文本中出现诸如`当前`、`目前`、`当下`、`现在`等表示当前时间的词时，则设置\
+            \ `assign_now = true`。\n    - 如果`问题`文本中出现诸如`近一个月`、`最近一周`、`前5天`等表示具体时间的词时，请根据当前时间（`{{#1743556351963.date#}}`），计算出开始日期和结束日期，并设置\
+            \ `start_date = 开始日期（格式：YYYY/MM/DD）; end_date = 结束日期（格式：YYYY/MM/DD）`。\n\
+            \    - 如果`问题`文本中没有出现任何指明时间的词时，则设置 `assign_time = false`。\n\n---\n\n##\
+            \ 语言设置\n根据`问题`文本语言自动确定 `lang` 值：\n- 简体中文 → `zh-CN`\n- 繁體中文 → `zh-TW`\n\
+            - 英文 → `en-US`\n- 日文 → `ja-JP`\n\n---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n\
+            ```json\n{\n  \"device\": {\n    \"assign_index\": \"<number, 默认为-1>\"\
+            ,\n    \"assign_last\": \"<boolean>\",\n    \"id\": \"<数组>\",\n    \"\
+            name\": \"<数组>\",\n    \"ip\": \"<数组>\",\n    \"os\": \"<数组，windows |\
+            \ android | linux>\",\n    \"label1\": \"<数组>\",\n    \"label2\": \"<数组>\"\
+            ,\n    \"assign_id\": \"<boolean>\",\n    \"assign_name\": \"<boolean>\"\
+            ,\n    \"assign_ip\": \"<boolean>\",\n    \"assign_os\": \"<boolean>\"\
+            ,\n    \"assign_label1\": \"<boolean>\",\n    \"assign_label2\": \"<boolean>\"\
+            ,\n    \"assign_online\": \"<boolean>\",\n    \"assign_offline\": \"<boolean>\"\
+            \n  },\n  \"error\": {\n    \"assign_error\": \"<boolean>\",\n    \"assign_up_down\"\
+            : \"<boolean>\",\n    \"assign_hardware\": \"<boolean>\",\n    \"assign_software\"\
+            : \"<boolean>\",\n    \"assign_battery\": \"<boolean>\",\n    \"assign_peripheral\"\
+            : \"<boolean>\",\n    \"assign_security\": \"<boolean>\",\n    \"assign_now\"\
+            : \"<boolean>\",\n    \"start_date\": \"<日期字符串，格式 YYYY/MM/DD>\",\n   \
+            \ \"end_date\": \"<日期字符串，格式 YYYY/MM/DD>\",\n    \"assign_time\": \"<boolean>\"\
+            \n  },\n  \"lang\": \"<zh-CN | zh-TW | ja-JP | en-US>\"\n}\n```\n\n---\n"
         selected: false
         title: LLM 设备筛选参数提取
         type: llm
@@ -304,85 +377,107 @@ workflow:
           \ device, type, content}) {\n  device = JSON.parse(device)\n  const list\
           \ = Array.isArray(device) ? Array.from(device) : []\n  const by_id = {}\n\
           \  list.forEach(o => {\n    by_id[o.id] = o\n  })\n  const obj = handleLLM(text)\n\
-          \  const is_device = !!obj?.assign_device\n  const assign_index = Number(obj?.assign_index)\n\
-          \  const assign_last = !!obj?.assign_last\n  const id = Array.isArray(obj?.id)\
-          \ ? Array.from(obj.id) : []\n  const name = Array.isArray(obj?.name) ? Array.from(obj.name)\
-          \ : []\n  const ip = Array.isArray(obj?.ip) ? Array.from(obj.ip) : []\n\
-          \  const os = Array.isArray(obj?.os) ? Array.from(obj.os).map(s => String(s).toLowerCase())\
-          \ : []\n  const label1 = Array.isArray(obj?.label1) ? Array.from(obj.label1)\
-          \ : []\n  const label2 = Array.isArray(obj?.label2) ? Array.from(obj.label2)\
-          \ : []\n  const assign_id = !!obj?.assign_id\n  const assign_name = !!obj?.assign_name\n\
-          \  const assign_ip = !!obj?.assign_ip\n  const assign_os = !!obj?.assign_os\n\
-          \  const assign_label1 = !!obj?.assign_label1\n  const assign_label2 = !!obj?.assign_label2\n\
-          \  const assign_online = !!obj?.assign_online\n  const assign_offline =\
-          \ !!obj?.assign_offline\n  const assign_error = !!obj?.assign_error\n  const\
-          \ assign_hardware = !!obj?.assign_hardware\n  const assign_software = !!obj?.assign_software\n\
-          \  const assign_battery = !!obj?.assign_battery\n  const assign_peripheral\
-          \ = !!obj?.assign_peripheral\n  const assign_security = !!obj?.assign_security\n\
-          \  const lang = obj?.lang ?? ''\n  let filter_id = [], filter_device = list.map(o\
-          \ => o)\n  const find_device = !!content && type === 'find_device'\n  if\
-          \ (find_device) {\n    const obj = JSON.parse(content)\n    filter_device\
-          \ = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o\
-          \ => by_id[o.id]) : []\n    if (!Number.isNaN(assign_index) && assign_index\
-          \ > 0 && assign_index <= filter_device.length) {\n      let index = assign_index\
-          \ - 1\n      if (assign_last) index = filter_device.length - 1 - index\n\
-          \      filter_id = [filter_device[index].id]\n    }\n  }\n  if (filter_id.length\
-          \ === 0) {\n    filter_id = filter_device.filter(o => {\n      const match_id\
-          \ = id.includes(o.id)\n      const match_name = name.includes(o.nm)\n  \
-          \    const match_ip = ip.includes(o.ip)\n      const match_os = os.includes(o.os)\n\
-          \      const match_label1 = label1.includes(o.l1)\n      const match_label2\
-          \ = label2.includes(o.l2)\n      const match_online = assign_online && Number(o.st)\
-          \ === 1\n      const match_offline = assign_offline && Number(o.st) ===\
-          \ 0\n      const match_status = match_online || match_offline || (!assign_online\
-          \ && !assign_offline)\n      const hardware = Number(o.hw) > 0\n      const\
-          \ software = Number(o.sw) > 0\n      const battery = Number(o.bt) > 0\n\
-          \      const peripheral = Number(o.pp) > 0\n      const security = Number(o.hw)\
-          \ > 0\n      const match_error = assign_error && (hardware || software ||\
-          \ battery || peripheral || security)\n      const match_hardware = assign_hardware\
-          \ && hardware\n      const match_software = assign_software && software\n\
-          \      const match_battery = assign_battery && battery\n      const match_peripheral\
-          \ = assign_peripheral && peripheral\n      const match_security = assign_security\
-          \ && security\n      let match = true\n      // 当只指定了异常时，只筛选异常相关\n     \
-          \ if (id.length === 0 && name.length === 0 && ip.length === 0 && os.length\
-          \ === 0 && label1.length === 0 && label2.length === 0\n        && !assign_online\
-          \ && !assign_offline\n        && (assign_error || assign_hardware || assign_software\
-          \ || assign_battery || assign_peripheral || assign_security)) {\n      \
-          \  if (assign_error) match = match && match_error\n        if (assign_hardware)\
-          \ match = match && match_hardware\n        if (assign_software) match =\
-          \ match && match_software\n        if (assign_battery) match = match &&\
-          \ match_battery\n        if (assign_peripheral) match = match && match_peripheral\n\
+          \  const assign_index = Number(obj?.device?.assign_index)\n  const assign_last\
+          \ = !!obj?.device?.assign_last\n  const id = Array.isArray(obj?.device?.id)\
+          \ ? Array.from(obj.device.id) : []\n  const name = Array.isArray(obj?.device?.name)\
+          \ ? Array.from(obj.device.name) : []\n  const ip = Array.isArray(obj?.device?.ip)\
+          \ ? Array.from(obj.device.ip) : []\n  const os = Array.isArray(obj?.device?.os)\
+          \ ? Array.from(obj.device.os).map(s => String(s).toLowerCase()) : []\n \
+          \ const label1 = Array.isArray(obj?.device?.label1) ? Array.from(obj.device.label1)\
+          \ : []\n  const label2 = Array.isArray(obj?.device?.label2) ? Array.from(obj.device.label2)\
+          \ : []\n  const assign_id = !!obj?.device?.assign_id\n  const assign_name\
+          \ = !!obj?.device?.assign_name\n  const assign_ip = !!obj?.device?.assign_ip\n\
+          \  const assign_os = !!obj?.device?.assign_os\n  const assign_label1 = !!obj?.device?.assign_label1\n\
+          \  const assign_label2 = !!obj?.device?.assign_label2\n  const assign_online\
+          \ = !!obj?.device?.assign_online\n  const assign_offline = !!obj?.device?.assign_offline\n\
+          \  const assign_error = !!obj?.error?.assign_error\n  const assign_up_down\
+          \ = !!obj?.error?.assign_up_down\n  const assign_hardware = !!obj?.error?.assign_hardware\n\
+          \  const assign_software = !!obj?.error?.assign_software\n  const assign_battery\
+          \ = !!obj?.error?.assign_battery\n  const assign_peripheral = !!obj?.error?.assign_peripheral\n\
+          \  const assign_security = !!obj?.error?.assign_security\n  const assign_now\
+          \ = !!obj?.error?.assign_now\n  const assign_time = !!obj?.error?.assign_time\n\
+          \  const start_date = String(obj?.error?.start_date ?? '')\n  const end_date\
+          \ = String(obj?.error?.end_date ?? '')\n  const lang = String(obj?.lang\
+          \ ?? '')\n  const has_error = assign_error || assign_up_down || assign_hardware\
+          \ || assign_software || assign_battery || assign_peripheral || assign_security\n\
+          \  const not_prop = id.length === 0 && name.length === 0 && ip.length ===\
+          \ 0 && os.length === 0 && label1.length === 0 && label2.length === 0\n \
+          \ const find_device = !!content && (type === 'find_device' || type === 'find_error')\n\
+          \  let result = '', res = '', params = '', range = []\n  if (!has_error\
+          \ || (has_error && assign_now)) {\n    let filter_id = [], filter_device\
+          \ = list.map(o => o)\n    if (find_device) {\n      const obj = JSON.parse(content)\n\
+          \      filter_device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o\
+          \ => by_id[o.id]) : []\n      if (!Number.isNaN(assign_index) && assign_index\
+          \ > 0 && assign_index <= filter_device.length) {\n        let index = assign_index\
+          \ - 1\n        if (assign_last) index = filter_device.length - 1 - index\n\
+          \        filter_id = [filter_device[index].id]\n      }\n    }\n    if (filter_id.length\
+          \ === 0) {\n      filter_id = filter_device.filter(o => {\n        const\
+          \ match_id = id.includes(o.id)\n        const match_name = name.includes(o.nm)\n\
+          \        const match_ip = ip.includes(o.ip)\n        const match_os = os.includes(o.os)\n\
+          \        const match_label1 = label1.includes(o.l1)\n        const match_label2\
+          \ = label2.includes(o.l2)\n        const match_online = assign_online &&\
+          \ Number(o.st) === 1\n        const match_offline = assign_offline && Number(o.st)\
+          \ === 0\n        const match_status = match_online || match_offline || (!assign_online\
+          \ && !assign_offline)\n        const hardware = Number(o.hw) > 0\n     \
+          \   const software = Number(o.sw) > 0\n        const battery = Number(o.bt)\
+          \ > 0\n        const peripheral = Number(o.pp) > 0\n        const security\
+          \ = Number(o.hw) > 0\n        const match_error = assign_error && (hardware\
+          \ || software || battery || peripheral || security)\n        const match_hardware\
+          \ = assign_hardware && hardware\n        const match_software = assign_software\
+          \ && software\n        const match_battery = assign_battery && battery\n\
+          \        const match_peripheral = assign_peripheral && peripheral\n    \
+          \    const match_security = assign_security && security\n        let match\
+          \ = true\n        // 当只指定了异常时，只筛选异常相关\n        if (not_prop && !assign_online\
+          \ && !assign_offline && has_error && !assign_up_down) {\n          if (assign_error)\
+          \ match = match && match_error\n          if (assign_hardware) match = match\
+          \ && match_hardware\n          if (assign_software) match = match && match_software\n\
+          \          if (assign_battery) match = match && match_battery\n        \
+          \  if (assign_peripheral) match = match && match_peripheral\n          if\
+          \ (assign_security) match = match && match_security\n          return match\n\
+          \        }\n        // 当只指定了在线或者离线时，只筛选status\n        if (not_prop && (assign_online\
+          \ || assign_offline)) {\n          match = match_online || match_offline\n\
+          \        }\n        // 当没有指定具体栏位时，只要满足一个条件就行\n        else if (!assign_id\
+          \ && !assign_name && !assign_ip && !assign_os && !assign_label1 && !assign_label2)\
+          \ {\n          match = (match_id || match_name || match_ip || match_os ||\
+          \ match_label1 || match_label2) && match_status\n        }\n        // 当有指定具体栏位时，需要满足所有指定栏位\n\
+          \        else {\n          match = match && match_status\n          if (assign_id)\
+          \ match = match && match_id\n          if (assign_name) match = match &&\
+          \ match_name\n          if (assign_ip) match = match && match_ip\n     \
+          \     if (assign_os) match = match && match_os\n          if (assign_label1\
+          \ && !assign_label2) match = match && match_label1\n          if (!assign_label1\
+          \ && assign_label2) match = match && match_label2\n          if (assign_label1\
+          \ && assign_label2) match = match && (match_label2 || match_label1)\n  \
+          \      }\n        if (assign_error) match = match && match_error\n     \
+          \   if (assign_hardware) match = match && match_hardware\n        if (assign_software)\
+          \ match = match && match_software\n        if (assign_battery) match = match\
+          \ && match_battery\n        if (assign_peripheral) match = match && match_peripheral\n\
           \        if (assign_security) match = match && match_security\n        return\
-          \ match\n      }\n      // 当只指定了在线或者离线时，只筛选status\n      if (id.length ===\
-          \ 0 && name.length === 0 && ip.length === 0 && os.length === 0 && label1.length\
-          \ === 0 && label2.length === 0\n        && (assign_online || assign_offline))\
-          \ {\n        match = match_online || match_offline\n      }\n      // 当没有指定具体栏位时，只要满足一个条件就行\n\
-          \      else if (!assign_id && !assign_name && !assign_ip && !assign_os &&\
-          \ !assign_label1 && !assign_label2) {\n        match = (match_id || match_name\
-          \ || match_ip || match_os || match_label1 || match_label2) && match_status\n\
-          \      }\n      // 当有指定具体栏位时，需要满足所有指定栏位\n      else {\n        match = match\
-          \ && match_status\n        if (assign_id) match = match && match_id\n  \
-          \      if (assign_name) match = match && match_name\n        if (assign_ip)\
-          \ match = match && match_ip\n        if (assign_os) match = match && match_os\n\
-          \        if (assign_label1 && !assign_label2) match = match && match_label1\n\
-          \        if (!assign_label1 && assign_label2) match = match && match_label2\n\
-          \        if (assign_label1 && assign_label2) match = match && (match_label2\
-          \ || match_label1)\n      }\n      if (assign_error) match = match && match_error\n\
-          \      if (assign_hardware) match = match && match_hardware\n      if (assign_software)\
-          \ match = match && match_software\n      if (assign_battery) match = match\
-          \ && match_battery\n      if (assign_peripheral) match = match && match_peripheral\n\
-          \      if (assign_security) match = match && match_security\n      return\
-          \ match\n    }).map(o => o.id)\n  }\n  const filter = filter_id.map(id =>\
-          \ {\n    const o = by_id[id]\n    return {\n      id: o.id,\n      name:\
-          \ o.nm,\n      os: o.os,\n      timezone: o.tz,\n      ip: o.ip,\n     \
-          \ status: o.st,\n    }\n  })\n  let result = JSON.stringify({\n    type:\
-          \ 'find_device',\n    data: {\n      assign_device: is_device || find_device,\n\
-          \      targetDevices: filter,\n      lang,\n    }\n  })\n  let res = filter.length\
-          \ > 0 ? result : ''\n  const is_find_device = assign_index !== -1 || id.length\
-          \ > 0 || name.length > 0 || ip.length > 0\n  || os.length > 0 || label1.length\
-          \ > 0 || label2.length > 0 || assign_online || assign_offline || assign_error\n\
-          \  || assign_hardware || assign_software || assign_battery || assign_peripheral\
-          \ || assign_security ? 1 : 0\n  return {\n    result,\n    content: res,\n\
-          \    type: !!res ? 'find_device' : '',\n    is_find_device,\n  }\n}"
+          \ match\n      }).map(o => o.id)\n    }\n    const filter = filter_id.map(id\
+          \ => {\n      const o = by_id[id]\n      return {\n        id: o.id,\n \
+          \       name: o.nm,\n        os: o.os,\n        timezone: o.tz,\n      \
+          \  ip: o.ip,\n        status: o.st,\n      }\n    })\n    result = JSON.stringify({\n\
+          \      type: 'find_device',\n      data: {\n        assign_device: true,\n\
+          \        targetDevices: filter,\n        lang,\n      }\n    })\n    res\
+          \ = filter.length > 0 ? result : ''\n  } else {\n    let sd = new Date(start_date)\n\
+          \    let ed = new Date(end_date)\n    if (!assign_time) {\n      ed = new\
+          \ Date()\n      ed.setHours(0, 0, 0, 0)\n      const day = ed.getDate()\n\
+          \      let month = ed.getMonth() - 3\n      let year = ed.getFullYear()\n\
+          \      if (month < 0) {\n        month += 12\n        year -= 1\n      }\n\
+          \      const last = new Date(year, month + 1, 0).getDate()\n      const\
+          \ date = Math.min(day, last)\n      sd = new Date(year, month, date)\n \
+          \   }\n    const start = sd.getTime()\n    const end = ed.getTime() + (24\
+          \ * 60 * 60 * 1000 - 1)\n    if (assign_up_down) range = range.concat('4')\n\
+          \    if (assign_hardware) range = range.concat('1')\n    if (assign_software)\
+          \ range = range.concat('2')\n    if (assign_battery) range = range.concat('6')\n\
+          \    if (assign_peripheral) range = range.concat('3')\n    if (assign_security)\
+          \ range = range.concat('7')\n    params = `?startTime=${start}&endTime=${end}`\n\
+          \    range.forEach(item => {\n      params += `&categoryRange=${item}`\n\
+          \    })\n  }\n  const is_find_device = assign_index !== -1 || id.length\
+          \ > 0 || name.length > 0 || ip.length > 0 || os.length > 0\n  || label1.length\
+          \ > 0 || label2.length > 0 || assign_online || assign_offline || has_error\
+          \ ? 1 : 0\n  return {\n    result,\n    content: res,\n    type: !!res ?\
+          \ 'find_device' : '',\n    is_find_device,\n    params,\n    range,\n  \
+          \  lang,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -392,6 +487,15 @@ workflow:
           is_find_device:
             children: null
             type: number
+          lang:
+            children: null
+            type: string
+          params:
+            children: null
+            type: string
+          range:
+            children: null
+            type: array[string]
           result:
             children: null
             type: string
@@ -456,10 +560,10 @@ workflow:
       height: 168
       id: '1743493674581'
       position:
-        x: 1550
+        x: 1854
         y: 310
       positionAbsolute:
-        x: 1550
+        x: 1854
         y: 310
       selected: false
       sourcePosition: right
@@ -588,7 +692,286 @@ workflow:
       targetPosition: left
       type: custom
       width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 025409d5-d96c-4d74-9f08-e3f0152c2fef
+            value: ''
+            varType: string
+            variable_selector:
+            - '1743489451080'
+            - result
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否直接返回
+        type: if-else
+      height: 126
+      id: '1744079978969'
+      position:
+        x: 1550
+        y: 310
+      positionAbsolute:
+        x: 1550
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: Authorization:{{#1743489072519.token#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取设备异常记录
+        type: http-request
+        url: '{{#1743489072519.api#}}/walle/ai/device/eventList{{#1743489451080.params#}}'
+        variables: []
+      height: 158
+      id: '1744080001595'
+      position:
+        x: 1854
+        y: 518
+      positionAbsolute:
+        x: 1854
+        y: 518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({body, device, range}) {\n  const res = JSON.parse(body)\n\
+          \  const event = Array.isArray(res?.rows) ? Array.from(res.rows) : []\n\
+          \  device = JSON.parse(device)\n  const list = Array.isArray(device) ? Array.from(device)\
+          \ : []\n  const by_id = {}\n  const error = Array.isArray(range) ? Array.from(range)\
+          \ : []\n  list.forEach(o => {\n    let obj = error.length > 0 ? { er_n:\
+          \ 0 } : {\n      ud_n: 0,\n      hw_n: 0,\n      sw_n: 0,\n      bt_n: 0,\n\
+          \      pp_n: 0,\n      sc_n: 0,\n      er_n: 0,\n    }\n    if (error.includes('1'))\
+          \ obj = { ...obj, hw_n: 0 }\n    if (error.includes('2')) obj = { ...obj,\
+          \ sw_n: 0 }\n    if (error.includes('3')) obj = { ...obj, pp_n: 0 }\n  \
+          \  if (error.includes('4')) obj = { ...obj, ud_n: 0 }\n    if (error.includes('6'))\
+          \ obj = { ...obj, bt_n: 0 }\n    if (error.includes('7')) obj = { ...obj,\
+          \ sc_n: 0 }\n    by_id[o.id] = {\n      id: o.id,\n      nm: o.nm,\n   \
+          \   ...obj,\n    }\n  })\n  event.forEach(o => {\n    switch (o?.category)\
+          \ {\n      case '1':\n        by_id[o.deviceId]['hw_n']++\n        by_id[o.deviceId]['er_n']++\n\
+          \        break\n      case '2':\n        by_id[o.deviceId]['sw_n']++\n \
+          \       by_id[o.deviceId]['er_n']++\n        break\n      case '3':\n  \
+          \      by_id[o.deviceId]['pp_n']++\n        by_id[o.deviceId]['er_n']++\n\
+          \        break\n      case '4':\n        by_id[o.deviceId]['ud_n']++\n \
+          \       by_id[o.deviceId]['er_n']++\n        break\n      case '6':\n  \
+          \      by_id[o.deviceId]['bt_n']++\n        by_id[o.deviceId]['er_n']++\n\
+          \        break\n      case '7':\n        by_id[o.deviceId]['sc_n']++\n \
+          \       by_id[o.deviceId]['er_n']++\n        break\n    }\n  })\n  return\
+          \ {\n    device: JSON.stringify(Object.values(by_id), null, 2),\n    error:\
+          \ by_id,\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          device:
+            children: null
+            type: string
+          error:
+            children: null
+            type: object
+        selected: false
+        title: 处理设备异常记录
+        type: code
+        variables:
+        - value_selector:
+          - '1744080001595'
+          - body
+          variable: body
+        - value_selector:
+          - '1743556351963'
+          - device
+          variable: device
+        - value_selector:
+          - '1743489451080'
+          - range
+          variable: range
+      height: 54
+      id: '1744082994767'
+      position:
+        x: 2158
+        y: 513
+      positionAbsolute:
+        x: 2158
+        y: 513
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1743489072519'
+          - question
+        desc: ''
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 5695ee25-4418-4f7e-a5c0-20056c773b7f
+          role: system
+          text: "# 信息提取提示词\n\n## 输入数据\n- `问题`: {{#context#}}\n- `设备数组`:\n    ```json\n\
+            \    {{#1744082994767.device#}}\n    ```\n\n---\n\n## `设备数组`结构说明：\n```markdown\n\
+            - **顶层：** 设备数组，每个设备包含：\n    - **\"id\"：** 设备ID\n    - **\"nm\"：** 设备名称\n\
+            \    - **\"hw_n\"：** 硬件异常数量\n    - **\"sw_n\"：** 软件异常数量\n    - **\"pp_n\"\
+            ：** 周边外设异常数量\n    - **\"ud_n\"：** 上下线异常数量\n    - **\"bt_n\"：** 电池异常数量\n\
+            \    - **\"sc_n\"：** 设备安全异常数量\n    - **\"er_n\"：** 异常总数量\n```\n\n---\n\
+            \n## 设备筛选\n- **请根据`设备列表`中每个设备的异常数量和`问题`文本的描述来筛选设备**\n- **输出的`device`请根据`问题`涉及的异常数量进行排序**\n\
+            \n---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n```json\n{\n  \"device\": [\n \
+            \   {\n      \"id\": \"<设备ID，请保证id一定存在并且对应的设备正确>\",\n      \"name\": \"\
+            <设备名称，请保证id与name对应关系正确>\",\n      \"reason\": \"<涉及异常的数目以及顺序>\"\n    }\n\
+            \  ]\n}\n```\n"
+        selected: false
+        title: LLM 设备异常参数提取
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1744088908813'
+      position:
+        x: 2462
+        y: 513
+      positionAbsolute:
+        x: 2462
+        y: 513
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function handleLLM(text) {\n  const regex = /```json([\\s\\S]*?)```/\n\
+          \  const _res = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '')\n  const\
+          \ match = _res.match(regex);\n  const res = !!match ? match[1].trim() :\
+          \ _res\n  const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\/\\\
+          *[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
+          \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text,\
+          \ device, error, lang}) {\n  device = JSON.parse(device)\n  const list =\
+          \ Array.isArray(device) ? Array.from(device) : []\n  const by_id = {}\n\
+          \  list.forEach(o => {\n    by_id[o.id] = o\n  })\n  const obj = handleLLM(text)\n\
+          \  const target = Array.isArray(obj?.device) ? Array.from(obj.device) :\
+          \ []\n  const filter = target.filter(o => !!by_id[o?.id]).map(v => {\n \
+          \   const o = by_id[v.id]\n    return {\n      id: o.id,\n      name: o.nm,\n\
+          \      os: o.os,\n      timezone: o.tz,\n      ip: o.ip,\n      status:\
+          \ o.st,\n      ...error[v.id]\n    }\n  })\n  const result = JSON.stringify({\n\
+          \    type: 'find_error',\n    data: {\n      targetDevices: filter,\n  \
+          \    lang,\n    }\n  })\n  const res = filter.length > 0 ? result : ''\n\
+          \  return {\n    result,\n    content: res,\n    type: !!res ? 'find_error'\
+          \ : '',\n    is_find_device: 1,\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          content:
+            children: null
+            type: string
+          is_find_device:
+            children: null
+            type: number
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理异常筛选
+        type: code
+        variables:
+        - value_selector:
+          - '1744088908813'
+          - text
+          variable: text
+        - value_selector:
+          - '1743556351963'
+          - device
+          variable: device
+        - value_selector:
+          - '1744082994767'
+          - error
+          variable: error
+        - value_selector:
+          - '1743489451080'
+          - lang
+          variable: lang
+      height: 54
+      id: '1744090964422'
+      position:
+        x: 2766
+        y: 513
+      positionAbsolute:
+        x: 2766
+        y: 513
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1744090964422'
+          - result
+          variable: result
+        - value_selector:
+          - '1744090964422'
+          - content
+          variable: content
+        - value_selector:
+          - '1744090964422'
+          - type
+          variable: type
+        - value_selector:
+          - '1744090964422'
+          - is_find_device
+          variable: is_find_device
+        selected: false
+        title: 返回数据
+        type: end
+      height: 168
+      id: '17440918290280'
+      position:
+        x: 3070
+        y: 513
+      positionAbsolute:
+        x: 3070
+        y: 513
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
     viewport:
-      x: -566.7795619438048
-      y: -226.14827083760463
-      zoom: 1.6081776969958494
+      x: -821.2331560541536
+      y: -80.6281828596085
+      zoom: 0.8040888484979244

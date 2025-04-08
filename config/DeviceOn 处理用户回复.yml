@@ -456,8 +456,15 @@ workflow:
             variable_selector:
             - '1743646903355'
             - type
+          - comparison_operator: is
+            id: 824eae01-e182-4172-9e85-5de8ca9d82c2
+            value: find_error
+            varType: string
+            variable_selector:
+            - '1743646903355'
+            - type
           id: 2b7657cb-c6e8-49da-9b58-6dba736b9a10
-          logical_operator: and
+          logical_operator: or
         - case_id: 399af84d-fc42-4db0-84f2-dd87bdba4df1
           conditions:
           - comparison_operator: is
@@ -473,7 +480,7 @@ workflow:
         selected: false
         title: 判断存在会话变量
         type: if-else
-      height: 222
+      height: 248
       id: '1743647921683'
       position:
         x: 334
@@ -1287,6 +1294,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: 326.9999999999998
-      y: -196.99999999999943
-      zoom: 0.7
+      x: -354.4049758587389
+      y: -632.3960185509793
+      zoom: 2

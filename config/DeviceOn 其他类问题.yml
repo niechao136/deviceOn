@@ -90,45 +90,12 @@ workflow:
     edges:
     - data:
         isInIteration: false
-        sourceType: start
-        targetType: if-else
-      id: 1743561285662-source-1743561398620-target
-      source: '1743561285662'
-      sourceHandle: source
-      target: '1743561398620'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
         sourceType: http-request
         targetType: code
       id: 1743561775497-source-1743561777927-target
       source: '1743561775497'
       sourceHandle: source
       target: '1743561777927'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        sourceType: if-else
-        targetType: code
-      id: 1743561398620-75aa98d2-4979-4d2e-816d-ac701681ca21-1743565521565-target
-      source: '1743561398620'
-      sourceHandle: 75aa98d2-4979-4d2e-816d-ac701681ca21
-      target: '1743565521565'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        sourceType: code
-        targetType: http-request
-      id: 1743565521565-source-1743561775497-target
-      source: '1743565521565'
-      sourceHandle: source
-      target: '1743561775497'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -145,22 +112,46 @@ workflow:
       zIndex: 0
     - data:
         isInIteration: false
-        sourceType: if-else
+        isInLoop: false
+        sourceType: start
         targetType: code
-      id: 1743561398620-false-1743575013406-target
-      source: '1743561398620'
-      sourceHandle: 'false'
-      target: '1743575013406'
+      id: 1743561285662-source-1744105470642-target
+      source: '1743561285662'
+      sourceHandle: source
+      target: '1744105470642'
       targetHandle: target
       type: custom
       zIndex: 0
     - data:
         isInIteration: false
+        isInLoop: false
         sourceType: code
-        targetType: end
-      id: 1743575013406-source-1743561810809-target
-      source: '1743575013406'
+        targetType: if-else
+      id: 1744105470642-source-1743561398620-target
+      source: '1744105470642'
       sourceHandle: source
+      target: '1743561398620'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1743561398620-75aa98d2-4979-4d2e-816d-ac701681ca21-1743561775497-target
+      source: '1743561398620'
+      sourceHandle: 75aa98d2-4979-4d2e-816d-ac701681ca21
+      target: '1743561775497'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1743561398620-false-1743561810809-target
+      source: '1743561398620'
+      sourceHandle: 'false'
       target: '1743561810809'
       targetHandle: target
       type: custom
@@ -225,13 +216,13 @@ workflow:
         cases:
         - case_id: 75aa98d2-4979-4d2e-816d-ac701681ca21
           conditions:
-          - comparison_operator: contains
-            id: d0bb2e1b-74dc-410e-adcc-0569258a9717
-            value: find_device
+          - comparison_operator: not empty
+            id: 58c2925a-4305-4b43-bf06-02bbd3dc1b49
+            value: ''
             varType: string
             variable_selector:
-            - '1743561285662'
-            - type
+            - '1744105470642'
+            - bearer
           id: 75aa98d2-4979-4d2e-816d-ac701681ca21
           logical_operator: and
         desc: ''
@@ -241,12 +232,12 @@ workflow:
       height: 126
       id: '1743561398620'
       position:
-        x: 334
+        x: 638
         y: 310
       positionAbsolute:
-        x: 334
+        x: 638
         y: 310
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -260,10 +251,10 @@ workflow:
           - id: key-value-183
             key: ''
             type: text
-            value: '{{#1743565521565.request#}}'
+            value: '{{#1744105470642.request#}}'
           type: json
         desc: ''
-        headers: 'Authorization:Bearer {{#env.filter_device#}}
+        headers: 'Authorization:{{#1744105470642.bearer#}}
 
           Content-Type:application/json'
         method: post
@@ -277,7 +268,7 @@ workflow:
           max_connect_timeout: 0
           max_read_timeout: 0
           max_write_timeout: 0
-        title: 设备筛选
+        title: 请求工作流
         type: http-request
         url: '{{#env.path#}}'
         variables: []
@@ -295,9 +286,9 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "/**\n * 处理设备筛选\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
-          \  const outputs = obj?.data?.outputs ?? {}\n  const is_find_device = Number(outputs?.is_find_device)\
-          \ ?? 0\n  return {\n    result: outputs?.result ?? '',\n    content: outputs?.content\
+        code: "/**\n * 处理工作流\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
+          \  const outputs = obj?.data?.outputs ?? {}\n  const is_find_device = Number(outputs?.is_find_device\
+          \ ?? 0)\n  return {\n    result: outputs?.result ?? '',\n    content: outputs?.content\
           \ ?? '',\n    type: outputs?.type ?? '',\n    need_answer: is_find_device\
           \ === 1 ? 0 : 1,\n  }\n}"
         code_language: javascript
@@ -316,7 +307,7 @@ workflow:
             children: null
             type: string
         selected: false
-        title: 处理设备筛选
+        title: 处理工作流
         type: code
         variables:
         - value_selector:
@@ -331,7 +322,7 @@ workflow:
       positionAbsolute:
         x: 1246
         y: 310
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -375,7 +366,7 @@ workflow:
         desc: ''
         outputs:
         - value_selector:
-          - '1743575013406'
+          - '1744105470642'
           - need_answer
           variable: need_answer
         selected: false
@@ -395,20 +386,29 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "/**\n * 设备筛选 Request\n */\nfunction main({type, content, question,\
-          \ timezone, api, token}) {\n  return {\n    request: JSON.stringify({\n\
-          \      inputs: {\n        content: content,\n        type: type,\n     \
-          \   question: question,\n        timezone,\n        api,\n        token\n\
-          \      },\n      response_mode: 'blocking',\n      user: 'deviceOn other'\n\
-          \    })\n  }\n}\n"
+        code: "function main({type, content, question, timezone, api, token, filter_device})\
+          \ {\n  let request = '', need_answer = 1, bearer = ''\n  switch (type) {\n\
+          \    case 'find_device':\n    case 'find_error':\n      request = JSON.stringify({\n\
+          \        inputs: {\n          content: content,\n          type: type,\n\
+          \          question: question,\n          timezone,\n          api,\n  \
+          \        token\n        },\n        response_mode: 'blocking',\n       \
+          \ user: 'deviceOn other'\n      })\n      bearer = 'Bearer ' + filter_device\n\
+          \      break\n  }\n  return {\n    bearer,\n    need_answer,\n    request,\n\
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
+          bearer:
+            children: null
+            type: string
+          need_answer:
+            children: null
+            type: number
           request:
             children: null
             type: string
         selected: false
-        title: 设备筛选 Request
+        title: 处理其他类问题
         type: code
         variables:
         - value_selector:
@@ -429,52 +429,30 @@ workflow:
           variable: timezone
         - value_selector:
           - '1743561285662'
+          - api
+          variable: api
+        - value_selector:
+          - '1743561285662'
           - token
           variable: token
         - value_selector:
-          - '1743561285662'
-          - api
-          variable: api
+          - env
+          - filter_device
+          variable: filter_device
       height: 54
-      id: '1743565521565'
+      id: '1744105470642'
       position:
-        x: 638
+        x: 334
         y: 310
       positionAbsolute:
-        x: 638
+        x: 334
         y: 310
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        code: "\nfunction main({}) {\n    return {\n        need_answer: 1\n    }\n\
-          }\n"
-        code_language: javascript
-        desc: ''
-        outputs:
-          need_answer:
-            children: null
-            type: number
-        selected: false
-        title: 处理回答
-        type: code
-        variables: []
-      height: 54
-      id: '1743575013406'
-      position:
-        x: 638
-        y: 456.5
-      positionAbsolute:
-        x: 638
-        y: 456.5
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     viewport:
-      x: 10
-      y: 67.99999999999996
+      x: 34
+      y: 86.00000000000001
       zoom: 0.7

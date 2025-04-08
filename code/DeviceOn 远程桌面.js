@@ -106,7 +106,7 @@ function main({text, device, content, type}) {
   const assign_name = !!obj?.targetDevices?.assign_name
   const assign_ip = !!obj?.targetDevices?.assign_ip
   let filter_id = [], filter_device = list.map(o => o)
-  if (!!content && type === 'find_device') {
+  if (!!content && (type === 'find_device' || type === 'find_error')) {
     const obj = JSON.parse(content)
     filter_device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o => by_id[o.id]) : []
     if (!Number.isNaN(assign_index) && assign_index > 0 && assign_index <= filter_device.length) {
