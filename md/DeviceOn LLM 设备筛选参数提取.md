@@ -4,13 +4,6 @@
 
 ---
 
-## 设备相关性判断
-判断`问题`所求是否涉及设备：
-- **如果`问题`所求为设备**，则设置 `assign_device = true` ；
-- **否则**，设置 `assign_device = false`。
-
----
-
 ## 设备信息提取
 
 1. **判断是否使用下标指定设备：**
@@ -97,15 +90,25 @@
         - **示例：**
             - 对于文本`请将离线的安卓设备关机`，则`assign_offline = true`。
 
-    - **异常状态标记：**
-        - **assign_error**：
-            - 当`问题`中提及 `异常` 但未提及下列具体异常（`硬件异常`、`软件异常`、`电池异常`、`周边设备异常`、`设备安全异常`）时，设置 `assign_error = true`；
-            - 当`问题`中包含 `断线中` 等类似描述时 → `assign_error = false`
-        - **assign_hardware**：当`问题`中提及 `硬件异常` 时，设置 `assign_hardware = true`；
-        - **assign_software**：当`问题`中提及 `软件异常` 时，设置 `assign_software = true`；
-        - **assign_battery**：当`问题`中提及 `电池异常` 时，设置 `assign_battery = true`；
-        - **assign_peripheral**：当`问题`中提及 `周边外设异常` 时，设置 `assign_peripheral = true`；
-        - **assign_security**：当`问题`中提及 `设备安全异常` 时，设置 `assign_security = true`。
+---
+
+## 异常信息提取
+
+1. **异常状态标记：**
+    - **assign_error**：
+        - 当`问题`中提及 `异常` 但未提及下列具体异常（`上下线异常`、`硬件异常`、`软件异常`、`电池异常`、`周边设备异常`、`设备安全异常`）时，设置 `assign_error = true`；
+        - 当`问题`中包含 `断线中` 等类似描述时 → `assign_error = false`
+    - **assign_hardware**：当`问题`中提及 `上下线异常` 时，设置 `assign_up_down = true`；
+    - **assign_hardware**：当`问题`中提及 `硬件异常` 时，设置 `assign_hardware = true`；
+    - **assign_software**：当`问题`中提及 `软件异常` 时，设置 `assign_software = true`；
+    - **assign_battery**：当`问题`中提及 `电池异常` 时，设置 `assign_battery = true`；
+    - **assign_peripheral**：当`问题`中提及 `周边外设异常` 时，设置 `assign_peripheral = true`；
+    - **assign_security**：当`问题`中提及 `设备安全异常` 时，设置 `assign_security = true`。
+
+2. **异常时间判断：**
+    - 如果`问题`文本中出现诸如`当前`、`目前`、`当下`、`现在`等表示当前时间的词时，则设置 `assign_now = true`。
+    - 如果`问题`文本中出现诸如`近一个月`、`最近一周`、`前5天`等表示具体时间的词时，请根据当前时间（`{{#1743556351963.date#}}`），计算出开始日期和结束日期，并设置 `start_date = 开始日期（格式：YYYY/MM/DD）; end_date = 结束日期（格式：YYYY/MM/DD）`。
+    - 如果`问题`文本中没有出现任何指明时间的词时，则设置 `assign_time = false`。
 
 ---
 
@@ -122,29 +125,37 @@
 输出 JSON 格式必须符合以下结构：
 ```json
 {
-  "assign_device": "<boolean>",
-  "assign_index": "<number, 默认为-1>",
-  "assign_last": "<boolean>",
-  "id": "<数组>",
-  "name": "<数组>",
-  "ip": "<数组>",
-  "os": "<数组，windows | android | linux>",
-  "label1": "<数组>",
-  "label2": "<数组>",
-  "assign_id": "<boolean>",
-  "assign_name": "<boolean>",
-  "assign_ip": "<boolean>",
-  "assign_os": "<boolean>",
-  "assign_label1": "<boolean>",
-  "assign_label2": "<boolean>",
-  "assign_online": "<boolean>",
-  "assign_offline": "<boolean>",
-  "assign_error": "<boolean>",
-  "assign_hardware": "<boolean>",
-  "assign_software": "<boolean>",
-  "assign_battery": "<boolean>",
-  "assign_peripheral": "<boolean>",
-  "assign_security": "<boolean>",
+  "device": {
+    "assign_index": "<number, 默认为-1>",
+    "assign_last": "<boolean>",
+    "id": "<数组>",
+    "name": "<数组>",
+    "ip": "<数组>",
+    "os": "<数组，windows | android | linux>",
+    "label1": "<数组>",
+    "label2": "<数组>",
+    "assign_id": "<boolean>",
+    "assign_name": "<boolean>",
+    "assign_ip": "<boolean>",
+    "assign_os": "<boolean>",
+    "assign_label1": "<boolean>",
+    "assign_label2": "<boolean>",
+    "assign_online": "<boolean>",
+    "assign_offline": "<boolean>"
+  },
+  "error": {
+    "assign_error": "<boolean>",
+    "assign_up_down": "<boolean>",
+    "assign_hardware": "<boolean>",
+    "assign_software": "<boolean>",
+    "assign_battery": "<boolean>",
+    "assign_peripheral": "<boolean>",
+    "assign_security": "<boolean>",
+    "assign_now": "<boolean>",
+    "start_date": "<日期字符串，格式 YYYY/MM/DD>",
+    "end_date": "<日期字符串，格式 YYYY/MM/DD>",
+    "assign_time": "<boolean>"
+  },
   "lang": "<zh-CN | zh-TW | ja-JP | en-US>"
 }
 ```
