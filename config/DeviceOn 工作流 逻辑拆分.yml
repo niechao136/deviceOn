@@ -395,7 +395,7 @@ workflow:
           operation: over-write
           value:
           - '1744020229740'
-          - content
+          - type
           variable_selector:
           - conversation
           - cache_type
@@ -404,7 +404,7 @@ workflow:
           operation: over-write
           value:
           - '1744020229740'
-          - type
+          - content
           variable_selector:
           - conversation
           - cache_content
@@ -441,7 +441,7 @@ workflow:
           logical_operator: and
         desc: ''
         selected: false
-        title: 判断是否回答
+        title: 判断是否通过 LLM 回答
         type: if-else
       height: 126
       id: '1743575162350'
@@ -518,7 +518,7 @@ workflow:
             children: null
             type: string
         selected: false
-        title: 处理回答
+        title: 处理 LLM 回答
         type: code
         variables:
         - value_selector:
@@ -771,10 +771,10 @@ workflow:
       id: '1743666436043'
       position:
         x: 1854
-        y: 263.5
+        y: 271
       positionAbsolute:
         x: 1854
-        y: 263.5
+        y: 271
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -841,7 +841,7 @@ workflow:
             - 示例：安装最新补丁、升级到v2.0版本\n\n**5. 其他类**\n- 条件：无法匹配上述任何分类的请求\n\n**输出要求**\n\
             ```json\n{\n  \"classify\": \"<数字，分类编号：1 | 2 | 3 | 4 | 5>\",\n  \"reason\"\
             : \"<不超过15字的关键词依据>\"\n}\n```\n"
-        selected: true
+        selected: false
         title: LLM 问题分类
         type: llm
         variables: []
@@ -851,11 +851,11 @@ workflow:
       id: '1744013407466'
       position:
         x: 1854
-        y: 408.5
+        y: 416
       positionAbsolute:
         x: 1854
-        y: 408.5
-      selected: true
+        y: 416
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -951,7 +951,7 @@ workflow:
       positionAbsolute:
         x: 2158
         y: 408.5
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1046,6 +1046,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -755.0000000000007
-      y: 92.00000000000006
+      x: -854.0000000000002
+      y: 76.99999999999994
       zoom: 0.7

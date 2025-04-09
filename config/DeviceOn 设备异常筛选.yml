@@ -1,0 +1,422 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: DeviceOn 设备异常筛选
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1744161008028-source-1744161187667-target
+      source: '1744161008028'
+      sourceHandle: source
+      target: '1744161187667'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1744161187667-source-1744161238563-target
+      source: '1744161187667'
+      sourceHandle: source
+      target: '1744161238563'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1744161238563-source-1744161423656-target
+      source: '1744161238563'
+      sourceHandle: source
+      target: '1744161423656'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1744161423656-source-1744161579914-target
+      source: '1744161423656'
+      sourceHandle: source
+      target: '1744161579914'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1744161579914-source-1744161680785-target
+      source: '1744161579914'
+      sourceHandle: source
+      target: '1744161680785'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: api
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: api
+        - label: token
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: token
+        - label: params
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: params
+        - label: range
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: range
+        - label: lang
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: lang
+        - label: device
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: device
+        - label: question
+          max_length: 80000
+          options: []
+          required: true
+          type: paragraph
+          variable: question
+      height: 246
+      id: '1744161008028'
+      position:
+        x: 30
+        y: 323
+      positionAbsolute:
+        x: 30
+        y: 323
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: Authorization:{{#1744161008028.token#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取设备异常记录
+        type: http-request
+        url: '{{#1744161008028.api#}}/walle/ai/device/eventList{{#1744161008028.params#}}'
+        variables: []
+      height: 158
+      id: '1744161187667'
+      position:
+        x: 334
+        y: 323
+      positionAbsolute:
+        x: 334
+        y: 323
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({body, device, range}) {\n  const res = JSON.parse(body)\n\
+          \  const event = Array.isArray(res?.rows) ? Array.from(res.rows) : []\n\
+          \  device = JSON.parse(device)\n  const list = Array.isArray(device) ? Array.from(device)\
+          \ : []\n  const by_id = {}\n  range = JSON.parse(range)\n  const error =\
+          \ Array.isArray(range) ? Array.from(range) : []\n  list.forEach(o => {\n\
+          \    let obj = error.length > 0 ? { er_n: 0 } : {\n      ud_n: 0,\n    \
+          \  hw_n: 0,\n      sw_n: 0,\n      bt_n: 0,\n      pp_n: 0,\n      sc_n:\
+          \ 0,\n      er_n: 0,\n    }\n    if (error.includes('1')) obj = { ...obj,\
+          \ hw_n: 0 }\n    if (error.includes('2')) obj = { ...obj, sw_n: 0 }\n  \
+          \  if (error.includes('3')) obj = { ...obj, pp_n: 0 }\n    if (error.includes('4'))\
+          \ obj = { ...obj, ud_n: 0 }\n    if (error.includes('6')) obj = { ...obj,\
+          \ bt_n: 0 }\n    if (error.includes('7')) obj = { ...obj, sc_n: 0 }\n  \
+          \  by_id[o.id] = {\n      id: o.id,\n      nm: o.nm,\n      ...obj,\n  \
+          \  }\n  })\n  event.forEach(o => {\n    switch (o?.category) {\n      case\
+          \ '1':\n        by_id[o.deviceId]['hw_n']++\n        by_id[o.deviceId]['er_n']++\n\
+          \        break\n      case '2':\n        by_id[o.deviceId]['sw_n']++\n \
+          \       by_id[o.deviceId]['er_n']++\n        break\n      case '3':\n  \
+          \      by_id[o.deviceId]['pp_n']++\n        by_id[o.deviceId]['er_n']++\n\
+          \        break\n      case '4':\n        by_id[o.deviceId]['ud_n']++\n \
+          \       by_id[o.deviceId]['er_n']++\n        break\n      case '6':\n  \
+          \      by_id[o.deviceId]['bt_n']++\n        by_id[o.deviceId]['er_n']++\n\
+          \        break\n      case '7':\n        by_id[o.deviceId]['sc_n']++\n \
+          \       by_id[o.deviceId]['er_n']++\n        break\n    }\n  })\n  return\
+          \ {\n    device: JSON.stringify(Object.values(by_id), null, 2),\n    error:\
+          \ by_id,\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          device:
+            children: null
+            type: string
+          error:
+            children: null
+            type: object
+        selected: false
+        title: 处理设备异常记录
+        type: code
+        variables:
+        - value_selector:
+          - '1744161187667'
+          - body
+          variable: body
+        - value_selector:
+          - '1744161008028'
+          - device
+          variable: device
+        - value_selector:
+          - '1744161008028'
+          - range
+          variable: range
+      height: 54
+      id: '1744161238563'
+      position:
+        x: 638
+        y: 323
+      positionAbsolute:
+        x: 638
+        y: 323
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1744161008028'
+          - question
+        desc: ''
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 6b95cf48-c47c-4123-bf3f-5492a5fda510
+          role: system
+          text: "# 信息提取提示词\n\n## 输入数据\n- `问题`: {{#context#}}\n- `设备数组`:\n    ```json\n\
+            \    {{#1744161238563.device#}}\n    ```\n\n---\n\n## `设备数组`结构说明：\n```markdown\n\
+            - **顶层：** 设备数组，每个设备包含：\n    - **\"id\"：** 设备ID\n    - **\"nm\"：** 设备名称\n\
+            \    - **\"hw_n\"：** 硬件异常数量\n    - **\"sw_n\"：** 软件异常数量\n    - **\"pp_n\"\
+            ：** 周边外设异常数量\n    - **\"ud_n\"：** 上下线异常数量\n    - **\"bt_n\"：** 电池异常数量\n\
+            \    - **\"sc_n\"：** 设备安全异常数量\n    - **\"er_n\"：** 异常总数量\n```\n\n---\n\
+            \n## 设备筛选\n1. 请根据`问题`文本识别出要求筛选出的设备数量，如果文本中没有提及数量则默认为1，设置`number = 设备数量`\n\
+            2. 请根据`设备列表`中每个设备的异常数量和`问题`文本的描述来筛选设备，筛选出的设备设置为数组 `device`\n3. 请将输出的`device`根据`问题`涉及的异常数量进行排序，并且确保`device`长度与`number`大小相等\n\
+            \n---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n```json\n{\n  \"number\": \"<数字，默认值为1>\"\
+            ,\n  \"device\": [\n    {\n      \"id\": \"<设备ID，请保证id一定存在并且对应的设备正确>\"\
+            ,\n      \"name\": \"<设备名称，请保证id与name对应关系正确>\",\n      \"reason\": \"\
+            <涉及异常的数目以及顺序>\"\n    }\n  ]\n}\n```\n"
+        selected: false
+        title: LLM 设备异常参数提取
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1744161423656'
+      position:
+        x: 942
+        y: 323
+      positionAbsolute:
+        x: 942
+        y: 323
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction handleLLM(text) {\n  const regex = /```json([\\s\\S]*?)```/\n\
+          \  const _res = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '')\n  const\
+          \ match = _res.match(regex);\n  const res = !!match ? match[1].trim() :\
+          \ _res\n  const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\/\\\
+          *[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
+          \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text,\
+          \ device, error, lang}) {\n  device = JSON.parse(device)\n  const list =\
+          \ Array.isArray(device) ? Array.from(device) : []\n  const by_id = {}\n\
+          \  list.forEach(o => {\n    by_id[o.id] = o\n  })\n  const obj = handleLLM(text)\n\
+          \  const target = Array.isArray(obj?.device) ? Array.from(obj.device) :\
+          \ []\n  const filter = target.filter(o => !!by_id[o?.id]).map(v => {\n \
+          \   const o = by_id[v.id]\n    return {\n      id: o.id,\n      name: o.nm,\n\
+          \      os: o.os,\n      timezone: o.tz,\n      ip: o.ip,\n      status:\
+          \ o.st,\n      ...error[v.id]\n    }\n  })\n  const result = JSON.stringify({\n\
+          \    type: 'find_error',\n    data: {\n      targetDevices: filter,\n  \
+          \    lang,\n    }\n  })\n  return {\n    result,\n    type: filter.length\
+          \ > 0 ? 'find_error' : '',\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理异常筛选
+        type: code
+        variables:
+        - value_selector:
+          - '1744161423656'
+          - text
+          variable: text
+        - value_selector:
+          - '1744161008028'
+          - device
+          variable: device
+        - value_selector:
+          - '1744161238563'
+          - error
+          variable: error
+        - value_selector:
+          - '1744161008028'
+          - lang
+          variable: lang
+      height: 54
+      id: '1744161579914'
+      position:
+        x: 1246
+        y: 323
+      positionAbsolute:
+        x: 1246
+        y: 323
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1744161579914'
+          - result
+          variable: result
+        - value_selector:
+          - '1744161579914'
+          - type
+          variable: type
+        selected: false
+        title: 结束
+        type: end
+      height: 116
+      id: '1744161680785'
+      position:
+        x: 1550
+        y: 323
+      positionAbsolute:
+        x: 1550
+        y: 323
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 182.55036917102666
+      y: -176.02178460708888
+      zoom: 1.6081776969958494

@@ -89,7 +89,7 @@ function handleLLM(text) {
   }
   return obj
 }
-function main({text, device, type, content}) {
+function main({text, device, type, content, api, token, question}) {
   device = JSON.parse(device)
   const list = Array.isArray(device) ? Array.from(device) : []
   const by_id = {}
@@ -251,16 +251,45 @@ function main({text, device, type, content}) {
       params += `&categoryRange=${item}`
     })
   }
-  const is_find_device = assign_index !== -1 || id.length > 0 || name.length > 0 || ip.length > 0 || os.length > 0
-  || label1.length > 0 || label2.length > 0 || assign_online || assign_offline || has_error ? 1 : 0
+  const is_find_device = assign_index !== -1 || !not_prop || assign_online || assign_offline || has_error ? 1 : 0
+  let request = ''
+  if (result === '') {
+    request = JSON.stringify({
+      inputs: {
+        params,
+        range: JSON.stringify(range),
+        lang,
+        device: JSON.stringify(device),
+        question,
+        api,
+        token
+      },
+      response_mode: 'blocking',
+      user: 'deviceOn filter_device'
+    })
+  }
   return {
     result,
     content: res,
     type: !!res ? 'find_device' : '',
     is_find_device,
-    params,
-    range,
-    lang,
+    request,
+  }
+}
+
+//#endregion
+//#region 处理设备异常筛选结果
+
+function main({body}) {
+  const obj = JSON.parse(body)
+  const outputs = obj?.data?.outputs ?? {}
+  const type = outputs?.type ?? ''
+  const result = outputs?.result ?? ''
+  return {
+    result,
+    content: !!type ? result : '',
+    type,
+    is_find_device: 1,
   }
 }
 

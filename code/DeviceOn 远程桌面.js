@@ -89,7 +89,7 @@ function handleLLM(text) {
   }
   return obj
 }
-function main({text, device, content, type}) {
+function main({text, device, content, type, question, api, token}) {
   device = JSON.parse(device)
   const list = Array.isArray(device) ? Array.from(device) : []
   const by_id = {}
@@ -97,69 +97,191 @@ function main({text, device, content, type}) {
     by_id[o.id] = o
   })
   const obj = handleLLM(text)
-  const assign_index = Number(obj?.assign_index)
-  const assign_last = !!obj?.assign_last
+  const assign_index = Number(obj?.targetDevices?.assign_index)
+  const assign_last = !!obj?.targetDevices?.assign_last
   const id = Array.isArray(obj?.targetDevices?.id) ? Array.from(obj.targetDevices.id) : []
   const name = Array.isArray(obj?.targetDevices?.name) ? Array.from(obj.targetDevices.name) : []
   const ip = Array.isArray(obj?.targetDevices?.ip) ? Array.from(obj.targetDevices.ip) : []
   const assign_id = !!obj?.targetDevices?.assign_id
   const assign_name = !!obj?.targetDevices?.assign_name
   const assign_ip = !!obj?.targetDevices?.assign_ip
-  let filter_id = [], filter_device = list.map(o => o)
-  if (!!content && (type === 'find_device' || type === 'find_error')) {
-    const obj = JSON.parse(content)
-    filter_device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o => by_id[o.id]) : []
-    if (!Number.isNaN(assign_index) && assign_index > 0 && assign_index <= filter_device.length) {
-      let index = assign_index - 1
-      if (assign_last) index = filter_device.length - 1 - index
-      filter_id = [filter_device[index].id]
-    }
-    if (filter_id.length === 0 && !assign_id && !assign_name && !assign_ip
-      && id.length === 0 && name.length === 0 && ip.length === 0) {
-      filter_id = filter_device.map(o => o.id)
-    }
-  }
-  if (filter_id.length === 0) {
-    filter_id = filter_device.filter(o => {
-      const match_id = id.includes(o.id)
-      const match_name = name.includes(o.nm)
-      const match_ip = ip.includes(o.ip)
-      if (!assign_id && !assign_name && !assign_ip) {
-        return match_id || match_name || match_ip
+  const assign_error = !!obj?.targetDevices?.assign_error
+  const assign_up_down = !!obj?.targetDevices?.assign_up_down
+  const assign_hardware = !!obj?.targetDevices?.assign_hardware
+  const assign_software = !!obj?.targetDevices?.assign_software
+  const assign_battery = !!obj?.targetDevices?.assign_battery
+  const assign_peripheral = !!obj?.targetDevices?.assign_peripheral
+  const assign_security = !!obj?.targetDevices?.assign_security
+  const assign_now = !!obj?.targetDevices?.assign_now
+  const assign_time = !!obj?.targetDevices?.assign_time
+  const start_date = String(obj?.targetDevices?.start_date ?? '')
+  const end_date = String(obj?.targetDevices?.end_date ?? '')
+  const lang = String(obj?.lang ?? '')
+  const has_error = assign_error || assign_up_down || assign_hardware || assign_software || assign_battery || assign_peripheral || assign_security
+  const not_prop = id.length === 0 && name.length === 0 && ip.length === 0
+  const has_prop = assign_id || assign_name || assign_ip
+  const find_device = !!content && (type === 'find_device' || type === 'find_error')
+  let result = '', task = '', request = ''
+  if (!has_error || (has_error && assign_now)) {
+    let filter_id = [], filter_device = list.map(o => o)
+    if (find_device) {
+      const obj = JSON.parse(content)
+      filter_device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o => by_id[o.id]) : []
+      if (!Number.isNaN(assign_index) && assign_index > 0 && assign_index <= filter_device.length) {
+        let index = assign_index - 1
+        if (assign_last) index = filter_device.length - 1 - index
+        filter_id = [filter_device[index].id]
       }
-      let match = true
-      if (assign_id) match = match && match_id
-      if (assign_name) match = match && match_name
-      if (assign_ip) match = match && match_ip
-      return match
-    }).map(o => o.id)
-  }
-
-  const filter = filter_id.map(id => {
-    const o = by_id[id]
-    return {
-      id: o.id,
-      name: o.nm,
-      os: o.os,
-      timezone: o.tz,
-      ip: o.ip,
-      status: o.st,
+      if (filter_id.length === 0 && !has_prop && not_prop) {
+        filter_id = filter_device.map(o => o.id)
+      }
     }
-  })
-  const result = JSON.stringify({
-    type: 'remote_desktop',
-    data: {
-      ...obj,
-      targetDevices: filter,
-    },
-  })
-  const task = filter.length > 1 ? result : ''
+    if (filter_id.length === 0) {
+      filter_id = filter_device.filter(o => {
+        const match_id = id.includes(o.id)
+        const match_name = name.includes(o.nm)
+        const match_ip = ip.includes(o.ip)
+        const hardware = Number(o.hw) > 0
+        const software = Number(o.sw) > 0
+        const battery = Number(o.bt) > 0
+        const peripheral = Number(o.pp) > 0
+        const security = Number(o.hw) > 0
+        const match_error = assign_error && (hardware || software || battery || peripheral || security)
+        const match_hardware = assign_hardware && hardware
+        const match_software = assign_software && software
+        const match_battery = assign_battery && battery
+        const match_peripheral = assign_peripheral && peripheral
+        const match_security = assign_security && security
+        let match = true
+        // 当只指定了异常时，只筛选异常相关
+        if (not_prop && has_error && !assign_up_down) {
+          if (assign_error) match = match && match_error
+          if (assign_hardware) match = match && match_hardware
+          if (assign_software) match = match && match_software
+          if (assign_battery) match = match && match_battery
+          if (assign_peripheral) match = match && match_peripheral
+          if (assign_security) match = match && match_security
+          return match
+        }
+        // 当没有指定具体栏位时，只要满足一个条件就行
+        else if (!has_prop) {
+          match = match_id || match_name || match_ip
+        }
+        // 当有指定具体栏位时，需要满足所有指定栏位
+        else {
+          if (assign_id) match = match && match_id
+          if (assign_name) match = match && match_name
+          if (assign_ip) match = match && match_ip
+        }
+        if (assign_error) match = match && match_error
+        if (assign_hardware) match = match && match_hardware
+        if (assign_software) match = match && match_software
+        if (assign_battery) match = match && match_battery
+        if (assign_peripheral) match = match && match_peripheral
+        if (assign_security) match = match && match_security
+        return match
+      }).map(o => o.id)
+    }
+    const filter = filter_id.map(id => {
+      const o = by_id[id]
+      return {
+        id: o.id,
+        name: o.nm,
+        os: o.os,
+        timezone: o.tz,
+        ip: o.ip,
+        status: o.st,
+      }
+    })
+    result = JSON.stringify({
+      type: 'remote_desktop',
+      data: {
+        ...obj,
+        targetDevices: filter,
+      },
+    })
+    task = filter.length > 1 ? 'remote_desktop' : ''
+  } else {
+    let sd = new Date(start_date)
+    let ed = new Date(end_date)
+    if (!assign_time) {
+      ed = new Date()
+      ed.setHours(0, 0, 0, 0)
+      const day = ed.getDate()
+      let month = ed.getMonth() - 3
+      let year = ed.getFullYear()
+      if (month < 0) {
+        month += 12
+        year -= 1
+      }
+      const last = new Date(year, month + 1, 0).getDate()
+      const date = Math.min(day, last)
+      sd = new Date(year, month, date)
+    }
+    const start = sd.getTime()
+    const end = ed.getTime() + (24 * 60 * 60 * 1000 - 1)
+    let range = [], params = ''
+    if (assign_up_down) range = range.concat('4')
+    if (assign_hardware) range = range.concat('1')
+    if (assign_software) range = range.concat('2')
+    if (assign_battery) range = range.concat('6')
+    if (assign_peripheral) range = range.concat('3')
+    if (assign_security) range = range.concat('7')
+    params = `?startTime=${start}&endTime=${end}`
+    range.forEach(item => {
+      params += `&categoryRange=${item}`
+    })
+    request = JSON.stringify({
+      inputs: {
+        params,
+        range: JSON.stringify(range),
+        lang,
+        device: JSON.stringify(device),
+        question,
+        api,
+        token
+      },
+      response_mode: 'blocking',
+      user: 'deviceOn remote_desktop'
+    })
+    result = JSON.stringify({
+      type: 'remote_desktop',
+      data: {
+        ...obj,
+        targetDevices: [],
+      },
+    })
+  }
 
   return {
     result,
-    content: task,
-    type: !!task ? 'remote_desktop' : '',
+    content: !!task ? result : '',
+    type: task,
     device: obj,
+    request,
+  }
+}
+
+//#endregion
+//#region Test
+
+function main({body, result}) {
+  const _res = JSON.parse(body)
+  const outputs = _res?.data?.outputs ?? {}
+  const res = JSON.parse(outputs?.result ?? '{}')
+  const device = Array.isArray(res?.data?.targetDevices) ? Array.from(res.data.targetDevices) : []
+  const obj = JSON.parse(result)
+  const task = JSON.stringify({
+    ...obj,
+    data: {
+      ...obj.data,
+      targetDevices: device,
+    }
+  })
+  return {
+    result: task,
+    content: device.length > 1 ? task : '',
+    type: device.length > 1 ? 'remote_desktop' : '',
   }
 }
 

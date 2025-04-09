@@ -98,7 +98,7 @@
     - **assign_error**：
         - 当`问题`中提及 `异常` 但未提及下列具体异常（`上下线异常`、`硬件异常`、`软件异常`、`电池异常`、`周边设备异常`、`设备安全异常`）时，设置 `assign_error = true`；
         - 当`问题`中包含 `断线中` 等类似描述时 → `assign_error = false`
-    - **assign_hardware**：当`问题`中提及 `上下线异常` 时，设置 `assign_up_down = true`；
+    - **assign_up_down**：当`问题`中提及 `上下线异常` 时，设置 `assign_up_down = true`；
     - **assign_hardware**：当`问题`中提及 `硬件异常` 时，设置 `assign_hardware = true`；
     - **assign_software**：当`问题`中提及 `软件异常` 时，设置 `assign_software = true`；
     - **assign_battery**：当`问题`中提及 `电池异常` 时，设置 `assign_battery = true`；
