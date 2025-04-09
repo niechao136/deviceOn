@@ -263,7 +263,7 @@ function main({text, device, content, type, question, api, token}) {
 }
 
 //#endregion
-//#region Test
+//#region 处理设备异常筛选结果
 
 function main({body, result}) {
   const _res = JSON.parse(body)

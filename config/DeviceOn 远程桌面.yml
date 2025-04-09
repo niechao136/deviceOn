@@ -427,7 +427,7 @@ workflow:
       positionAbsolute:
         x: 942
         y: 310
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -737,6 +737,7 @@ workflow:
       positionAbsolute:
         x: 2158
         y: 482.5
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -773,6 +774,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -194.99999999999977
-      y: 51.999999999999886
+      x: -242.00000000000023
+      y: 87.99999999999994
       zoom: 0.7

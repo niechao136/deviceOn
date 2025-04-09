@@ -79,54 +79,6 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: start
-        targetType: if-else
-      id: 1743646903355-source-1743647921683-target
-      selected: false
-      source: '1743646903355'
-      sourceHandle: source
-      target: '1743647921683'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: code
-        targetType: end
-      id: 1743647956265-source-1743647187640-target
-      selected: false
-      source: '1743647956265'
-      sourceHandle: source
-      target: '1743647187640'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: code
-      id: 1743647921683-false-1743647956265-target
-      source: '1743647921683'
-      sourceHandle: 'false'
-      target: '1743647956265'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1743647921683-true-1743649547982-target
-      source: '1743647921683'
-      sourceHandle: 'true'
-      target: '1743649547982'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: llm
         targetType: code
       id: 1743649547982-source-1743649657177-target
@@ -161,147 +113,6 @@ workflow:
       type: custom
       zIndex: 0
     - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: code
-      id: 1743649783399-true-1743650029660-target
-      source: '1743649783399'
-      sourceHandle: 'true'
-      target: '1743650029660'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: code
-        targetType: http-request
-      id: 1743650029660-source-1743650119535-target
-      source: '1743650029660'
-      sourceHandle: source
-      target: '1743650119535'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: http-request
-        targetType: code
-      id: 1743650119535-source-1743650191385-target
-      source: '1743650119535'
-      sourceHandle: source
-      target: '1743650191385'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: code
-        targetType: end
-      id: 1743650191385-source-1743650241516-target
-      source: '1743650191385'
-      sourceHandle: source
-      target: '1743650241516'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: if-else
-      id: 1743647921683-2b7657cb-c6e8-49da-9b58-6dba736b9a10-1743650298862-target
-      source: '1743647921683'
-      sourceHandle: 2b7657cb-c6e8-49da-9b58-6dba736b9a10
-      target: '1743650298862'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: code
-      id: 1743650298862-false-1743650411232-target
-      source: '1743650298862'
-      sourceHandle: 'false'
-      target: '1743650411232'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: code
-        targetType: end
-      id: 1743650411232-source-17436504566610-target
-      source: '1743650411232'
-      sourceHandle: source
-      target: '17436504566610'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: code
-      id: 1743650298862-true-1743657193967-target
-      source: '1743650298862'
-      sourceHandle: 'true'
-      target: '1743657193967'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: code
-        targetType: if-else
-      id: 1743657193967-source-1743659852278-target
-      source: '1743657193967'
-      sourceHandle: source
-      target: '1743659852278'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: end
-      id: 1743659852278-false-1743659886921-target
-      source: '1743659852278'
-      sourceHandle: 'false'
-      target: '1743659886921'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: code
-      id: 1743659852278-true-17436599506600-target
-      source: '1743659852278'
-      sourceHandle: 'true'
-      target: '17436599506600'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: code
-        targetType: http-request
-      id: 17436599506600-source-17436599536740-target
-      source: '17436599506600'
-      sourceHandle: source
-      target: '17436599536740'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
         isInLoop: false
         sourceType: http-request
         targetType: code
@@ -326,12 +137,12 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: if-else
+        sourceType: start
         targetType: code
-      id: 1743647921683-399af84d-fc42-4db0-84f2-dd87bdba4df1-1743661523970-target
-      source: '1743647921683'
-      sourceHandle: 399af84d-fc42-4db0-84f2-dd87bdba4df1
-      target: '1743661523970'
+      id: 1743646903355-source-1744178241091-target
+      source: '1743646903355'
+      sourceHandle: source
+      target: '1744178241091'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -339,11 +150,56 @@ workflow:
         isInIteration: false
         isInLoop: false
         sourceType: code
-        targetType: end
-      id: 1743661523970-source-1743663304135-target
-      source: '1743661523970'
+        targetType: if-else
+      id: 1744178241091-source-1744178342442-target
+      source: '1744178241091'
       sourceHandle: source
-      target: '1743663304135'
+      target: '1744178342442'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1744178342442-true-1743649547982-target
+      source: '1744178342442'
+      sourceHandle: 'true'
+      target: '1743649547982'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1744178342442-false-1744178528807-target
+      source: '1744178342442'
+      sourceHandle: 'false'
+      target: '1744178528807'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1744178342442-1f317717-e0eb-4fb4-9222-294e27f2784e-17436599536740-target
+      source: '1744178342442'
+      sourceHandle: 1f317717-e0eb-4fb4-9222-294e27f2784e
+      target: '17436599536740'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1743649783399-true-17436599536740-target
+      source: '1743649783399'
+      sourceHandle: 'true'
+      target: '17436599536740'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -394,132 +250,10 @@ workflow:
       id: '1743646903355'
       position:
         x: 30
-        y: 311
+        y: 310
       positionAbsolute:
         x: 30
-        y: 311
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        desc: ''
-        outputs:
-        - value_selector:
-          - '1743647956265'
-          - answer
-          variable: answer
-        - value_selector:
-          - '1743647956265'
-          - content
-          variable: content
-        - value_selector:
-          - '1743647956265'
-          - type
-          variable: type
-        selected: false
-        title: 返回数据
-        type: end
-      height: 142
-      id: '1743647187640'
-      position:
-        x: 942
-        y: 311
-      positionAbsolute:
-        x: 942
-        y: 311
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        cases:
-        - case_id: 'true'
-          conditions:
-          - comparison_operator: is
-            id: 4fdc7c9a-2221-4144-8406-ffe7fc64e552
-            value: control_task
-            varType: string
-            variable_selector:
-            - '1743646903355'
-            - type
-          id: 'true'
-          logical_operator: and
-        - case_id: 2b7657cb-c6e8-49da-9b58-6dba736b9a10
-          conditions:
-          - comparison_operator: is
-            id: dd187016-48a2-4c0b-a4b3-0568e2976655
-            value: find_device
-            varType: string
-            variable_selector:
-            - '1743646903355'
-            - type
-          - comparison_operator: is
-            id: 824eae01-e182-4172-9e85-5de8ca9d82c2
-            value: find_error
-            varType: string
-            variable_selector:
-            - '1743646903355'
-            - type
-          id: 2b7657cb-c6e8-49da-9b58-6dba736b9a10
-          logical_operator: or
-        - case_id: 399af84d-fc42-4db0-84f2-dd87bdba4df1
-          conditions:
-          - comparison_operator: is
-            id: 5f42d0ab-a915-4684-a377-5bde18049ac5
-            value: remote_desktop
-            varType: string
-            variable_selector:
-            - '1743646903355'
-            - type
-          id: 399af84d-fc42-4db0-84f2-dd87bdba4df1
-          logical_operator: and
-        desc: ''
-        selected: false
-        title: 判断存在会话变量
-        type: if-else
-      height: 248
-      id: '1743647921683'
-      position:
-        x: 334
-        y: 311
-      positionAbsolute:
-        x: 334
-        y: 311
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        code: "function main({}) {\n  return {\n    answer: 0,\n    content: '',\n\
-          \    type: '',\n  }\n}"
-        code_language: javascript
-        desc: ''
-        outputs:
-          answer:
-            children: null
-            type: number
-          content:
-            children: null
-            type: string
-          type:
-            children: null
-            type: string
-        selected: false
-        title: 处理没有会话变量
-        type: code
-        variables: []
-      height: 54
-      id: '1743647956265'
-      position:
-        x: 638
-        y: 311
-      positionAbsolute:
-        x: 638
-        y: 311
+        y: 310
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -549,7 +283,7 @@ workflow:
             4. 双重验证：交叉检查否定词存在性\n\n**输出要求**  \n```json\n{\n  \"judgment\": \"<boolean>\"\
             ,\n  \"reason\": \"<不超过15字的关键词依据>\"\n}\n```\n"
         selected: false
-        title: LLM 判断是否新增任务
+        title: LLM 判断是否确认
         type: llm
         variables: []
         vision:
@@ -557,11 +291,11 @@ workflow:
       height: 90
       id: '1743649547982'
       position:
-        x: 638
-        y: 431
+        x: 942
+        y: 310
       positionAbsolute:
-        x: 638
-        y: 431
+        x: 942
+        y: 310
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -575,33 +309,26 @@ workflow:
           *[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
           \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text})\
           \ {\n  const obj = handleLLM(text)\n  return {\n    answer: !!obj?.['judgment']\
-          \ && obj?.['judgment'] !== 'false' ? 1 : 0,\n    content: '',\n    type:\
-          \ '',\n  }\n}"
+          \ && obj?.['judgment'] !== 'false' ? 1 : 0,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
           answer:
             children: null
             type: number
-          content:
-            children: null
-            type: string
-          type:
-            children: null
-            type: string
         selected: false
-        title: 处理新增任务判断
+        title: 处理确认判断
         type: code
         variables: []
       height: 54
       id: '1743649657177'
       position:
-        x: 942
-        y: 493
+        x: 1246
+        y: 310
       positionAbsolute:
-        x: 942
-        y: 493
-      selected: false
+        x: 1246
+        y: 310
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -626,11 +353,11 @@ workflow:
       height: 126
       id: '1743649783399'
       position:
-        x: 1246
-        y: 449
+        x: 1550
+        y: 310
       positionAbsolute:
-        x: 1246
-        y: 449
+        x: 1550
+        y: 310
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -644,11 +371,11 @@ workflow:
           - answer
           variable: answer
         - value_selector:
-          - '1743649657177'
+          - '1744178241091'
           - content
           variable: content
         - value_selector:
-          - '1743649657177'
+          - '1744178241091'
           - type
           variable: type
         selected: false
@@ -657,56 +384,11 @@ workflow:
       height: 142
       id: '1743649813355'
       position:
-        x: 1550
-        y: 449
+        x: 1854
+        y: 310
       positionAbsolute:
-        x: 1550
-        y: 449
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        code: "/**\n * 新增任务 Request\n */\nfunction main({content, timezone, api, token})\
-          \ {\n  return {\n    request: JSON.stringify({\n      inputs: {\n      \
-          \  content,\n        timezone,\n        api,\n        token\n      },\n\
-          \      response_mode: 'blocking',\n      user: 'deviceOn reply'\n    })\n\
-          \  }\n}\n"
-        code_language: javascript
-        desc: ''
-        outputs:
-          request:
-            children: null
-            type: string
-        selected: false
-        title: 新增任务 Request
-        type: code
-        variables:
-        - value_selector:
-          - '1743646903355'
-          - content
-          variable: content
-        - value_selector:
-          - '1743646903355'
-          - api
-          variable: api
-        - value_selector:
-          - '1743646903355'
-          - token
-          variable: token
-        - value_selector:
-          - '1743646903355'
-          - timezone
-          variable: timezone
-      height: 54
-      id: '1743650029660'
-      position:
-        x: 1550
-        y: 690
-      positionAbsolute:
-        x: 1550
-        y: 690
+        x: 1854
+        y: 310
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -721,387 +403,7 @@ workflow:
           - id: key-value-45
             key: ''
             type: text
-            value: '{{#1743650029660.request#}}'
-          type: json
-        desc: ''
-        headers: 'Authorization:Bearer {{#env.add_task#}}
-
-          Content-Type:application/json'
-        method: post
-        params: ''
-        retry_config:
-          max_retries: 3
-          retry_enabled: true
-          retry_interval: 100
-        selected: false
-        timeout:
-          max_connect_timeout: 0
-          max_read_timeout: 0
-          max_write_timeout: 0
-        title: 新增任务
-        type: http-request
-        url: '{{#env.path#}}'
-        variables: []
-      height: 123
-      id: '1743650119535'
-      position:
-        x: 1854
-        y: 646
-      positionAbsolute:
-        x: 1854
-        y: 646
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        code: "/**\n * 处理新增任务\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
-          \  const outputs = obj?.data?.outputs ?? {}\n  return {\n    result: outputs?.result\
-          \ ?? '',\n    content: outputs?.content ?? '',\n    type: outputs?.type\
-          \ ?? '',\n  }\n}\n\n"
-        code_language: javascript
-        desc: ''
-        outputs:
-          content:
-            children: null
-            type: string
-          result:
-            children: null
-            type: string
-          type:
-            children: null
-            type: string
-        selected: false
-        title: 处理新增任务
-        type: code
-        variables:
-        - value_selector:
-          - '1743650119535'
-          - body
-          variable: body
-      height: 54
-      id: '1743650191385'
-      position:
-        x: 2158
-        y: 646
-      positionAbsolute:
-        x: 2158
-        y: 646
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        desc: ''
-        outputs:
-        - value_selector:
-          - '1743649657177'
-          - answer
-          variable: answer
-        - value_selector:
-          - '1743650191385'
-          - result
-          variable: result
-        - value_selector:
-          - '1743650191385'
-          - content
-          variable: content
-        - value_selector:
-          - '1743650191385'
-          - type
-          variable: type
-        selected: false
-        title: 返回数据
-        type: end
-      height: 168
-      id: '1743650241516'
-      position:
-        x: 2462
-        y: 646
-      positionAbsolute:
-        x: 2462
-        y: 646
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        cases:
-        - case_id: 'true'
-          conditions:
-          - comparison_operator: end with
-            id: 93d04f4d-5503-47af-a130-2dfe4f3fa8e2
-            value: ' REMOTE_DESKTOP'
-            varType: string
-            variable_selector:
-            - '1743646903355'
-            - question
-          - comparison_operator: end with
-            id: e7bb9dd9-cd30-40b5-a977-25c29f8c48ae
-            value: ' REBOOT'
-            varType: string
-            variable_selector:
-            - '1743646903355'
-            - question
-          id: 'true'
-          logical_operator: or
-        desc: ''
-        selected: false
-        title: 判断用户是否点击按钮
-        type: if-else
-      height: 152
-      id: '1743650298862'
-      position:
-        x: 638
-        y: 574
-      positionAbsolute:
-        x: 638
-        y: 574
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        code: "function main({}) {\n  return {\n    answer: 0,\n  }\n}\n"
-        code_language: javascript
-        desc: ''
-        outputs:
-          answer:
-            children: null
-            type: number
-        selected: false
-        title: 处理没有点击按钮
-        type: code
-        variables: []
-      height: 54
-      id: '1743650411232'
-      position:
-        x: 942
-        y: 667
-      positionAbsolute:
-        x: 942
-        y: 667
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        desc: ''
-        outputs:
-        - value_selector:
-          - '1743650411232'
-          - answer
-          variable: answer
-        - value_selector:
-          - '1743646903355'
-          - content
-          variable: content
-        - value_selector:
-          - '1743646903355'
-          - type
-          variable: type
-        selected: false
-        title: 返回数据
-        type: end
-      height: 142
-      id: '17436504566610'
-      position:
-        x: 1246
-        y: 615
-      positionAbsolute:
-        x: 1246
-        y: 615
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        code: "\nfunction main({question, content}) {\n  const obj = JSON.parse(content)\n\
-          \  const query = String(question)\n  const device = Array.isArray(obj?.data?.targetDevices)\
-          \ ? Array.from(obj?.data?.targetDevices) : []\n  const filter = device.filter(o\
-          \ => {\n    return query.includes(o?.id) || query.includes(o?.name) || query.includes(o?.ip)\n\
-          \  })\n  let result = JSON.stringify({\n    type: 'find_device',\n    data:\
-          \ {\n      ...obj.data,\n      assign_device: true,\n      targetDevices:\
-          \ filter,\n    }\n  })\n  let add_task = 0\n  if (filter.length === 1) {\n\
-          \    if (query.endsWith(' REMOTE_DESKTOP')) {\n      result = JSON.stringify({\n\
-          \        type: 'remote_desktop',\n        data: {\n          ...obj.data,\n\
-          \          targetDevices: filter,\n        }\n      })\n    }\n    if (query.endsWith('\
-          \ REBOOT')) {\n      result = JSON.stringify({\n        type: 'control_task',\n\
-          \        data: {\n          ...obj.data,\n          targetDevices: filter,\n\
-          \          actionCode: '90001',\n          schedule: {\n            scheduleType:\
-          \ 'NONE',\n          }\n        }\n      })\n      add_task = 1\n    }\n\
-          \  }\n  return {\n    result,\n    content: filter.length > 1 ? result :\
-          \ '',\n    type: filter.length > 1 ? 'find_device' : '',\n    add_task,\n\
-          \    answer: 1\n  }\n}"
-        code_language: javascript
-        desc: ''
-        outputs:
-          add_task:
-            children: null
-            type: number
-          answer:
-            children: null
-            type: number
-          content:
-            children: null
-            type: string
-          result:
-            children: null
-            type: string
-          type:
-            children: null
-            type: string
-        selected: false
-        title: 处理点击了按钮
-        type: code
-        variables:
-        - value_selector:
-          - '1743646903355'
-          - question
-          variable: question
-        - value_selector:
-          - '1743646903355'
-          - content
-          variable: content
-      height: 54
-      id: '1743657193967'
-      position:
-        x: 942
-        y: 841
-      positionAbsolute:
-        x: 942
-        y: 841
-      selected: true
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        cases:
-        - case_id: 'true'
-          conditions:
-          - comparison_operator: '='
-            id: b16f63fa-1d4b-4bd7-bd06-0f07730b044f
-            value: '1'
-            varType: number
-            variable_selector:
-            - '1743657193967'
-            - add_task
-          id: 'true'
-          logical_operator: and
-        desc: ''
-        selected: false
-        title: 判断是否新增重启任务
-        type: if-else
-      height: 126
-      id: '1743659852278'
-      position:
-        x: 1246
-        y: 797
-      positionAbsolute:
-        x: 1246
-        y: 797
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        desc: ''
-        outputs:
-        - value_selector:
-          - '1743657193967'
-          - answer
-          variable: answer
-        - value_selector:
-          - '1743657193967'
-          - result
-          variable: result
-        - value_selector:
-          - '1743657193967'
-          - content
-          variable: content
-        - value_selector:
-          - '1743657193967'
-          - type
-          variable: type
-        selected: false
-        title: 返回数据
-        type: end
-      height: 168
-      id: '1743659886921'
-      position:
-        x: 1550
-        y: 784
-      positionAbsolute:
-        x: 1550
-        y: 784
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        code: "/**\n * 新增任务 Request\n */\nfunction main({result, timezone, api, token})\
-          \ {\n  return {\n    request: JSON.stringify({\n      inputs: {\n      \
-          \  content: result,\n        timezone,\n        api,\n        token\n  \
-          \    },\n      response_mode: 'blocking',\n      user: 'deviceOn reply'\n\
-          \    })\n  }\n}\n"
-        code_language: javascript
-        desc: ''
-        outputs:
-          request:
-            children: null
-            type: string
-        selected: false
-        title: 新增任务 Request
-        type: code
-        variables:
-        - value_selector:
-          - '1743657193967'
-          - result
-          variable: result
-        - value_selector:
-          - '1743646903355'
-          - api
-          variable: api
-        - value_selector:
-          - '1743646903355'
-          - token
-          variable: token
-        - value_selector:
-          - '1743646903355'
-          - timezone
-          variable: timezone
-      height: 54
-      id: '17436599506600'
-      position:
-        x: 1550
-        y: 992
-      positionAbsolute:
-        x: 1550
-        y: 992
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        authorization:
-          config: null
-          type: no-auth
-        body:
-          data:
-          - id: key-value-45
-            key: ''
-            type: text
-            value: '{{#17436599506600.request#}}'
+            value: '{{#1744178241091.request#}}'
           type: json
         desc: ''
         headers: 'Authorization:Bearer {{#env.add_task#}}
@@ -1126,10 +428,10 @@ workflow:
       id: '17436599536740'
       position:
         x: 1854
-        y: 948
+        y: 582.5
       positionAbsolute:
         x: 1854
-        y: 948
+        y: 582.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1164,10 +466,10 @@ workflow:
       id: '17436599619100'
       position:
         x: 2158
-        y: 948
+        y: 573
       positionAbsolute:
         x: 2158
-        y: 948
+        y: 573
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1177,7 +479,7 @@ workflow:
         desc: ''
         outputs:
         - value_selector:
-          - '1743657193967'
+          - '1744178241091'
           - answer
           variable: answer
         - value_selector:
@@ -1199,32 +501,72 @@ workflow:
       id: '17436599645130'
       position:
         x: 2462
-        y: 948
+        y: 573
       positionAbsolute:
         x: 2462
-        y: 948
+        y: 573
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        code: "\nfunction main({question, content}) {\n  const obj = JSON.parse(content)\n\
-          \  const query = String(question)\n  const device = Array.isArray(obj?.data?.targetDevices)\
-          \ ? Array.from(obj?.data?.targetDevices) : []\n  const filter = device.filter(o\
-          \ => {\n    return query.includes(o?.id) || query.includes(o?.name) || query.includes(o?.ip)\n\
-          \  })\n  const result = JSON.stringify({\n    type: 'remote_desktop',\n\
-          \    data: {\n      ...obj.data,\n      targetDevices: filter,\n    }\n\
-          \  })\n  return {\n    result,\n    content: filter.length > 1 ? result\
-          \ : '',\n    type: filter.length > 1 ? 'remote_desktop' : '',\n    answer:\
-          \ 1\n  }\n}\n"
+        code: "function main({question, content, type, api, token, timezone}) {\n\
+          \  let request = '', action = ''\n  let con = '', ty = '', answer = 0, result\
+          \ = ''\n  switch (type) {\n    case 'control_task':\n      request = JSON.stringify({\n\
+          \        inputs: {\n          content,\n          timezone,\n          api,\n\
+          \          token\n        },\n        response_mode: 'blocking',\n     \
+          \   user: 'deviceOn reply'\n      })\n      action = 'confirm'\n      answer\
+          \ = 1\n      break\n    case 'find_device':\n    case 'find_error':\n  \
+          \    const query = String(question)\n      if (query.endsWith(' REMOTE_DESKTOP')\
+          \ || query.endsWith(' REBOOT')) {\n        const obj = JSON.parse(content)\n\
+          \        const device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices)\
+          \ : []\n        const filter = device.filter(o => {\n          return query.includes(o?.id)\
+          \ || query.includes(o?.name) || query.includes(o?.ip)\n        })\n    \
+          \    result = JSON.stringify({\n          type: 'find_device',\n       \
+          \   data: {\n            ...obj.data,\n            assign_device: true,\n\
+          \            targetDevices: filter,\n          }\n        })\n        if\
+          \ (filter.length === 1) {\n          if (query.endsWith(' REMOTE_DESKTOP'))\
+          \ {\n            result = JSON.stringify({\n              type: 'remote_desktop',\n\
+          \              data: {\n                ...obj.data,\n                targetDevices:\
+          \ filter,\n              }\n            })\n          }\n          if (query.endsWith('\
+          \ REBOOT')) {\n            result = JSON.stringify({\n              type:\
+          \ 'control_task',\n              data: {\n                ...obj.data,\n\
+          \                targetDevices: filter,\n                actionCode: '90001',\n\
+          \                schedule: {\n                  scheduleType: 'NONE',\n\
+          \                }\n              }\n            })\n            request\
+          \ = JSON.stringify({\n              inputs: {\n                content:\
+          \ result,\n                timezone,\n                api,\n           \
+          \     token\n              },\n              response_mode: 'blocking',\n\
+          \              user: 'deviceOn reply'\n            })\n            action\
+          \ = 'task'\n          }\n        }\n        if (filter.length > 1) {\n \
+          \         con = result\n          ty = 'find_device'\n        }\n      \
+          \  answer = 1\n      } else {\n        con = content\n        ty = type\n\
+          \      }\n      break\n    case 'remote_desktop':\n      if (type === 'remote_desktop')\
+          \ {\n        const obj = JSON.parse(content)\n        const query = String(question)\n\
+          \        const device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices)\
+          \ : []\n        const filter = device.filter(o => {\n          return query.includes(o?.id)\
+          \ || query.includes(o?.name) || query.includes(o?.ip)\n        })\n    \
+          \    result = JSON.stringify({\n          type: 'remote_desktop',\n    \
+          \      data: {\n            ...obj.data,\n            targetDevices: filter,\n\
+          \          }\n        })\n        if (filter.length > 1) {\n          con\
+          \ = result\n          ty = 'remote_desktop'\n        }\n        answer =\
+          \ 1\n      }\n      break\n    default:\n      break\n  }\n  return {\n\
+          \    action,\n    answer,\n    content: con,\n    request,\n    result,\n\
+          \    type: ty,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
+          action:
+            children: null
+            type: string
           answer:
             children: null
             type: number
           content:
+            children: null
+            type: string
+          request:
             children: null
             type: string
           result:
@@ -1234,7 +576,7 @@ workflow:
             children: null
             type: string
         selected: false
-        title: 处理远程桌面
+        title: 处理用户回复
         type: code
         variables:
         - value_selector:
@@ -1245,14 +587,71 @@ workflow:
           - '1743646903355'
           - content
           variable: content
+        - value_selector:
+          - '1743646903355'
+          - type
+          variable: type
+        - value_selector:
+          - '1743646903355'
+          - api
+          variable: api
+        - value_selector:
+          - '1743646903355'
+          - token
+          variable: token
+        - value_selector:
+          - '1743646903355'
+          - timezone
+          variable: timezone
       height: 54
-      id: '1743661523970'
+      id: '1744178241091'
+      position:
+        x: 334
+        y: 310
+      positionAbsolute:
+        x: 334
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 34ddb985-5078-4bed-b306-7b35f8129ab4
+            value: confirm
+            varType: string
+            variable_selector:
+            - '1744178241091'
+            - action
+          id: 'true'
+          logical_operator: and
+        - case_id: 1f317717-e0eb-4fb4-9222-294e27f2784e
+          conditions:
+          - comparison_operator: is
+            id: c969ffbc-fa34-4d49-893c-b9a5f2f9de5f
+            value: task
+            varType: string
+            variable_selector:
+            - '1744178241091'
+            - action
+          id: 1f317717-e0eb-4fb4-9222-294e27f2784e
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断 action
+        type: if-else
+      height: 174
+      id: '1744178342442'
       position:
         x: 638
-        y: 948
+        y: 310
       positionAbsolute:
         x: 638
-        y: 948
+        y: 310
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1262,38 +661,38 @@ workflow:
         desc: ''
         outputs:
         - value_selector:
-          - '1743661523970'
+          - '1744178241091'
           - answer
           variable: answer
         - value_selector:
-          - '1743661523970'
+          - '1744178241091'
           - result
           variable: result
         - value_selector:
-          - '1743661523970'
+          - '1744178241091'
           - content
           variable: content
         - value_selector:
-          - '1743661523970'
+          - '1744178241091'
           - type
           variable: type
         selected: false
         title: 返回数据
         type: end
       height: 168
-      id: '1743663304135'
+      id: '1744178528807'
       position:
         x: 942
-        y: 935
+        y: 440
       positionAbsolute:
         x: 942
-        y: 935
+        y: 440
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     viewport:
-      x: 95.14546850777288
-      y: -252.02823567067355
-      zoom: 1.3195079107728942
+      x: -447.8513016450031
+      y: -290.00000000000034
+      zoom: 1.4000000000000004

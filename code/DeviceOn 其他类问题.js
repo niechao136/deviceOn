@@ -1,25 +1,4 @@
-//#region 设备筛选 Request
-/**
- * 设备筛选 Request
- */
-function main({type, content, question, timezone, api, token}) {
-  return {
-    request: JSON.stringify({
-      inputs: {
-        content: content,
-        type: type,
-        question: question,
-        timezone,
-        api,
-        token
-      },
-      response_mode: 'blocking',
-      user: 'deviceOn other'
-    })
-  }
-}
 
-//#endregion
 //#region 处理工作流
 /**
  * 处理工作流
@@ -35,16 +14,6 @@ function main({body}) {
     need_answer: is_find_device === 1 ? 0 : 1,
   }
 }
-
-//#endregion
-//#region 处理回答
-
-function main({}) {
-  return {
-    need_answer: 1
-  }
-}
-
 
 //#endregion
 //#region 处理其他类问题

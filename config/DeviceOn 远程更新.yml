@@ -131,7 +131,7 @@ workflow:
       positionAbsolute:
         x: -24
         y: 282
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -155,7 +155,7 @@ workflow:
           type:
             children: null
             type: string
-        selected: false
+        selected: true
         title: 代码执行
         type: code
         variables: []
@@ -167,6 +167,7 @@ workflow:
       positionAbsolute:
         x: 280
         y: 282
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom

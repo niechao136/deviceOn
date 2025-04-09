@@ -31,164 +31,14 @@ function main({body}) {
     result: outputs?.result ?? '',
     content: outputs?.content ?? '',
     type: outputs?.type ?? '',
-    answer: Number(outputs?.answer) ?? 0
+    answer: Number(outputs?.answer ?? 0)
   }
 }
 
 //#endregion
-//#region 设备控制任务 Request
+//#region 处理 LLM 回答
 /**
- * 设备控制任务 Request
- */
-function main({cache_type, cache_content, query, timezone, api, token}) {
-  return {
-    request: JSON.stringify({
-      inputs: {
-        content: cache_content,
-        type: cache_type,
-        question: query,
-        timezone,
-        api,
-        token
-      },
-      response_mode: 'blocking',
-      user: 'deviceOn'
-    })
-  }
-}
-
-//#endregion
-//#region 处理设备控制任务
-/**
- * 处理设备控制任务
- */
-function main({body}) {
-  const obj = JSON.parse(body)
-  const outputs = obj?.data?.outputs ?? {}
-  return {
-    result: outputs?.result ?? '',
-    content: outputs?.content ?? '',
-    type: outputs?.type ?? '',
-  }
-}
-
-//#endregion
-//#region 远程桌面 Request
-/**
- * 远程桌面 Request
- */
-function main({cache_type, cache_content, query, timezone, api, token}) {
-  return {
-    request: JSON.stringify({
-      inputs: {
-        content: cache_content,
-        type: cache_type,
-        question: query,
-        timezone,
-        api,
-        token
-      },
-      response_mode: 'blocking',
-      user: 'deviceOn'
-    })
-  }
-}
-
-//#endregion
-//#region 处理远程桌面
-/**
- * 处理远程桌面
- */
-function main({body}) {
-  const obj = JSON.parse(body)
-  const outputs = obj?.data?.outputs ?? {}
-  return {
-    result: outputs?.result ?? '',
-    content: outputs?.content ?? '',
-    type: outputs?.type ?? '',
-  }
-}
-
-//#endregion
-//#region 设备筛选 Request
-/**
- * 设备筛选 Request
- */
-function main({cache_type, cache_content, query, timezone, api, token}) {
-  return {
-    request: JSON.stringify({
-      inputs: {
-        content: cache_content,
-        type: cache_type,
-        question: query,
-        timezone,
-        api,
-        token
-      },
-      response_mode: 'blocking',
-      user: 'deviceOn'
-    })
-  }
-}
-
-//#endregion
-//#region 处理设备筛选
-/**
- * 处理设备筛选
- */
-function main({body}) {
-  const obj = JSON.parse(body)
-  const outputs = obj?.data?.outputs ?? {}
-  return {
-    result: outputs?.result ?? '',
-    content: outputs?.content ?? '',
-    type: outputs?.type ?? '',
-    is_find_device: Number(outputs?.is_find_device) ?? 0,
-  }
-}
-
-//#endregion
-//#region 其他类问题 Request
-/**
- * 其他类问题 Request
- */
-function main({cache_type, cache_content, query, timezone, api, token}) {
-  return {
-    request: JSON.stringify({
-      inputs: {
-        content: cache_content,
-        type: cache_type,
-        question: query,
-        timezone,
-        api,
-        token
-      },
-      response_mode: 'blocking',
-      user: 'deviceOn'
-    })
-  }
-}
-
-//#endregion
-//#region 处理其他类问题
-/**
- * 处理其他类问题
- */
-function main({body}) {
-  const obj = JSON.parse(body)
-  const outputs = obj?.data?.outputs ?? {}
-  return {
-    result: outputs?.result ?? '',
-    content: outputs?.content ?? '',
-    type: outputs?.type ?? '',
-    need_answer: Number(outputs?.need_answer) ?? 1
-  }
-}
-
-//#endregion
-//#region 处理回答
-/**
- * 处理回答
+ * 处理 LLM 回答
  */
 function main({text}) {
   return {
@@ -255,6 +105,7 @@ function main({text, api, token, timezone, query, cache_type, cache_content, oth
 }
 //#endregion
 //#region 处理工作流结果
+
 function main({body, classify}) {
   const obj = JSON.parse(body)
   const outputs = obj?.data?.outputs ?? {}
@@ -262,9 +113,10 @@ function main({body, classify}) {
     result: outputs?.result ?? '',
     content: outputs?.content ?? '',
     type: outputs?.type ?? '',
-    need_answer: Number(outputs?.need_answer ?? [1,2,3,4].includes(classify) ? 0 : 1)
+    need_answer: Number(outputs?.need_answer ?? ([1,2,3,4].includes(classify) ? 0 : 1))
   }
 }
+
 //#endregion
 //#region Test
 //#endregion

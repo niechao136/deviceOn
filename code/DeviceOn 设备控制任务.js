@@ -301,27 +301,6 @@ function main({text, device, type, content, timezone, api, token, question, add_
 }
 
 //#endregion
-//#region 新增任务 Request
-
-/**
- * 新增任务 Request
- */
-function main({content, timezone, api, token}) {
-  return {
-    request: JSON.stringify({
-      inputs: {
-        content,
-        timezone,
-        api,
-        token
-      },
-      response_mode: 'blocking',
-      user: 'deviceOn device_control'
-    })
-  }
-}
-
-//#endregion
 //#region 处理工作流结果
 /**
  * 处理工作流结果

@@ -508,7 +508,7 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "/**\n * 处理回答\n */\nfunction main({text}) {\n  return {\n    result:\
+        code: "/**\n * 处理 LLM 回答\n */\nfunction main({text}) {\n  return {\n    result:\
           \ String(text).replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '').replaceAll(/<details[\\\
           s\\S]*?<\\/details>/g, ''),\n  }\n}"
         code_language: javascript
@@ -533,7 +533,7 @@ workflow:
       positionAbsolute:
         x: 3678
         y: 577
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -690,10 +690,10 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "\n/**\n * 处理用户回复\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
+        code: "/**\n * 处理用户回复\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
           \  const outputs = obj?.data?.outputs ?? {}\n  return {\n    result: outputs?.result\
           \ ?? '',\n    content: outputs?.content ?? '',\n    type: outputs?.type\
-          \ ?? '',\n    answer: Number(outputs?.answer) ?? 0\n  }\n}\n"
+          \ ?? '',\n    answer: Number(outputs?.answer ?? 0)\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -951,7 +951,7 @@ workflow:
       positionAbsolute:
         x: 2158
         y: 408.5
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1000,11 +1000,11 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "\nfunction main({body, classify}) {\n  const obj = JSON.parse(body)\n\
+        code: "function main({body, classify}) {\n  const obj = JSON.parse(body)\n\
           \  const outputs = obj?.data?.outputs ?? {}\n  return {\n    result: outputs?.result\
           \ ?? '',\n    content: outputs?.content ?? '',\n    type: outputs?.type\
-          \ ?? '',\n    need_answer: Number(outputs?.need_answer ?? [1,2,3,4].includes(classify)\
-          \ ? 0 : 1)\n  }\n}\n"
+          \ ?? '',\n    need_answer: Number(outputs?.need_answer ?? ([1,2,3,4].includes(classify)\
+          \ ? 0 : 1))\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -1046,6 +1046,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -854.0000000000002
-      y: 76.99999999999994
+      x: -1756.999999999999
+      y: 87
       zoom: 0.7
