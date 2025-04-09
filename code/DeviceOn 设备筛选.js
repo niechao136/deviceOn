@@ -113,7 +113,7 @@ function main({text, device, type, content, api, token, question}) {
   const assign_label2 = !!obj?.device?.assign_label2
   const assign_online = !!obj?.device?.assign_online
   const assign_offline = !!obj?.device?.assign_offline
-  const assign_error = !!obj?.error?.assign_error
+  const is_error = !!obj?.error?.assign_error
   const assign_up_down = !!obj?.error?.assign_up_down
   const assign_hardware = !!obj?.error?.assign_hardware
   const assign_software = !!obj?.error?.assign_software
@@ -125,6 +125,7 @@ function main({text, device, type, content, api, token, question}) {
   const start_date = String(obj?.error?.start_date ?? '')
   const end_date = String(obj?.error?.end_date ?? '')
   const lang = String(obj?.lang ?? '')
+  const assign_error = is_error && !assign_up_down && !assign_hardware && !assign_software && !assign_battery && !assign_peripheral && !assign_security
   const has_error = assign_error || assign_up_down || assign_hardware || assign_software || assign_battery || assign_peripheral || assign_security
   const not_prop = id.length === 0 && name.length === 0 && ip.length === 0 && os.length === 0 && label1.length === 0 && label2.length === 0
   const find_device = !!content && (type === 'find_device' || type === 'find_error')

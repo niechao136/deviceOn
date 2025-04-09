@@ -9,8 +9,6 @@
 1. **判断是否使用下标指定设备：**
     - 如果`问题`文本中出现诸如 `第一个`、`第二个` 等指代下标的词时，则设置 `assign_index = 相应的数字`。
     - 如果`问题`文本中出现诸如 `最后`、`倒数` 等指代反转的词时，则设置 `assign_last = true`。
-    - **示例：**
-        - 对于文本`请远程连接倒数第二个设备`，由于出现`第二个`指代下标，因此设置 `assign_index = 2`；由于出现`倒数`表示反转，因此设置 `assign_last = true`。
 
 2. **字段提取（所有字段均返回数组；若无匹配返回空数组）：**
 
@@ -44,51 +42,28 @@
 
     - **ID标记 (`assign_id`)**:
         - 当`问题`中包含 `设备ID为...` 或 `ID为...` 等描述时，设置 `assign_id = true`；
-        - **示例：**
-            - 对于文本`请将C4:00:AD:DE:07:76关机`，则`assign_id = false`；
-            - 对于文本`请将ID为C4:00:AD:DE:07:76的设备关机`，则`assign_id = true`。
 
     - **名称标记 (`assign_name`)**:
         - 当`问题`中包含 `设备名称为...` 或 `名为...` 等描述时，设置 `assign_name = true`；
-        - **示例：**
-            - 对于文本`请将PPC-300关机`，则`assign_name = false`；
-            - 对于文本`请将名为PPC-300的设备关机`，则`assign_name = true`。
 
     - **IP标记 (`assign_ip`)**:
         - 当`问题`中包含 `设备IP为...`、`IP为...` 等类似描述时 → `assign_ip = true`
-        - **示例：**
-            - 对于文本`请将172.21.73.60关机`，则 `assign_ip = false`
-            - 对于文本`请将IP为172.21.73.60的设备关机`，则 `assign_ip = true`
 
     - **系统标记 (`assign_os`)**:
         - 当`问题`中包含 `OS为...` 或 `系统为...` 等描述时，设置 `assign_os = true`；
-        - **示例：**
-            - 对于文本`请将安卓设备关机`，则`assign_os = false`；
-            - 对于文本`请将系统为安卓的设备关机`，则`assign_os = true`。
 
     - **标签1标记 (`assign_label1`)**:
         - 当`问题`中包含 `标签1为...` 或 `标签为...` 等描述时，设置 `assign_label1 = true`；
-        - **示例：**
-            - 对于文本`请将工程设备关机`，则`assign_label1 = false`；
-            - 对于文本`请将标签为工程设备的设备关机`，则`assign_label1 = true`。
 
     - **标签2标记 (`assign_label2`)**:
         - 当`问题`中包含 `标签2为...` 或 `标签为...` 等描述时，设置 `assign_label2 = true`；
-        - **示例：**
-            - 对于文本`请将Android设备关机`，则`assign_label2 = false`；
-            - 对于文本`请将标签为Android的设备关机`，则`assign_label2 = true`。
 
     - **在线标记 (`assign_online`)**:
         - 当`问题`中包含 `在线设备` 或 `在线...` 等描述时，设置 `assign_online = true`；
         - 当`问题`中包含 `上线后执行` 等描述时，设置 `assign_online = false`；
-        - **示例：**
-            - 对于文本`请将安卓设备关机，设备上线后执行`，则`assign_online = false`；
-            - 对于文本`请将在线的安卓设备关机`，则`assign_online = true`。
 
     - **离线标记 (`assign_offline`)**:
         - 当`问题`中包含 `离线设备` 或 `离线...` 或 `断线中...` 等描述时，设置 `assign_offline = true`；
-        - **示例：**
-            - 对于文本`请将离线的安卓设备关机`，则`assign_offline = true`。
 
 ---
 
@@ -96,8 +71,8 @@
 
 1. **异常状态标记：**
     - **assign_error**：
-        - 当`问题`中提及 `异常` 但未提及下列具体异常（`上下线异常`、`硬件异常`、`软件异常`、`电池异常`、`周边设备异常`、`设备安全异常`）时，设置 `assign_error = true`；
-        - 当`问题`中包含 `断线中` 等类似描述时 → `assign_error = false`
+        - 当`问题`中包含 `异常` 等类似描述时，设置 `assign_error = true`；
+        - 当`问题`中包含 `断线中` 等类似描述时，设置 `assign_error = false`；
     - **assign_up_down**：当`问题`中提及 `上下线异常` 时，设置 `assign_up_down = true`；
     - **assign_hardware**：当`问题`中提及 `硬件异常` 时，设置 `assign_hardware = true`；
     - **assign_software**：当`问题`中提及 `软件异常` 时，设置 `assign_software = true`；
