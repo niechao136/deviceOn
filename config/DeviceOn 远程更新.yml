@@ -5,12 +5,32 @@ app:
   mode: workflow
   name: DeviceOn 远程更新
   use_icon_as_answer_icon: false
-dependencies: []
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
 kind: app
 version: 0.1.5
 workflow:
   conversation_variables: []
-  environment_variables: []
+  environment_variables:
+  - description: ''
+    id: a23a6c5c-6270-422c-b427-e6a601484b3a
+    name: filter_error
+    selector:
+    - env
+    - filter_error
+    value: app-akKVIu2IfSDr8rc6jY2rpUww
+    value_type: string
+  - description: ''
+    id: 95e5a0fd-e54c-45d3-8105-86f37d9ff218
+    name: path
+    selector:
+    - env
+    - path
+    value: http://172.21.161.126/v1/workflows/run
+    value_type: string
   features:
     file_upload:
       allowed_file_extensions:
@@ -60,11 +80,153 @@ workflow:
         isInIteration: false
         isInLoop: false
         sourceType: start
-        targetType: code
-      id: 1744019627790-source-1744019743416-target
+        targetType: http-request
+      id: 1744019627790-source-1744185766139-target
       source: '1744019627790'
       sourceHandle: source
-      target: '1744019743416'
+      target: '1744185766139'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1744185766139-source-1744185817604-target
+      source: '1744185766139'
+      sourceHandle: source
+      target: '1744185817604'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1744185817604-source-1744186341974-target
+      source: '1744185817604'
+      sourceHandle: source
+      target: '1744186341974'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1744186341974-source-1744190704175-target
+      source: '1744186341974'
+      sourceHandle: source
+      target: '1744190704175'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1744254606128-source-1744255072161-target
+      source: '1744254606128'
+      sourceHandle: source
+      target: '1744255072161'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1744255072161-true-1744255120169-target
+      source: '1744255072161'
+      sourceHandle: 'true'
+      target: '1744255120169'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1744255072161-94f2aeb0-7641-43af-9c3b-ab7b51e269a3-1744255571899-target
+      source: '1744255072161'
+      sourceHandle: 94f2aeb0-7641-43af-9c3b-ab7b51e269a3
+      target: '1744255571899'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1744255571899-source-1744255807610-target
+      source: '1744255571899'
+      sourceHandle: source
+      target: '1744255807610'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1744190704175-source-1744262385871-target
+      source: '1744190704175'
+      sourceHandle: source
+      target: '1744262385871'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1744262385871-source-1744254606128-target
+      source: '1744262385871'
+      sourceHandle: source
+      target: '1744254606128'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1744255072161-false-1744255807610-target
+      source: '1744255072161'
+      sourceHandle: 'false'
+      target: '1744255807610'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1744255807610-source-1744265799521-target
+      source: '1744255807610'
+      sourceHandle: source
+      target: '1744265799521'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1744265799521-source-1744265933431-target
+      source: '1744265799521'
+      sourceHandle: source
+      target: '1744265933431'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -73,10 +235,10 @@ workflow:
         isInLoop: false
         sourceType: code
         targetType: end
-      id: 1744019743416-source-1744019871099-target
-      source: '1744019743416'
+      id: 1744265933431-source-1744268747197-target
+      source: '1744265933431'
       sourceHandle: source
-      target: '1744019871099'
+      target: '1744268747197'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -126,27 +288,437 @@ workflow:
       height: 220
       id: '1744019627790'
       position:
-        x: -24
-        y: 282
+        x: 30
+        y: 310
       positionAbsolute:
-        x: -24
-        y: 282
+        x: 30
+        y: 310
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        code: "\nfunction main({}) {\n    return {\n        result: '目前暂不支持远程更新任务',\n\
-          \        content: '',\n        type: '',\n        need_answer: 0,\n    }\n\
-          }\n"
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: Authorization:{{#1744019627790.token#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取设备列表
+        type: http-request
+        url: '{{#1744019627790.api#}}/walle/ai/device/list'
+        variables: []
+      height: 139
+      id: '1744185766139'
+      position:
+        x: 334
+        y: 310
+      positionAbsolute:
+        x: 334
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function convertToTimeZone(timezone) {\n  // 检查格式是否以 \"UTC\" 开头\n \
+          \ if (!timezone.startsWith(\"UTC\")) {\n    throw new Error(\"时区格式必须以 'UTC'\
+          \ 开头\");\n  }\n  // 获取符号和小时、分钟部分\n  const sign = timezone[3]; // '+' 或 '-'\n\
+          \  if (sign !== '+' && sign !== '-') {\n    throw new Error(\"无效的时区格式\"\
+          );\n  }\n  const hourStr = timezone.substr(4, 2);\n  const minuteStr = timezone.substr(7,\
+          \ 2);\n  const offsetHours = parseInt(hourStr, 10);\n  const offsetMinutes\
+          \ = parseInt(minuteStr, 10);\n  // 计算总偏移分钟数（正值代表比 UTC 晚，负值代表比 UTC 早）\n \
+          \ let totalOffset = offsetHours * 60 + offsetMinutes;\n  if (sign === '-')\
+          \ {\n    totalOffset = -totalOffset;\n  }\n  // 当前的 UTC 毫秒数（Date.now() 返回的是自1970年1月1日\
+          \ UTC 以来的毫秒数）\n  const nowMs = Date.now();\n  // 目标时区的毫秒数 = 当前 UTC 毫秒数 +\
+          \ 时区偏移分钟数转换为毫秒\n  const targetMs = nowMs + totalOffset * 60000;\n  const\
+          \ targetDate = new Date(targetMs);\n  // 使用 getUTC* 方法来提取目标时区的各部分\n  const\
+          \ year = targetDate.getUTCFullYear();\n  const month = String(targetDate.getUTCMonth()\
+          \ + 1).padStart(2, '0'); // 月份从 0 开始\n  const day = String(targetDate.getUTCDate()).padStart(2,\
+          \ '0');\n  const hours = String(targetDate.getUTCHours()).padStart(2, '0');\n\
+          \  const minutes = String(targetDate.getUTCMinutes()).padStart(2, '0');\n\
+          \  const seconds = String(targetDate.getUTCSeconds()).padStart(2, '0');\n\
+          \n  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;\n}\n\
+          function main({body, timezone}) {\n  const res = JSON.parse(body)\n  const\
+          \ device = Array.isArray(res?.rows) ? Array.from(res.rows).map(o => {\n\
+          \    return {\n      id: o.deviceId,\n      nm: o.deviceName,\n      os:\
+          \ o.deviceOs,\n      ip: o.deviceIp,\n      l1: o.labelDeviceName1,\n  \
+          \    l2: o.labelDeviceName2,\n      st: o.onlineStatus,\n      tz: o.timezone,\n\
+          \      hw: o.hardwareError,\n      sw: o.softwareError,\n      bt: o.batteryError,\n\
+          \      pp: o.peripheralsError,\n      sc: o.securityError,\n    }\n  })\
+          \ : []\n  const id = Array.from(new Set(device.map(o => o.id).filter(o =>\
+          \ !!o)))\n  const name = Array.from(new Set(device.map(o => o.nm).filter(o\
+          \ => !!o)))\n  const ip = Array.from(new Set(device.map(o => o.ip).filter(o\
+          \ => !!o)))\n  const label1 = Array.from(new Set(device.map(o => o.l1).filter(o\
+          \ => !!o)))\n  const label2 = Array.from(new Set(device.map(o => o.l2).filter(o\
+          \ => !!o)))\n  const date = convertToTimeZone(timezone);\n  return {\n \
+          \   device: JSON.stringify(device),\n    id: JSON.stringify(id, null, 2),\n\
+          \    name: JSON.stringify(name, null, 2),\n    ip: JSON.stringify(ip, null,\
+          \ 2),\n    label1: JSON.stringify(label1, null, 2),\n    label2: JSON.stringify(label2,\
+          \ null, 2),\n    date,\n  }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          date:
+            children: null
+            type: string
+          device:
+            children: null
+            type: string
+          id:
+            children: null
+            type: string
+          ip:
+            children: null
+            type: string
+          label1:
+            children: null
+            type: string
+          label2:
+            children: null
+            type: string
+          name:
+            children: null
+            type: string
+        selected: false
+        title: 处理设备列表
+        type: code
+        variables: []
+      height: 54
+      id: '1744185817604'
+      position:
+        x: 638
+        y: 310
+      positionAbsolute:
+        x: 638
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1744019627790'
+          - question
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 3f8ae497-7ec1-42e3-be0c-d2e3c9f74e81
+          role: system
+          text: "# 信息提取提示词\n\n## `问题`: `{{#context#}}`\n\n---\n\n## 处理流程\n\n### 任务类型分析\n\
+            \n- 根据`问题`内容，确定任务类型：\n    - **软件安装** → `actionCode: 90021`（匹配`软件安装`、`软件更新`、`软件升级`）\n\
+            \    - **软件卸载** → `actionCode: 90022`（匹配`软件卸载`、`软件移除`、`软件删除`）\n    - **执行脚本**\
+            \ → `actionCode: 90071`（匹配`执行脚本`、`运行脚本`）\n    - **传输档案** → `actionCode:\
+            \ 90081`（匹配`传输档案`、`发送档案`）\n\n- 如果`问题`文本中出现诸如`触发型`、`触发型任务`等类似描述时则设置 `is_trigger\
+            \ = true`\n\n---\n\n### 任务执行时间分析\n\n- **上线后执行**\n    - 若`问题`包含 `上线后执行`、`发布后运行`\
+            \ 等类似描述 → `scheduleType = \"ONLINE\"`\n\n- **延迟执行**\n    - 若`问题`包含 `X分钟后执行`、`指定时间执行`\
+            \ 等类似显式时间描述 →\n        - `scheduleType = \"CRON ONCE\"`\n        - `scheduleCron\
+            \ = 计算后的绝对时间（格式：YYYY/MM/DD HH:mm:ss，参考当前时间为：{{#1744185817604.date#}}）`\n\
+            \n- **立即执行**\n    - 若`问题`包含 `立即执行` 等类似描述 → `scheduleType = \"NONE\"`\n\
+            \n- **无执行时间相关描述**\n    - 若`问题`没有任何执行时间相关描述 → `scheduleType = \"\"`\n\n\
+            - **时区判断**\n    - 若`问题`包含 `设备时间`、`设备时区` 等类似描述 → `timezone = \"device\"\
+            `\n    - 若`问题`包含 `本地时间`、`本地时区` 等类似描述 → `timezone = \"local\"`\n    - 若`问题`没有以上两种时区相关描述\
+            \ → `timezone = \"\"`\n\n---\n\n### 设备信息分析\n\n- **异常状态分析：**\n    - **assign_error**：\n\
+            \        - 当`问题`中包含 `异常` 等类似描述时，设置 `assign_error = true`\n        - 当`问题`中包含\
+            \ `断线中` 等类似描述时，设置 `assign_error = false`\n    - **assign_up_down**：当`问题`中提及\
+            \ `上下线异常` 时，设置 `assign_up_down = true`\n    - **assign_hardware**：当`问题`中提及\
+            \ `硬件异常` 时，设置 `assign_hardware = true`\n    - **assign_software**：当`问题`中提及\
+            \ `软件异常` 时，设置 `assign_software = true`\n    - **assign_battery**：当`问题`中提及\
+            \ `电池异常` 时，设置 `assign_battery = true`\n    - **assign_peripheral**：当`问题`中提及\
+            \ `周边外设异常` 时，设置 `assign_peripheral = true`\n    - **assign_security**：当`问题`中提及\
+            \ `设备安全异常` 时，设置 `assign_security = true`\n\n- **异常时间分析：**\n    - 如果`问题`文本中出现诸如`当前`、`目前`、`当下`、`现在`等表示当前时间的词时，则设置\
+            \ `assign_now = true`。\n    - 如果`问题`文本中出现诸如`近一个月`、`最近一周`、`前5天`等表示具体时间的词时，请根据当前时间（`{{#1744185817604.date#}}`），计算出开始日期和结束日期，并设置\
+            \ `start_date = 开始日期（格式：YYYY/MM/DD）; end_date = 结束日期（格式：YYYY/MM/DD）`。\n\
+            \    - 如果`问题`文本中没有出现任何指明时间的词时，则设置 `assign_time = false`。\n\n- **字段提取（所有字段均返回数组；若无匹配返回空数组）：**\n\
+            \n    - **ID字段 (`id`)：**\n        - 在`问题`文本中**精确匹配** `{{#1744185817604.id#}}`\
+            \ 内的任一元素，将所有匹配项存入 `id` 字段。\n\n    - **名称字段 (`name`)：**\n        - 在`问题`文本中**精确匹配**\
+            \ `{{#1744185817604.name#}}` 内的任一元素，将所有匹配项存入 `name` 字段。\n\n    - **IP字段\
+            \ (`ip`)：**\n        - 在`问题`文本中**精确匹配** `{{#1744185817604.ip#}}` 内的任一元素，将所有匹配项存入\
+            \ `ip` 字段。\n\n    - **操作系统字段 (`os`)：**\n        - 检查`问题`文本中是否包含下列关键词或其同义词，若匹配则将对应的操作系统存入\
+            \ `os` 字段：\n            - **windows**：关键词包括 `windows`、`win`、`视窗`；\n  \
+            \          - **android**：关键词包括 `android`、`安卓`；\n            - **linux**：关键词包括\
+            \ `linux`、`linux系统`。\n        - **示例：**\n            - 对于文本`请将安卓设备静音`，则\
+            \ `os` 提取为 `[\"android\"]`；\n            - 对于文本`请将win设备静音`，则 `os` 提取为\
+            \ `[\"windows\"]`。\n\n    - **标签1字段 (`label1`)：**\n        - 在`问题`文本中**精确匹配**\
+            \ `{{#1744185817604.label1#}}` 内的任一元素，将所有匹配项存入 `label1` 字段。\n\n    - **标签2字段\
+            \ (`label2`)：**\n        - 在`问题`文本中**精确匹配** `{{#1744185817604.label2#}}`\
+            \ 内的任一元素，将所有匹配项存入 `label2` 字段。\n\n- **条件标记：**\n\n  根据`问题`文本中的描述设置以下标记：\n\
+            \n    - **ID标记 (`assign_id`)**: 当`问题`中包含 `设备ID为...` 或 `ID为...` 等明确指定ID栏位的描述时，设置\
+            \ `assign_id = true`；\n    - **名称标记 (`assign_name`)**: 当`问题`中包含 `设备名称为...`\
+            \ 或 `名为...` 等明确指定名称栏位的描述时，设置 `assign_name = true`；\n    - **IP标记 (`assign_ip`)**:\
+            \ 当`问题`中包含 `设备IP为...`、`IP为...` 等明确指定IP栏位的描述时，设置`assign_ip = true`\n  \
+            \  - **系统标记 (`assign_os`)**: 当`问题`中包含 `OS为...` 或 `系统为...` 等明确指定系统栏位的描述时，设置\
+            \ `assign_os = true`；\n    - **标签1标记 (`assign_label1`)**: 当`问题`中包含 `标签1为...`\
+            \ 或 `标签为...` 等明确指定标签1栏位的描述时，设置 `assign_label1 = true`；\n    - **标签2标记\
+            \ (`assign_label2`)**: 当`问题`中包含 `标签2为...` 或 `标签为...` 等明确指定标签2栏位的描述时，设置\
+            \ `assign_label2 = true`；\n    - **在线标记 (`assign_online`)**:\n       \
+            \ - 当`问题`中包含 `在线设备` 或 `在线...` 等描述时，设置 `assign_online = true`；\n      \
+            \  - 当`问题`中包含 `上线后执行` 等描述时，设置 `assign_online = false`；\n    - **离线标记 (`assign_offline`)**:\n\
+            \        - 当`问题`中包含 `离线设备` 或 `离线...` 或 `断线中...` 等描述时，设置 `assign_offline\
+            \ = true`；\n\n- **下标判断：**\n    - 如果`问题`文本中出现诸如 `第一个`、`第二个` 等指代下标的词时，则设置\
+            \ `assign_index = 相应的数字`。\n    - 如果`问题`文本中出现诸如 `最后`、`倒数` 等指代反转的词时，则设置\
+            \ `assign_last = true`。\n\n---\n\n### 语言分析\n- 根据`问题`文本语言自动确定 `lang` 值：\n\
+            \    - 简体中文 → `zh-CN`\n    - 繁體中文 → `zh-TW`\n    - 英文 → `en-US`\n    -\
+            \ 日文 → `ja-JP`\n\n---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n```json\n{\n  \"\
+            actionCode\": \"<90021 | 90022 | 90071 | 90081，字符串>\",\n  \"is_trigger\"\
+            : \"<boolean>\",\n  \"schedule\": {\n    \"scheduleType\": \"<'ONLINE'\
+            \ | 'CRON ONCE' | 'NONE' | ''>\",\n    \"scheduleCron\": \"<时间字符串，格式 YYYY/MM/DD\
+            \ HH:mm:ss>\",\n    \"timezone\": \"<'device' | 'local' | ''>\"\n  },\n\
+            \  \"targetDevices\": {\n    \"assign_error\": \"<boolean>\",\n    \"\
+            assign_up_down\": \"<boolean>\",\n    \"assign_hardware\": \"<boolean>\"\
+            ,\n    \"assign_software\": \"<boolean>\",\n    \"assign_battery\": \"\
+            <boolean>\",\n    \"assign_peripheral\": \"<boolean>\",\n    \"assign_security\"\
+            : \"<boolean>\",\n    \"assign_now\": \"<boolean>\",\n    \"start_date\"\
+            : \"<日期字符串，格式 YYYY/MM/DD>\",\n    \"end_date\": \"<日期字符串，格式 YYYY/MM/DD>\"\
+            ,\n    \"assign_time\": \"<boolean>\",\n    \"id\": \"<数组>\",\n    \"\
+            name\": \"<数组>\",\n    \"ip\": \"<数组>\",\n    \"os\": \"<数组，windows |\
+            \ android | linux>\",\n    \"label1\": \"<数组>\",\n    \"label2\": \"<数组>\"\
+            ,\n    \"assign_id\": \"<boolean>\",\n    \"assign_name\": \"<boolean>\"\
+            ,\n    \"assign_ip\": \"<boolean>\",\n    \"assign_os\": \"<boolean>\"\
+            ,\n    \"assign_label1\": \"<boolean>\",\n    \"assign_label2\": \"<boolean>\"\
+            ,\n    \"assign_online\": \"<boolean>\",\n    \"assign_offline\": \"<boolean>\"\
+            ,\n    \"assign_index\": \"<number, 默认为-1>\",\n    \"assign_last\": \"\
+            <boolean>\"\n  },\n  \"lang\": \"<zh-CN | zh-TW | ja-JP | en-US>\"\n}\n\
+            ```\n\n---\n"
+        selected: false
+        title: LLM OTA 设备与任务参数
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1744186341974'
+      position:
+        x: 942
+        y: 310
+      positionAbsolute:
+        x: 942
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function handleLLM(text) {\n  const regex = /```json([\\s\\S]*?)```/\n\
+          \  const _res = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '')\n  const\
+          \ match = _res.match(regex);\n  const res = !!match ? match[1].trim() :\
+          \ _res\n  const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\/\\\
+          *[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
+          \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text,\
+          \ device, type, content, api, token, question}) {\n  device = JSON.parse(device)\n\
+          \  const list = Array.isArray(device) ? Array.from(device) : []\n  const\
+          \ by_id = {}\n  list.forEach(o => {\n    by_id[o.id] = o\n  })\n\n  const\
+          \ obj = handleLLM(text)\n  const actionCode = String(obj?.actionCode)\n\
+          \  const lang = obj?.lang\n\n  const is_error = !!obj?.targetDevices?.assign_error\n\
+          \  const assign_up_down = !!obj?.targetDevices?.assign_up_down\n  const\
+          \ assign_hardware = !!obj?.targetDevices?.assign_hardware\n  const assign_software\
+          \ = !!obj?.targetDevices?.assign_software\n  const assign_battery = !!obj?.targetDevices?.assign_battery\n\
+          \  const assign_peripheral = !!obj?.targetDevices?.assign_peripheral\n \
+          \ const assign_security = !!obj?.targetDevices?.assign_security\n  const\
+          \ assign_now = !!obj?.targetDevices?.assign_now\n  const assign_time = !!obj?.targetDevices?.assign_time\n\
+          \  const start_date = String(obj?.targetDevices?.start_date ?? '')\n  const\
+          \ end_date = String(obj?.targetDevices?.end_date ?? '')\n  const assign_error\
+          \ = is_error && !assign_up_down && !assign_hardware && !assign_software\
+          \ && !assign_battery && !assign_peripheral && !assign_security\n  const\
+          \ has_error = assign_error || assign_up_down || assign_hardware || assign_software\
+          \ || assign_battery || assign_peripheral || assign_security\n  const find_device\
+          \ = !!content && (type === 'find_device' || type === 'find_error')\n  let\
+          \ result, action, request = ''\n  if (!has_error || (has_error && assign_now))\
+          \ {\n    const id = Array.isArray(obj?.targetDevices?.id) ? Array.from(obj.targetDevices.id)\
+          \ : []\n    const name = Array.isArray(obj?.targetDevices?.name) ? Array.from(obj.targetDevices.name)\
+          \ : []\n    const ip = Array.isArray(obj?.targetDevices?.ip) ? Array.from(obj.targetDevices.ip)\
+          \ : []\n    const os = Array.isArray(obj?.targetDevices?.os) ? Array.from(obj.targetDevices.os).map(s\
+          \ => String(s).toLowerCase()) : []\n    const label1 = Array.isArray(obj?.targetDevices?.label1)\
+          \ ? Array.from(obj.targetDevices.label1) : []\n    const label2 = Array.isArray(obj?.targetDevices?.label2)\
+          \ ? Array.from(obj.targetDevices.label2) : []\n    const assign_id = !!obj?.targetDevices?.assign_id\n\
+          \    const assign_name = !!obj?.targetDevices?.assign_name\n    const assign_ip\
+          \ = !!obj?.targetDevices?.assign_ip\n    const assign_os = !!obj?.targetDevices?.assign_os\n\
+          \    const assign_label1 = !!obj?.targetDevices?.assign_label1\n    const\
+          \ assign_label2 = !!obj?.targetDevices?.assign_label2\n    const assign_online\
+          \ = !!obj?.targetDevices?.assign_online\n    const assign_offline = !!obj?.targetDevices?.assign_offline\n\
+          \    const not_prop = id.length === 0 && name.length === 0 && ip.length\
+          \ === 0 && os.length === 0 && label1.length === 0 && label2.length === 0\n\
+          \    const has_prop = assign_id || assign_name || assign_ip || assign_os\
+          \ || assign_label1 || assign_label2\n\n    let filter_id = [], filter_device\
+          \ = list.map(o => o)\n    if (find_device) {\n      const obj = JSON.parse(content)\n\
+          \      filter_device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o\
+          \ => by_id[o.id]) : []\n      if (!Number.isNaN(assign_index) && assign_index\
+          \ > 0 && assign_index <= filter_device.length) {\n        let index = assign_index\
+          \ - 1\n        if (assign_last) index = filter_device.length - 1 - index\n\
+          \        filter_id = [filter_device[index].id]\n      }\n      if (filter_id.length\
+          \ === 0 && not_prop && !has_prop && !assign_online && !assign_offline &&\
+          \ !has_error) {\n        filter_id = filter_device.map(o => o.id)\n    \
+          \  }\n    }\n    if (filter_id.length === 0) {\n      filter_id = filter_device.filter(o\
+          \ => {\n        const match_id = id.includes(o.id)\n        const match_name\
+          \ = name.includes(o.nm)\n        const match_ip = ip.includes(o.ip)\n  \
+          \      const match_os = os.includes(o.os)\n        const match_label1 =\
+          \ label1.includes(o.l1)\n        const match_label2 = label2.includes(o.l2)\n\
+          \        const match_online = assign_online && Number(o.st) === 1\n    \
+          \    const match_offline = assign_offline && Number(o.st) === 0\n      \
+          \  const match_status = match_online || match_offline || (!assign_online\
+          \ && !assign_offline)\n        const hardware = Number(o.hw) > 0\n     \
+          \   const software = Number(o.sw) > 0\n        const battery = Number(o.bt)\
+          \ > 0\n        const peripheral = Number(o.pp) > 0\n        const security\
+          \ = Number(o.hw) > 0\n        const match_error = assign_error && (hardware\
+          \ || software || battery || peripheral || security)\n        const match_hardware\
+          \ = assign_hardware && hardware\n        const match_software = assign_software\
+          \ && software\n        const match_battery = assign_battery && battery\n\
+          \        const match_peripheral = assign_peripheral && peripheral\n    \
+          \    const match_security = assign_security && security\n        let match\
+          \ = true\n        // 当只指定了异常时，只筛选异常相关\n        if (not_prop && !assign_online\
+          \ && !assign_offline && has_error && !assign_up_down) {\n          if (assign_error)\
+          \ match = match && match_error\n          if (assign_hardware) match = match\
+          \ && match_hardware\n          if (assign_software) match = match && match_software\n\
+          \          if (assign_battery) match = match && match_battery\n        \
+          \  if (assign_peripheral) match = match && match_peripheral\n          if\
+          \ (assign_security) match = match && match_security\n          return match\n\
+          \        }\n        // 当只指定了在线或者离线时，只筛选status\n        if (not_prop && (assign_online\
+          \ || assign_offline)) {\n          match = match_online || match_offline\n\
+          \        }\n        // 当没有指定具体栏位时，只要满足一个条件就行\n        else if (!has_prop)\
+          \ {\n          match = (match_id || match_name || match_ip || match_os ||\
+          \ match_label1 || match_label2) && match_status\n        }\n        // 当有指定具体栏位时，需要满足所有指定栏位\n\
+          \        else {\n          match = match && match_status\n          if (assign_id)\
+          \ match = match && match_id\n          if (assign_name) match = match &&\
+          \ match_name\n          if (assign_ip) match = match && match_ip\n     \
+          \     if (assign_os) match = match && match_os\n          if (assign_label1\
+          \ && !assign_label2) match = match && match_label1\n          if (!assign_label1\
+          \ && assign_label2) match = match && match_label2\n          if (assign_label1\
+          \ && assign_label2) match = match && (match_label2 || match_label1)\n  \
+          \      }\n        if (assign_error) match = match && match_error\n     \
+          \   if (assign_hardware) match = match && match_hardware\n        if (assign_software)\
+          \ match = match && match_software\n        if (assign_battery) match = match\
+          \ && match_battery\n        if (assign_peripheral) match = match && match_peripheral\n\
+          \        if (assign_security) match = match && match_security\n        return\
+          \ match\n      }).map(o => o.id)\n    }\n    const filter = filter_id.map(id\
+          \ => {\n      const o = by_id[id]\n      return {\n        id: o.id,\n \
+          \       name: o.nm,\n        os: o.os,\n        timezone: o.tz,\n      }\n\
+          \    })\n    result = {\n      type: 'ota_task',\n      data: {\n      \
+          \  ...obj,\n        targetDevices: filter,\n      },\n    }\n    action\
+          \ = 'query_file'\n  } else {\n    let sd = new Date(start_date)\n    let\
+          \ ed = new Date(end_date)\n    if (!assign_time) {\n      ed = new Date()\n\
+          \      ed.setHours(0, 0, 0, 0)\n      const day = ed.getDate()\n      let\
+          \ month = ed.getMonth() - 3\n      let year = ed.getFullYear()\n      if\
+          \ (month < 0) {\n        month += 12\n        year -= 1\n      }\n     \
+          \ const last = new Date(year, month + 1, 0).getDate()\n      const date\
+          \ = Math.min(day, last)\n      sd = new Date(year, month, date)\n    }\n\
+          \    const start = sd.getTime()\n    const end = ed.getTime() + (24 * 60\
+          \ * 60 * 1000 - 1)\n    let range = [], params = ''\n    if (assign_up_down)\
+          \ range = range.concat('4')\n    if (assign_hardware) range = range.concat('1')\n\
+          \    if (assign_software) range = range.concat('2')\n    if (assign_battery)\
+          \ range = range.concat('6')\n    if (assign_peripheral) range = range.concat('3')\n\
+          \    if (assign_security) range = range.concat('7')\n    params = `?startTime=${start}&endTime=${end}`\n\
+          \    range.forEach(item => {\n      params += `&categoryRange=${item}`\n\
+          \    })\n    request = JSON.stringify({\n      inputs: {\n        params,\n\
+          \        range: JSON.stringify(range),\n        lang,\n        device: JSON.stringify(device),\n\
+          \        question,\n        api,\n        token\n      },\n      response_mode:\
+          \ 'blocking',\n      user: 'deviceOn ota'\n    })\n    result = {\n    \
+          \  type: 'ota_task',\n      data: {\n        ...obj,\n        targetDevices:\
+          \ [],\n      },\n    }\n    action = 'filter_error'\n  }\n\n  let file_url\
+          \ = ''\n  switch (actionCode) {\n    case '90021':\n    case '90022':\n\
+          \      file_url = '/walle/ai/taskAssist/listSoftware'\n      break\n   \
+          \ case '90071':\n      file_url = '/walle/ai/taskAssist/listScript'\n  \
+          \    break\n    case '90081':\n      file_url = '/walle/ai/taskAssist/listFile'\n\
+          \      break\n  }\n\n  return {\n    action,\n    actionCode,\n    result,\n\
+          \    request,\n    file_url,\n  }\n\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          action:
+            children: null
+            type: string
+          actionCode:
+            children: null
+            type: string
+          file_url:
+            children: null
+            type: string
+          request:
+            children: null
+            type: string
+          result:
+            children: null
+            type: object
+        selected: false
+        title: 处理设备与任务参数
+        type: code
+        variables:
+        - value_selector:
+          - '1744186341974'
+          - text
+          variable: text
+        - value_selector:
+          - '1744185817604'
+          - device
+          variable: device
+        - value_selector:
+          - '1744019627790'
+          - content
+          variable: content
+        - value_selector:
+          - '1744019627790'
+          - type
+          variable: type
+        - value_selector:
+          - '1744019627790'
+          - api
+          variable: api
+        - value_selector:
+          - '1744019627790'
+          - token
+          variable: token
+        - value_selector:
+          - '1744019627790'
+          - question
+          variable: question
+      height: 54
+      id: '1744190704175'
+      position:
+        x: 1246
+        y: 310
+      positionAbsolute:
+        x: 1246
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({body}) {\n  const obj = JSON.parse(body)\n  const permission\
+          \ = Number(obj?.code) === 200 ? 1 : 0\n  const result = JSON.stringify({\n\
+          \    type: 'ota_task',\n    step: 'no_permission'\n  })\n  return {\n  \
+          \  permission,\n    result,\n    content: '',\n    type: '',\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
           content:
             children: null
             type: string
-          need_answer:
+          permission:
             children: null
             type: number
           result:
@@ -155,18 +727,311 @@ workflow:
           type:
             children: null
             type: string
-        selected: true
-        title: 代码执行
+        selected: false
+        title: 处理用户权限
         type: code
-        variables: []
+        variables:
+        - value_selector:
+          - '1744185766139'
+          - body
+          variable: body
       height: 54
-      id: '1744019743416'
+      id: '1744254606128'
       position:
-        x: 280
-        y: 282
+        x: 1854
+        y: 310
       positionAbsolute:
-        x: 280
-        y: 282
+        x: 1854
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: c99271cb-310b-44ba-bc1b-bac66cce3671
+            value: '0'
+            varType: number
+            variable_selector:
+            - '1744254606128'
+            - permission
+          id: 'true'
+          logical_operator: and
+        - case_id: 94f2aeb0-7641-43af-9c3b-ab7b51e269a3
+          conditions:
+          - comparison_operator: is
+            id: 47c95ccd-9417-42b2-9da5-4703962f2f06
+            value: filter_error
+            varType: string
+            variable_selector:
+            - '1744190704175'
+            - action
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断用户权限
+        type: if-else
+      height: 174
+      id: '1744255072161'
+      position:
+        x: 2158
+        y: 310
+      positionAbsolute:
+        x: 2158
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1744254606128'
+          - result
+          variable: result
+        - value_selector:
+          - '1744254606128'
+          - content
+          variable: content
+        - value_selector:
+          - '1744254606128'
+          - type
+          variable: type
+        selected: false
+        title: 返回数据
+        type: end
+      height: 142
+      id: '1744255120169'
+      position:
+        x: 2462
+        y: 310
+      positionAbsolute:
+        x: 2462
+        y: 310
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-35
+            key: ''
+            type: text
+            value: '{{#1744190704175.request#}}'
+          type: json
+        desc: ''
+        headers: 'Authorization:Bearer {{#env.filter_error#}}
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 设备异常筛选
+        type: http-request
+        url: '{{#env.path#}}'
+        variables: []
+      height: 123
+      id: '1744255571899'
+      position:
+        x: 2462
+        y: 492
+      positionAbsolute:
+        x: 2462
+        y: 492
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({result, body}) {\n  let device = result.data.targetDevices\n\
+          \  if (!!body) {\n    const obj = JSON.parse(body)\n    const outputs =\
+          \ obj?.data?.outputs ?? {}\n    const res = JSON.parse(outputs?.result ??\
+          \ '{}')\n    device = Array.isArray(res?.data?.targetDevices) ? Array.from(res.data.targetDevices)\
+          \ : []\n  }\n  const new_obj = {\n    type: 'ota_task',\n    data: {\n \
+          \     ...result.data,\n      targetDevices: device\n    }\n  }\n\n  return\
+          \ {\n    result: new_obj,\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: object
+        selected: false
+        title: 处理设备异常筛选
+        type: code
+        variables:
+        - value_selector:
+          - '1744190704175'
+          - result
+          variable: result
+        - value_selector:
+          - '1744255571899'
+          - body
+          variable: body
+        - value_selector:
+          - '1744190704175'
+          - actionCode
+          variable: actionCode
+      height: 54
+      id: '1744255807610'
+      position:
+        x: 2766
+        y: 482.5
+      positionAbsolute:
+        x: 2766
+        y: 482.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: Authorization:{{#1744019627790.token#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 用户 OTA 权限
+        type: http-request
+        url: '{{#1744019627790.api#}}/walle/ai/taskAssist/auth/{{#1744190704175.actionCode#}}'
+        variables: []
+      height: 158
+      id: '1744262385871'
+      position:
+        x: 1550
+        y: 310
+      positionAbsolute:
+        x: 1550
+        y: 310
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: Authorization:{{#1744019627790.token#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 软件/脚本/档案列表
+        type: http-request
+        url: '{{#1744019627790.api#}}{{#1744190704175.file_url#}}'
+        variables: []
+      height: 142
+      id: '1744265799521'
+      position:
+        x: 3070
+        y: 482.5
+      positionAbsolute:
+        x: 3070
+        y: 482.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({result, body, question, actionCode}) {\n  const obj\
+          \ = JSON.parse(body)\n  const list = Array.isArray(obj?.rows) ? Array.from(obj.rows)\
+          \ : []\n  const query = String(question)\n  let name = '', id = ''\n  switch\
+          \ (result.data?.actionCode) {\n    case '90021':\n    case '90022':\n  \
+          \    id = 'repoId'\n      name = 'softwareName'\n      break\n    case '90071':\n\
+          \      id = 'srId'\n      name = 'srName'\n      break\n    case '90081':\n\
+          \      id = 'frId'\n      name = 'frName'\n      break\n  }\n  const target\
+          \ = list.filter(o => {\n    return query.includes(o?.[name])\n  }).map(o\
+          \ => {\n    return {\n      id: o[id],\n      name: o[name],\n      os:\
+          \ o.osType\n    }\n  })\n  let osType = ''\n  const oses = target.map(o\
+          \ => o.os)\n  if (oses.length === 1) osType = oses[0]\n  let step = 'select_target'\n\
+          \  if (target.length === 0) step = 'select_os'\n  if (!!osType && (['90071',\
+          \ '90081'].includes(actionCode) && target.length === 1)) step = 'confirm_target'\n\
+          \  const res = JSON.stringify({\n    type: 'ota_task',\n    step,\n    data:\
+          \ {\n      ...result.data,\n      osType,\n      target,\n    }\n  })\n\n\
+          \  return {\n    result: res,\n    content: res,\n    type: 'ota_task',\n\
+          \  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          content:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+          type:
+            children: null
+            type: string
+        selected: false
+        title: 处理软件/脚本/档案
+        type: code
+        variables:
+        - value_selector:
+          - '1744265799521'
+          - body
+          variable: body
+        - value_selector:
+          - '1744255807610'
+          - result
+          variable: result
+        - value_selector:
+          - '1744019627790'
+          - question
+          variable: question
+      height: 54
+      id: '1744265933431'
+      position:
+        x: 3374
+        y: 482.5
+      positionAbsolute:
+        x: 3374
+        y: 482.5
       selected: true
       sourcePosition: right
       targetPosition: left
@@ -176,37 +1041,34 @@ workflow:
         desc: ''
         outputs:
         - value_selector:
-          - '1744019743416'
+          - '1744265933431'
           - result
           variable: result
         - value_selector:
-          - '1744019743416'
+          - '1744265933431'
           - content
           variable: content
         - value_selector:
-          - '1744019743416'
+          - '1744265933431'
           - type
           variable: type
-        - value_selector:
-          - '1744019743416'
-          - need_answer
-          variable: need_answer
         selected: false
-        title: 结束
+        title: 返回数据
         type: end
-      height: 168
-      id: '1744019871099'
+      height: 142
+      id: '1744268747197'
       position:
-        x: 584
-        y: 282
+        x: 3678
+        y: 482.5
       positionAbsolute:
-        x: 584
-        y: 282
+        x: 3678
+        y: 482.5
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     viewport:
-      x: 199
-      y: 24
-      zoom: 1
+      x: -2966.7078355796802
+      y: -68.23484270807762
+      zoom: 1.1486983549970353

@@ -533,7 +533,7 @@ workflow:
       positionAbsolute:
         x: 3678
         y: 577
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -775,6 +775,7 @@ workflow:
       positionAbsolute:
         x: 1854
         y: 271
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -835,10 +836,10 @@ workflow:
         - id: 209a9fb2-79e6-4de9-872d-6fb2020928ec
           role: system
           text: "# 问题分类指令\n\n请根据以下分类标准对`{{#context#}}`进行分类：\n\n**1. 设备控制类**\n- 关键词：设备重启、关机、调节音量、调节亮度、静音\n\
-            - 示例：关闭设备、音量调低、开启静音模式\n\n**2. 远程桌面类**\n- 关键词：连接、远程连接、远程桌面、远程操作、远程访问\n\
-            - 示例：连接到另一台电脑、发起远程协助、远程控制设备\n\n**3. 设备查找类**\n- 关键词：根据设备的ID/名称/系统/IP/标签/在线状态/异常状态来查找、找出、列出、显示、检索、查看、检查设备\n\
-            - 示例：找IP为192.168.1.1的设备、列出所有异常设备\n\n**4. 远程更新类**\n- 关键词：系统/软件更新、升级、安装、打补丁\n\
-            - 示例：安装最新补丁、升级到v2.0版本\n\n**5. 其他类**\n- 条件：无法匹配上述任何分类的请求\n\n**输出要求**\n\
+            - 示例：安卓设备静音、异常设备重启\n\n**2. 远程桌面类**\n- 关键词：连接、远程连接、远程桌面、远程操作、远程访问\n- 示例：连接到xx设备、打开xx设备的远程桌面\n\
+            \n**3. 设备查找类**\n- 关键词：根据设备的ID/名称/系统/IP/标签/在线状态/异常状态来查找、找出、列出、显示、检索、查看、检查设备\n\
+            - 示例：请找出最常发生异常的设备、列出所有在线设备\n\n**4. 远程更新类**\n- 关键词：软件（安装/更新/升级）、软件（卸载/移除）、（执行/运行）脚本、（传输/发送）档案/文件\n\
+            - 示例：为xx设备安装xx软件，在xx设备执行xx脚本\n\n**5. 其他类**\n- 条件：无法匹配上述任何分类的请求\n\n**输出要求**\n\
             ```json\n{\n  \"classify\": \"<数字，分类编号：1 | 2 | 3 | 4 | 5>\",\n  \"reason\"\
             : \"<不超过15字的关键词依据>\"\n}\n```\n"
         selected: false
@@ -855,7 +856,7 @@ workflow:
       positionAbsolute:
         x: 1854
         y: 416
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1046,6 +1047,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -1756.999999999999
-      y: 87
+      x: -225
+      y: 108.00000000000011
       zoom: 0.7
