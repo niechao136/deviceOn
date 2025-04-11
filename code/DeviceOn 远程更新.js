@@ -346,41 +346,127 @@ function main({result, body}) {
 //#endregion
 //#region 处理软件/脚本/档案
 
-function main({result, body, question, actionCode}) {
+function main({result, body, question}) {
   const obj = JSON.parse(body)
-  const list = Array.isArray(obj?.rows) ? Array.from(obj.rows) : []
+  let list = Array.isArray(obj?.rows) ? Array.from(obj.rows) : []
+  list = list.concat(Array.isArray(obj?.data?.tenantSoftwareList) ? Array.from(obj.data.tenantSoftwareList) : [])
+  list = list.concat(Array.isArray(obj?.data?.systemSoftwareList) ? Array.from(obj.data.systemSoftwareList) : [])
   const query = String(question)
-  let name = '', id = ''
-  switch (result.data?.actionCode) {
+  const actionCode = String(result?.data?.actionCode)
+  const device =  Array.isArray(result?.data?.targetDevices) ? Array.from(result?.data?.targetDevices) : []
+  let target = [], osType = '',  step = 'select_target', fail = [], target_len = 0
+  // 根据设备获取os
+  const oses = device.map(o => o.os)
+  if (oses.length === 1) osType = oses[0]
+  // 筛选软件、脚本、档案
+  switch (actionCode) {
     case '90021':
     case '90022':
-      id = 'repoId'
-      name = 'softwareName'
+      target = list.filter(o => {
+        return query.includes(o?.['softwareName'])
+      })
+      target_len = target.length
+      const sf_ok = o => Array.isArray(o?.pkgList) && Array.from(o?.pkgList).length > 0
+      if (target.length > 0) {
+        fail = target.filter(o => !sf_ok(o))
+        const ok = target.filter(o => sf_ok(o))
+        if (ok.length > 0) {
+          const oses = ok.map(o => o?.osType)
+          if (oses.length === 1) osType = oses[0]
+          target = ok.map(o => {
+            return {
+              id: o?.['repoId'],
+              name: o?.['softwareName'],
+              os: o?.osType,
+            }
+          })
+          if (!!osType) step = 'confirm_target'
+        } else {
+          const oses = fail.map(o => o.osType)
+          if (oses.length === 1) osType = oses[0]
+        }
+      }
+      if (target.length === 0) {
+        target = list.filter(o => sf_ok(o) && (!osType || osType === o?.osType)).map(o => {
+          return {
+            id: o?.['repoId'],
+            name: o?.['softwareName'],
+            os: o?.osType,
+          }
+        })
+      }
       break
     case '90071':
-      id = 'srId'
-      name = 'srName'
+      target = list.filter(o => {
+        return query.includes(o?.['srName'])
+      })
+      target_len = target.length
+      const sr_ok = o => Array.isArray(o?.scriptPkgList) && Array.from(o?.scriptPkgList).length > 0
+      if (target.length > 0) {
+        fail = target.filter(o => !sr_ok(o))
+        const ok = target.filter(o => sr_ok(o))
+        if (ok.length > 0) {
+          const oses = ok.map(o => o?.osType)
+          if (oses.length === 1) osType = oses[0]
+          target = ok.map(o => {
+            return {
+              id: o?.['srId'],
+              name: o?.['srName'],
+              os: o?.osType,
+            }
+          })
+          if (!!osType && target.length === 1) step = 'confirm_target'
+        } else {
+          const oses = fail.map(o => o.osType)
+          if (oses.length === 1) osType = oses[0]
+        }
+      }
+      if (target.length === 0) {
+        target = list.filter(o => sr_ok(o) && (!osType || osType === o?.osType)).map(o => {
+          return {
+            id: o?.['srId'],
+            name: o?.['srName'],
+            os: o?.osType,
+          }
+        })
+      }
       break
     case '90081':
-      id = 'frId'
-      name = 'frName'
+      target = list.filter(o => {
+        return query.includes(o?.['frName'])
+      })
+      target_len = target.length
+      const fr_ok = o => Array.isArray(o?.filePkgList) && Array.from(o?.filePkgList).length > 0
+      if (target.length > 0) {
+        fail = target.filter(o => !fr_ok(o))
+        const ok = target.filter(o => fr_ok(o))
+        if (ok.length > 0) {
+          const oses = ok.map(o => o?.osType)
+          if (oses.length === 1) osType = oses[0]
+          target = ok.map(o => {
+            return {
+              id: o?.['frId'],
+              name: o?.['frName'],
+              os: o?.osType,
+            }
+          })
+          if (!!osType && target.length === 1) step = 'confirm_target'
+        } else {
+          const oses = fail.map(o => o.osType)
+          if (oses.length === 1) osType = oses[0]
+        }
+      }
+      if (target.length === 0) {
+        target = list.filter(o => fr_ok(o) && (!osType || osType === o?.osType)).map(o => {
+          return {
+            id: o?.['frId'],
+            name: o?.['frName'],
+            os: o?.osType,
+          }
+        })
+      }
       break
   }
-  const target = list.filter(o => {
-    return query.includes(o?.[name])
-  }).map(o => {
-    return {
-      id: o[id],
-      name: o[name],
-      os: o.osType
-    }
-  })
-  let osType = ''
-  const oses = target.map(o => o.os)
-  if (oses.length === 1) osType = oses[0]
-  let step = 'select_target'
-  if (target.length === 0) step = 'select_os'
-  if (!!osType && (['90071', '90081'].includes(actionCode) && target.length === 1)) step = 'confirm_target'
   const res = JSON.stringify({
     type: 'ota_task',
     step,
@@ -388,6 +474,8 @@ function main({result, body, question, actionCode}) {
       ...result.data,
       osType,
       target,
+      target_len,
+      fail,
     }
   })
 

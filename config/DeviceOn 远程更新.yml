@@ -398,7 +398,15 @@ workflow:
         selected: false
         title: 处理设备列表
         type: code
-        variables: []
+        variables:
+        - value_selector:
+          - '1744185766139'
+          - body
+          variable: body
+        - value_selector:
+          - '1744019627790'
+          - timezone
+          variable: timezone
       height: 54
       id: '1744185817604'
       position:
@@ -888,10 +896,6 @@ workflow:
           - '1744255571899'
           - body
           variable: body
-        - value_selector:
-          - '1744190704175'
-          - actionCode
-          variable: actionCode
       height: 54
       id: '1744255807610'
       position:
@@ -956,7 +960,7 @@ workflow:
           max_retries: 3
           retry_enabled: true
           retry_interval: 100
-        selected: false
+        selected: true
         timeout:
           max_connect_timeout: 0
           max_read_timeout: 0
@@ -973,29 +977,73 @@ workflow:
       positionAbsolute:
         x: 3070
         y: 482.5
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        code: "function main({result, body, question, actionCode}) {\n  const obj\
-          \ = JSON.parse(body)\n  const list = Array.isArray(obj?.rows) ? Array.from(obj.rows)\
-          \ : []\n  const query = String(question)\n  let name = '', id = ''\n  switch\
-          \ (result.data?.actionCode) {\n    case '90021':\n    case '90022':\n  \
-          \    id = 'repoId'\n      name = 'softwareName'\n      break\n    case '90071':\n\
-          \      id = 'srId'\n      name = 'srName'\n      break\n    case '90081':\n\
-          \      id = 'frId'\n      name = 'frName'\n      break\n  }\n  const target\
-          \ = list.filter(o => {\n    return query.includes(o?.[name])\n  }).map(o\
-          \ => {\n    return {\n      id: o[id],\n      name: o[name],\n      os:\
-          \ o.osType\n    }\n  })\n  let osType = ''\n  const oses = target.map(o\
-          \ => o.os)\n  if (oses.length === 1) osType = oses[0]\n  let step = 'select_target'\n\
-          \  if (target.length === 0) step = 'select_os'\n  if (!!osType && (['90071',\
-          \ '90081'].includes(actionCode) && target.length === 1)) step = 'confirm_target'\n\
-          \  const res = JSON.stringify({\n    type: 'ota_task',\n    step,\n    data:\
-          \ {\n      ...result.data,\n      osType,\n      target,\n    }\n  })\n\n\
-          \  return {\n    result: res,\n    content: res,\n    type: 'ota_task',\n\
-          \  }\n}"
+        code: "function main({result, body, question}) {\n  const obj = JSON.parse(body)\n\
+          \  let list = Array.isArray(obj?.rows) ? Array.from(obj.rows) : []\n  list\
+          \ = list.concat(Array.isArray(obj?.data?.tenantSoftwareList) ? Array.from(obj.data.tenantSoftwareList)\
+          \ : [])\n  list = list.concat(Array.isArray(obj?.data?.systemSoftwareList)\
+          \ ? Array.from(obj.data.systemSoftwareList) : [])\n  const query = String(question)\n\
+          \  const actionCode = String(result?.data?.actionCode)\n  const device =\
+          \  Array.isArray(result?.data?.targetDevices) ? Array.from(result?.data?.targetDevices)\
+          \ : []\n  let target = [], osType = '',  step = 'select_target', fail =\
+          \ [], target_len = 0\n  // 根据设备获取os\n  const oses = device.map(o => o.os)\n\
+          \  if (oses.length === 1) osType = oses[0]\n  // 筛选软件、脚本、档案\n  switch (actionCode)\
+          \ {\n    case '90021':\n    case '90022':\n      target = list.filter(o\
+          \ => {\n        return query.includes(o?.['softwareName'])\n      })\n \
+          \     target_len = target.length\n      const sf_ok = o => Array.isArray(o?.pkgList)\
+          \ && Array.from(o?.pkgList).length > 0\n      if (target.length > 0) {\n\
+          \        fail = target.filter(o => !sf_ok(o))\n        const ok = target.filter(o\
+          \ => sf_ok(o))\n        if (ok.length > 0) {\n          const oses = ok.map(o\
+          \ => o?.osType)\n          if (oses.length === 1) osType = oses[0]\n   \
+          \       target = ok.map(o => {\n            return {\n              id:\
+          \ o?.['repoId'],\n              name: o?.['softwareName'],\n           \
+          \   os: o?.osType,\n            }\n          })\n          if (!!osType)\
+          \ step = 'confirm_target'\n        } else {\n          const oses = fail.map(o\
+          \ => o.osType)\n          if (oses.length === 1) osType = oses[0]\n    \
+          \    }\n      }\n      if (target.length === 0) {\n        target = list.filter(o\
+          \ => sf_ok(o) && (!osType || osType === o?.osType)).map(o => {\n       \
+          \   return {\n            id: o?.['repoId'],\n            name: o?.['softwareName'],\n\
+          \            os: o?.osType,\n          }\n        })\n      }\n      break\n\
+          \    case '90071':\n      target = list.filter(o => {\n        return query.includes(o?.['srName'])\n\
+          \      })\n      target_len = target.length\n      const sr_ok = o => Array.isArray(o?.scriptPkgList)\
+          \ && Array.from(o?.scriptPkgList).length > 0\n      if (target.length >\
+          \ 0) {\n        fail = target.filter(o => !sr_ok(o))\n        const ok =\
+          \ target.filter(o => sr_ok(o))\n        if (ok.length > 0) {\n         \
+          \ const oses = ok.map(o => o?.osType)\n          if (oses.length === 1)\
+          \ osType = oses[0]\n          target = ok.map(o => {\n            return\
+          \ {\n              id: o?.['srId'],\n              name: o?.['srName'],\n\
+          \              os: o?.osType,\n            }\n          })\n          if\
+          \ (!!osType && target.length === 1) step = 'confirm_target'\n        } else\
+          \ {\n          const oses = fail.map(o => o.osType)\n          if (oses.length\
+          \ === 1) osType = oses[0]\n        }\n      }\n      if (target.length ===\
+          \ 0) {\n        target = list.filter(o => sr_ok(o) && (!osType || osType\
+          \ === o?.osType)).map(o => {\n          return {\n            id: o?.['srId'],\n\
+          \            name: o?.['srName'],\n            os: o?.osType,\n        \
+          \  }\n        })\n      }\n      break\n    case '90081':\n      target\
+          \ = list.filter(o => {\n        return query.includes(o?.['frName'])\n \
+          \     })\n      target_len = target.length\n      const fr_ok = o => Array.isArray(o?.filePkgList)\
+          \ && Array.from(o?.filePkgList).length > 0\n      if (target.length > 0)\
+          \ {\n        fail = target.filter(o => !fr_ok(o))\n        const ok = target.filter(o\
+          \ => fr_ok(o))\n        if (ok.length > 0) {\n          const oses = ok.map(o\
+          \ => o?.osType)\n          if (oses.length === 1) osType = oses[0]\n   \
+          \       target = ok.map(o => {\n            return {\n              id:\
+          \ o?.['frId'],\n              name: o?.['frName'],\n              os: o?.osType,\n\
+          \            }\n          })\n          if (!!osType && target.length ===\
+          \ 1) step = 'confirm_target'\n        } else {\n          const oses = fail.map(o\
+          \ => o.osType)\n          if (oses.length === 1) osType = oses[0]\n    \
+          \    }\n      }\n      if (target.length === 0) {\n        target = list.filter(o\
+          \ => fr_ok(o) && (!osType || osType === o?.osType)).map(o => {\n       \
+          \   return {\n            id: o?.['frId'],\n            name: o?.['frName'],\n\
+          \            os: o?.osType,\n          }\n        })\n      }\n      break\n\
+          \  }\n  const res = JSON.stringify({\n    type: 'ota_task',\n    step,\n\
+          \    data: {\n      ...result.data,\n      osType,\n      target,\n    \
+          \  target_len,\n      fail,\n    }\n  })\n\n  return {\n    result: res,\n\
+          \    content: res,\n    type: 'ota_task',\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -1032,7 +1080,7 @@ workflow:
       positionAbsolute:
         x: 3374
         y: 482.5
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1069,6 +1117,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -2966.7078355796802
-      y: -68.23484270807762
+      x: -2822.70783557968
+      y: -133.23484270807785
       zoom: 1.1486983549970353
