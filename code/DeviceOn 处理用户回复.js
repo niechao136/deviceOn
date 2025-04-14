@@ -176,10 +176,12 @@ function main({question, content, type, api, token, timezone}) {
               targetDevices: filter_device,
             }
           })
+          if (filter_device.length > 0) {
+            cache_content = result
+            cache_type = type
+          }
           if (filter.length > 0) {
             if (filter_device.length > 0) {
-              cache_content = result
-              cache_type = type
               break
             }
             action = 'device'
@@ -236,6 +238,50 @@ function main({question, content, type, api, token, timezone}) {
           action = 'confirm'
           break
         }
+        const is_trigger = !!obj?.data?.is_trigger
+        if (obj?.step === 'confirm_flow') {
+          let step = 'add_task'
+          if (!is_trigger) {
+            const scheduleType = String(obj?.data?.schedule?.scheduleType)
+            if (scheduleType === 'CRON ONCE') {
+              const timezone = String(obj?.data?.schedule?.timezone)
+              if (!['device', 'local'].includes(timezone)) {
+                step = 'select_timezone'
+              }
+            }
+            if (scheduleType === '') {
+              step = 'select_time'
+            }
+          }
+          result = JSON.stringify({
+            ...obj,
+            step,
+          })
+          if (step === 'add_task') {
+            request = JSON.stringify({
+              inputs: {
+                content: result,
+                timezone,
+                api,
+                token
+              },
+              response_mode: 'blocking',
+              user: 'deviceOn reply'
+            })
+          }
+          cache_content = result
+          cache_type = type
+          action = 'confirm'
+          break
+        }
+        if (['select_timezone', 'select_time'].includes(obj?.step)) {
+          result = JSON.stringify({
+            ...obj,
+            step: obj?.step === 'select_timezone' ? 'confirm_timezone' : 'confirm_time',
+          })
+          action = 'confirm'
+          break
+        }
       }
       break
     default:
@@ -254,7 +300,7 @@ function main({question, content, type, api, token, timezone}) {
 }
 
 //#endregion
-//#region 处理确认判断
+//#region 处理确认信息
 
 function handleLLM(text) {
   const regex = /```json([\s\S]*?)```/
@@ -270,30 +316,98 @@ function handleLLM(text) {
   }
   return obj
 }
-function main({text, type, result}) {
+function main({text, type, result, api, token, timezone}) {
   const obj = handleLLM(text)
-  const judgment = !!obj?.['judgment'] && obj?.['judgment'] !== 'false'
-  let action = '', answer = 1
-  if (!judgment) answer = 0
-  if (judgment) {
-    switch (type) {
-      case 'control_task':
+  const is_confirm = !!obj?.['is_confirm']
+  const is_online = !!obj?.['is_online']
+  const is_none = !!obj?.['is_none']
+  const is_device = !!obj?.['is_device']
+  const is_local = !!obj?.['is_local']
+  let action = '', answer = 0, request = null
+  switch (type) {
+    case 'control_task':
+      if (is_confirm) {
         action = 'task'
-        break
-      case 'ota_task':
-        const obj = JSON.parse(result)
-        if (obj?.step === 'select_device') {
-          action = 'device'
-        }
-        if (obj?.step === 'confirm_flow') {
-          action = 'target'
-        }
-        break
-    }
+      }
+      break
+    case 'ota_task':
+      const obj = JSON.parse(result)
+      if (obj?.step === 'select_device' && is_confirm) {
+        action = 'device'
+      }
+      if (obj?.step === 'confirm_device' && is_confirm) {
+        answer = 1
+      }
+      if (obj?.step === 'confirm_flow' && is_confirm) {
+        action = 'target'
+      }
+      if (obj?.step === 'add_task' && is_confirm) {
+        action = 'task'
+      }
+      if (['select_timezone', 'select_time'].includes(obj?.step) && is_confirm) {
+        answer = 1
+      }
+      if (obj?.step === 'confirm_timezone' && (is_device || is_local)) {
+        const result = JSON.stringify({
+          ...obj,
+          data: {
+            ...obj.data,
+            schedule: {
+              ...obj.data.schedule,
+              timezone: is_device ? 'device' : 'local'
+            }
+          }
+        })
+        request = JSON.stringify({
+          inputs: {
+            content: result,
+            timezone,
+            api,
+            token
+          },
+          response_mode: 'blocking',
+          user: 'deviceOn reply'
+        })
+        action = 'task'
+      }
+      if (obj?.step === 'confirm_time' && (is_online || is_none)) {
+        const result = JSON.stringify({
+          ...obj,
+          data: {
+            ...obj.data,
+            schedule: {
+              ...obj.data.schedule,
+              scheduleType: is_online ? 'ONLINE' : 'NONE'
+            }
+          }
+        })
+        request = JSON.stringify({
+          inputs: {
+            content: result,
+            timezone,
+            api,
+            token
+          },
+          response_mode: 'blocking',
+          user: 'deviceOn reply'
+        })
+        action = 'task'
+      }
+      break
   }
   return {
     answer,
     action,
+    request,
+  }
+}
+
+//#endregion
+//#region 新增任务request
+
+function main({request, req}) {
+  return {
+    request: req ?? request
   }
 }
 
@@ -384,12 +498,13 @@ function main({body, result}) {
     case '90021':
       const installSoftwareList = target.map(v => {
         let use = false
-        if (!!tenant[v?.id]) use = true
-        const o = (tenant[v?.id] ?? system[v?.id]) ?? {}
+        if (!!tenant_id[v?.id]) use = true
+        const o = (tenant_id[v?.id] ?? system_id[v?.id]) ?? {}
         const pkg = o?.pkgList?.[0] ?? {}
         if (use) flow += Number(pkg?.fileSize ?? 0)
         return {
-          ...pkg
+          ...pkg,
+          softwareName: o.softwareName
         }
       })
       parameter = {
@@ -400,12 +515,13 @@ function main({body, result}) {
     case '90022':
       const uninstallSoftwareList = target.map(v => {
         let use = false
-        if (!!tenant[v?.id]) use = true
-        const o = (tenant[v?.id] ?? system[v?.id]) ?? {}
+        if (!!tenant_id[v?.id]) use = true
+        const o = (tenant_id[v?.id] ?? system_id[v?.id]) ?? {}
         const pkg = o?.pkgList?.[0] ?? {}
         if (use) flow += Number(pkg?.fileSize ?? 0)
         return {
-          ...pkg
+          ...pkg,
+          softwareName: o.softwareName
         }
       })
       parameter = {
@@ -414,21 +530,47 @@ function main({body, result}) {
       }
       break
     case '90071':
-      const script = target?.[0]?.scriptPkgList?.[0] ?? {}
+      const script = list_id[target?.[0]?.id]?.scriptPkgList?.[0] ?? {}
       flow += Number(script?.fileSize ?? 0)
       parameter = {
-        ...script,
         osType,
+        "spId": script.spId,
+        "fileName": script.fileName,
+        "pkgName": script.pkgName,
+        "spVersion": script.spVersion,
+        "downloadPath": script.downloadPath,
+        "fileSize": script.fileSize,
+        "tenantId": script.tenantId,
+        "tool": script.tool,
+        "type": script.type,
+        "versioncode": script.versioncode,
+        "srName": script.srName,
+        "srId": script.srId,
+        "willReboot": script.willReboot,
       }
       break
     case '90081':
-      const fc = target?.[0]
+      const fc = list_id[target?.[0]?.id] ?? {}
+      const fileList = []
       Array.isArray(fc?.filePkgList) && Array.from(fc.filePkgList).forEach(o => {
         flow += Number(o?.fileSize ?? 0)
+        fileList.push({
+          fpId: o.fpId,
+          fileName: o.fileName,
+          downloadPath: o.downloadPath,
+          targetPath: o.targetPath,
+          aliasName: o.aliasName,
+          fileSize: o.fileSize,
+          tenantId: o.tenantId,
+          osType: o.osType,
+        })
       })
       parameter = {
-        ...fc,
         osType,
+        fileList,
+        frId: fc.frId,
+        frName: fc.frName,
+        fileCount: fc.fileCount,
       }
       break
   }

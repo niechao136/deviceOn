@@ -147,17 +147,6 @@ workflow:
       type: custom
       zIndex: 0
     - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1744178342442-true-1743649547982-target
-      source: '1744178342442'
-      sourceHandle: 'true'
-      target: '1743649547982'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
         isInIteration: false
         isInLoop: false
         sourceType: if-else
@@ -172,56 +161,11 @@ workflow:
     - data:
         isInLoop: false
         sourceType: if-else
-        targetType: http-request
-      id: 1744178342442-1f317717-e0eb-4fb4-9222-294e27f2784e-17436599536740-target
-      source: '1744178342442'
-      sourceHandle: 1f317717-e0eb-4fb4-9222-294e27f2784e
-      target: '17436599536740'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: http-request
-      id: 1744178342442-4d93e724-5c30-4c20-bc63-2540132c09bc-1744355038209-target
-      source: '1744178342442'
-      sourceHandle: 4d93e724-5c30-4c20-bc63-2540132c09bc
-      target: '1744355038209'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
         targetType: end
       id: 1743649783399-false-1743649813355-target
       source: '1743649783399'
       sourceHandle: 'false'
       target: '1743649813355'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: http-request
-      id: 1743649783399-true-17436599536740-target
-      source: '1743649783399'
-      sourceHandle: 'true'
-      target: '17436599536740'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: http-request
-      id: 1743649783399-05dffa90-879f-4567-bed2-9872eb011bdd-1744355038209-target
-      source: '1743649783399'
-      sourceHandle: 05dffa90-879f-4567-bed2-9872eb011bdd
-      target: '1744355038209'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -252,18 +196,6 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: if-else
-        targetType: http-request
-      id: 1744178342442-20e34104-d58b-4af7-ac76-b6abee3064c2-1744362095970-target
-      source: '1744178342442'
-      sourceHandle: 20e34104-d58b-4af7-ac76-b6abee3064c2
-      target: '1744362095970'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: http-request
         targetType: code
       id: 1744362095970-source-1744362369879-target
@@ -286,13 +218,91 @@ workflow:
       type: custom
       zIndex: 0
     - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1744595339075-source-17436599536740-target
+      source: '1744595339075'
+      sourceHandle: source
+      target: '17436599536740'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
         isInLoop: false
         sourceType: if-else
         targetType: http-request
-      id: 1743649783399-2ad02a69-30ad-4584-b661-196f65e815d0-1744362095970-target
+      id: 1744178342442-true-1744362095970-target
+      source: '1744178342442'
+      sourceHandle: 'true'
+      target: '1744362095970'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1744178342442-1f317717-e0eb-4fb4-9222-294e27f2784e-1744355038209-target
+      source: '1744178342442'
+      sourceHandle: 1f317717-e0eb-4fb4-9222-294e27f2784e
+      target: '1744355038209'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1744178342442-4d93e724-5c30-4c20-bc63-2540132c09bc-1744595339075-target
+      source: '1744178342442'
+      sourceHandle: 4d93e724-5c30-4c20-bc63-2540132c09bc
+      target: '1744595339075'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1744178342442-20e34104-d58b-4af7-ac76-b6abee3064c2-1743649547982-target
+      source: '1744178342442'
+      sourceHandle: 20e34104-d58b-4af7-ac76-b6abee3064c2
+      target: '1743649547982'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1743649783399-true-1744362095970-target
+      source: '1743649783399'
+      sourceHandle: 'true'
+      target: '1744362095970'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1743649783399-05dffa90-879f-4567-bed2-9872eb011bdd-1744355038209-target
+      source: '1743649783399'
+      sourceHandle: 05dffa90-879f-4567-bed2-9872eb011bdd
+      target: '1744355038209'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1743649783399-2ad02a69-30ad-4584-b661-196f65e815d0-1744595339075-target
       source: '1743649783399'
       sourceHandle: 2ad02a69-30ad-4584-b661-196f65e815d0
-      target: '1744362095970'
+      target: '1744595339075'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -343,10 +353,10 @@ workflow:
       id: '1743646903355'
       position:
         x: 30
-        y: 335
+        y: 455
       positionAbsolute:
         x: 30
-        y: 335
+        y: 455
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -369,14 +379,17 @@ workflow:
         prompt_template:
         - id: 391e7b29-584f-483d-a4e9-4d0a6a7f6cb2
           role: system
-          text: "# 文本确认判断提示词\n\n**任务**  \n判断输入文本是否为确认/肯定性表述，返回JSON格式结果。\n\n**输入文本**\
-            \  \n{{#context#}}\n\n**判断标准**  \n1. 包含明确同意/确认词汇（如：好、好的、确定、可以、没问题、是的、OK、Go）\
-            \  \n2. 表达正向完成态（如：已处理、已完成）  \n3. 积极回应请求（如：马上办、这就做）  \n4. 排除否定/模糊表述（如：不行、可能吧、再说）\n\
-            \n**处理流程**\n1. 文本解析：提取核心动词/表态词\n2. 语义匹配：对照确认表达词库\n3. 语境分析：识别应答对象完整性\n\
-            4. 双重验证：交叉检查否定词存在性\n\n**输出要求**  \n```json\n{\n  \"judgment\": \"<boolean>\"\
-            ,\n  \"reason\": \"<不超过15字的关键词依据>\"\n}\n```\n"
+          text: "# 信息提取提示词\n\n## `问题`: `{{#context#}}`\n\n---\n\n## 处理流程\n- 若`问题`包含\
+            \ `好`、`好的`、`确定`、`OK`、`Go`、`是的`、`可以` 等确认性表述 → `is_confirm = true`\n- 若`问题`包含\
+            \ `上线后执行`、`发布后运行` 等类似描述 → `is_online = true`\n- 若`问题`包含 `立即执行` 等类似描述 →\
+            \ `is_none = true`\n- 若`问题`包含 `设备时间`、`设备时区` 等类似描述 → `is_device = true`\n\
+            - 若`问题`包含 `本地时间`、`本地时区` 等类似描述 → `is_local = true`\n\n---\n\n## 输出格式\n\
+            输出 JSON 格式必须符合以下结构：\n```json\n{\n  \"is_online\": \"<boolean>\",\n  \"\
+            is_none\": \"<boolean>\",\n  \"is_device\": \"<boolean>\",\n  \"is_local\"\
+            : \"<boolean>\",\n  \"is_confirm\": \"<boolean>\",\n  \"reason\": \"<不超过15字的关键词依据>\"\
+            \n}\n```\n\n---\n"
         selected: false
-        title: LLM 判断是否确认
+        title: LLM 处理确认信息
         type: llm
         variables: []
         vision:
@@ -384,12 +397,12 @@ workflow:
       height: 90
       id: '1743649547982'
       position:
-        x: 942
-        y: 335
+        x: 930.5714285714284
+        y: 688
       positionAbsolute:
-        x: 942
-        y: 335
-      selected: false
+        x: 930.5714285714284
+        y: 688
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -401,15 +414,38 @@ workflow:
           \ _res\n  const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\/\\\
           *[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
           \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text,\
-          \ type, result}) {\n  const obj = handleLLM(text)\n  const judgment = !!obj?.['judgment']\
-          \ && obj?.['judgment'] !== 'false'\n  let action = '', answer = 1\n  if\
-          \ (!judgment) answer = 0\n  if (judgment) {\n    switch (type) {\n     \
-          \ case 'control_task':\n        action = 'task'\n        break\n      case\
-          \ 'ota_task':\n        const obj = JSON.parse(result)\n        if (obj?.step\
-          \ === 'select_device') {\n          action = 'device'\n        }\n     \
-          \   if (obj?.step === 'confirm_flow') {\n          action = 'target'\n \
-          \       }\n        break\n    }\n  }\n  return {\n    answer,\n    action,\n\
-          \  }\n}"
+          \ type, result, api, token, timezone}) {\n  const obj = handleLLM(text)\n\
+          \  const is_confirm = !!obj?.['is_confirm']\n  const is_online = !!obj?.['is_online']\n\
+          \  const is_none = !!obj?.['is_none']\n  const is_device = !!obj?.['is_device']\n\
+          \  const is_local = !!obj?.['is_local']\n  let action = '', answer = 0,\
+          \ request = null\n  switch (type) {\n    case 'control_task':\n      if\
+          \ (is_confirm) {\n        action = 'task'\n      }\n      break\n    case\
+          \ 'ota_task':\n      const obj = JSON.parse(result)\n      if (obj?.step\
+          \ === 'select_device' && is_confirm) {\n        action = 'device'\n    \
+          \  }\n      if (obj?.step === 'confirm_device' && is_confirm) {\n      \
+          \  answer = 1\n      }\n      if (obj?.step === 'confirm_flow' && is_confirm)\
+          \ {\n        action = 'target'\n      }\n      if (obj?.step === 'add_task'\
+          \ && is_confirm) {\n        action = 'task'\n      }\n      if (['select_timezone',\
+          \ 'select_time'].includes(obj?.step) && is_confirm) {\n        answer =\
+          \ 1\n      }\n      if (obj?.step === 'confirm_timezone' && (is_device ||\
+          \ is_local)) {\n        const result = JSON.stringify({\n          ...obj,\n\
+          \          data: {\n            ...obj.data,\n            schedule: {\n\
+          \              ...obj.data.schedule,\n              timezone: is_device\
+          \ ? 'device' : 'local'\n            }\n          }\n        })\n       \
+          \ request = JSON.stringify({\n          inputs: {\n            content:\
+          \ result,\n            timezone,\n            api,\n            token\n\
+          \          },\n          response_mode: 'blocking',\n          user: 'deviceOn\
+          \ reply'\n        })\n        action = 'task'\n      }\n      if (obj?.step\
+          \ === 'confirm_time' && (is_online || is_none)) {\n        const result\
+          \ = JSON.stringify({\n          ...obj,\n          data: {\n           \
+          \ ...obj.data,\n            schedule: {\n              ...obj.data.schedule,\n\
+          \              scheduleType: is_online ? 'ONLINE' : 'NONE'\n           \
+          \ }\n          }\n        })\n        request = JSON.stringify({\n     \
+          \     inputs: {\n            content: result,\n            timezone,\n \
+          \           api,\n            token\n          },\n          response_mode:\
+          \ 'blocking',\n          user: 'deviceOn reply'\n        })\n        action\
+          \ = 'task'\n      }\n      break\n  }\n  return {\n    answer,\n    action,\n\
+          \    request,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -419,8 +455,11 @@ workflow:
           answer:
             children: null
             type: number
+          request:
+            children: null
+            type: string
         selected: false
-        title: 处理确认判断
+        title: 处理确认信息
         type: code
         variables:
         - value_selector:
@@ -435,14 +474,26 @@ workflow:
           - '1744178241091'
           - result
           variable: result
+        - value_selector:
+          - '1743646903355'
+          - api
+          variable: api
+        - value_selector:
+          - '1743646903355'
+          - token
+          variable: token
+        - value_selector:
+          - '1743646903355'
+          - timezone
+          variable: timezone
       height: 54
       id: '1743649657177'
       position:
-        x: 1246
-        y: 335
+        x: 1217.4285714285716
+        y: 688
       positionAbsolute:
-        x: 1246
-        y: 335
+        x: 1217.4285714285716
+        y: 688
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -454,7 +505,7 @@ workflow:
           conditions:
           - comparison_operator: contains
             id: 61466132-23b7-4481-9d02-20caef772ee4
-            value: task
+            value: target
             varType: string
             variable_selector:
             - '1743649657177'
@@ -476,11 +527,12 @@ workflow:
           conditions:
           - comparison_operator: is
             id: e215af3f-55c2-4472-b154-59eb8793203f
-            value: target
+            value: task
             varType: string
             variable_selector:
             - '1743649657177'
             - action
+          id: 2ad02a69-30ad-4584-b661-196f65e815d0
           logical_operator: and
         desc: ''
         selected: false
@@ -489,11 +541,11 @@ workflow:
       height: 222
       id: '1743649783399'
       position:
-        x: 1550
-        y: 335
+        x: 1498.5714285714287
+        y: 688
       positionAbsolute:
-        x: 1550
-        y: 335
+        x: 1498.5714285714287
+        y: 688
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -525,10 +577,10 @@ workflow:
       id: '1743649813355'
       position:
         x: 1854
-        y: 335
+        y: 868.1428571428571
       positionAbsolute:
         x: 1854
-        y: 335
+        y: 868.1428571428571
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -543,7 +595,7 @@ workflow:
           - id: key-value-45
             key: ''
             type: text
-            value: '{{#1744178241091.request#}}'
+            value: '{{#1744595339075.request#}}'
           type: json
         desc: ''
         headers: 'Authorization:Bearer {{#env.add_task#}}
@@ -567,11 +619,11 @@ workflow:
       height: 123
       id: '17436599536740'
       position:
-        x: 1854
-        y: 543
+        x: 2215.1428571428573
+        y: 594.7142857142858
       positionAbsolute:
-        x: 1854
-        y: 543
+        x: 2215.1428571428573
+        y: 594.7142857142858
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -605,11 +657,11 @@ workflow:
       height: 54
       id: '17436599619100'
       position:
-        x: 2158
-        y: 520.5
+        x: 2626.285714285714
+        y: 594.7142857142858
       positionAbsolute:
-        x: 2158
-        y: 520.5
+        x: 2626.285714285714
+        y: 594.7142857142858
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -640,11 +692,11 @@ workflow:
       height: 168
       id: '17436599645130'
       position:
-        x: 2462
-        y: 520.5
+        x: 3014.5714285714284
+        y: 594.7142857142858
       positionAbsolute:
-        x: 2462
-        y: 520.5
+        x: 3014.5714285714284
+        y: 594.7142857142858
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -728,15 +780,16 @@ workflow:
           \    target_len: filter.length > 0 ? filter.length : target.length,\n  \
           \            fail: fail_device,\n              device_len: device.length,\n\
           \              targetDevices: filter_device,\n            }\n          })\n\
-          \          if (filter.length > 0) {\n            if (filter_device.length\
-          \ > 0) {\n              cache_content = result\n              cache_type\
-          \ = type\n              break\n            }\n            action = 'device'\n\
-          \            break\n          }\n          action = 'confirm'\n        \
-          \  break\n        }\n        filter_device = device.filter(o => {\n    \
-          \      return query.includes(o?.name) || query.includes(o?.id) || query.includes(o?.os)\n\
-          \        })\n        switch (actionCode) {\n          case '90021':\n  \
-          \        case '90022':\n            target_url = '/walle/ai/taskAssist/listSoftware'\n\
-          \            break\n          case '90071':\n            target_url = '/walle/ai/taskAssist/listScript'\n\
+          \          if (filter_device.length > 0) {\n            cache_content =\
+          \ result\n            cache_type = type\n          }\n          if (filter.length\
+          \ > 0) {\n            if (filter_device.length > 0) {\n              break\n\
+          \            }\n            action = 'device'\n            break\n     \
+          \     }\n          action = 'confirm'\n          break\n        }\n    \
+          \    filter_device = device.filter(o => {\n          return query.includes(o?.name)\
+          \ || query.includes(o?.id) || query.includes(o?.os)\n        })\n      \
+          \  switch (actionCode) {\n          case '90021':\n          case '90022':\n\
+          \            target_url = '/walle/ai/taskAssist/listSoftware'\n        \
+          \    break\n          case '90071':\n            target_url = '/walle/ai/taskAssist/listScript'\n\
           \            break\n          case '90081':\n            target_url = '/walle/ai/taskAssist/listFile'\n\
           \            break\n        }\n        if (obj?.step === 'select_device')\
           \ {\n          result = JSON.stringify({\n            ...obj,\n        \
@@ -752,10 +805,30 @@ workflow:
           \              device_len: filter_device.length > 0 ? filter_device.length\
           \ : device.length,\n            }\n          })\n          if (filter_device.length\
           \ > 0) {\n            action = 'target'\n            break\n          }\n\
-          \          action = 'confirm'\n          break\n        }\n      }\n   \
-          \   break\n    default:\n      break\n  }\n  return {\n    action,\n   \
-          \ answer,\n    content: cache_content,\n    request,\n    result,\n    type:\
-          \ cache_type,\n    osType,\n    target_url,\n  }\n}"
+          \          action = 'confirm'\n          break\n        }\n        const\
+          \ is_trigger = !!obj?.data?.is_trigger\n        if (obj?.step === 'confirm_flow')\
+          \ {\n          let step = 'add_task'\n          if (!is_trigger) {\n   \
+          \         const scheduleType = String(obj?.data?.schedule?.scheduleType)\n\
+          \            if (scheduleType === 'CRON ONCE') {\n              const timezone\
+          \ = String(obj?.data?.schedule?.timezone)\n              if (!['device',\
+          \ 'local'].includes(timezone)) {\n                step = 'select_timezone'\n\
+          \              }\n            }\n            if (scheduleType === '') {\n\
+          \              step = 'select_time'\n            }\n          }\n      \
+          \    result = JSON.stringify({\n            ...obj,\n            step,\n\
+          \          })\n          if (step === 'add_task') {\n            request\
+          \ = JSON.stringify({\n              inputs: {\n                content:\
+          \ result,\n                timezone,\n                api,\n           \
+          \     token\n              },\n              response_mode: 'blocking',\n\
+          \              user: 'deviceOn reply'\n            })\n          }\n   \
+          \       cache_content = result\n          cache_type = type\n          action\
+          \ = 'confirm'\n          break\n        }\n        if (['select_timezone',\
+          \ 'select_time'].includes(obj?.step)) {\n          result = JSON.stringify({\n\
+          \            ...obj,\n            step: obj?.step === 'select_timezone'\
+          \ ? 'confirm_timezone' : 'confirm_time',\n          })\n          action\
+          \ = 'confirm'\n          break\n        }\n      }\n      break\n    default:\n\
+          \      break\n  }\n  return {\n    action,\n    answer,\n    content: cache_content,\n\
+          \    request,\n    result,\n    type: cache_type,\n    osType,\n    target_url,\n\
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -815,10 +888,10 @@ workflow:
       id: '1744178241091'
       position:
         x: 334
-        y: 335
+        y: 455
       positionAbsolute:
         x: 334
-        y: 335
+        y: 455
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -830,7 +903,7 @@ workflow:
           conditions:
           - comparison_operator: is
             id: 34ddb985-5078-4bed-b306-7b35f8129ab4
-            value: confirm
+            value: target
             varType: string
             variable_selector:
             - '1744178241091'
@@ -841,7 +914,7 @@ workflow:
           conditions:
           - comparison_operator: is
             id: c969ffbc-fa34-4d49-893c-b9a5f2f9de5f
-            value: task
+            value: device
             varType: string
             variable_selector:
             - '1744178241091'
@@ -852,7 +925,7 @@ workflow:
           conditions:
           - comparison_operator: is
             id: 87712489-a21b-4f8d-b790-ba37c63b3705
-            value: device
+            value: task
             varType: string
             variable_selector:
             - '1744178241091'
@@ -863,11 +936,12 @@ workflow:
           conditions:
           - comparison_operator: is
             id: 8df8a024-fc9a-42e3-b3b7-c7e2df723dea
-            value: target
+            value: confirm
             varType: string
             variable_selector:
             - '1744178241091'
             - action
+          id: 20e34104-d58b-4af7-ac76-b6abee3064c2
           logical_operator: and
         desc: ''
         selected: false
@@ -877,10 +951,10 @@ workflow:
       id: '1744178342442'
       position:
         x: 638
-        y: 335
+        y: 455
       positionAbsolute:
         x: 638
-        y: 335
+        y: 455
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -911,11 +985,11 @@ workflow:
       height: 168
       id: '1744178528807'
       position:
-        x: 942
-        y: 803.5
+        x: 930.5714285714284
+        y: 868.1428571428571
       positionAbsolute:
-        x: 942
-        y: 803.5
+        x: 930.5714285714284
+        y: 868.1428571428571
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -949,10 +1023,10 @@ workflow:
       id: '1744355038209'
       position:
         x: 1854
-        y: 743
+        y: 319.5
       positionAbsolute:
         x: 1854
-        y: 743
+        y: 319.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -990,11 +1064,11 @@ workflow:
       height: 54
       id: '1744357335540'
       position:
-        x: 2158
-        y: 728.5
+        x: 2215.1428571428573
+        y: 319.5
       positionAbsolute:
-        x: 2158
-        y: 728.5
+        x: 2215.1428571428573
+        y: 319.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1025,11 +1099,11 @@ workflow:
       height: 168
       id: '1744357721350'
       position:
-        x: 2462
-        y: 728.5
+        x: 2632
+        y: 319.5
       positionAbsolute:
-        x: 2462
-        y: 728.5
+        x: 2632
+        y: 319.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1063,10 +1137,10 @@ workflow:
       id: '1744362095970'
       position:
         x: 1854
-        y: 949.5
+        y: 58.857142857142804
       positionAbsolute:
         x: 1854
-        y: 949.5
+        y: 58.857142857142804
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1093,26 +1167,39 @@ workflow:
           \ : []\n  const device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj.data.targetDevices)\
           \ : []\n  const osType = String(obj?.data?.osType)\n  let parameter = {},\
           \ flow = 0\n  switch (actionCode) {\n    case '90021':\n      const installSoftwareList\
-          \ = target.map(v => {\n        let use = false\n        if (!!tenant[v?.id])\
-          \ use = true\n        const o = (tenant[v?.id] ?? system[v?.id]) ?? {}\n\
-          \        const pkg = o?.pkgList?.[0] ?? {}\n        if (use) flow += Number(pkg?.fileSize\
-          \ ?? 0)\n        return {\n          ...pkg\n        }\n      })\n     \
-          \ parameter = {\n        osType,\n        installSoftwareList,\n      }\n\
-          \      break\n    case '90022':\n      const uninstallSoftwareList = target.map(v\
-          \ => {\n        let use = false\n        if (!!tenant[v?.id]) use = true\n\
-          \        const o = (tenant[v?.id] ?? system[v?.id]) ?? {}\n        const\
-          \ pkg = o?.pkgList?.[0] ?? {}\n        if (use) flow += Number(pkg?.fileSize\
-          \ ?? 0)\n        return {\n          ...pkg\n        }\n      })\n     \
-          \ parameter = {\n        osType,\n        uninstallSoftwareList,\n     \
-          \ }\n      break\n    case '90071':\n      const script = target?.[0]?.scriptPkgList?.[0]\
+          \ = target.map(v => {\n        let use = false\n        if (!!tenant_id[v?.id])\
+          \ use = true\n        const o = (tenant_id[v?.id] ?? system_id[v?.id]) ??\
+          \ {}\n        const pkg = o?.pkgList?.[0] ?? {}\n        if (use) flow +=\
+          \ Number(pkg?.fileSize ?? 0)\n        return {\n          ...pkg,\n    \
+          \      softwareName: o.softwareName\n        }\n      })\n      parameter\
+          \ = {\n        osType,\n        installSoftwareList,\n      }\n      break\n\
+          \    case '90022':\n      const uninstallSoftwareList = target.map(v =>\
+          \ {\n        let use = false\n        if (!!tenant_id[v?.id]) use = true\n\
+          \        const o = (tenant_id[v?.id] ?? system_id[v?.id]) ?? {}\n      \
+          \  const pkg = o?.pkgList?.[0] ?? {}\n        if (use) flow += Number(pkg?.fileSize\
+          \ ?? 0)\n        return {\n          ...pkg,\n          softwareName: o.softwareName\n\
+          \        }\n      })\n      parameter = {\n        osType,\n        uninstallSoftwareList,\n\
+          \      }\n      break\n    case '90071':\n      const script = list_id[target?.[0]?.id]?.scriptPkgList?.[0]\
           \ ?? {}\n      flow += Number(script?.fileSize ?? 0)\n      parameter =\
-          \ {\n        ...script,\n        osType,\n      }\n      break\n    case\
-          \ '90081':\n      const fc = target?.[0]\n      Array.isArray(fc?.filePkgList)\
+          \ {\n        osType,\n        \"spId\": script.spId,\n        \"fileName\"\
+          : script.fileName,\n        \"pkgName\": script.pkgName,\n        \"spVersion\"\
+          : script.spVersion,\n        \"downloadPath\": script.downloadPath,\n  \
+          \      \"fileSize\": script.fileSize,\n        \"tenantId\": script.tenantId,\n\
+          \        \"tool\": script.tool,\n        \"type\": script.type,\n      \
+          \  \"versioncode\": script.versioncode,\n        \"srName\": script.srName,\n\
+          \        \"srId\": script.srId,\n        \"willReboot\": script.willReboot,\n\
+          \      }\n      break\n    case '90081':\n      const fc = list_id[target?.[0]?.id]\
+          \ ?? {}\n      const fileList = []\n      Array.isArray(fc?.filePkgList)\
           \ && Array.from(fc.filePkgList).forEach(o => {\n        flow += Number(o?.fileSize\
-          \ ?? 0)\n      })\n      parameter = {\n        ...fc,\n        osType,\n\
-          \      }\n      break\n  }\n  flow = flow * device.length\n  const content\
-          \ = JSON.stringify({\n    ...obj,\n    data: {\n      ...obj.data,\n   \
-          \   parameter,\n      flow: formatFileSize(flow),\n    }\n  })\n  return\
+          \ ?? 0)\n        fileList.push({\n          fpId: o.fpId,\n          fileName:\
+          \ o.fileName,\n          downloadPath: o.downloadPath,\n          targetPath:\
+          \ o.targetPath,\n          aliasName: o.aliasName,\n          fileSize:\
+          \ o.fileSize,\n          tenantId: o.tenantId,\n          osType: o.osType,\n\
+          \        })\n      })\n      parameter = {\n        osType,\n        fileList,\n\
+          \        frId: fc.frId,\n        frName: fc.frName,\n        fileCount:\
+          \ fc.fileCount,\n      }\n      break\n  }\n  flow = flow * device.length\n\
+          \  const content = JSON.stringify({\n    ...obj,\n    data: {\n      ...obj.data,\n\
+          \      parameter,\n      flow: formatFileSize(flow),\n    }\n  })\n  return\
           \ {\n    result: content,\n    content,\n  }\n}"
         code_language: javascript
         desc: ''
@@ -1138,12 +1225,12 @@ workflow:
       height: 54
       id: '1744362369879'
       position:
-        x: 2158
-        y: 936.5
+        x: 2233.714285714286
+        y: 58.857142857142804
       positionAbsolute:
-        x: 2158
-        y: 936.5
-      selected: true
+        x: 2233.714285714286
+        y: 58.857142857142804
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1173,17 +1260,51 @@ workflow:
       height: 168
       id: '1744362479983'
       position:
-        x: 2462
-        y: 936.5
+        x: 2622
+        y: 58.857142857142804
       positionAbsolute:
-        x: 2462
-        y: 936.5
+        x: 2622
+        y: 58.857142857142804
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({request, req}) {\n  return {\n    request: req ??\
+          \ request\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 新增任务request
+        type: code
+        variables:
+        - value_selector:
+          - '1744178241091'
+          - request
+          variable: request
+        - value_selector:
+          - '1743649657177'
+          - request
+          variable: req
+      height: 54
+      id: '1744595339075'
+      position:
+        x: 1854
+        y: 594.7142857142858
+      positionAbsolute:
+        x: 1854
+        y: 594.7142857142858
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     viewport:
-      x: -309.9999999999998
-      y: -82.00000000000006
-      zoom: 0.7
+      x: -628.8028098128685
+      y: -292.7060018669711
+      zoom: 1.218770788614574

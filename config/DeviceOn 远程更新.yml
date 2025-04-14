@@ -429,7 +429,8 @@ workflow:
         desc: ''
         model:
           completion_params:
-            temperature: 0.7
+            num_ctx: 32768
+            temperature: 0
           mode: chat
           name: deepseek-r1:14b
           provider: langgenius/ollama/ollama
@@ -525,7 +526,7 @@ workflow:
       positionAbsolute:
         x: 942
         y: 310
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -746,10 +747,10 @@ workflow:
       height: 54
       id: '1744254606128'
       position:
-        x: 1854
+        x: 1816.8649441204952
         y: 310
       positionAbsolute:
-        x: 1854
+        x: 1816.8649441204952
         y: 310
       selected: false
       sourcePosition: right
@@ -786,10 +787,10 @@ workflow:
       height: 174
       id: '1744255072161'
       position:
-        x: 2158
+        x: 2100.402770472605
         y: 310
       positionAbsolute:
-        x: 2158
+        x: 2100.402770472605
         y: 310
       selected: false
       sourcePosition: right
@@ -817,11 +818,11 @@ workflow:
       height: 142
       id: '1744255120169'
       position:
-        x: 2462
-        y: 310
+        x: 2481.704315364635
+        y: 100.0732555383101
       positionAbsolute:
-        x: 2462
-        y: 310
+        x: 2481.704315364635
+        y: 100.0732555383101
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -860,11 +861,11 @@ workflow:
       height: 123
       id: '1744255571899'
       position:
-        x: 2462
-        y: 492
+        x: 2481.704315364635
+        y: 310
       positionAbsolute:
-        x: 2462
-        y: 492
+        x: 2481.704315364635
+        y: 310
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -899,11 +900,11 @@ workflow:
       height: 54
       id: '1744255807610'
       position:
-        x: 2766
-        y: 482.5
+        x: 2785.7043153646355
+        y: 452.94352695304724
       positionAbsolute:
-        x: 2766
-        y: 482.5
+        x: 2785.7043153646355
+        y: 452.94352695304724
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -936,11 +937,12 @@ workflow:
       height: 158
       id: '1744262385871'
       position:
-        x: 1550
+        x: 1533.3271177683855
         y: 310
       positionAbsolute:
-        x: 1550
+        x: 1533.3271177683855
         y: 310
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -960,7 +962,7 @@ workflow:
           max_retries: 3
           retry_enabled: true
           retry_interval: 100
-        selected: true
+        selected: false
         timeout:
           max_connect_timeout: 0
           max_read_timeout: 0
@@ -972,12 +974,12 @@ workflow:
       height: 142
       id: '1744265799521'
       position:
-        x: 3070
-        y: 482.5
+        x: 3072.2735748497657
+        y: 452.94352695304724
       positionAbsolute:
-        x: 3070
-        y: 482.5
-      selected: true
+        x: 3072.2735748497657
+        y: 452.94352695304724
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1075,11 +1077,11 @@ workflow:
       height: 54
       id: '1744265933431'
       position:
-        x: 3374
-        y: 482.5
+        x: 3376.2735748497657
+        y: 452.94352695304724
       positionAbsolute:
-        x: 3374
-        y: 482.5
+        x: 3376.2735748497657
+        y: 452.94352695304724
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1106,17 +1108,17 @@ workflow:
       height: 142
       id: '1744268747197'
       position:
-        x: 3678
-        y: 482.5
+        x: 3673.4528503004685
+        y: 452.94352695304724
       positionAbsolute:
-        x: 3678
-        y: 482.5
+        x: 3673.4528503004685
+        y: 452.94352695304724
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     viewport:
-      x: -2822.70783557968
-      y: -133.23484270807785
-      zoom: 1.1486983549970353
+      x: -556.8000576537095
+      y: -164.4062560177424
+      zoom: 1.3195079107728958
