@@ -526,7 +526,7 @@ workflow:
       positionAbsolute:
         x: 942
         y: 310
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -557,7 +557,9 @@ workflow:
           \ || assign_battery || assign_peripheral || assign_security\n  const find_device\
           \ = !!content && (type === 'find_device' || type === 'find_error')\n  let\
           \ result, action, request = ''\n  if (!has_error || (has_error && assign_now))\
-          \ {\n    const id = Array.isArray(obj?.targetDevices?.id) ? Array.from(obj.targetDevices.id)\
+          \ {\n    const assign_index = Number(obj?.targetDevices?.assign_index)\n\
+          \    const assign_last = !!obj?.targetDevices?.assign_last\n    const id\
+          \ = Array.isArray(obj?.targetDevices?.id) ? Array.from(obj.targetDevices.id)\
           \ : []\n    const name = Array.isArray(obj?.targetDevices?.name) ? Array.from(obj.targetDevices.name)\
           \ : []\n    const ip = Array.isArray(obj?.targetDevices?.ip) ? Array.from(obj.targetDevices.ip)\
           \ : []\n    const os = Array.isArray(obj?.targetDevices?.os) ? Array.from(obj.targetDevices.os).map(s\
@@ -996,8 +998,8 @@ workflow:
           \ [], target_len = 0\n  // 根据设备获取os\n  const oses = device.map(o => o.os)\n\
           \  if (oses.length === 1) osType = oses[0]\n  // 筛选软件、脚本、档案\n  switch (actionCode)\
           \ {\n    case '90021':\n    case '90022':\n      target = list.filter(o\
-          \ => {\n        return query.includes(o?.['softwareName'])\n      })\n \
-          \     target_len = target.length\n      const sf_ok = o => Array.isArray(o?.pkgList)\
+          \ => {\n        return query.includes(o?.['softwareName']) || query.toLowerCase().includes(o?.['osType'])\n\
+          \      })\n      target_len = target.length\n      const sf_ok = o => Array.isArray(o?.pkgList)\
           \ && Array.from(o?.pkgList).length > 0\n      if (target.length > 0) {\n\
           \        fail = target.filter(o => !sf_ok(o))\n        const ok = target.filter(o\
           \ => sf_ok(o))\n        if (ok.length > 0) {\n          const oses = ok.map(o\
@@ -1011,8 +1013,9 @@ workflow:
           \ => sf_ok(o) && (!osType || osType === o?.osType)).map(o => {\n       \
           \   return {\n            id: o?.['repoId'],\n            name: o?.['softwareName'],\n\
           \            os: o?.osType,\n          }\n        })\n      }\n      break\n\
-          \    case '90071':\n      target = list.filter(o => {\n        return query.includes(o?.['srName'])\n\
-          \      })\n      target_len = target.length\n      const sr_ok = o => Array.isArray(o?.scriptPkgList)\
+          \    case '90071':\n      target = list.filter(o => {\n        return query.includes(o?.['srName'])\
+          \ || query.toLowerCase().includes(o?.['osType'])\n      })\n      target_len\
+          \ = target.length\n      const sr_ok = o => Array.isArray(o?.scriptPkgList)\
           \ && Array.from(o?.scriptPkgList).length > 0\n      if (target.length >\
           \ 0) {\n        fail = target.filter(o => !sr_ok(o))\n        const ok =\
           \ target.filter(o => sr_ok(o))\n        if (ok.length > 0) {\n         \
@@ -1027,8 +1030,9 @@ workflow:
           \ === o?.osType)).map(o => {\n          return {\n            id: o?.['srId'],\n\
           \            name: o?.['srName'],\n            os: o?.osType,\n        \
           \  }\n        })\n      }\n      break\n    case '90081':\n      target\
-          \ = list.filter(o => {\n        return query.includes(o?.['frName'])\n \
-          \     })\n      target_len = target.length\n      const fr_ok = o => Array.isArray(o?.filePkgList)\
+          \ = list.filter(o => {\n        return query.includes(o?.['frName']) ||\
+          \ query.toLowerCase().includes(o?.['osType'])\n      })\n      target_len\
+          \ = target.length\n      const fr_ok = o => Array.isArray(o?.filePkgList)\
           \ && Array.from(o?.filePkgList).length > 0\n      if (target.length > 0)\
           \ {\n        fail = target.filter(o => !fr_ok(o))\n        const ok = target.filter(o\
           \ => fr_ok(o))\n        if (ok.length > 0) {\n          const oses = ok.map(o\
@@ -1058,7 +1062,7 @@ workflow:
           type:
             children: null
             type: string
-        selected: false
+        selected: true
         title: 处理软件/脚本/档案
         type: code
         variables:
@@ -1082,7 +1086,7 @@ workflow:
       positionAbsolute:
         x: 3376.2735748497657
         y: 452.94352695304724
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1119,6 +1123,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -556.8000576537095
-      y: -164.4062560177424
+      x: -3838.8000576537106
+      y: -189.40625601774252
       zoom: 1.3195079107728958

@@ -112,7 +112,7 @@ function main({question, content, type, api, token, timezone}) {
         osType = obj?.data?.osType ?? ''
         const actionCode = String(obj?.data?.actionCode)
         const filter = target.filter(o => {
-          return query.includes(o?.name)
+          return query.includes(o?.name) || query.toLowerCase().includes(o?.os)
         })
         if (!osType) {
           const oses = filter.map(o => o?.os)
@@ -191,7 +191,7 @@ function main({question, content, type, api, token, timezone}) {
           break
         }
         filter_device = device.filter(o => {
-          return query.includes(o?.name) || query.includes(o?.id) || query.includes(o?.os)
+          return query.includes(o?.name) || query.includes(o?.id) || query.toLowerCase().includes(o?.os)
         })
         switch (actionCode) {
           case '90021':
@@ -530,7 +530,8 @@ function main({body, result}) {
       }
       break
     case '90071':
-      const script = list_id[target?.[0]?.id]?.scriptPkgList?.[0] ?? {}
+      const sr = list_id[target?.[0]?.id] ?? {}
+      const script = sr?.scriptPkgList?.[0] ?? {}
       flow += Number(script?.fileSize ?? 0)
       parameter = {
         osType,
@@ -544,9 +545,9 @@ function main({body, result}) {
         "tool": script.tool,
         "type": script.type,
         "versioncode": script.versioncode,
-        "srName": script.srName,
+        "srName": sr.srName,
         "srId": script.srId,
-        "willReboot": script.willReboot,
+        "willReboot": sr.willReboot,
       }
       break
     case '90081':
@@ -570,7 +571,7 @@ function main({body, result}) {
         fileList,
         frId: fc.frId,
         frName: fc.frName,
-        fileCount: fc.fileCount,
+        fileCount: fileList.length,
       }
       break
   }

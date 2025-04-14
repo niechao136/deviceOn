@@ -402,7 +402,7 @@ workflow:
       positionAbsolute:
         x: 930.5714285714284
         y: 688
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -749,47 +749,47 @@ workflow:
           \        const query = String(question)\n        const target = Array.isArray(obj?.data?.target)\
           \ ? Array.from(obj.data.target) : []\n        osType = obj?.data?.osType\
           \ ?? ''\n        const actionCode = String(obj?.data?.actionCode)\n    \
-          \    const filter = target.filter(o => {\n          return query.includes(o?.name)\n\
-          \        })\n        if (!osType) {\n          const oses = filter.map(o\
-          \ => o?.os)\n          if (oses.length === 1) osType = oses[0]\n       \
-          \ }\n        const device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj.data.targetDevices)\
-          \ : []\n        let filter_device = device.filter(o => osType === o?.os)\n\
-          \        const fail_device = device.filter(o => osType !== o?.os).map(o\
-          \ => o?.name)\n        if (obj?.step === 'select_target') {\n          result\
-          \ = JSON.stringify({\n            ...obj,\n            step: filter.length\
-          \ > 0 ? 'select_target' : 'no_target',\n            data: {\n          \
-          \    ...obj.data,\n              target: filter,\n              target_len:\
-          \ filter.length,\n              osType,\n              fail: [],\n     \
-          \       }\n          })\n          if (filter.length === 0) {\n        \
-          \    break\n          }\n          // 需要重新选择\n          if (!osType || (filter.length\
-          \ > 1 && ['90071', '90081'].includes(actionCode))) {\n            cache_content\
-          \ = result\n            cache_type = type\n            break\n         \
-          \ }\n          result = JSON.stringify({\n            ...obj,\n        \
-          \    step: filter_device.length > 0 ? 'confirm_device' : 'select_device',\n\
-          \            data: {\n              ...obj.data,\n              target:\
-          \ filter,\n              osType,\n              target_len: filter.length,\n\
-          \              fail: fail_device,\n              device_len: device.length,\n\
-          \              targetDevices: filter_device\n            }\n          })\n\
-          \          if (filter_device.length > 0) {\n            cache_content =\
-          \ result\n            cache_type = type\n            break\n          }\n\
-          \          action = 'device'\n          break\n        }\n        if (obj?.step\
-          \ === 'confirm_target') {\n          result = JSON.stringify({\n       \
-          \     ...obj,\n            step: filter_device.length > 0 ? 'confirm_device'\
+          \    const filter = target.filter(o => {\n          return query.includes(o?.name)\
+          \ || query.toLowerCase().includes(o?.os)\n        })\n        if (!osType)\
+          \ {\n          const oses = filter.map(o => o?.os)\n          if (oses.length\
+          \ === 1) osType = oses[0]\n        }\n        const device = Array.isArray(obj?.data?.targetDevices)\
+          \ ? Array.from(obj.data.targetDevices) : []\n        let filter_device =\
+          \ device.filter(o => osType === o?.os)\n        const fail_device = device.filter(o\
+          \ => osType !== o?.os).map(o => o?.name)\n        if (obj?.step === 'select_target')\
+          \ {\n          result = JSON.stringify({\n            ...obj,\n        \
+          \    step: filter.length > 0 ? 'select_target' : 'no_target',\n        \
+          \    data: {\n              ...obj.data,\n              target: filter,\n\
+          \              target_len: filter.length,\n              osType,\n     \
+          \         fail: [],\n            }\n          })\n          if (filter.length\
+          \ === 0) {\n            break\n          }\n          // 需要重新选择\n      \
+          \    if (!osType || (filter.length > 1 && ['90071', '90081'].includes(actionCode)))\
+          \ {\n            cache_content = result\n            cache_type = type\n\
+          \            break\n          }\n          result = JSON.stringify({\n \
+          \           ...obj,\n            step: filter_device.length > 0 ? 'confirm_device'\
           \ : 'select_device',\n            data: {\n              ...obj.data,\n\
-          \              target: filter.length > 0 ? filter : target,\n          \
-          \    target_len: filter.length > 0 ? filter.length : target.length,\n  \
-          \            fail: fail_device,\n              device_len: device.length,\n\
-          \              targetDevices: filter_device,\n            }\n          })\n\
-          \          if (filter_device.length > 0) {\n            cache_content =\
-          \ result\n            cache_type = type\n          }\n          if (filter.length\
-          \ > 0) {\n            if (filter_device.length > 0) {\n              break\n\
-          \            }\n            action = 'device'\n            break\n     \
-          \     }\n          action = 'confirm'\n          break\n        }\n    \
-          \    filter_device = device.filter(o => {\n          return query.includes(o?.name)\
-          \ || query.includes(o?.id) || query.includes(o?.os)\n        })\n      \
-          \  switch (actionCode) {\n          case '90021':\n          case '90022':\n\
-          \            target_url = '/walle/ai/taskAssist/listSoftware'\n        \
-          \    break\n          case '90071':\n            target_url = '/walle/ai/taskAssist/listScript'\n\
+          \              target: filter,\n              osType,\n              target_len:\
+          \ filter.length,\n              fail: fail_device,\n              device_len:\
+          \ device.length,\n              targetDevices: filter_device\n         \
+          \   }\n          })\n          if (filter_device.length > 0) {\n       \
+          \     cache_content = result\n            cache_type = type\n          \
+          \  break\n          }\n          action = 'device'\n          break\n  \
+          \      }\n        if (obj?.step === 'confirm_target') {\n          result\
+          \ = JSON.stringify({\n            ...obj,\n            step: filter_device.length\
+          \ > 0 ? 'confirm_device' : 'select_device',\n            data: {\n     \
+          \         ...obj.data,\n              target: filter.length > 0 ? filter\
+          \ : target,\n              target_len: filter.length > 0 ? filter.length\
+          \ : target.length,\n              fail: fail_device,\n              device_len:\
+          \ device.length,\n              targetDevices: filter_device,\n        \
+          \    }\n          })\n          if (filter_device.length > 0) {\n      \
+          \      cache_content = result\n            cache_type = type\n         \
+          \ }\n          if (filter.length > 0) {\n            if (filter_device.length\
+          \ > 0) {\n              break\n            }\n            action = 'device'\n\
+          \            break\n          }\n          action = 'confirm'\n        \
+          \  break\n        }\n        filter_device = device.filter(o => {\n    \
+          \      return query.includes(o?.name) || query.includes(o?.id) || query.toLowerCase().includes(o?.os)\n\
+          \        })\n        switch (actionCode) {\n          case '90021':\n  \
+          \        case '90022':\n            target_url = '/walle/ai/taskAssist/listSoftware'\n\
+          \            break\n          case '90071':\n            target_url = '/walle/ai/taskAssist/listScript'\n\
           \            break\n          case '90081':\n            target_url = '/walle/ai/taskAssist/listFile'\n\
           \            break\n        }\n        if (obj?.step === 'select_device')\
           \ {\n          result = JSON.stringify({\n            ...obj,\n        \
@@ -892,7 +892,7 @@ workflow:
       positionAbsolute:
         x: 334
         y: 455
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1147,21 +1147,20 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "/**\n * 将字节数转换为带单位的字符串，例如 2048 -> \"2KB\"\n * @param {number} bytes\
-          \ - 文件大小（单位：字节）\n * @return {string} - 格式化后的文件大小字符串\n */\nfunction formatFileSize(bytes)\
-          \ {\n  if (bytes < 0) {\n    throw new Error(\"文件大小不能为负数\");\n  }\n  if\
-          \ (bytes === 0) return \"0B\";\n\n  // 定义单位数组\n  const units = [\"B\", \"\
-          KB\", \"MB\", \"GB\", \"TB\", \"PB\"];\n  // 计算文件大小对应的单位索引（向下取整），以 1024\
-          \ 为进制\n  const index = Math.floor(Math.log(bytes) / Math.log(1024));\n \
-          \ // 根据单位计算转换后的大小\n  let size = bytes / Math.pow(1024, index);\n  // 如果结果是整数就不显示小数，否则保留两位小数\n\
-          \  size = size % 1 === 0 ? size : size.toFixed(2);\n\n  return size + units[index];\n\
-          }\nfunction main({body, result}) {\n  const res = JSON.parse(body)\n  const\
-          \ obj = JSON.parse(result)\n  const list = Array.isArray(res?.rows) ? Array.from(res.rows)\
-          \ : []\n  const tenant = Array.isArray(res?.data?.tenantSoftwareList) ?\
-          \ Array.from(res.data.tenantSoftwareList) : []\n  const system = Array.isArray(res?.data?.systemSoftwareList)\
-          \ ? Array.from(res.data.systemSoftwareList) : []\n  const list_id = {},\
-          \ tenant_id = {}, system_id = {}\n  list.forEach(o => list_id[o?.frId ??\
-          \ o?.srId] = o)\n  tenant.forEach(o => tenant_id[o?.repoId] = o)\n  system.forEach(o\
+        code: "function formatFileSize(bytes) {\n  if (bytes < 0) {\n    throw new\
+          \ Error(\"文件大小不能为负数\");\n  }\n  if (bytes === 0) return \"0B\";\n\n  //\
+          \ 定义单位数组\n  const units = [\"B\", \"KB\", \"MB\", \"GB\", \"TB\", \"PB\"\
+          ];\n  // 计算文件大小对应的单位索引（向下取整），以 1024 为进制\n  const index = Math.floor(Math.log(bytes)\
+          \ / Math.log(1024));\n  // 根据单位计算转换后的大小\n  let size = bytes / Math.pow(1024,\
+          \ index);\n  // 如果结果是整数就不显示小数，否则保留两位小数\n  size = size % 1 === 0 ? size :\
+          \ size.toFixed(2);\n\n  return size + units[index];\n}\nfunction main({body,\
+          \ result}) {\n  const res = JSON.parse(body)\n  const obj = JSON.parse(result)\n\
+          \  const list = Array.isArray(res?.rows) ? Array.from(res.rows) : []\n \
+          \ const tenant = Array.isArray(res?.data?.tenantSoftwareList) ? Array.from(res.data.tenantSoftwareList)\
+          \ : []\n  const system = Array.isArray(res?.data?.systemSoftwareList) ?\
+          \ Array.from(res.data.systemSoftwareList) : []\n  const list_id = {}, tenant_id\
+          \ = {}, system_id = {}\n  list.forEach(o => list_id[o?.frId ?? o?.srId]\
+          \ = o)\n  tenant.forEach(o => tenant_id[o?.repoId] = o)\n  system.forEach(o\
           \ => system_id[o?.repoId] = o)\n  const actionCode = String(obj?.data?.actionCode)\n\
           \  const target = Array.isArray(obj?.data?.target) ? Array.from(obj.data.target)\
           \ : []\n  const device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj.data.targetDevices)\
@@ -1179,28 +1178,29 @@ workflow:
           \  const pkg = o?.pkgList?.[0] ?? {}\n        if (use) flow += Number(pkg?.fileSize\
           \ ?? 0)\n        return {\n          ...pkg,\n          softwareName: o.softwareName\n\
           \        }\n      })\n      parameter = {\n        osType,\n        uninstallSoftwareList,\n\
-          \      }\n      break\n    case '90071':\n      const script = list_id[target?.[0]?.id]?.scriptPkgList?.[0]\
-          \ ?? {}\n      flow += Number(script?.fileSize ?? 0)\n      parameter =\
-          \ {\n        osType,\n        \"spId\": script.spId,\n        \"fileName\"\
-          : script.fileName,\n        \"pkgName\": script.pkgName,\n        \"spVersion\"\
-          : script.spVersion,\n        \"downloadPath\": script.downloadPath,\n  \
-          \      \"fileSize\": script.fileSize,\n        \"tenantId\": script.tenantId,\n\
-          \        \"tool\": script.tool,\n        \"type\": script.type,\n      \
-          \  \"versioncode\": script.versioncode,\n        \"srName\": script.srName,\n\
-          \        \"srId\": script.srId,\n        \"willReboot\": script.willReboot,\n\
-          \      }\n      break\n    case '90081':\n      const fc = list_id[target?.[0]?.id]\
-          \ ?? {}\n      const fileList = []\n      Array.isArray(fc?.filePkgList)\
-          \ && Array.from(fc.filePkgList).forEach(o => {\n        flow += Number(o?.fileSize\
-          \ ?? 0)\n        fileList.push({\n          fpId: o.fpId,\n          fileName:\
-          \ o.fileName,\n          downloadPath: o.downloadPath,\n          targetPath:\
-          \ o.targetPath,\n          aliasName: o.aliasName,\n          fileSize:\
-          \ o.fileSize,\n          tenantId: o.tenantId,\n          osType: o.osType,\n\
-          \        })\n      })\n      parameter = {\n        osType,\n        fileList,\n\
-          \        frId: fc.frId,\n        frName: fc.frName,\n        fileCount:\
-          \ fc.fileCount,\n      }\n      break\n  }\n  flow = flow * device.length\n\
-          \  const content = JSON.stringify({\n    ...obj,\n    data: {\n      ...obj.data,\n\
-          \      parameter,\n      flow: formatFileSize(flow),\n    }\n  })\n  return\
-          \ {\n    result: content,\n    content,\n  }\n}"
+          \      }\n      break\n    case '90071':\n      const sr = list_id[target?.[0]?.id]\
+          \ ?? {}\n      const script = sr?.scriptPkgList?.[0] ?? {}\n      flow +=\
+          \ Number(script?.fileSize ?? 0)\n      parameter = {\n        osType,\n\
+          \        \"spId\": script.spId,\n        \"fileName\": script.fileName,\n\
+          \        \"pkgName\": script.pkgName,\n        \"spVersion\": script.spVersion,\n\
+          \        \"downloadPath\": script.downloadPath,\n        \"fileSize\": script.fileSize,\n\
+          \        \"tenantId\": script.tenantId,\n        \"tool\": script.tool,\n\
+          \        \"type\": script.type,\n        \"versioncode\": script.versioncode,\n\
+          \        \"srName\": sr.srName,\n        \"srId\": script.srId,\n      \
+          \  \"willReboot\": sr.willReboot,\n      }\n      break\n    case '90081':\n\
+          \      const fc = list_id[target?.[0]?.id] ?? {}\n      const fileList =\
+          \ []\n      Array.isArray(fc?.filePkgList) && Array.from(fc.filePkgList).forEach(o\
+          \ => {\n        flow += Number(o?.fileSize ?? 0)\n        fileList.push({\n\
+          \          fpId: o.fpId,\n          fileName: o.fileName,\n          downloadPath:\
+          \ o.downloadPath,\n          targetPath: o.targetPath,\n          aliasName:\
+          \ o.aliasName,\n          fileSize: o.fileSize,\n          tenantId: o.tenantId,\n\
+          \          osType: o.osType,\n        })\n      })\n      parameter = {\n\
+          \        osType,\n        fileList,\n        frId: fc.frId,\n        frName:\
+          \ fc.frName,\n        fileCount: fileList.length,\n      }\n      break\n\
+          \  }\n  flow = flow * device.length\n  const content = JSON.stringify({\n\
+          \    ...obj,\n    data: {\n      ...obj.data,\n      parameter,\n      flow:\
+          \ formatFileSize(flow),\n    }\n  })\n  return {\n    result: content,\n\
+          \    content,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -1305,6 +1305,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -628.8028098128685
-      y: -292.7060018669711
+      x: -11.802809812868418
+      y: -176.70600186697112
       zoom: 1.218770788614574

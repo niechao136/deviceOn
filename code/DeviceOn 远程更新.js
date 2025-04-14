@@ -116,6 +116,8 @@ function main({text, device, type, content, api, token, question}) {
   const find_device = !!content && (type === 'find_device' || type === 'find_error')
   let result, action, request = ''
   if (!has_error || (has_error && assign_now)) {
+    const assign_index = Number(obj?.targetDevices?.assign_index)
+    const assign_last = !!obj?.targetDevices?.assign_last
     const id = Array.isArray(obj?.targetDevices?.id) ? Array.from(obj.targetDevices.id) : []
     const name = Array.isArray(obj?.targetDevices?.name) ? Array.from(obj.targetDevices.name) : []
     const ip = Array.isArray(obj?.targetDevices?.ip) ? Array.from(obj.targetDevices.ip) : []
@@ -363,7 +365,7 @@ function main({result, body, question}) {
     case '90021':
     case '90022':
       target = list.filter(o => {
-        return query.includes(o?.['softwareName'])
+        return query.includes(o?.['softwareName']) || query.toLowerCase().includes(o?.['osType'])
       })
       target_len = target.length
       const sf_ok = o => Array.isArray(o?.pkgList) && Array.from(o?.pkgList).length > 0
@@ -398,7 +400,7 @@ function main({result, body, question}) {
       break
     case '90071':
       target = list.filter(o => {
-        return query.includes(o?.['srName'])
+        return query.includes(o?.['srName']) || query.toLowerCase().includes(o?.['osType'])
       })
       target_len = target.length
       const sr_ok = o => Array.isArray(o?.scriptPkgList) && Array.from(o?.scriptPkgList).length > 0
@@ -433,7 +435,7 @@ function main({result, body, question}) {
       break
     case '90081':
       target = list.filter(o => {
-        return query.includes(o?.['frName'])
+        return query.includes(o?.['frName']) || query.toLowerCase().includes(o?.['osType'])
       })
       target_len = target.length
       const fr_ok = o => Array.isArray(o?.filePkgList) && Array.from(o?.filePkgList).length > 0
