@@ -112,7 +112,7 @@ function main({question, content, type, api, token, timezone}) {
         osType = obj?.data?.osType ?? ''
         const actionCode = String(obj?.data?.actionCode)
         const filter = target.filter(o => {
-          return query.includes(o?.name) || query.toLowerCase().includes(o?.os)
+          return query.includes(o?.name)
         })
         if (!osType) {
           const oses = filter.map(o => o?.os)
