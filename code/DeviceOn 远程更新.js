@@ -101,7 +101,7 @@ function main({text, device, type, content, api, token, question}) {
   const lang = obj?.lang
 
   const is_error = !!obj?.targetDevices?.assign_error
-  const assign_up_down = !!obj?.targetDevices?.assign_up_down
+  const assign_offline = !!obj?.targetDevices?.assign_offline
   const assign_hardware = !!obj?.targetDevices?.assign_hardware
   const assign_software = !!obj?.targetDevices?.assign_software
   const assign_battery = !!obj?.targetDevices?.assign_battery
@@ -111,8 +111,8 @@ function main({text, device, type, content, api, token, question}) {
   const assign_time = !!obj?.targetDevices?.assign_time
   const start_date = String(obj?.targetDevices?.start_date ?? '')
   const end_date = String(obj?.targetDevices?.end_date ?? '')
-  const assign_error = is_error && !assign_up_down && !assign_hardware && !assign_software && !assign_battery && !assign_peripheral && !assign_security
-  const has_error = assign_error || assign_up_down || assign_hardware || assign_software || assign_battery || assign_peripheral || assign_security
+  const assign_error = is_error && !assign_offline && !assign_hardware && !assign_software && !assign_battery && !assign_peripheral && !assign_security
+  const has_error = assign_error || assign_offline || assign_hardware || assign_software || assign_battery || assign_peripheral || assign_security
   const find_device = !!content && (type === 'find_device' || type === 'find_error')
   let result, action, request = ''
   if (!has_error || (has_error && assign_now)) {
@@ -131,20 +131,20 @@ function main({text, device, type, content, api, token, question}) {
     const assign_label1 = !!obj?.targetDevices?.assign_label1
     const assign_label2 = !!obj?.targetDevices?.assign_label2
     const assign_online = !!obj?.targetDevices?.assign_online
-    const assign_offline = !!obj?.targetDevices?.assign_offline
     const not_prop = id.length === 0 && name.length === 0 && ip.length === 0 && os.length === 0 && label1.length === 0 && label2.length === 0
     const has_prop = assign_id || assign_name || assign_ip || assign_os || assign_label1 || assign_label2
 
     let filter_id = [], filter_device = list.map(o => o)
     if (find_device) {
       const obj = JSON.parse(content)
-      filter_device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices).map(o => by_id[o.id]) : []
+      filter_device = Array.isArray(obj?.data?.targetDevices)
+        ? Array.from(obj?.data?.targetDevices).filter(o => !!by_id[o.id]).map(o => by_id[o.id]) : []
       if (!Number.isNaN(assign_index) && assign_index > 0 && assign_index <= filter_device.length) {
         let index = assign_index - 1
         if (assign_last) index = filter_device.length - 1 - index
         filter_id = [filter_device[index].id]
       }
-      if (filter_id.length === 0 && not_prop && !has_prop && !assign_online && !assign_offline && !has_error) {
+      if (filter_id.length === 0 && not_prop && !has_prop && !assign_online && !has_error) {
         filter_id = filter_device.map(o => o.id)
       }
     }
@@ -157,14 +157,15 @@ function main({text, device, type, content, api, token, question}) {
         const match_label1 = label1.includes(o.l1)
         const match_label2 = label2.includes(o.l2)
         const match_online = assign_online && Number(o.st) === 1
-        const match_offline = assign_offline && Number(o.st) === 0
-        const match_status = match_online || match_offline || (!assign_online && !assign_offline)
+        const match_status = match_online || (!assign_online)
+        const offline = Number(o.st) === 0
         const hardware = Number(o.hw) > 0
         const software = Number(o.sw) > 0
         const battery = Number(o.bt) > 0
         const peripheral = Number(o.pp) > 0
         const security = Number(o.hw) > 0
-        const match_error = assign_error && (hardware || software || battery || peripheral || security)
+        const match_error = assign_error && (offline || hardware || software || battery || peripheral || security)
+        const match_offline = assign_offline && offline
         const match_hardware = assign_hardware && hardware
         const match_software = assign_software && software
         const match_battery = assign_battery && battery
@@ -172,8 +173,9 @@ function main({text, device, type, content, api, token, question}) {
         const match_security = assign_security && security
         let match = true
         // 当只指定了异常时，只筛选异常相关
-        if (not_prop && !assign_online && !assign_offline && has_error && !assign_up_down) {
+        if (not_prop && !assign_online && has_error) {
           if (assign_error) match = match && match_error
+          if (assign_offline) match = match && match_offline
           if (assign_hardware) match = match && match_hardware
           if (assign_software) match = match && match_software
           if (assign_battery) match = match && match_battery
@@ -181,9 +183,9 @@ function main({text, device, type, content, api, token, question}) {
           if (assign_security) match = match && match_security
           return match
         }
-        // 当只指定了在线或者离线时，只筛选status
-        if (not_prop && (assign_online || assign_offline)) {
-          match = match_online || match_offline
+        // 当只指定了在线时，只筛选status
+        if (not_prop && assign_online) {
+          match = match_online
         }
         // 当没有指定具体栏位时，只要满足一个条件就行
         else if (!has_prop) {
@@ -201,6 +203,7 @@ function main({text, device, type, content, api, token, question}) {
           if (assign_label1 && assign_label2) match = match && (match_label2 || match_label1)
         }
         if (assign_error) match = match && match_error
+        if (assign_offline) match = match && match_offline
         if (assign_hardware) match = match && match_hardware
         if (assign_software) match = match && match_software
         if (assign_battery) match = match && match_battery
@@ -246,7 +249,7 @@ function main({text, device, type, content, api, token, question}) {
     const start = sd.getTime()
     const end = ed.getTime() + (24 * 60 * 60 * 1000 - 1)
     let range = [], params = ''
-    if (assign_up_down) range = range.concat('4')
+    if (assign_offline) range = range.concat('4')
     if (assign_hardware) range = range.concat('1')
     if (assign_software) range = range.concat('2')
     if (assign_battery) range = range.concat('6')
@@ -365,7 +368,7 @@ function main({result, body, question}) {
     case '90021':
     case '90022':
       target = list.filter(o => {
-        return query.includes(o?.['softwareName']) || query.toLowerCase().includes(o?.['osType'])
+        return query.includes(o?.['softwareName'])
       })
       target_len = target.length
       const sf_ok = o => Array.isArray(o?.pkgList) && Array.from(o?.pkgList).length > 0
@@ -400,7 +403,7 @@ function main({result, body, question}) {
       break
     case '90071':
       target = list.filter(o => {
-        return query.includes(o?.['srName']) || query.toLowerCase().includes(o?.['osType'])
+        return query.includes(o?.['srName'])
       })
       target_len = target.length
       const sr_ok = o => Array.isArray(o?.scriptPkgList) && Array.from(o?.scriptPkgList).length > 0
@@ -435,7 +438,7 @@ function main({result, body, question}) {
       break
     case '90081':
       target = list.filter(o => {
-        return query.includes(o?.['frName']) || query.toLowerCase().includes(o?.['osType'])
+        return query.includes(o?.['frName'])
       })
       target_len = target.length
       const fr_ok = o => Array.isArray(o?.filePkgList) && Array.from(o?.filePkgList).length > 0
