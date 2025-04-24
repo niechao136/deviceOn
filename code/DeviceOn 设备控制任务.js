@@ -306,7 +306,7 @@ function filterDevice(device, llm_result, type, content, api, token, question, t
       }
       const last = new Date(year, month + 1, 0).getDate()
       const date = Math.min(day, last)
-      sd = new Date(`${year}/${month}/${date} 00:00:00${zone}`)
+      sd = new Date(`${year}/${month + 1}/${date} 00:00:00${zone}`)
     }
     const start = sd.getTime()
     const end = ed.getTime() + (24 * 60 * 60 * 1000 - 1)
