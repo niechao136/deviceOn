@@ -1,17 +1,17 @@
 
 //#region 处理工作流
-/**
- * 处理工作流
- */
+
 function main({body}) {
   const obj = JSON.parse(body)
   const outputs = obj?.data?.outputs ?? {}
   const is_find_device = Number(outputs?.is_find_device ?? 0)
+  const result = outputs?.result ?? ''
+  const type = outputs?.type ?? ''
+  const need_answer = is_find_device === 1 ? 0 : 1
   return {
-    result: outputs?.result ?? '',
-    content: outputs?.content ?? '',
-    type: outputs?.type ?? '',
-    need_answer: is_find_device === 1 ? 0 : 1,
+    result,
+    type,
+    need_answer,
   }
 }
 

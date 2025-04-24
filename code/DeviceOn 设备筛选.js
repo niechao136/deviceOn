@@ -364,7 +364,6 @@ function main({text, device, type, content, api, token, question, timezone}) {
 
   return {
     result,
-    content: !!task ? result : '',
     type: task,
     is_find_device,
     request,
@@ -381,7 +380,6 @@ function main({body}) {
   const result = outputs?.result ?? ''
   return {
     result,
-    content: !!type ? result : '',
     type,
     is_find_device: 1,
   }

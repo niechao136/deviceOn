@@ -1,7 +1,5 @@
 //#region 用户回复 Request
-/**
- * 用户回复 Request
- */
+
 function main({cache_type, cache_content, query, timezone, api, token}) {
   return {
     request: JSON.stringify({
@@ -21,25 +19,25 @@ function main({cache_type, cache_content, query, timezone, api, token}) {
 
 //#endregion
 //#region 处理用户回复
-/**
- * 处理用户回复
- */
+
 function main({body}) {
   const obj = JSON.parse(body)
   const outputs = obj?.data?.outputs ?? {}
+  const result = outputs?.result ?? ''
+  const type = outputs?.type ?? ''
+  const content = !!type ? result : ''
+  const answer = Number(outputs?.answer ?? 0)
   return {
-    result: outputs?.result ?? '',
-    content: outputs?.content ?? '',
-    type: outputs?.type ?? '',
-    answer: Number(outputs?.answer ?? 0)
+    result,
+    content,
+    type,
+    answer,
   }
 }
 
 //#endregion
 //#region 处理 LLM 回答
-/**
- * 处理 LLM 回答
- */
+
 function main({text}) {
   return {
     result: String(text).replaceAll(/<think>[\s\S]*?<\/think>/g, '').replaceAll(/<details[\s\S]*?<\/details>/g, ''),
@@ -49,7 +47,6 @@ function main({text}) {
 //#endregion
 //#region 处理问题分类
 
-// 从大模型返回结果中提取json
 function handleLLM(text) {
   const regex = /```json([\s\S]*?)```/
   const _res = text.replaceAll(/<think>[\s\S]*?<\/think>/g, '')
@@ -103,17 +100,22 @@ function main({text, api, token, timezone, query, cache_type, cache_content, oth
     request,
   }
 }
+
 //#endregion
 //#region 处理工作流结果
 
 function main({body, classify}) {
   const obj = JSON.parse(body)
   const outputs = obj?.data?.outputs ?? {}
+  const result = outputs?.result ?? ''
+  const type = outputs?.type ?? ''
+  const content = !!type ? result : ''
+  const need_answer = Number(outputs?.need_answer ?? ([1,2,3,4].includes(classify) ? 0 : 1))
   return {
-    result: outputs?.result ?? '',
-    content: outputs?.content ?? '',
-    type: outputs?.type ?? '',
-    need_answer: Number(outputs?.need_answer ?? ([1,2,3,4].includes(classify) ? 0 : 1))
+    result,
+    content,
+    type,
+    need_answer,
   }
 }
 

@@ -398,7 +398,6 @@ function main({body}) {
   return {
     permission,
     result,
-    content: '',
     type: '',
   }
 }
@@ -565,7 +564,6 @@ function main({result, body, question}) {
 
   return {
     result: res,
-    content: res,
     type: 'ota_task',
   }
 }

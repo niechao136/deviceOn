@@ -3,7 +3,7 @@
 
 function main({question, content, type, api, token, timezone}) {
   let request = '', action = '', osType = '', target_url = ''
-  let cache_content = '', cache_type = '', answer = 0, result = ''
+  let cache_type = '', answer = 0, result = ''
   switch (type) {
     case 'control_task':
       request = JSON.stringify({
@@ -72,13 +72,12 @@ function main({question, content, type, api, token, timezone}) {
           }
         }
         if (filter.length > 1) {
-          cache_content = result
           cache_type = 'find_device'
         }
         answer = 1
         break
       }
-      cache_content = content
+      result = content
       cache_type = type
       break
     case 'remote_desktop':
@@ -97,7 +96,6 @@ function main({question, content, type, api, token, timezone}) {
           }
         })
         if (filter.length > 1) {
-          cache_content = result
           cache_type = 'remote_desktop'
         }
         answer = 1
@@ -138,7 +136,6 @@ function main({question, content, type, api, token, timezone}) {
           }
           // 需要重新选择
           if (!osType || (filter.length > 1 && ['90071', '90081'].includes(actionCode))) {
-            cache_content = result
             cache_type = type
             break
           }
@@ -156,7 +153,6 @@ function main({question, content, type, api, token, timezone}) {
             }
           })
           if (filter_device.length > 0) {
-            cache_content = result
             cache_type = type
             break
           }
@@ -177,7 +173,6 @@ function main({question, content, type, api, token, timezone}) {
             }
           })
           if (filter_device.length > 0) {
-            cache_content = result
             cache_type = type
           }
           if (filter.length > 0) {
@@ -269,7 +264,6 @@ function main({question, content, type, api, token, timezone}) {
               user: 'deviceOn reply'
             })
           }
-          cache_content = result
           cache_type = type
           action = 'confirm'
           break
@@ -290,7 +284,6 @@ function main({question, content, type, api, token, timezone}) {
   return {
     action,
     answer,
-    content: cache_content,
     request,
     result,
     type: cache_type,
@@ -413,16 +406,15 @@ function main({request, req}) {
 
 //#endregion
 //#region 处理新增任务
-/**
- * 处理新增任务
- */
+
 function main({body}) {
   const obj = JSON.parse(body)
   const outputs = obj?.data?.outputs ?? {}
+  const result = outputs?.result ?? ''
+  const type = outputs?.type ?? ''
   return {
-    result: outputs?.result ?? '',
-    content: outputs?.content ?? '',
-    type: outputs?.type ?? '',
+    result,
+    type,
   }
 }
 
@@ -450,7 +442,6 @@ function main({body, result}) {
   })
   return {
     result: content,
-    content,
   }
 }
 
@@ -586,7 +577,6 @@ function main({body, result}) {
   })
   return {
     result: content,
-    content,
   }
 }
 

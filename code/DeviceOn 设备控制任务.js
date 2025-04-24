@@ -386,7 +386,6 @@ function main({text, device, type, content, timezone, api, token, question, add_
 
   return {
     result,
-    content: !!task ? result : '',
     type: task,
     device: obj,
     request,
@@ -396,9 +395,7 @@ function main({text, device, type, content, timezone, api, token, question, add_
 
 //#endregion
 //#region 处理工作流结果
-/**
- * 处理工作流结果
- */
+
 function main({body, filter_error, bearer, result}) {
   const obj = JSON.parse(body)
   const outputs = obj?.data?.outputs ?? {}
@@ -415,13 +412,11 @@ function main({body, filter_error, bearer, result}) {
     })
     return {
       result: task,
-      content: device.length > 0 ? task : '',
       type: device.length > 0 ? 'control_task' : '',
     }
   }
   return {
     result: outputs?.result ?? '',
-    content: outputs?.content ?? '',
     type: outputs?.type ?? ''
   }
 }

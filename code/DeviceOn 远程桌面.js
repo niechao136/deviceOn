@@ -361,7 +361,6 @@ function main({text, device, content, type, question, api, token, timezone}) {
 
   return {
     result,
-    content: !!task ? result : '',
     type: task,
     device: obj,
     request,
@@ -386,7 +385,6 @@ function main({body, result}) {
   })
   return {
     result: task,
-    content: device.length > 1 ? task : '',
     type: device.length > 1 ? 'remote_desktop' : '',
   }
 }

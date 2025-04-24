@@ -1,7 +1,5 @@
 //#region 确认任务信息
-/**
- * 确认任务信息
- */
+
 function timeStringToCron(timeStr) {
   // 分割日期部分和时间部分
   const [datePart, timePart] = timeStr.split(' ');
@@ -150,9 +148,7 @@ function main({request, body}) {
 
 //#endregion
 //#region 处理返回信息
-/**
- * 处理返回信息
- */
+
 function main({content, body, need_token, api, token}) {
   const res = JSON.parse(content)
   const result = JSON.parse(body)
@@ -173,7 +169,6 @@ function main({content, body, need_token, api, token}) {
         }
       },
     }),
-    content: '',
     type: '',
   }
 }
