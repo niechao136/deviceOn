@@ -286,17 +286,14 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "/**\n * 处理工作流\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
-          \  const outputs = obj?.data?.outputs ?? {}\n  const is_find_device = Number(outputs?.is_find_device\
-          \ ?? 0)\n  return {\n    result: outputs?.result ?? '',\n    content: outputs?.content\
-          \ ?? '',\n    type: outputs?.type ?? '',\n    need_answer: is_find_device\
-          \ === 1 ? 0 : 1,\n  }\n}"
+        code: "function main({body}) {\n  const obj = JSON.parse(body)\n  const outputs\
+          \ = obj?.data?.outputs ?? {}\n  const is_find_device = Number(outputs?.is_find_device\
+          \ ?? 0)\n  const result = outputs?.result ?? ''\n  const type = outputs?.type\
+          \ ?? ''\n  const need_answer = is_find_device === 1 ? 0 : 1\n  return {\n\
+          \    result,\n    type,\n    need_answer,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
-          content:
-            children: null
-            type: string
           need_answer:
             children: null
             type: number
@@ -336,10 +333,6 @@ workflow:
           variable: result
         - value_selector:
           - '1743561777927'
-          - content
-          variable: content
-        - value_selector:
-          - '1743561777927'
           - type
           variable: type
         - value_selector:
@@ -349,7 +342,7 @@ workflow:
         selected: false
         title: 返回数据
         type: end
-      height: 168
+      height: 142
       id: '1743561786800'
       position:
         x: 1550
@@ -453,6 +446,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: 168
-      y: 154.99999999999994
+      x: 61
+      y: 200
       zoom: 0.7

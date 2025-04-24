@@ -330,14 +330,11 @@ workflow:
           \ {}\n  if (need_token === 1) {\n    obj = {\n      triggerUrl: `${api}/walle/triggerTask/execByUrl/${token}`\n\
           \    }\n  }\n  return {\n    result: JSON.stringify({\n      ...res,\n \
           \     result: {\n        ...result,\n        data: {\n          ...(result?.data\
-          \ ?? {}),\n          ...obj\n        }\n      },\n    }),\n    content:\
-          \ '',\n    type: '',\n  }\n}"
+          \ ?? {}),\n          ...obj\n        }\n      },\n    }),\n    type: '',\n\
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
-          content:
-            children: null
-            type: string
           result:
             children: null
             type: string
@@ -390,16 +387,12 @@ workflow:
           variable: result
         - value_selector:
           - '1743491904849'
-          - content
-          variable: content
-        - value_selector:
-          - '1743491904849'
           - type
           variable: type
         selected: false
         title: 返回数据
         type: end
-      height: 142
+      height: 116
       id: '1743491925947'
       position:
         x: 2158
@@ -520,6 +513,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -287
-      y: 277.00000000000006
+      x: -420
+      y: 239
       zoom: 0.7

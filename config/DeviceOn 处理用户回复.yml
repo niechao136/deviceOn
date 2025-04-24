@@ -379,15 +379,16 @@ workflow:
         prompt_template:
         - id: 391e7b29-584f-483d-a4e9-4d0a6a7f6cb2
           role: system
-          text: "# 信息提取提示词\n\n## `问题`: `{{#context#}}`\n\n---\n\n## 处理流程\n- 若`问题`包含\
-            \ `好`、`好的`、`确定`、`OK`、`Go`、`是的`、`可以` 等确认性表述 → `is_confirm = true`\n- 若`问题`包含\
-            \ `上线后执行`、`发布后运行` 等类似描述 → `is_online = true`\n- 若`问题`包含 `立即执行` 等类似描述 →\
-            \ `is_none = true`\n- 若`问题`包含 `设备时间`、`设备时区` 等类似描述 → `is_device = true`\n\
-            - 若`问题`包含 `本地时间`、`本地时区` 等类似描述 → `is_local = true`\n\n---\n\n## 输出格式\n\
-            输出 JSON 格式必须符合以下结构：\n```json\n{\n  \"is_online\": \"<boolean>\",\n  \"\
-            is_none\": \"<boolean>\",\n  \"is_device\": \"<boolean>\",\n  \"is_local\"\
-            : \"<boolean>\",\n  \"is_confirm\": \"<boolean>\",\n  \"reason\": \"<不超过15字的关键词依据>\"\
-            \n}\n```\n\n---\n"
+          text: "# 信息提取提示词\n\n## 输入数据\n- `{query}`: `{{#context#}}`\n\n---\n\n## 处理流程\n\
+            - 若`{query}`匹配到 `好`、`好的`、`确定`、`OK`、`Go`、`是的`、`可以` 等表示确认的描述 → `is_confirm\
+            \ = true`\n- 若`{query}`匹配到 `上线后执行`、`发布后运行` 等表示上线后执行的描述 → `is_online =\
+            \ true`\n- 若`{query}`匹配到 `立即执行` 等表示立即执行的描述 → `is_none = true`\n- 若`{query}`匹配到\
+            \ `设备时间`、`设备时区` 等表示设备时区的描述 → `is_device = true`\n- 若`{query}`匹配到 `本地时间`、`本地时区`\
+            \ 等表示本地时区的描述 → `is_local = true`\n\n---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n\
+            ```json\n{\n  \"is_online\": \"<boolean>\",\n  \"is_none\": \"<boolean>\"\
+            ,\n  \"is_device\": \"<boolean>\",\n  \"is_local\": \"<boolean>\",\n \
+            \ \"is_confirm\": \"<boolean>\",\n  \"reason\": \"<不超过15字的关键词依据>\"\n}\n\
+            ```\n\n---\n"
         selected: false
         title: LLM 处理确认信息
         type: llm
@@ -564,16 +565,12 @@ workflow:
           variable: result
         - value_selector:
           - '1744178241091'
-          - content
-          variable: content
-        - value_selector:
-          - '1744178241091'
           - type
           variable: type
         selected: false
         title: 返回数据
         type: end
-      height: 168
+      height: 142
       id: '1743649813355'
       position:
         x: 1854
@@ -630,16 +627,13 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "/**\n * 处理新增任务\n */\nfunction main({body}) {\n  const obj = JSON.parse(body)\n\
-          \  const outputs = obj?.data?.outputs ?? {}\n  return {\n    result: outputs?.result\
-          \ ?? '',\n    content: outputs?.content ?? '',\n    type: outputs?.type\
-          \ ?? '',\n  }\n}\n\n"
+        code: "function main({body}) {\n  const obj = JSON.parse(body)\n  const outputs\
+          \ = obj?.data?.outputs ?? {}\n  const result = outputs?.result ?? ''\n \
+          \ const type = outputs?.type ?? ''\n  return {\n    result,\n    type,\n\
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
-          content:
-            children: null
-            type: string
           result:
             children: null
             type: string
@@ -657,10 +651,10 @@ workflow:
       height: 54
       id: '17436599619100'
       position:
-        x: 2626.285714285714
+        x: 2622
         y: 594.7142857142858
       positionAbsolute:
-        x: 2626.285714285714
+        x: 2622
         y: 594.7142857142858
       selected: false
       sourcePosition: right
@@ -680,16 +674,12 @@ workflow:
           variable: result
         - value_selector:
           - '17436599619100'
-          - content
-          variable: content
-        - value_selector:
-          - '17436599619100'
           - type
           variable: type
         selected: false
         title: 返回数据
         type: end
-      height: 168
+      height: 142
       id: '17436599645130'
       position:
         x: 3014.5714285714284
@@ -704,15 +694,15 @@ workflow:
       width: 244
     - data:
         code: "function main({question, content, type, api, token, timezone}) {\n\
-          \  let request = '', action = '', osType = '', target_url = ''\n  let cache_content\
-          \ = '', cache_type = '', answer = 0, result = ''\n  switch (type) {\n  \
-          \  case 'control_task':\n      request = JSON.stringify({\n        inputs:\
-          \ {\n          content,\n          timezone,\n          api,\n         \
-          \ token\n        },\n        response_mode: 'blocking',\n        user: 'deviceOn\
-          \ reply'\n      })\n      action = 'confirm'\n      answer = 1\n      break\n\
-          \    case 'find_device':\n    case 'find_error':\n      const query = String(question)\n\
-          \      if (query.endsWith(' REMOTE_DESKTOP') || query.endsWith(' REBOOT'))\
-          \ {\n        const obj = JSON.parse(content)\n        const device = Array.isArray(obj?.data?.targetDevices)\
+          \  let request = '', action = '', osType = '', target_url = ''\n  let cache_type\
+          \ = '', answer = 0, result = ''\n  switch (type) {\n    case 'control_task':\n\
+          \      request = JSON.stringify({\n        inputs: {\n          content,\n\
+          \          timezone,\n          api,\n          token\n        },\n    \
+          \    response_mode: 'blocking',\n        user: 'deviceOn reply'\n      })\n\
+          \      action = 'confirm'\n      answer = 1\n      break\n    case 'find_device':\n\
+          \    case 'find_error':\n      const query = String(question)\n      if\
+          \ (query.endsWith(' REMOTE_DESKTOP') || query.endsWith(' REBOOT')) {\n \
+          \       const obj = JSON.parse(content)\n        const device = Array.isArray(obj?.data?.targetDevices)\
           \ ? Array.from(obj?.data?.targetDevices) : []\n        const filter = device.filter(o\
           \ => {\n          return query.includes(o?.id) || query.includes(o?.name)\
           \ || query.includes(o?.ip)\n        })\n        result = JSON.stringify({\n\
@@ -732,63 +722,61 @@ workflow:
           \  timezone,\n                api,\n                token\n            \
           \  },\n              response_mode: 'blocking',\n              user: 'deviceOn\
           \ reply'\n            })\n            action = 'task'\n          }\n   \
-          \     }\n        if (filter.length > 1) {\n          cache_content = result\n\
-          \          cache_type = 'find_device'\n        }\n        answer = 1\n \
-          \       break\n      }\n      cache_content = content\n      cache_type\
-          \ = type\n      break\n    case 'remote_desktop':\n      if (type === 'remote_desktop')\
-          \ {\n        const obj = JSON.parse(content)\n        const query = String(question)\n\
-          \        const device = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj?.data?.targetDevices)\
-          \ : []\n        const filter = device.filter(o => {\n          return query.includes(o?.id)\
-          \ || query.includes(o?.name) || query.includes(o?.ip)\n        })\n    \
-          \    result = JSON.stringify({\n          type: 'remote_desktop',\n    \
-          \      data: {\n            ...obj.data,\n            targetDevices: filter,\n\
-          \          }\n        })\n        if (filter.length > 1) {\n          cache_content\
-          \ = result\n          cache_type = 'remote_desktop'\n        }\n       \
-          \ answer = 1\n      }\n      break\n    case 'ota_task':\n      if (type\
-          \ === 'ota_task') {\n        answer = 1\n        const obj = JSON.parse(content)\n\
-          \        const query = String(question)\n        const target = Array.isArray(obj?.data?.target)\
-          \ ? Array.from(obj.data.target) : []\n        osType = obj?.data?.osType\
-          \ ?? ''\n        const actionCode = String(obj?.data?.actionCode)\n    \
-          \    const filter = target.filter(o => {\n          return query.includes(o?.name)\
-          \ || query.toLowerCase().includes(o?.os)\n        })\n        if (!osType)\
-          \ {\n          const oses = filter.map(o => o?.os)\n          if (oses.length\
-          \ === 1) osType = oses[0]\n        }\n        const device = Array.isArray(obj?.data?.targetDevices)\
-          \ ? Array.from(obj.data.targetDevices) : []\n        let filter_device =\
-          \ device.filter(o => osType === o?.os)\n        const fail_device = device.filter(o\
-          \ => osType !== o?.os).map(o => o?.name)\n        if (obj?.step === 'select_target')\
-          \ {\n          result = JSON.stringify({\n            ...obj,\n        \
-          \    step: filter.length > 0 ? 'select_target' : 'no_target',\n        \
-          \    data: {\n              ...obj.data,\n              target: filter,\n\
-          \              target_len: filter.length,\n              osType,\n     \
-          \         fail: [],\n            }\n          })\n          if (filter.length\
-          \ === 0) {\n            break\n          }\n          // 需要重新选择\n      \
-          \    if (!osType || (filter.length > 1 && ['90071', '90081'].includes(actionCode)))\
-          \ {\n            cache_content = result\n            cache_type = type\n\
-          \            break\n          }\n          result = JSON.stringify({\n \
-          \           ...obj,\n            step: filter_device.length > 0 ? 'confirm_device'\
+          \     }\n        if (filter.length > 1) {\n          cache_type = 'find_device'\n\
+          \        }\n        answer = 1\n        break\n      }\n      result = content\n\
+          \      cache_type = type\n      break\n    case 'remote_desktop':\n    \
+          \  if (type === 'remote_desktop') {\n        const obj = JSON.parse(content)\n\
+          \        const query = String(question)\n        const device = Array.isArray(obj?.data?.targetDevices)\
+          \ ? Array.from(obj?.data?.targetDevices) : []\n        const filter = device.filter(o\
+          \ => {\n          return query.includes(o?.id) || query.includes(o?.name)\
+          \ || query.includes(o?.ip)\n        })\n        result = JSON.stringify({\n\
+          \          type: 'remote_desktop',\n          data: {\n            ...obj.data,\n\
+          \            targetDevices: filter,\n          }\n        })\n        if\
+          \ (filter.length > 1) {\n          cache_type = 'remote_desktop'\n     \
+          \   }\n        answer = 1\n      }\n      break\n    case 'ota_task':\n\
+          \      if (type === 'ota_task') {\n        answer = 1\n        const obj\
+          \ = JSON.parse(content)\n        const query = String(question)\n      \
+          \  const target = Array.isArray(obj?.data?.target) ? Array.from(obj.data.target)\
+          \ : []\n        osType = obj?.data?.osType ?? ''\n        const actionCode\
+          \ = String(obj?.data?.actionCode)\n        const filter = target.filter(o\
+          \ => {\n          return query.includes(o?.name)\n        })\n        if\
+          \ (!osType) {\n          const oses = filter.map(o => o?.os)\n         \
+          \ if (oses.length === 1) osType = oses[0]\n        }\n        const device\
+          \ = Array.isArray(obj?.data?.targetDevices) ? Array.from(obj.data.targetDevices)\
+          \ : []\n        let filter_device = device.filter(o => osType === o?.os)\n\
+          \        const fail_device = device.filter(o => osType !== o?.os).map(o\
+          \ => o?.name)\n        if (obj?.step === 'select_target') {\n          result\
+          \ = JSON.stringify({\n            ...obj,\n            step: filter.length\
+          \ > 0 ? 'select_target' : 'no_target',\n            data: {\n          \
+          \    ...obj.data,\n              target: filter,\n              target_len:\
+          \ filter.length,\n              osType,\n              fail: [],\n     \
+          \       }\n          })\n          if (filter.length === 0) {\n        \
+          \    break\n          }\n          // 需要重新选择\n          if (!osType || (filter.length\
+          \ > 1 && ['90071', '90081'].includes(actionCode))) {\n            cache_type\
+          \ = type\n            break\n          }\n          result = JSON.stringify({\n\
+          \            ...obj,\n            step: filter_device.length > 0 ? 'confirm_device'\
           \ : 'select_device',\n            data: {\n              ...obj.data,\n\
           \              target: filter,\n              osType,\n              target_len:\
           \ filter.length,\n              fail: fail_device,\n              device_len:\
           \ device.length,\n              targetDevices: filter_device\n         \
           \   }\n          })\n          if (filter_device.length > 0) {\n       \
-          \     cache_content = result\n            cache_type = type\n          \
-          \  break\n          }\n          action = 'device'\n          break\n  \
-          \      }\n        if (obj?.step === 'confirm_target') {\n          result\
-          \ = JSON.stringify({\n            ...obj,\n            step: filter_device.length\
-          \ > 0 ? 'confirm_device' : 'select_device',\n            data: {\n     \
-          \         ...obj.data,\n              target: filter.length > 0 ? filter\
-          \ : target,\n              target_len: filter.length > 0 ? filter.length\
-          \ : target.length,\n              fail: fail_device,\n              device_len:\
-          \ device.length,\n              targetDevices: filter_device,\n        \
-          \    }\n          })\n          if (filter_device.length > 0) {\n      \
-          \      cache_content = result\n            cache_type = type\n         \
-          \ }\n          if (filter.length > 0) {\n            if (filter_device.length\
-          \ > 0) {\n              break\n            }\n            action = 'device'\n\
-          \            break\n          }\n          action = 'confirm'\n        \
-          \  break\n        }\n        filter_device = device.filter(o => {\n    \
-          \      return query.includes(o?.name) || query.includes(o?.id) || query.toLowerCase().includes(o?.os)\n\
-          \        })\n        switch (actionCode) {\n          case '90021':\n  \
-          \        case '90022':\n            target_url = '/walle/ai/taskAssist/listSoftware'\n\
+          \     cache_type = type\n            break\n          }\n          action\
+          \ = 'device'\n          break\n        }\n        if (obj?.step === 'confirm_target')\
+          \ {\n          result = JSON.stringify({\n            ...obj,\n        \
+          \    step: filter_device.length > 0 ? 'confirm_device' : 'select_device',\n\
+          \            data: {\n              ...obj.data,\n              target:\
+          \ filter.length > 0 ? filter : target,\n              target_len: filter.length\
+          \ > 0 ? filter.length : target.length,\n              fail: fail_device,\n\
+          \              device_len: device.length,\n              targetDevices:\
+          \ filter_device,\n            }\n          })\n          if (filter_device.length\
+          \ > 0) {\n            cache_type = type\n          }\n          if (filter.length\
+          \ > 0) {\n            if (filter_device.length > 0) {\n              break\n\
+          \            }\n            action = 'device'\n            break\n     \
+          \     }\n          action = 'confirm'\n          break\n        }\n    \
+          \    filter_device = device.filter(o => {\n          return query.includes(o?.name)\
+          \ || query.includes(o?.id) || query.toLowerCase().includes(o?.os)\n    \
+          \    })\n        switch (actionCode) {\n          case '90021':\n      \
+          \    case '90022':\n            target_url = '/walle/ai/taskAssist/listSoftware'\n\
           \            break\n          case '90071':\n            target_url = '/walle/ai/taskAssist/listScript'\n\
           \            break\n          case '90081':\n            target_url = '/walle/ai/taskAssist/listFile'\n\
           \            break\n        }\n        if (obj?.step === 'select_device')\
@@ -820,15 +808,14 @@ workflow:
           \ result,\n                timezone,\n                api,\n           \
           \     token\n              },\n              response_mode: 'blocking',\n\
           \              user: 'deviceOn reply'\n            })\n          }\n   \
-          \       cache_content = result\n          cache_type = type\n          action\
-          \ = 'confirm'\n          break\n        }\n        if (['select_timezone',\
-          \ 'select_time'].includes(obj?.step)) {\n          result = JSON.stringify({\n\
-          \            ...obj,\n            step: obj?.step === 'select_timezone'\
-          \ ? 'confirm_timezone' : 'confirm_time',\n          })\n          action\
-          \ = 'confirm'\n          break\n        }\n      }\n      break\n    default:\n\
-          \      break\n  }\n  return {\n    action,\n    answer,\n    content: cache_content,\n\
-          \    request,\n    result,\n    type: cache_type,\n    osType,\n    target_url,\n\
-          \  }\n}"
+          \       cache_type = type\n          action = 'confirm'\n          break\n\
+          \        }\n        if (['select_timezone', 'select_time'].includes(obj?.step))\
+          \ {\n          result = JSON.stringify({\n            ...obj,\n        \
+          \    step: obj?.step === 'select_timezone' ? 'confirm_timezone' : 'confirm_time',\n\
+          \          })\n          action = 'confirm'\n          break\n        }\n\
+          \      }\n      break\n    default:\n      break\n  }\n  return {\n    action,\n\
+          \    answer,\n    request,\n    result,\n    type: cache_type,\n    osType,\n\
+          \    target_url,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -838,9 +825,6 @@ workflow:
           answer:
             children: null
             type: number
-          content:
-            children: null
-            type: string
           osType:
             children: null
             type: string
@@ -892,7 +876,7 @@ workflow:
       positionAbsolute:
         x: 334
         y: 455
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -973,16 +957,12 @@ workflow:
           variable: result
         - value_selector:
           - '1744178241091'
-          - content
-          variable: content
-        - value_selector:
-          - '1744178241091'
           - type
           variable: type
         selected: false
         title: 返回数据
         type: end
-      height: 168
+      height: 142
       id: '1744178528807'
       position:
         x: 930.5714285714284
@@ -1039,13 +1019,10 @@ workflow:
           \ {\n      id: o.deviceId,\n      name: o.deviceName,\n      os: o.deviceOs,\n\
           \      timezone: o.timezone,\n    }\n  })\n  const content = JSON.stringify({\n\
           \    ...obj,\n    data: {\n      ...obj.data,\n      targetDevices: filter,\n\
-          \    }\n  })\n  return {\n    result: content,\n    content,\n  }\n}"
+          \    }\n  })\n  return {\n    result: content,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
-          content:
-            children: null
-            type: string
           result:
             children: null
             type: string
@@ -1086,17 +1063,13 @@ workflow:
           - result
           variable: result
         - value_selector:
-          - '1744357335540'
-          - content
-          variable: content
-        - value_selector:
           - '1743646903355'
           - type
           variable: type
         selected: false
         title: 返回数据
         type: end
-      height: 168
+      height: 142
       id: '1744357721350'
       position:
         x: 2632
@@ -1200,13 +1173,10 @@ workflow:
           \  }\n  flow = flow * device.length\n  const content = JSON.stringify({\n\
           \    ...obj,\n    data: {\n      ...obj.data,\n      parameter,\n      flow:\
           \ formatFileSize(flow),\n    }\n  })\n  return {\n    result: content,\n\
-          \    content,\n  }\n}"
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
-          content:
-            children: null
-            type: string
           result:
             children: null
             type: string
@@ -1230,7 +1200,7 @@ workflow:
       positionAbsolute:
         x: 2233.714285714286
         y: 58.857142857142804
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1247,17 +1217,13 @@ workflow:
           - result
           variable: result
         - value_selector:
-          - '1744362369879'
-          - content
-          variable: content
-        - value_selector:
           - '1743646903355'
           - type
           variable: type
         selected: false
         title: 返回数据
         type: end
-      height: 168
+      height: 142
       id: '1744362479983'
       position:
         x: 2622
@@ -1305,6 +1271,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -11.802809812868418
-      y: -176.70600186697112
-      zoom: 1.218770788614574
+      x: -676.4296255367854
+      y: -368.30182767855786
+      zoom: 1.0610015965572788

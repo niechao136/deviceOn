@@ -9,7 +9,7 @@ dependencies:
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
+    marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.12@a8d5448083aededa394d5940f878f6151f4a472e77766222e654840c74d10287
 kind: app
 version: 0.1.5
 workflow:
@@ -214,6 +214,7 @@ workflow:
       positionAbsolute:
         x: 334
         y: 323
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -277,6 +278,7 @@ workflow:
       positionAbsolute:
         x: 638
         y: 323
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -290,26 +292,28 @@ workflow:
         desc: ''
         model:
           completion_params:
-            num_ctx: 32768
             temperature: 0
           mode: chat
-          name: deepseek-r1:14b
-          provider: langgenius/ollama/ollama
+          name: gpt-4o-mini
+          provider: langgenius/azure_openai/azure_openai
         prompt_template:
         - id: 6b95cf48-c47c-4123-bf3f-5492a5fda510
           role: system
-          text: "# 信息提取提示词\n\n## 输入数据\n- `问题`: {{#context#}}\n- `设备数组`:\n    ```json\n\
-            \    {{#1744161238563.device#}}\n    ```\n\n---\n\n## `设备数组`结构说明：\n```markdown\n\
-            - **顶层：** 设备数组，每个设备包含：\n    - **\"id\"：** 设备ID\n    - **\"nm\"：** 设备名称\n\
-            \    - **\"hw_n\"：** 硬件异常数量\n    - **\"sw_n\"：** 软件异常数量\n    - **\"pp_n\"\
-            ：** 周边外设异常数量\n    - **\"ud_n\"：** 上下线异常数量\n    - **\"bt_n\"：** 电池异常数量\n\
-            \    - **\"sc_n\"：** 设备安全异常数量\n    - **\"er_n\"：** 异常总数量\n```\n\n---\n\
-            \n## 设备筛选\n1. 请根据`问题`文本识别出要求筛选出的设备数量，如果文本中没有提及数量则默认为1，设置`number = 设备数量`\n\
-            2. 请根据`设备列表`中每个设备的异常数量和`问题`文本的描述来筛选设备，筛选出的设备设置为数组 `device`\n3. 请将输出的`device`根据`问题`涉及的异常数量进行排序，并且确保`device`长度与`number`大小相等\n\
-            \n---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n```json\n{\n  \"number\": \"<数字，默认值为1>\"\
-            ,\n  \"device\": [\n    {\n      \"id\": \"<设备ID，请保证id一定存在并且对应的设备正确>\"\
-            ,\n      \"name\": \"<设备名称，请保证id与name对应关系正确>\",\n      \"reason\": \"\
-            <涉及异常的数目以及顺序>\"\n    }\n  ]\n}\n```\n"
+          text: "# 信息提取提示词\n\n## 输入数据\n- `{query}`: {{#context#}}\n- `{device_array}`:\n\
+            \    ```json\n    {{#1744161238563.device#}}\n    ```\n\n---\n\n## `{device_array}`结构说明：\n\
+            ```markdown\n- **顶层：** 设备数组，每个设备包含：\n    - **\"id\"：** 设备ID\n    - **\"\
+            nm\"：** 设备名称\n    - **\"hw_n\"：** 硬件异常数量\n    - **\"sw_n\"：** 软件异常数量\n\
+            \    - **\"pp_n\"：** 周边外设异常数量\n    - **\"ud_n\"：** 上下线异常数量\n    - **\"\
+            bt_n\"：** 电池异常数量\n    - **\"sc_n\"：** 设备安全异常数量\n    - **\"er_n\"：** 异常总数量\n\
+            ```\n\n---\n\n## 设备筛选\n- 请根据`{device_array}`中每个设备的异常数量和`{query}`文本的描述来筛选设备，筛选出的设备设置为数组\
+            \ `device`\n- 请根据`{query}`文本识别出要求筛选出的设备数量：\n    - 如果`{query}`中提及具体的设备数量，则设置`number\
+            \ = 要求的数量`\n    - 如果`{query}`中没有提及具体的设备数量，但提及到了`最`等间接表明取1台设备的词，则设置`number\
+            \ = 1`\n    - 如果以上两点都不满足，则默认显示所有符合要求的设备，请根据实际情况设置`number = device的长度`\n\
+            - 请将输出的`device`根据`{query}`涉及的异常数量进行排序，并且只保留`device`中的前`number`条数据\n\n\
+            ---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n```json\n{\n  \"number\": \"<数字>\"\
+            ,\n  \"reason\": \"<number数量的依据>\",\n  \"device\": [\n    {\n      \"\
+            id\": \"<设备ID，请保证id一定存在并且对应的设备正确>\",\n      \"name\": \"<设备名称，请保证id与name对应关系正确>\"\
+            ,\n      \"reason\": \"<涉及异常的数目以及顺序>\"\n    }\n  ]\n}\n```\n"
         selected: false
         title: LLM 设备异常参数提取
         type: llm
@@ -319,12 +323,12 @@ workflow:
       height: 90
       id: '1744161423656'
       position:
-        x: 942
+        x: 941.1294494367039
         y: 323
       positionAbsolute:
-        x: 942
+        x: 941.1294494367039
         y: 323
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -384,7 +388,7 @@ workflow:
       positionAbsolute:
         x: 1246
         y: 323
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -417,6 +421,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -623.4407593197839
-      y: 15.074202965297218
-      zoom: 1.0610015965572788
+      x: -815.8309938510256
+      y: 21.609248043017715
+      zoom: 1.1486983549970349
