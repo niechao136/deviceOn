@@ -87,7 +87,41 @@ function handleLLM(text) {
   }
   return obj
 }
-function filterDevice(device, llm_result, type, content, api, token, question, flow) {
+function convertToTimeZone(timezone) {
+  // 检查格式是否以 "UTC" 开头
+  if (!timezone.startsWith("UTC")) {
+    throw new Error("时区格式必须以 'UTC' 开头");
+  }
+  // 获取符号和小时、分钟部分
+  const sign = timezone[3]; // '+' 或 '-'
+  if (sign !== '+' && sign !== '-') {
+    throw new Error("无效的时区格式");
+  }
+  const hourStr = timezone.substr(4, 2);
+  const minuteStr = timezone.substr(7, 2);
+  const offsetHours = parseInt(hourStr, 10);
+  const offsetMinutes = parseInt(minuteStr, 10);
+  // 计算总偏移分钟数（正值代表比 UTC 晚，负值代表比 UTC 早）
+  let totalOffset = offsetHours * 60 + offsetMinutes;
+  if (sign === '-') {
+    totalOffset = -totalOffset;
+  }
+  // 当前的 UTC 毫秒数（Date.now() 返回的是自1970年1月1日 UTC 以来的毫秒数）
+  const nowMs = Date.now();
+  // 目标时区的毫秒数 = 当前 UTC 毫秒数 + 时区偏移分钟数转换为毫秒
+  const targetMs = nowMs + totalOffset * 60000;
+  const targetDate = new Date(targetMs);
+  // 使用 getUTC* 方法来提取目标时区的各部分
+  const year = targetDate.getUTCFullYear();
+  const month = String(targetDate.getUTCMonth() + 1).padStart(2, '0'); // 月份从 0 开始
+  const day = String(targetDate.getUTCDate()).padStart(2, '0');
+  const hours = String(targetDate.getUTCHours()).padStart(2, '0');
+  const minutes = String(targetDate.getUTCMinutes()).padStart(2, '0');
+  const seconds = String(targetDate.getUTCSeconds()).padStart(2, '0');
+
+  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+}
+function filterDevice(device, llm_result, type, content, api, token, question, timezone, flow) {
   // 处理设备
   const device_list = Array.isArray(device) ? Array.from(device) : []
   const device_by_id = {}
@@ -255,21 +289,24 @@ function filterDevice(device, llm_result, type, content, api, token, question, f
     const assign_time = !!llm_result?.targetDevices?.assign_time
     const start_date = String(llm_result?.targetDevices?.start_date ?? '')
     const end_date = String(llm_result?.targetDevices?.end_date ?? '')
-    let sd = new Date(start_date)
-    let ed = new Date(end_date)
+    const zone = String(timezone).slice(3)
+    let sd = new Date(`${start_date} 00:00:00${zone}`)
+    let ed = new Date(`${end_date} 00:00:00${zone}`)
     if (!assign_time) {
-      ed = new Date()
-      ed.setHours(0, 0, 0, 0)
-      const day = ed.getDate()
-      let month = ed.getMonth() - 3
-      let year = ed.getFullYear()
+      const now = convertToTimeZone(timezone)
+      const dt = now.split(' ')[0]
+      ed = new Date(`${dt} 00:00:00${zone}`)
+      const arr = dt.split('/')
+      const day = Number(arr[2])
+      let month = Number(arr[1]) - 4
+      let year = Number(arr[0])
       if (month < 0) {
         month += 12
         year -= 1
       }
       const last = new Date(year, month + 1, 0).getDate()
       const date = Math.min(day, last)
-      sd = new Date(year, month, date)
+      sd = new Date(`${year}/${month}/${date} 00:00:00${zone}`)
     }
     const start = sd.getTime()
     const end = ed.getTime() + (24 * 60 * 60 * 1000 - 1)
@@ -314,7 +351,7 @@ function main({text, device, type, content, timezone, api, token, question, add_
   const {
     request: event,
     filter,
-  } = filterDevice(JSON.parse(device), obj, type, content, api, token, question, 'control_task')
+  } = filterDevice(JSON.parse(device), obj, type, content, api, token, question, timezone, 'control_task')
   const result = JSON.stringify({
     type: is_trigger ? 'trigger_task' : 'control_task',
     data: {
