@@ -96,6 +96,8 @@
         - 在`{query}`文本中**精确匹配** `{{#1744185817604.label1#}}` 内的任一元素，将所有匹配项存入 `label1` 字段。
     - **标签2字段 (`label2`)：**
         - 在`{query}`文本中**精确匹配** `{{#1744185817604.label2#}}` 内的任一元素，将所有匹配项存入 `label2` 字段。
+    - **地点字段 (`location`)：**
+        - 在`{query}`文本中**精确匹配** `{{#1744185817604.location#}}` 内的任一元素，将所有匹配项存入 `location` 字段。
 
 - **根据`{query}`内容，确定条件标记：**
     - **ID标记 (`assign_id`)**: 当`{query}`匹配到 `设备ID为...` 或 `ID为...` 等明确指定ID栏位的描述时，设置 `assign_id = true`；
@@ -104,6 +106,7 @@
     - **系统标记 (`assign_os`)**: 当`{query}`匹配到 `OS为...` 或 `系统为...` 等明确指定系统栏位的描述时，设置 `assign_os = true`；
     - **标签1标记 (`assign_label1`)**: 当`{query}`匹配到 `标签1为...` 或 `标签为...` 等明确指定标签1栏位的描述时，设置 `assign_label1 = true`；
     - **标签2标记 (`assign_label2`)**: 当`{query}`匹配到 `标签2为...` 或 `标签为...` 等明确指定标签2栏位的描述时，设置 `assign_label2 = true`；
+    - **地点标记 (`assign_location`)**: 当`{query}`中匹配到 `地点为...`、`门店为...` 等明确指定地点栏位的描述时，设置 `assign_location = true`
 
 - **下标判断：**
     - 如果`{query}`文本中匹配到诸如 `第一个`、`第二个` 等指代下标的词时，则设置 `assign_index = 相应的数字`。
@@ -125,7 +128,7 @@
   },
   "targetDevices": {
     "assign_error": "<boolean>",
-    "assign_up_down": "<boolean>",
+    "assign_offline": "<boolean>",
     "assign_hardware": "<boolean>",
     "assign_software": "<boolean>",
     "assign_battery": "<boolean>",
@@ -135,20 +138,21 @@
     "start_date": "<日期字符串，格式 YYYY/MM/DD>",
     "end_date": "<日期字符串，格式 YYYY/MM/DD>",
     "assign_time": "<boolean>",
+    "assign_online": "<boolean>",
     "id": "<数组>",
     "name": "<数组>",
     "ip": "<数组>",
     "os": "<数组，windows | android | linux>",
     "label1": "<数组>",
     "label2": "<数组>",
+    "location": "<数组>",
     "assign_id": "<boolean>",
     "assign_name": "<boolean>",
     "assign_ip": "<boolean>",
     "assign_os": "<boolean>",
     "assign_label1": "<boolean>",
     "assign_label2": "<boolean>",
-    "assign_online": "<boolean>",
-    "assign_offline": "<boolean>",
+    "assign_location": "<boolean>",
     "assign_index": "<number, 默认为-1>",
     "assign_last": "<boolean>"
   }

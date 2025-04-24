@@ -44,6 +44,7 @@ function main({body, timezone}) {
       ip: o.deviceIp,
       l1: o.labelDeviceName1,
       l2: o.labelDeviceName2,
+      lo: o.locationName,
       st: o.onlineStatus,
       tz: o.timezone,
       hw: o.hardwareError,
@@ -58,6 +59,7 @@ function main({body, timezone}) {
   const ip = Array.from(new Set(device.map(o => o.ip).filter(o => !!o)))
   const label1 = Array.from(new Set(device.map(o => o.l1).filter(o => !!o)))
   const label2 = Array.from(new Set(device.map(o => o.l2).filter(o => !!o)))
+  const location = Array.from(new Set(device.map(o => o.lo).filter(o => !!o)))
   const date = convertToTimeZone(timezone);
   return {
     device: JSON.stringify(device),
@@ -66,6 +68,7 @@ function main({body, timezone}) {
     ip: JSON.stringify(ip, null, 2),
     label1: JSON.stringify(label1, null, 2),
     label2: JSON.stringify(label2, null, 2),
+    location: JSON.stringify(location, null, 2),
     date,
   }
 }
@@ -153,16 +156,20 @@ function filterDevice(device, llm_result, type, content, api, token, question, t
     const os = Array.isArray(llm_result?.targetDevices?.os) ? Array.from(llm_result.targetDevices.os).map(s => String(s).toLowerCase()) : []
     const label1 = Array.isArray(llm_result?.targetDevices?.label1) ? Array.from(llm_result.targetDevices.label1) : []
     const label2 = Array.isArray(llm_result?.targetDevices?.label2) ? Array.from(llm_result.targetDevices.label2) : []
+    const location = Array.isArray(llm_result?.targetDevices?.location) ? Array.from(llm_result.targetDevices.location) : []
     const assign_id = !!llm_result?.targetDevices?.assign_id
     const assign_name = !!llm_result?.targetDevices?.assign_name
     const assign_ip = !!llm_result?.targetDevices?.assign_ip
     const assign_os = !!llm_result?.targetDevices?.assign_os
     const assign_label1 = !!llm_result?.targetDevices?.assign_label1
     const assign_label2 = !!llm_result?.targetDevices?.assign_label2
+    const assign_location = !!llm_result?.targetDevices?.assign_location
     const assign_online = !!llm_result?.targetDevices?.assign_online
     const assign_index = Number(llm_result?.targetDevices?.assign_index)
-    let not_prop = id.length === 0 && name.length === 0 && ip.length === 0 && os.length === 0 && label1.length === 0 && label2.length === 0
-    let has_prop = assign_id || assign_name || assign_ip || assign_os || assign_label1 || assign_label2
+    let not_prop = id.length === 0 && name.length === 0 && ip.length === 0 && os.length === 0
+      && label1.length === 0 && label2.length === 0 && location.length === 0
+    let has_prop = assign_id || assign_name || assign_ip || assign_os
+      || assign_label1 || assign_label2 || assign_location
     let use_cache = not_prop && !has_prop && !assign_online && !has_error
     if (flow === 'remote_desktop') {
       not_prop = id.length === 0 && name.length === 0 && ip.length === 0
@@ -190,10 +197,11 @@ function filterDevice(device, llm_result, type, content, api, token, question, t
           const match_os = os.includes(o.os)
           const match_label1 = label1.includes(o.l1)
           const match_label2 = label2.includes(o.l2)
+          const match_location = location.includes(o.lo)
           // 当没有指定具体栏位时，只要满足一个条件就行
           if (!has_prop) {
             if (flow === 'remote_desktop') return match_id || match_name || match_ip
-            return match_id || match_name || match_ip || match_os || match_label1 || match_label2
+            return match_id || match_name || match_ip || match_os || match_label1 || match_label2 || match_location
           }
           // 当有指定具体栏位时，需要满足所有指定栏位
           let match = true
@@ -205,6 +213,7 @@ function filterDevice(device, llm_result, type, content, api, token, question, t
           if (assign_label1 && !assign_label2) match = match && match_label1
           if (!assign_label1 && assign_label2) match = match && match_label2
           if (assign_label1 && assign_label2) match = match && (match_label2 || match_label1)
+          if (assign_location) match = match && match_location
           return match
         }).map(o => o.id)
         if (filter_id.length === 0 && use_cache && flow !== 'find_device') {
@@ -241,6 +250,7 @@ function filterDevice(device, llm_result, type, content, api, token, question, t
         const match_os = os.includes(o.os)
         const match_label1 = label1.includes(o.l1)
         const match_label2 = label2.includes(o.l2)
+        const match_location = location.includes(o.lo)
         const match_online = assign_online && Number(o.st) === 1
         const match_status = match_online || (!assign_online)
         // 当没有匹配任何属性时，只筛选status
@@ -248,7 +258,7 @@ function filterDevice(device, llm_result, type, content, api, token, question, t
         // 当没有指定具体栏位时，只要满足一个条件就行
         if (!has_prop) {
           if (flow === 'remote_desktop') return match_id || match_name || match_ip
-          return (match_id || match_name || match_ip || match_os || match_label1 || match_label2) && match_status
+          return (match_id || match_name || match_ip || match_os || match_label1 || match_label2 || match_location) && match_status
         }
         // 当有指定具体栏位时，需要满足所有指定栏位
         if (assign_id) match = match && match_id
@@ -260,6 +270,7 @@ function filterDevice(device, llm_result, type, content, api, token, question, t
         if (assign_label1 && !assign_label2) match = match && match_label1
         if (!assign_label1 && assign_label2) match = match && match_label2
         if (assign_label1 && assign_label2) match = match && (match_label2 || match_label1)
+        if (assign_location) match = match && match_location
         return match
       }).map(o => o.id)
     }
