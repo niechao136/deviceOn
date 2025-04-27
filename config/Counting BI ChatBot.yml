@@ -1,0 +1,2906 @@
+app:
+  description: ''
+  icon: advChatbotIcon
+  icon_background: '#D1DEF8'
+  mode: workflow
+  name: Counting BI ChatBot
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
+kind: app
+version: 0.2.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1739949805065-source-1739949906666-target
+      selected: false
+      source: '1739949805065'
+      sourceHandle: source
+      target: '1739949906666'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1739949906666-source-1739949978783-target
+      selected: false
+      source: '1739949906666'
+      sourceHandle: source
+      target: '1739949978783'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: if-else
+      id: 1739952239270-source-1739958382164-target
+      selected: false
+      source: '1739952239270'
+      sourceHandle: source
+      target: '1739958382164'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1739958382164-true-1739958526488-target
+      selected: false
+      source: '1739958382164'
+      sourceHandle: 'true'
+      target: '1739958526488'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1739958382164-false-1739958700538-target
+      selected: false
+      source: '1739958382164'
+      sourceHandle: 'false'
+      target: '1739958700538'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1739958700538-source-1739958750172-target
+      selected: false
+      source: '1739958700538'
+      sourceHandle: source
+      target: '1739958750172'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1739958526488-source-1740011856778-target
+      selected: false
+      source: '1739958526488'
+      sourceHandle: source
+      target: '1740011856778'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1740011856778-source-1740011926688-target
+      selected: false
+      source: '1740011856778'
+      sourceHandle: source
+      target: '1740011926688'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1740011926688-source-1739958750172-target
+      selected: false
+      source: '1740011926688'
+      sourceHandle: source
+      target: '1739958750172'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: variable-aggregator
+        targetType: if-else
+      id: 1739958750172-source-1740012504106-target
+      selected: false
+      source: '1739958750172'
+      sourceHandle: source
+      target: '1740012504106'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1740012504106-false-1740012639274-target
+      selected: false
+      source: '1740012504106'
+      sourceHandle: 'false'
+      target: '1740012639274'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1740012635953-source-1740012651929-target
+      selected: false
+      source: '1740012635953'
+      sourceHandle: source
+      target: '1740012651929'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1740012639274-source-1740012651929-target
+      selected: false
+      source: '1740012639274'
+      sourceHandle: source
+      target: '1740012651929'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: iteration
+      id: 1740012504106-true-1740012775630-target
+      selected: false
+      source: '1740012504106'
+      sourceHandle: 'true'
+      target: '1740012775630'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: iteration
+        targetType: code
+      id: 1740012775630-source-1740012635953-target
+      selected: false
+      source: '1740012775630'
+      sourceHandle: source
+      target: '1740012635953'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1740012775630'
+        sourceType: iteration-start
+        targetType: code
+      id: 1740012775630start-source-1740012798793-target
+      selected: false
+      source: 1740012775630start
+      sourceHandle: source
+      target: '1740012798793'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1740012775630'
+        sourceType: code
+        targetType: http-request
+      id: 1740012798793-source-1740012970742-target
+      selected: false
+      source: '1740012798793'
+      sourceHandle: source
+      target: '1740012970742'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: variable-aggregator
+        targetType: if-else
+      id: 1740012651929-source-1740013504635-target
+      selected: false
+      source: '1740012651929'
+      sourceHandle: source
+      target: '1740013504635'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1740013504635-false-1740013556972-target
+      selected: false
+      source: '1740013504635'
+      sourceHandle: 'false'
+      target: '1740013556972'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1740013556972-source-1740013495705-target
+      selected: false
+      source: '1740013556972'
+      sourceHandle: source
+      target: '1740013495705'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: variable-aggregator
+      id: 1740013554191-source-1740013495705-target
+      selected: false
+      source: '1740013554191'
+      sourceHandle: source
+      target: '1740013495705'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1740013504635-true-1740013670879-target
+      selected: false
+      source: '1740013504635'
+      sourceHandle: 'true'
+      target: '1740013670879'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1740013670879-source-1740013713607-target
+      selected: false
+      source: '1740013670879'
+      sourceHandle: source
+      target: '1740013713607'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1740013713607-source-1740013720051-target
+      selected: false
+      source: '1740013713607'
+      sourceHandle: source
+      target: '1740013720051'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1740013720051-source-1740013766552-target
+      selected: false
+      source: '1740013720051'
+      sourceHandle: source
+      target: '1740013766552'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: iteration
+        targetType: code
+      id: 1740013786338-source-1740013554191-target
+      selected: false
+      source: '1740013786338'
+      sourceHandle: source
+      target: '1740013554191'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1740013786338'
+        sourceType: iteration-start
+        targetType: code
+      id: 1740013786338start-source-1740013797521-target
+      selected: false
+      source: 1740013786338start
+      sourceHandle: source
+      target: '1740013797521'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1740013786338'
+        sourceType: code
+        targetType: http-request
+      id: 1740013797521-source-1740013834926-target
+      selected: false
+      source: '1740013797521'
+      sourceHandle: source
+      target: '1740013834926'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1740013766552-source-1740014063279-target
+      selected: false
+      source: '1740013766552'
+      sourceHandle: source
+      target: '1740014063279'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: iteration
+      id: 1740014063279-source-1740013786338-target
+      selected: false
+      source: '1740014063279'
+      sourceHandle: source
+      target: '1740013786338'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: variable-aggregator
+        targetType: if-else
+      id: 1740013495705-source-1740014895800-target
+      selected: false
+      source: '1740013495705'
+      sourceHandle: source
+      target: '1740014895800'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1740014895800-true-1740015030280-target
+      selected: false
+      source: '1740014895800'
+      sourceHandle: 'true'
+      target: '1740015030280'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: code
+      id: 1740014895800-false-1740015041582-target
+      selected: false
+      source: '1740014895800'
+      sourceHandle: 'false'
+      target: '1740015041582'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1740015030280-source-1740015092723-target
+      selected: false
+      source: '1740015030280'
+      sourceHandle: source
+      target: '1740015092723'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: http-request
+      id: 1740015092723-source-1740015100935-target
+      selected: false
+      source: '1740015092723'
+      sourceHandle: source
+      target: '1740015100935'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1740015100935-source-1740015105187-target
+      selected: false
+      source: '1740015100935'
+      sourceHandle: source
+      target: '1740015105187'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: llm
+      id: 1740015105187-source-1740015114173-target
+      selected: false
+      source: '1740015105187'
+      sourceHandle: source
+      target: '1740015114173'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1740015114173-source-1740015137490-target
+      selected: false
+      source: '1740015114173'
+      sourceHandle: source
+      target: '1740015137490'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1740015127598-source-1740015137490-target
+      selected: false
+      source: '1740015127598'
+      sourceHandle: source
+      target: '1740015137490'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: llm
+      id: 1739949978783-source-1739950181643-target
+      selected: false
+      source: '1739949978783'
+      sourceHandle: source
+      target: '1739950181643'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1739950181643-source-1739952239270-target
+      selected: false
+      source: '1739950181643'
+      sourceHandle: source
+      target: '1739952239270'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1741142755896-1-1741143076027-target
+      source: '1741142755896'
+      sourceHandle: '1'
+      target: '1741143076027'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: llm
+      id: 1740015041582-source-1740015127598-target
+      source: '1740015041582'
+      sourceHandle: source
+      target: '1740015127598'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: question-classifier
+      id: 1739949692626-source-1741142755896-target
+      source: '1739949692626'
+      sourceHandle: source
+      target: '1741142755896'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1741142755896-2-1739949805065-target
+      source: '1741142755896'
+      sourceHandle: '2'
+      target: '1739949805065'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1741143076027-source-1741164879939-target
+      source: '1741143076027'
+      sourceHandle: source
+      target: '1741164879939'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: variable-aggregator
+        targetType: code
+      id: 1740015137490-source-1742528860746-target
+      source: '1740015137490'
+      sourceHandle: source
+      target: '1742528860746'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: end
+      id: 1742528860746-source-1739951518487-target
+      source: '1742528860746'
+      sourceHandle: source
+      target: '1739951518487'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: code
+      id: 1741164879939-source-1742528937900-target
+      source: '1741164879939'
+      sourceHandle: source
+      target: '1742528937900'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: end
+      id: 1742528937900-source-1741164794762-target
+      source: '1742528937900'
+      sourceHandle: source
+      target: '1741164794762'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: text
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: text
+        - label: acc_id
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: acc_id
+        - label: api
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: api
+        - label: pos
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: pos
+        - label: token
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: token
+        - label: user_id
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: user_id
+      height: 220
+      id: '1739949692626'
+      position:
+        x: 30
+        y: 315
+      positionAbsolute:
+        x: 30
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({token, user_id}) {\n    return {\n        store_list:\
+          \ JSON.stringify({\n            user_id,\n            token: JSON.parse(token)\n\
+          \        })\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          store_list:
+            children: null
+            type: string
+        selected: false
+        title: 地点列表request
+        type: code
+        variables:
+        - value_selector:
+          - '1739949692626'
+          - token
+          variable: token
+        - value_selector:
+          - '1739949692626'
+          - user_id
+          variable: user_id
+      height: 54
+      id: '1739949805065'
+      position:
+        x: 638
+        y: 315
+      positionAbsolute:
+        x: 638
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1
+            key: ''
+            type: text
+            value: '{{#1739949805065.store_list#}}'
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 地点列表
+        type: http-request
+        url: '{{#1739949692626.api#}}/api/store/list'
+        variables: []
+      height: 143
+      id: '1739949906666'
+      position:
+        x: 942
+        y: 315
+      positionAbsolute:
+        x: 942
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({body}) {\n    const date = new Date()\n    const result\
+          \ = JSON.parse(body)\n    const site = result?.['stores']?.map(o => {\n\
+          \        return {\n            store_id: o.store_id,\n            store_name:\
+          \ o.store_name,\n            register_key: o.register_key,\n           \
+          \ sensor_ids: o?.sensors?.filter(s => s?.device_type.toLowerCase() === 'v-pos')\n\
+          \                ?.map(s => s?.sensor_id) ?? []\n        }\n    }) ?? []\n\
+          \    const name = site.map(o => o.store_name)\n    return {\n        site:\
+          \ JSON.stringify(site),\n        site_name: JSON.stringify(name),\n    \
+          \    date: `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`\n\
+          \    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          date:
+            children: null
+            type: string
+          site:
+            children: null
+            type: string
+          site_name:
+            children: null
+            type: string
+        selected: false
+        title: 处理地点列表
+        type: code
+        variables:
+        - value_selector:
+          - '1739949906666'
+          - body
+          variable: body
+      height: 54
+      id: '1739949978783'
+      position:
+        x: 1246
+        y: 315
+      positionAbsolute:
+        x: 1246
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1739949692626'
+          - text
+        desc: ''
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: c186b898-bc63-4aea-82d7-229b35036163
+          role: system
+          text: "用户将提供给你一个问题，请你分析问题内容，并提取其中的关键信息，以 JSON 的形式输出，输出的 JSON 需遵守以下的格式：\n\
+            \n{\n  \"predict\": <问题是否需要预测，类型为布尔值>,\n  \"predict_data\": <问题是否提及了预测的参考条件，类型为布尔值；请注意区分预测范围和参考条件，需要明确是类似根据最近一年数据这样描述时，才设为true>,\n\
+            \  \"predict_start\": <问题中预测数据的开始日期，格式为YYYY/MM/DD>,\n  \"predict_end\"\
+            : <问题中预测数据的结束日期，格式为YYYY/MM/DD>,\n  \"data\": <问题涉及的数据类型数组，格式应满足以下对应关系：来店人数\
+            \ -- traffic, 店外人数-- outside, 进店率 -- turn_in_rate, 营业额 -- total_amount,\
+            \ 交易数 -- transaction_count, 客单价 -- avg_amount, 转化率 -- convert_rate, 客单量\
+            \ -- avg_item, 排队人数 -- queuing>,\n  \"start\": <问题所需求数据的开始日期，格式为YYYY/MM/DD>,\n\
+            \  \"end\": <问题所需求数据的结束日期，格式为YYYY/MM/DD>,\n  \"unit\": <问题所需求数据的时间单位，格式应满足以下对应关系：年\
+            \ -- yyyy, 月 -- mm, 周 -- ww, 日 -- dd, 小时 -- hh>,\n   \"site\": <问题涉及的地点名称数组，需参考下面的地点名称列表；请注意不要修改地点名称任何字符，直接复制过来即可>,\n\
+            }\n\n其中，地点名称列表为 {{#1739949978783.site_name#}};\n今天的日期为  {{#1739949978783.date#}}"
+        - id: ea10de13-dc86-4779-96f2-f4255d1f5bdf
+          role: user
+          text: '{{#context#}}'
+        selected: false
+        title: LLM 提取问题关键信息
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1739950181643'
+      position:
+        x: 1550
+        y: 315
+      positionAbsolute:
+        x: 1550
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1742528860746'
+          - text
+          variable: text
+        selected: false
+        title: 结束
+        type: end
+      height: 90
+      id: '1739951518487'
+      position:
+        x: 10916
+        y: 315
+      positionAbsolute:
+        x: 10916
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "const DATA = ['traffic', 'outside', 'turn_in_rate', 'total_amount',\
+          \ 'transaction_count', 'avg_amount', 'convert_rate', 'avg_item', 'queuing']\n\
+          const UNIT = ['yyyy', 'mm', 'ww', 'dd', 'hh']\nfunction fm(num) {\n    return\
+          \ `${num > 9 ? '' : '0'}${num}`\n}\nfunction format(date, show = true) {\n\
+          \    return `${date.getFullYear()}/${fm(date.getMonth() + 1)}${show ? ('/'\
+          \ + fm(date.getDate())) : ''}`\n}\nfunction isSameYear(d1, d2) {\n    return\
+          \ d1.getFullYear() === d2.getFullYear()\n}\nfunction isSameMonth(d1, d2)\
+          \ {\n    return isSameYear(d1, d2) && d1.getMonth() === d2.getMonth()\n\
+          }\nfunction isSameDay(d1, d2) {\n    return isSameMonth(d1, d2) && d1.getDate()\
+          \ === d2.getDate()\n}\nfunction getStartOfWeek(date) {\n    const d = new\
+          \ Date(date);\n    const day = d.getDay();\n    const diff = d.getDate()\
+          \ - day + (day === 0 ? -6 : 1); // 0 is Sunday, so adjust accordingly\n\
+          \    d.setDate(diff);\n    d.setHours(0, 0, 0, 0);\n    return d;\n}\nfunction\
+          \ isValidDate(dateString) {\n    const date = new Date(dateString);\n  \
+          \  return date instanceof Date && !isNaN(date.getTime());\n}\nfunction buildWidget(start,\
+          \ end, unit, predict, predict_data) {\n    let sd = new Date(start)\n  \
+          \  let ed = new Date(end)\n    const date = []\n    let label = []\n   \
+          \ let data_range = ''\n    let data_unit = ''\n    if (predict && !predict_data)\
+          \ {\n        ed = new Date()\n        sd = new Date()\n        sd.setFullYear(sd.getFullYear()\
+          \ - 1)\n    }\n    switch (unit) {\n        case 'hh':\n            const\
+          \ hour = Array(24).fill(0).map((v, k) => `${fm(k)}:00`)\n            while\
+          \ (!isSameDay(sd, ed)) {\n                date.push(format(sd))\n      \
+          \          label = label.concat(hour.map(o => `${format(sd)} ${o}`))\n \
+          \               sd.setDate(sd.getDate() + 1)\n            }\n          \
+          \  date.push(format(ed))\n            label = label.concat(hour.map(o =>\
+          \ `${format(ed)} ${o}`))\n            data_range = 'dd'\n            data_unit\
+          \ = 'hh'\n            break\n        case 'dd':\n            date.push(format(sd))\n\
+          \            while (!isSameDay(sd, ed)) {\n                label.push(format(sd))\n\
+          \                sd.setDate(sd.getDate() + 1)\n            }\n         \
+          \   date.push(format(ed))\n            label.push(format(ed))\n        \
+          \    data_range = 'any'\n            data_unit = 'dd'\n            break\n\
+          \        case 'ww':\n            const wsd = getStartOfWeek(sd)\n      \
+          \      ed.setDate(ed.getDate() + 7)\n            const wed = getStartOfWeek(ed)\n\
+          \            date.push(format(wsd))\n            date.push(format(wed))\n\
+          \            while (!isSameDay(wsd, wed)) {\n                const start\
+          \ = new Date(wsd)\n                const monday = format(start)\n      \
+          \          start.setDate(start.getDate() + 6)\n                label.push(`${monday}\
+          \ - ${format(start)}`)\n                wsd.setDate(sd.getDate() + 7)\n\
+          \            }\n            data_range = 'any'\n            data_unit =\
+          \ 'ww'\n            break\n        case 'mm':\n            sd.setDate(1)\n\
+          \            ed.setDate(1)\n            ed.setMonth(ed.getMonth() + 1)\n\
+          \            date.push(format(sd))\n            date.push(format(ed))\n\
+          \            while (!isSameDay(sd, ed)) {\n                label.push(format(sd,\
+          \ false))\n                sd.setMonth(sd.getMonth() + 1)\n            }\n\
+          \            data_range = 'any'\n            data_unit = 'mm'\n        \
+          \    break\n        case 'yyyy':\n            while (!isSameYear(sd, ed))\
+          \ {\n                date.push(format(sd))\n                label.push(sd.getFullYear())\n\
+          \                sd.setFullYear(sd.getFullYear() + 1)\n            }\n \
+          \           date.push(format(ed))\n            label.push(ed.getFullYear())\n\
+          \            data_range = 'yyyy'\n            data_unit = 'yyyy'\n     \
+          \       break\n    }\n    const label_obj = {}\n    label.forEach(o => label_obj[o]\
+          \ = 0)\n    return {\n        widget: {\n            data_range,\n     \
+          \       data_unit,\n            date,\n            time_compare: date.length\
+          \ > 1 && data_range !== 'any' ? 'on' : '',\n        },\n        label: label_obj,\n\
+          \    }\n}\nfunction buildPos(start, end, data_unit, predict, predict_data)\
+          \ {\n    const unit = data_unit === 'hh' ? 'hh' : (data_unit ?? 'dd')\n\
+          \    const add_days = unit === 'hh' ? 31 : 366\n    let sd = new Date(start)\n\
+          \    let ed = new Date(end)\n    const periods = []\n    if (predict &&\
+          \ !predict_data) {\n        ed = new Date()\n        sd = new Date()\n \
+          \       sd.setFullYear(sd.getFullYear() - 1)\n    }\n    while (sd < ed)\
+          \ {\n        const add = new Date(sd)\n        add.setDate(add.getDate()\
+          \ + add_days)\n        if (add < ed) {\n            periods.push(JSON.stringify([format(sd),\
+          \ format(add)]))\n            sd = add\n        } else {\n            break\n\
+          \        }\n    }\n    periods.push(JSON.stringify([format(sd), format(ed)]))\n\
+          \    return {\n        unit,\n        periods\n    }\n}\nfunction buildQueuing(start,\
+          \ end, predict, predict_data) {\n    const add_days = 59\n    let sd = new\
+          \ Date(start)\n    let ed = new Date(end)\n    const periods = []\n    if\
+          \ (predict && !predict_data) {\n        ed = new Date()\n        sd = new\
+          \ Date()\n        sd.setFullYear(sd.getFullYear() - 1)\n    }\n    while\
+          \ (sd < ed) {\n        const add = new Date(sd)\n        add.setDate(add.getDate()\
+          \ + add_days)\n        if (add < ed) {\n            periods.push(JSON.stringify([format(sd)\
+          \ + ' 00:00:00', format(add) + ' 23:59:59']))\n            sd = add\n  \
+          \      } else {\n            break\n        }\n    }\n    periods.push(JSON.stringify([format(sd)\
+          \ + ' 00:00:00', format(ed) + ' 23:59:59']))\n    return periods\n}\nfunction\
+          \ handleLLM(text) {\n  const regex = /```json([\\s\\S]*?)```/\n  const _res\
+          \ = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '')\n  const match =\
+          \ _res.match(regex);\n  const res = !!match ? match[1].trim() : _res\n \
+          \ const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\/\\*[\\s\\\
+          S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n  } catch\
+          \ (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text, site})\
+          \ {\n    site = JSON.parse(site)\n    const obj = handleLLM(text)\n    const\
+          \ data = Array.isArray(obj?.data) ? (obj.data?.filter(o => DATA.includes(o))\
+          \ ?? []) : []\n    const predict = !!obj?.['predict']\n    const predict_data\
+          \ = !!obj?.['predict_data']\n    const predict_start = isValidDate(obj?.['predict_start'])\
+          \ && !!obj?.['predict_start'] ? obj['predict_start'] : format(new Date())\n\
+          \    const predict_end = isValidDate(obj?.['predict_end']) && !!obj?.['predict_end']\
+          \ ? obj['predict_end'] : format(new Date())\n    const site_name = Array.isArray(obj?.site)\
+          \ ? obj.site : []\n    const store = site.filter(o => {\n        return\
+          \ site_name.length === 0 || site_name.includes(o.store_name)\n    })\n \
+          \   const start = isValidDate(obj?.['start']) && !!obj?.['start'] ? obj.start\
+          \ : format(new Date())\n    const end = isValidDate(obj?.['end']) && !!obj?.['end']\
+          \ ? obj.end : format(new Date())\n    const unit = UNIT.includes(obj?.['unit'])\
+          \ ? obj.unit : 'dd'\n    const widget_unit = predict ? 'dd' : unit\n   \
+          \ const { widget, label } = buildWidget(start, end, widget_unit, predict,\
+          \ predict_data)\n    const { unit: pos_unit, periods: pos } = buildPos(start,\
+          \ end, predict ? 'dd' : unit, predict, predict_data)\n    const queuing\
+          \ = buildQueuing(start, end, predict, predict_data)\n    const { widget:\
+          \ weather, label: weather_label } = buildWidget(predict_start, predict_end,\
+          \ 'dd', false, false)\n    return {\n        data,\n        predict: predict\
+          \ ? 1 : 0,\n        site: JSON.stringify(store),\n        widget,\n    \
+          \    widget_unit,\n        pos,\n        pos_unit,\n        queuing,\n \
+          \       weather,\n        weather_label,\n        label\n    }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          data:
+            children: null
+            type: array[string]
+          label:
+            children: null
+            type: object
+          pos:
+            children: null
+            type: array[string]
+          pos_unit:
+            children: null
+            type: string
+          predict:
+            children: null
+            type: number
+          queuing:
+            children: null
+            type: array[string]
+          site:
+            children: null
+            type: string
+          weather:
+            children: null
+            type: object
+          weather_label:
+            children: null
+            type: object
+          widget:
+            children: null
+            type: object
+          widget_unit:
+            children: null
+            type: string
+        selected: false
+        title: 处理问题关键信息
+        type: code
+        variables:
+        - value_selector:
+          - '1739950181643'
+          - text
+          variable: text
+        - value_selector:
+          - '1739949978783'
+          - site
+          variable: site
+      height: 54
+      id: '1739952239270'
+      position:
+        x: 1854
+        y: 315
+      positionAbsolute:
+        x: 1854
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: b72500d9-a702-48ff-9d7f-79bb6faa75e6
+            value: traffic
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          - comparison_operator: contains
+            id: 415c9482-da40-44f0-ac46-dc212246604f
+            value: outside
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          - comparison_operator: contains
+            id: 8d244135-59a9-4708-ad4c-9f227c9ed339
+            value: turn_in_rate
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          - comparison_operator: contains
+            id: 75a06e39-1138-4088-af2a-110af77976f0
+            value: convert_rate
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          id: 'true'
+          logical_operator: or
+        desc: ''
+        selected: false
+        title: 判断是否获取widget数据
+        type: if-else
+      height: 204
+      id: '1739958382164'
+      position:
+        x: 2158
+        y: 315
+      positionAbsolute:
+        x: 2158
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({site, token, widget}) {\n    site = JSON.parse(site)\n\
+          \    const sources = site.map(o => {\n        return { target_id: o.store_id\
+          \ }\n    })\n    return {\n        widget: JSON.stringify({\n          \
+          \  data_source: {\n                analytic: [\n                    {\n\
+          \                        caption: '',\n                        method: 'convert_rate',\n\
+          \                        preprocess_data: ['pin', 'crosscnt']\n        \
+          \            }\n                ],\n                ...widget,\n       \
+          \         date_display: 'specific',\n                date_end: '',\n   \
+          \             folding_unit: '',\n                is_aggregate: false,\n\
+          \                row_type: 'chart',\n                tags: [],\n       \
+          \         source: [\n                    {\n                        caption:\
+          \ '',\n                        chart_type: ['line'],\n                 \
+          \       monitor_type: 'ppc_store_entry',\n                        preprocess_data:\
+          \ ['pin'],\n                        merge_type: 'none',\n              \
+          \          sources\n                    },\n                    {\n    \
+          \                    caption: '',\n                        chart_type: ['line'],\n\
+          \                        monitor_type: 'ppc_store_outside',\n          \
+          \              preprocess_data: ['crosscnt'],\n                        merge_type:\
+          \ 'none',\n                        sources\n                    }\n    \
+          \            ]\n            },\n            module_id: 0,\n            token:\
+          \ JSON.parse(token)\n        })\n    }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          widget:
+            children: null
+            type: string
+        selected: false
+        title: widget数据request
+        type: code
+        variables:
+        - value_selector:
+          - '1739952239270'
+          - site
+          variable: site
+        - value_selector:
+          - '1739952239270'
+          - widget
+          variable: widget
+        - value_selector:
+          - '1739949692626'
+          - token
+          variable: token
+      height: 54
+      id: '1739958526488'
+      position:
+        x: 2462
+        y: 414.5
+      positionAbsolute:
+        x: 2462
+        y: 414.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({site}) {\n    site = JSON.parse(site)\n    const widget\
+          \ = site.map(o => {\n        return {\n            name: o.store_name,\n\
+          \            id: o.store_id,\n            rk: o.register_key\n        }\n\
+          \    })\n    return {\n        widget: JSON.stringify(widget)\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          widget:
+            children: null
+            type: string
+        selected: false
+        title: 不获取widget
+        type: code
+        variables:
+        - value_selector:
+          - '1739952239270'
+          - site
+          variable: site
+      height: 54
+      id: '1739958700538'
+      position:
+        x: 3070
+        y: 315
+      positionAbsolute:
+        x: 3070
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        output_type: string
+        selected: false
+        title: 聚合widget数据
+        type: variable-aggregator
+        variables:
+        - - '1740011926688'
+          - widget
+        - - '1739958700538'
+          - widget
+      height: 130
+      id: '1739958750172'
+      position:
+        x: 3374
+        y: 315
+      positionAbsolute:
+        x: 3374
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-15
+            key: ''
+            type: text
+            value: '{{#1739958526488.widget#}}'
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: widget数据
+        type: http-request
+        url: '{{#1739949692626.api#}}/api/widget/data'
+        variables: []
+      height: 143
+      id: '1740011856778'
+      position:
+        x: 2766
+        y: 414.5
+      positionAbsolute:
+        x: 2766
+        y: 414.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function formatWidget(res, site, widget_unit, data) {\n    const obj\
+          \ = {}\n    site.forEach(o => {\n        obj[o.store_id] = {\n         \
+          \   name: o.store_name,\n            id: o.store_id,\n            rk: o.register_key\n\
+          \        }\n    })\n    function format(arr, type, key, rate = 1) {\n  \
+          \      arr?.forEach(o => {\n            if (!Array.isArray(obj[o.target_id][type]))\
+          \ {\n                obj[o.target_id][type] = []\n            }\n      \
+          \      const row = o?.[key]?.row?.map(v => v === -99999 ? null : v * rate)\
+          \ ?? []\n            let sum = o?.[key]?.sum ?? null\n            sum =\
+          \ sum === -99999 ? null : sum * rate\n            switch (widget_unit) {\n\
+          \                case 'hh':\n                    obj[o.target_id][type]\
+          \ = obj[o.target_id][type].concat(row)\n                    break\n    \
+          \            case 'dd':\n                case 'ww':\n                case\
+          \ 'mm':\n                    obj[o.target_id][type] = row\n            \
+          \        break\n                case 'yyyy':\n                    obj[o.target_id][type]\
+          \ = obj[o.target_id][type].concat([sum])\n                    break\n  \
+          \          }\n        })\n    }\n    if (data.includes('traffic') || data.includes('convert_rate'))\
+          \ {\n        format(res?.['retrived']?.[0]?.['data'], 'traffic', 'pin')\n\
+          \    }\n    if (data.includes('outside')) {\n        format(res?.['retrived']?.[1]?.['data'],\
+          \ 'outside', 'crosscnt')\n    }\n    if (data.includes('turn_in_rate'))\
+          \ {\n        format(res?.['analytic']?.[0]?.['data'], 'turn_in_rate', 'pin',\
+          \ 100)\n    }\n    return obj\n}\nfunction main({site, body, data, widget_unit})\
+          \ {\n    site = JSON.parse(site)\n    const res = JSON.parse(body)\n   \
+          \ const obj = formatWidget(res, site, widget_unit, data)\n    return {\n\
+          \        widget: JSON.stringify(Object.values(obj))\n    }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          widget:
+            children: null
+            type: string
+        selected: false
+        title: 处理widget数据
+        type: code
+        variables:
+        - value_selector:
+          - '1740011856778'
+          - body
+          variable: body
+        - value_selector:
+          - '1739952239270'
+          - site
+          variable: site
+        - value_selector:
+          - '1739952239270'
+          - data
+          variable: data
+        - value_selector:
+          - '1739952239270'
+          - widget_unit
+          variable: widget_unit
+      height: 54
+      id: '1740011926688'
+      position:
+        x: 3070
+        y: 414.5
+      positionAbsolute:
+        x: 3070
+        y: 414.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: e6371c8e-47c7-4a4b-b43b-42e92b0d8445
+            value: total_amount
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          - comparison_operator: contains
+            id: be907416-f8b1-4f4a-862b-76b544634904
+            value: transaction_count
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          - comparison_operator: contains
+            id: eecc5004-43b4-4cca-93bb-334ff91bd344
+            value: avg_amount
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          - comparison_operator: contains
+            id: e9a69f27-dadd-4b1e-8f94-55040804407d
+            value: convert_rate
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          - comparison_operator: contains
+            id: 30927757-9466-48f7-aa4e-eb971c9b2254
+            value: avg_item
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          id: 'true'
+          logical_operator: or
+        desc: ''
+        selected: false
+        title: 判断是否获取pos数据
+        type: if-else
+      height: 230
+      id: '1740012504106'
+      position:
+        x: 3678
+        y: 315
+      positionAbsolute:
+        x: 3678
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function fm(num) {\n    return `${num > 9 ? '' : '0'}${num}`\n}\nfunction\
+          \ format(date, show = true, hour = false) {\n    return `${date.getFullYear()}/${fm(date.getMonth()\
+          \ + 1)}${show ? ('/' + fm(date.getDate())) : ''}${hour ? ' ' + fm(date.getHours())\
+          \ + ':00' : ''}`\n}\nfunction getStartOfWeek(date) {\n    const d = new\
+          \ Date(date);\n    const day = d.getDay();\n    const diff = d.getDate()\
+          \ - day + (day === 0 ? -6 : 1); // 0 is Sunday, so adjust accordingly\n\
+          \    d.setDate(diff);\n    d.setHours(0, 0, 0, 0);\n    return d;\n}\nfunction\
+          \ getDateOfWeek(date) {\n    const start = getStartOfWeek(date)\n    const\
+          \ sd = format(start)\n    start.setDate(start.getDate() + 6)\n    return\
+          \ `${sd} - ${format(start)}`\n}\nfunction division(target, data, rate =\
+          \ 1) {\n    if (data === -99999 || target === -99999) return null\n    if\
+          \ (data === null || target === null) return null\n    if (data === 0 ||\
+          \ target === 0) return 0\n    return Math.round(target * 100 * rate / data)\
+          \ / 100\n}\nfunction getDivision(target, data, rate = 1) {\n    return data.map((v,\
+          \ k) => {\n        return division(target[k], v, rate)\n    })\n}\nfunction\
+          \ formatPos(label, output, site, data, widget_unit) {\n    const obj = {}\n\
+          \    const label_obj = {}\n    label.forEach((v, k) => {\n        label_obj[v]\
+          \ = k\n    })\n    site.forEach(o => {\n        obj[o.rk] = {\n        \
+          \    ...o,\n            total_amount: Array(label.length).fill(0),\n   \
+          \         transaction_count: Array(label.length).fill(0),\n            item_count:\
+          \ Array(label.length).fill(0),\n        }\n    })\n    output.forEach(str\
+          \ => {\n        const body = JSON.parse(str)\n        Array.isArray(body?.datas)\
+          \ && body.datas.forEach(pos => {\n            Array.isArray(pos?.retrived)\
+          \ && pos.retrived.forEach(o => {\n                const date_time = new\
+          \ Date(o.date_time)\n                let text = ''\n                switch\
+          \ (widget_unit) {\n                    case 'hh':\n                    \
+          \    text = format(date_time, true, true)\n                        break\n\
+          \                    case 'dd':\n                        text = format(date_time)\n\
+          \                        break\n                    case 'ww':\n       \
+          \                 text = getDateOfWeek(date_time)\n                    \
+          \    break\n                    case 'mm':\n                        text\
+          \ = format(date_time, false)\n                        break\n          \
+          \          case 'yyyy':\n                        text = date_time.getFullYear()\n\
+          \                        break\n                }\n                const\
+          \ index = label_obj[text]\n                obj[pos.rk].item_count[index]\
+          \ += parseFloat(o.item_count)\n                obj[pos.rk].total_amount[index]\
+          \ += parseFloat(o.total_amount)\n                obj[pos.rk].transaction_count[index]\
+          \ += parseFloat(o.transaction_count)\n            })\n        })\n    })\n\
+          \    return Object.values(obj).map(o => {\n        const data_obj = {}\n\
+          \        if (data.includes('traffic')) {\n            data_obj.traffic =\
+          \ o.traffic\n        }\n        if (data.includes('outside')) {\n      \
+          \      data_obj.outside = o.outside\n        }\n        if (data.includes('turn_in_rate'))\
+          \ {\n            data_obj.turn_in_rate = o.turn_in_rate\n        }\n   \
+          \     if (data.includes('total_amount')) {\n            data_obj.total_amount\
+          \ = o.total_amount\n        }\n        if (data.includes('transaction_count'))\
+          \ {\n            data_obj.transaction_count = o.transaction_count\n    \
+          \    }\n        if (data.includes('convert_rate')) {\n            data_obj.convert_rate\
+          \ = getDivision(o.transaction_count, o.traffic, 100)\n        }\n      \
+          \  if (data.includes('avg_amount')) {\n            data_obj.avg_amount =\
+          \ getDivision(o.total_amount, o.transaction_count)\n        }\n        if\
+          \ (data.includes('avg_item')) {\n            data_obj.avg_item = getDivision(o.item_count,\
+          \ o.transaction_count)\n        }\n        return {\n            name: o.name,\n\
+          \            id: o.id,\n            rk: o.rk,\n            ...data_obj\n\
+          \        }\n    })\n}\nfunction main({label, output, site, data, widget_unit})\
+          \ {\n    label = Object.keys(label)\n    site = JSON.parse(site)\n    const\
+          \ res = formatPos(label, output, site, data, widget_unit)\n    return {\n\
+          \        result: JSON.stringify(res)\n    }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 处理pos数据
+        type: code
+        variables:
+        - value_selector:
+          - '1740012775630'
+          - output
+          variable: output
+        - value_selector:
+          - '1739952239270'
+          - label
+          variable: label
+        - value_selector:
+          - '1739958750172'
+          - output
+          variable: site
+        - value_selector:
+          - '1739952239270'
+          - data
+          variable: data
+        - value_selector:
+          - '1739952239270'
+          - widget_unit
+          variable: widget_unit
+      height: 54
+      id: '1740012635953'
+      position:
+        x: 4677
+        y: 315
+      positionAbsolute:
+        x: 4677
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({output}) {\n    return {\n        output\n    }\n\
+          }\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          output:
+            children: null
+            type: string
+        selected: false
+        title: 不获取pos
+        type: code
+        variables:
+        - value_selector:
+          - '1739958750172'
+          - output
+          variable: output
+      height: 54
+      id: '1740012639274'
+      position:
+        x: 4677
+        y: 456.5
+      positionAbsolute:
+        x: 4677
+        y: 456.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        output_type: string
+        selected: false
+        title: 聚合pos
+        type: variable-aggregator
+        variables:
+        - - '1740012639274'
+          - output
+        - - '1740012635953'
+          - result
+      height: 130
+      id: '1740012651929'
+      position:
+        x: 4981
+        y: 315
+      positionAbsolute:
+        x: 4981
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 223
+        is_parallel: false
+        iterator_selector:
+        - '1739952239270'
+        - pos
+        output_selector:
+        - '1740012970742'
+        - body
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1740012775630start
+        title: 循环获取pos数据
+        type: iteration
+        width: 635
+      height: 223
+      id: '1740012775630'
+      position:
+        x: 3982
+        y: 315
+      positionAbsolute:
+        x: 3982
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 635
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1740012775630start
+      parentId: '1740012775630'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 4006
+        y: 383
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        code: "function main({site, token, acc_id, pos_unit, item}) {\n    site =\
+          \ JSON.parse(site)\n    const rks = site.map(o => o.register_key)\n    const\
+          \ sensor_ids = site.reduce((arr, o) => arr.concat(o?.sensor_ids ?? []),\
+          \ [])\n    return {\n        pos: JSON.stringify({\n            account_id:\
+          \ acc_id,\n            token: {\n                token: JSON.parse(token)\n\
+          \            },\n            period: JSON.parse(item),\n            rks,\n\
+          \            unit: pos_unit ?? 'dd',\n            ...(sensor_ids.length\
+          \ > 0 ? { sensor_ids } : {}),\n        })\n    }\n}"
+        code_language: javascript
+        desc: ''
+        isInIteration: true
+        iteration_id: '1740012775630'
+        outputs:
+          pos:
+            children: null
+            type: string
+        selected: false
+        title: pos数据request
+        type: code
+        variables:
+        - value_selector:
+          - '1739952239270'
+          - site
+          variable: site
+        - value_selector:
+          - '1739952239270'
+          - pos_unit
+          variable: pos_unit
+        - value_selector:
+          - '1740012775630'
+          - item
+          variable: item
+        - value_selector:
+          - '1739949692626'
+          - acc_id
+          variable: acc_id
+        - value_selector:
+          - '1739949692626'
+          - token
+          variable: token
+      height: 54
+      id: '1740012798793'
+      parentId: '1740012775630'
+      position:
+        x: 91.2416526400948
+        y: 65
+      positionAbsolute:
+        x: 4073.241652640095
+        y: 380
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-16
+            key: ''
+            type: text
+            value: '{{#1740012798793.pos#}}'
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        isInIteration: true
+        iteration_id: '1740012775630'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取pos数据
+        type: http-request
+        url: '{{#1739949692626.pos#}}/api/pos/query'
+        variables: []
+      height: 143
+      id: '1740012970742'
+      parentId: '1740012775630'
+      position:
+        x: 360.78070199018384
+        y: 65
+      positionAbsolute:
+        x: 4342.780701990184
+        y: 380
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        output_type: string
+        selected: false
+        title: 聚合queuing
+        type: variable-aggregator
+        variables:
+        - - '1740013556972'
+          - output
+        - - '1740013554191'
+          - result
+      height: 130
+      id: '1740013495705'
+      position:
+        x: 8180
+        y: 315
+      positionAbsolute:
+        x: 8180
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 87669119-ac36-496b-8582-c8f3e67988a5
+            value: queuing
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否获取queuing
+        type: if-else
+      height: 126
+      id: '1740013504635'
+      position:
+        x: 5285
+        y: 315
+      positionAbsolute:
+        x: 5285
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function fm(num) {\n    return `${num > 9 ? '' : '0'}${num}`\n}\nfunction\
+          \ format(timestamp) {\n    const d = new Date(timestamp * 1000)\n    return\
+          \ `${d.getUTCFullYear()}/${fm(d.getUTCMonth() + 1)}/${fm(d.getUTCDate())}\
+          \ ${fm(d.getUTCHours())}:00`\n}\nfunction formatQueuing(output, site, monitor)\
+          \ {\n    const obj = {}\n    site.forEach(o => {\n        obj[o.id] = {\n\
+          \            ...o,\n            queuing_unit: {}\n        }\n    })\n  \
+          \  output.forEach(str => {\n        const body = JSON.parse(str)\n     \
+          \   Array.isArray(body?.retrieved?.monitors) && body.retrieved.monitors.forEach(m\
+          \ => {\n            if (m?.type === 'queuing') {\n                const\
+          \ store_id = monitor[m.id]\n                if (!obj?.[store_id]?.queuing_unit?.[m.id])\
+          \ obj[store_id].queuing_unit[m.id] = {\n                    queuing_name:\
+          \ m.name,\n                    max_queuing: {},\n                    min_queuing:\
+          \ {},\n                    avg_queuing: {},\n                }\n       \
+          \         Array.isArray(m?.datas) && m.datas.forEach(o => {\n          \
+          \          const time = format(o.starttime)\n                    obj[store_id].queuing_unit[m.id].max_queuing[time]\
+          \ = o?.content?.data?.max ?? null\n                    obj[store_id].queuing_unit[m.id].min_queuing[time]\
+          \ = o?.content?.data?.min ?? null\n                    obj[store_id].queuing_unit[m.id].avg_queuing[time]\
+          \ = o?.content?.data?.avg ?? null\n                })\n            }\n \
+          \       })\n    })\n    return obj\n}\nfunction main({output, site, monitor})\
+          \ {\n    site = JSON.parse(site)\n    const res = formatQueuing(output,\
+          \ site, monitor)\n    return {\n        result: JSON.stringify(Object.values(res))\n\
+          \    }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 处理queuing数据
+        type: code
+        variables:
+        - value_selector:
+          - '1740013786338'
+          - output
+          variable: output
+        - value_selector:
+          - '1740012651929'
+          - output
+          variable: site
+        - value_selector:
+          - '1740014063279'
+          - monitor
+          variable: monitor
+      height: 54
+      id: '1740013554191'
+      position:
+        x: 7876
+        y: 456.5
+      positionAbsolute:
+        x: 7876
+        y: 456.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({output}) {\n    return {\n        output\n    }\n\
+          }\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          output:
+            children: null
+            type: string
+        selected: false
+        title: 不获取queuing
+        type: code
+        variables:
+        - value_selector:
+          - '1740012651929'
+          - output
+          variable: output
+      height: 54
+      id: '1740013556972'
+      position:
+        x: 7876
+        y: 315
+      positionAbsolute:
+        x: 7876
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({site, token}) {\n    site = JSON.parse(site)\n   \
+          \ const store_ids = site.map(o => o.store_id)\n    return {\n        space:\
+          \ JSON.stringify({\n            store_ids,\n            token: JSON.parse(token)\n\
+          \        })\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          space:
+            children: null
+            type: string
+        selected: false
+        title: space数据request
+        type: code
+        variables:
+        - value_selector:
+          - '1739952239270'
+          - site
+          variable: site
+        - value_selector:
+          - '1739949692626'
+          - token
+          variable: token
+      height: 54
+      id: '1740013670879'
+      position:
+        x: 5589
+        y: 456.5
+      positionAbsolute:
+        x: 5589
+        y: 456.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-17
+            key: ''
+            type: text
+            value: '{{#1740013670879.space#}}'
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取space
+        type: http-request
+        url: '{{#1739949692626.api#}}/api/store/spaces'
+        variables: []
+      height: 143
+      id: '1740013713607'
+      position:
+        x: 5893
+        y: 456.5
+      positionAbsolute:
+        x: 5893
+        y: 456.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({body, token}) {\n    const res = JSON.parse(body)\n\
+          \    const map = {}\n    res?.store_spaces?.forEach(space => {\n       \
+          \ const add = space?.spaces.find(o => o?.id?.startsWith('sp_u_'))\n    \
+          \    if (Array.isArray(add?.maps)) {\n          const add_map = add?.maps?.find(o\
+          \ => o?.id?.startsWith('mp_u_'))\n          if (!!add_map?.id) {\n     \
+          \       map[add.store_id] = add_map.id\n          }\n        }\n    })\n\
+          \    const obj_type = 'map'\n    const ids = Object.values(map).map(id =>\
+          \ {\n      return { id, obj_type }\n    })\n    return {\n        monitor:\
+          \ JSON.stringify({\n            ids,\n            token: JSON.parse(token)\n\
+          \        })\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          monitor:
+            children: null
+            type: string
+        selected: false
+        title: monitor数据request
+        type: code
+        variables:
+        - value_selector:
+          - '1740013713607'
+          - body
+          variable: body
+        - value_selector:
+          - '1739949692626'
+          - token
+          variable: token
+      height: 54
+      id: '1740013720051'
+      position:
+        x: 6197
+        y: 456.5
+      positionAbsolute:
+        x: 6197
+        y: 456.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-18
+            key: ''
+            type: text
+            value: '{{#1740013720051.monitor#}}'
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取monitor
+        type: http-request
+        url: '{{#1739949692626.api#}}/api/space/info'
+        variables: []
+      height: 143
+      id: '1740013766552'
+      position:
+        x: 6501
+        y: 456.5
+      positionAbsolute:
+        x: 6501
+        y: 456.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 223
+        is_parallel: false
+        iterator_selector:
+        - '1739952239270'
+        - queuing
+        output_selector:
+        - '1740013834926'
+        - body
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1740013786338start
+        title: 循环获取queuing数据
+        type: iteration
+        width: 707
+      height: 223
+      id: '1740013786338'
+      position:
+        x: 7109
+        y: 456.5
+      positionAbsolute:
+        x: 7109
+        y: 456.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 707
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1740013786338start
+      parentId: '1740013786338'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 7133
+        y: 524.5
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        code: "function main({site, item, token}) {\n    site = JSON.parse(site)\n\
+          \    const store_ids = site.map(o => o.store_id)\n    return {\n       \
+          \ queuing: JSON.stringify({\n            token: JSON.parse(token),\n   \
+          \         date_range: JSON.parse(item),\n            store_ids,\n      \
+          \      data_unit: 'hh',\n        })\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        isInIteration: true
+        iteration_id: '1740013786338'
+        outputs:
+          queuing:
+            children: null
+            type: string
+        selected: false
+        title: queuing数据request
+        type: code
+        variables:
+        - value_selector:
+          - '1739952239270'
+          - site
+          variable: site
+        - value_selector:
+          - '1740013786338'
+          - item
+          variable: item
+        - value_selector:
+          - '1739949692626'
+          - token
+          variable: token
+      height: 54
+      id: '1740013797521'
+      parentId: '1740013786338'
+      position:
+        x: 109.52688924917857
+        y: 65
+      positionAbsolute:
+        x: 7218.526889249179
+        y: 521.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-19
+            key: ''
+            type: text
+            value: '{{#1740013797521.queuing#}}'
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        isInIteration: true
+        iteration_id: '1740013786338'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取queuing
+        type: http-request
+        url: '{{#1739949692626.api#}}/api/data/retrieve'
+        variables: []
+      height: 143
+      id: '1740013834926'
+      parentId: '1740013786338'
+      position:
+        x: 406.92934969531507
+        y: 65
+      positionAbsolute:
+        x: 7515.929349695315
+        y: 521.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "function main({body}) {\n    const res = JSON.parse(body)\n    const\
+          \ obj = {}\n    res?.spaces?.forEach(o => {\n        Array.isArray(o?.monitors)\
+          \ && o.monitors.forEach(m => {\n            obj[m.id] = o.store_id\n   \
+          \     })\n    })\n    return {\n        monitor: obj\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          monitor:
+            children: null
+            type: object
+        selected: false
+        title: 处理monitor数据
+        type: code
+        variables:
+        - value_selector:
+          - '1740013766552'
+          - body
+          variable: body
+        - value_selector:
+          - '1739952239270'
+          - site
+          variable: site
+      height: 54
+      id: '1740014063279'
+      position:
+        x: 6805
+        y: 456.5
+      positionAbsolute:
+        x: 6805
+        y: 456.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: 6e13920b-8f8e-4246-a557-39b651bb73cc
+            numberVarType: constant
+            value: '1'
+            varType: number
+            variable_selector:
+            - '1739952239270'
+            - predict
+          - comparison_operator: not empty
+            id: fd312458-0137-4a28-9164-34a04283553d
+            value: ''
+            varType: array[string]
+            variable_selector:
+            - '1739952239270'
+            - data
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否预测
+        type: if-else
+      height: 152
+      id: '1740014895800'
+      position:
+        x: 8484
+        y: 315
+      positionAbsolute:
+        x: 8484
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({site, token, widget, weather}) {\n    site = JSON.parse(site)\n\
+          \    const sources = site.map(o => {\n        return { target_id: o.store_id\
+          \ }\n    })\n    const base = {\n        analytic: [],\n        date_display:\
+          \ 'specific',\n        date_end: '',\n        folding_unit: '',\n      \
+          \  is_aggregate: false,\n        row_type: 'chart',\n        tags: [],\n\
+          \        source: [\n            {\n                caption: '',\n      \
+          \          chart_type: ['line'],\n                preprocess_type: 'weather',\n\
+          \                preprocess_data: ['conditions'],\n                merge_type:\
+          \ 'none',\n                sources\n            }\n        ]\n    }\n  \
+          \  return {\n        widget: JSON.stringify({\n            data_source:\
+          \ {\n                ...base,\n                ...widget,\n            },\n\
+          \            module_id: 0,\n            token: JSON.parse(token)\n     \
+          \   }),\n        weather: JSON.stringify({\n            data_source: {\n\
+          \                ...base,\n                ...weather,\n            },\n\
+          \            module_id: 0,\n            token: JSON.parse(token)\n     \
+          \   }),\n    }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          weather:
+            children: null
+            type: string
+          widget:
+            children: null
+            type: string
+        selected: false
+        title: 天气数据request
+        type: code
+        variables:
+        - value_selector:
+          - '1739952239270'
+          - site
+          variable: site
+        - value_selector:
+          - '1739952239270'
+          - widget
+          variable: widget
+        - value_selector:
+          - '1739952239270'
+          - weather
+          variable: weather
+        - value_selector:
+          - '1739949692626'
+          - token
+          variable: token
+      height: 54
+      id: '1740015030280'
+      position:
+        x: 8788
+        y: 315
+      positionAbsolute:
+        x: 8788
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({output, label}) {\n  output = JSON.parse(output)\n \
+          \ label = Object.keys(label)\n  const site_key = {\n    traffic: 'a',\n\
+          \    outside: 'o',\n    turn_in_rate: 'i',\n    total_amount: 'r',\n   \
+          \ transaction_count: 'n',\n    avg_amount: 'p',\n    convert_rate: 'c',\n\
+          \    avg_item: 'u',\n  }\n  const site_data = []\n  let description = ''\n\
+          \  output.forEach((o, index) => {\n    const keys = Object.keys(o)\n   \
+          \ const has_queuing = keys.includes('queuing_unit')\n    const site = keys.filter(s\
+          \ => !!site_key[s])\n    const item = {\n      n: o.name\n    }\n    if\
+          \ (site.length > 0) {\n      if (index === 0) {\n        description +=\
+          \ '    - **\"m\"：** 地点指标数组，每个对象包含：  \\n'\n        description += '     \
+          \   - **\"t\"：** 时间  \\n'\n        site.forEach(key => {\n          switch\
+          \ (key) {\n            case 'traffic':\n              description += ' \
+          \       - **\"a\"：** 来点人数  \\n'\n              break\n            case 'outside':\n\
+          \              description += '        - **\"o\"：** 店外人数  \\n'\n       \
+          \       break\n            case 'turn_in_rate':\n              description\
+          \ += '        - **\"i\"：** 进店率  \\n'\n              break\n            case\
+          \ 'total_amount':\n              description += '        - **\"r\"：** 营业额\
+          \  \\n'\n              break\n            case 'transaction_count':\n  \
+          \            description += '        - **\"n\"：** 交易数  \\n'\n          \
+          \    break\n            case 'avg_amount':\n              description +=\
+          \ '        - **\"p\"：** 客单价  \\n'\n              break\n            case\
+          \ 'convert_rate':\n              description += '        - **\"c\"：** 转化率\
+          \  \\n'\n              break\n            case 'avg_item':\n           \
+          \   description += '        - **\"u\"：** 客单量  \\n'\n              break\n\
+          \          }\n        })\n      }\n      item['m'] = label.map((t, i) =>\
+          \ {\n        const obj = {}\n        site.forEach(key => {\n          obj[site_key[key]]\
+          \ = o[key][i]\n        })\n        return {\n          t,\n          ...obj,\n\
+          \        }\n      })\n    }\n    if (has_queuing) {\n      if (index ===\
+          \ 0) {\n        description +=\n          '    - **\"q\"：** 排队单元数组，每个单元包含：\
+          \  \\n' +\n          '        - **\"n\"：** 排队单元名称  \\n' +\n          ' \
+          \       - **\"m\"：** 排队指标数组，每个对象包含：  \\n' +\n          '            - **\"\
+          t\"：** 时间  \\n' +\n          '            - **\"m\"：** 最大排队人数  \\n' +\n\
+          \          '            - **\"i\"：** 最小排队人数  \\n' +\n          '       \
+          \     - **\"a\"：** 平均排队人数  \\n'\n      }\n      item['q'] = Object.values(o.queuing_unit\
+          \ ).map(u => {\n        return {\n          n: u.queuing_name,\n       \
+          \   m: Object.keys(u.max_queuing).map(t => {\n            return {\n   \
+          \           t,\n              a: u.avg_queuing[t],\n              m: u.max_queuing[t],\n\
+          \              i: u.min_queuing[t],\n            }\n          })\n     \
+          \   }\n      })\n    }\n    site_data.push(item)\n  })\n  return {\n   \
+          \ description,\n    site_data: JSON.stringify(site_data),\n  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          description:
+            children: null
+            type: string
+          site_data:
+            children: null
+            type: string
+        selected: false
+        title: 处理非预测问题数据
+        type: code
+        variables:
+        - value_selector:
+          - '1740013495705'
+          - output
+          variable: output
+        - value_selector:
+          - '1739952239270'
+          - label
+          variable: label
+      height: 54
+      id: '1740015041582'
+      position:
+        x: 9700
+        y: 453
+      positionAbsolute:
+        x: 9700
+        y: 453
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-751
+            key: ''
+            type: text
+            value: '{{#1740015030280.widget#}}'
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取参考数据天气
+        type: http-request
+        url: '{{#1739949692626.api#}}/api/widget/data'
+        variables: []
+      height: 143
+      id: '1740015092723'
+      position:
+        x: 9092
+        y: 315
+      positionAbsolute:
+        x: 9092
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-752
+            key: ''
+            type: text
+            value: '{{#1740015030280.weather#}}'
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取预测数据天气
+        type: http-request
+        url: '{{#1739949692626.api#}}/api/widget/data'
+        variables: []
+      height: 143
+      id: '1740015100935'
+      position:
+        x: 9396
+        y: 315
+      positionAbsolute:
+        x: 9396
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function getWeekday(dateInput) {\n    // 将输入转换为 Date 对象\n    const\
+          \ date = new Date(dateInput);\n    // 定义星期数组，注意 JavaScript 中的 getDay() 返回\
+          \ 0-6，其中 0 表示星期日\n    const weekdays = ['周日', '周一', '周二', '周三', '周四', '周五',\
+          \ '周六'];\n    return weekdays[date.getDay()];\n}\nfunction getWeather(code)\
+          \ {\n    switch (parseInt(code)) {\n        case 1:\n        case 10:\n\
+          \        case 11:\n            return '晴'\n        case 12:\n        case\
+          \ 13:\n            return '多云'\n        case 2:\n        case 20:\n    \
+          \        return '阴'\n        case 3:\n        case 30:\n            return\
+          \ '雨'\n        case 31:\n            return '雷雨'\n        case 4:\n    \
+          \    case 40:\n            return '雪'\n        case 5:\n            return\
+          \ '极端'\n        case 50:\n            return '雾'\n        case 60:\n   \
+          \         return '沙暴'\n        case 70:\n            return '霾'\n      \
+          \  case 80:\n            return '热'\n        case 81:\n            return\
+          \ '冷'\n        default:\n            return '未知'\n    }\n}\nfunction arrayToMarkdownTable(data)\
+          \ {\n    if (!data || data.length === 0) return '';\n\n    let markdown\
+          \ = '';\n\n    // 如果数组中的元素是对象，则取对象的键作为表头\n    if (typeof data[0] === 'object'\
+          \ && !Array.isArray(data[0])) {\n        const headers = Object.keys(data[0]);\n\
+          \        // 构造表头行\n        markdown += `| ${headers.join(' | ')} |\\n`;\n\
+          \        // 构造分隔符行\n        markdown += `| ${headers.map(() => '---').join('\
+          \ | ')} |\\n`;\n        // 构造数据行\n        data.forEach(item => {\n     \
+          \       const row = headers.map(header => item[header] !== undefined ? item[header]\
+          \ : '').join(' | ');\n            markdown += `| ${row} |\\n`;\n       \
+          \ });\n    } else if (Array.isArray(data[0])) {\n        // 如果数组中的元素也是数组，则默认第一行为表头\n\
+          \        markdown += `| ${data[0].join(' | ')} |\\n`;\n        markdown\
+          \ += `| ${data[0].map(() => '---').join(' | ')} |\\n`;\n        for (let\
+          \ i = 1; i < data.length; i++) {\n            markdown += `| ${data[i].join('\
+          \ | ')} |\\n`;\n        }\n    } else {\n        // 其他情况：将每个元素作为一行（单列表格）\n\
+          \        markdown += '| Value |\\n';\n        markdown += '| --- |\\n';\n\
+          \        data.forEach(item => {\n            markdown += `| ${item} |\\\
+          n`;\n        });\n    }\n\n    return markdown;\n}\nfunction main({output,\
+          \ label, weather_label, widget, weather}) {\n    output = JSON.parse(output)\n\
+          \    label = Object.keys(label)\n    weather_label = Object.keys(weather_label)\n\
+          \    const weather1 = JSON.parse(widget)\n    const weather2 = JSON.parse(weather)\n\
+          \    const i18n = {\n        traffic: '来店人数',\n        outside: '店外人数',\n\
+          \        turn_in_rate: '进店率',\n        total_amount: '营业额',\n        transaction_count:\
+          \ '交易数',\n        avg_amount: '客单价',\n        convert_rate: '转化率',\n   \
+          \     avg_item: '客单量',\n    }\n    const mark = []\n    const head = ['地点名称',\
+          \ '日期', '星期', '天气']\n    output.forEach((o, index) => {\n        const wea1\
+          \ = weather1?.['retrived']?.[0]?.['data']?.find(i => i.store_id === o.id)\
+          \ ?? {}\n        const wea2 = weather2?.['retrived']?.[0]?.['data']?.find(i\
+          \ => i.store_id === o.id) ?? {}\n        const keys = Object.keys(o).filter(k\
+          \ => !!i18n[k])\n        label.forEach((time, i) => {\n            const\
+          \ weekday = getWeekday(time)\n            const weather = getWeather(wea1?.conditions?.row?.[i])\n\
+          \            const data = []\n            keys.forEach(key => {\n      \
+          \          if (index === 0 && i === 0) head.push(i18n[key])\n          \
+          \      data.push(o[key][i])\n            })\n            mark.push([i ===\
+          \ 0 ? o.name : '', time, weekday, weather].concat(data))\n        })\n \
+          \       weather_label.forEach((time, i) => {\n            const weekday\
+          \ = getWeekday(time)\n            const weather = getWeather(wea2?.conditions?.row?.[i])\n\
+          \            const data = Array(head.length - 4).fill(null)\n          \
+          \  mark.push(['', time, weekday, weather].concat(data))\n        })\n  \
+          \  })\n    const markdown = arrayToMarkdownTable([head].concat(mark))\n\
+          \    return {\n        markdown\n    }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          markdown:
+            children: null
+            type: string
+        selected: false
+        title: 处理预测问题数据
+        type: code
+        variables:
+        - value_selector:
+          - '1740013495705'
+          - output
+          variable: output
+        - value_selector:
+          - '1739952239270'
+          - label
+          variable: label
+        - value_selector:
+          - '1739952239270'
+          - weather_label
+          variable: weather_label
+        - value_selector:
+          - '1740015092723'
+          - body
+          variable: widget
+        - value_selector:
+          - '1740015100935'
+          - body
+          variable: weather
+      height: 54
+      id: '1740015105187'
+      position:
+        x: 9700
+        y: 315
+      positionAbsolute:
+        x: 9700
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1739949692626'
+          - text
+        desc: ''
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 71e72e58-fd0f-4826-98a8-ce23c4b84bc9
+          role: system
+          text: '# 问题回答
+
+
+            ## 语言提取
+
+            根据`{{#context#}}`的语言自动确定 `lang` 值，默认值为`en-US`：
+
+            - 简体中文 → `zh-CN`
+
+            - 繁體中文 → `zh-TW`
+
+            - 英文 → `en-US`
+
+            - 日文 → `ja-JP`
+
+            - 韩文 → `ko-KR`
+
+
+            ---
+
+
+            ## 回答问题
+
+            - 参考今天的日期为：{{#1739949978783.date#}}
+
+            - 遍历整个`历史数据`，结合`历史数据`中的星期情况、天气情况，回答问题：`{{#context#}}`
+
+            - **所有输出必须严格使用`lang`生成**
+
+            - 最终答案必须严格使用`lang`生成，只需要输出结论即可，不需要包括过程，内容清晰、准确、简洁，**不附加额外解释**。
+
+            - 所有答案输出前请检查是否符合`lang`，不符合请使用`lang`重新生成
+
+
+            ---
+
+
+            ## 历史数据：
+
+            ```markdown
+
+            {{#1740015105187.markdown#}}
+
+            ```
+
+
+            ---'
+        - id: 76c324ba-d935-484d-9a08-6982285beb89
+          role: user
+          text: '{{#context#}}'
+        selected: false
+        title: LLM 回答预测问题
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1740015114173'
+      position:
+        x: 10004
+        y: 315
+      positionAbsolute:
+        x: 10004
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1739949692626'
+          - text
+        desc: ''
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 5c74f1d2-07fc-4429-be4d-95bb2bda394b
+          role: system
+          text: "# 问题回答\n\n## 输入数据\n- `问题`: {{#context#}}\n- `地点数组`:\n    ```json\n\
+            \    {{#1740015041582.site_data#}}\n    ```\n\n---\n\n## `地点数组`结构说明：\n\
+            ```markdown\n- **顶层：** 地点数组，每个地点包含：\n    - **\"n\"：** 地点名称  \n{{#1740015041582.description#}}\n\
+            ```\n\n---\n\n## 语言提取\n根据`问题`文本语言自动确定 `lang` 值，默认值为`en-US`：\n- 简体中文 →\
+            \ `zh-CN`\n- 繁體中文 → `zh-TW`\n- 英文 → `en-US`\n- 日文 → `ja-JP`\n- 韩文 → `ko-KR`\n\
+            \n---\n\n## 回答问题\n- 参考今天的日期为：{{#1739949978783.date#}}\n- 在回答`排队`相关问题时：排队人数越多，意味着排队时间越长。\n\
+            - **门店视为地点**。\n- 遍历整个`地点数组`，分析`地点数组`每一项的各个属性，回答用户提出的`问题`\n- 请根据`lang`，严格使用`lang`回答`问题`\n\
+            - **所有出现的`地点名称`和`排队单元名称`都必须严格保持原文，严格禁止任何形式的翻译或转换**（例如：Taipei 绝对不得转换为台北，Tokyo\
+            \ 绝对不得转换为东京）。\n- 请注意区分`地点名称`和`排队单元名称`，不要把`排队单元名称`当成`地点名称`\n- 在回答诸如`哪个门店`、`哪家门店`这样的问题时，只需要回答`地点名称`即可，回答的`地点名称`必须严格保持原文，严格禁止任何形式的翻译或转换。\n\
+            - 最终答案只需要输出结论即可，不需要包括过程，内容清晰、准确、简洁，**不附加额外解释**，答案中的`地点名称`必须严格保持原文，严格禁止任何形式的翻译或转换。\n\
+            \n---"
+        - id: 5140971b-18fc-49d3-aa25-abb876098948
+          role: user
+          text: '{{#context#}}'
+        selected: false
+        title: LLM 回答非预测问题
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1740015127598'
+      position:
+        x: 10004
+        y: 451.5
+      positionAbsolute:
+        x: 10004
+        y: 451.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        output_type: string
+        selected: false
+        title: 聚合回答
+        type: variable-aggregator
+        variables:
+        - - '1740015127598'
+          - text
+        - - '1740015114173'
+          - text
+      height: 130
+      id: '1740015137490'
+      position:
+        x: 10308
+        y: 315
+      positionAbsolute:
+        x: 10308
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        classes:
+        - id: '1'
+          name: 元信息类
+        - id: '2'
+          name: 其他类
+        desc: ''
+        instruction: '请将问题归类为：元信息类、其他类。
+
+          元信息类包含关键词：["你是谁", "模型", "功能", "训练", "原理", "开发者","引擎","深度求索","DeepSeek","deepseek","OpenAI","ChatGPT","openai","chatgpt"]'
+        instructions: ''
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        query_variable_selector:
+        - '1739949692626'
+        - text
+        selected: false
+        title: 问题分类器
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 172
+      id: '1741142755896'
+      position:
+        x: 334
+        y: 315
+      positionAbsolute:
+        x: 334
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1739949692626'
+          - text
+        desc: 元信息类问题回答
+        model:
+          completion_params:
+            num_ctx: 32768
+            temperature: 0
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 502d23d8-49c8-48e4-9eed-cec26fafda0e
+          role: system
+          text: "# 翻译指令\n\n1. **语言检测**  \n   自动检测用户输入问题的源语言类型。\n\n2. **定向翻译**  \n\
+            \   将以下固定文本精准翻译为与输入问题相同的目标语言：  \n   `{\"我是研华人工智能，很高兴为您服务\"}`\n   其中，\"\
+            研华\" 在简体中文保持原名称，在繁体中文翻译为 \"研華\"，其他所有语言统一译为 \"Advantech\"\n\n3. **格式要求**\n\
+            \    - 仅输出翻译结果，无需添加解释或标注\n    - 保持原有语义完整性和礼貌语气\n    - 适应目标语言的文化表达习惯\n\n\
+            4. **错误处理**  \n   若语言检测失败，默认翻译为英语版本\n\n\n# 输入问题：\n{{#context#}}"
+        selected: false
+        title: 元信息类问题回答
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 118
+      id: '1741143076027'
+      position:
+        x: 638
+        y: 415.5
+      positionAbsolute:
+        x: 638
+        y: 415.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1742528937900'
+          - text
+          variable: text
+        selected: false
+        title: 结束 2
+        type: end
+      height: 90
+      id: '1741164794762'
+      position:
+        x: 1550
+        y: 455.5
+      positionAbsolute:
+        x: 1550
+        y: 455.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def case_insensitive_replace(text, old, new):\n    lower_text = text.lower()\
+          \  # 转换为小写以进行匹配\n    lower_old = old.lower()    # 目标字符串也转换为小写\n    result\
+          \ = []\n    \n    i = 0\n    while i < len(text):\n        if lower_text[i:i+len(old)]\
+          \ == lower_old:\n            result.append(new)  # 替换为新字符串\n           \
+          \ i += len(old)  # 跳过已匹配的部分\n        else:\n            result.append(text[i])\
+          \  # 保留原字符\n            i += 1\n\n    return ''.join(result)\n\ndef main(arg1:\
+          \ str) -> dict:\n    result = case_insensitive_replace(arg1, \"deepseek\"\
+          , \"Advantech\")\n    result1 = case_insensitive_replace(result, \"深度求索\"\
+          , \"研华科技\")\n    return {\n        \"result\": result1,\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 关键字替换
+        type: code
+        variables:
+        - value_selector:
+          - '1741143076027'
+          - text
+          variable: arg1
+      height: 54
+      id: '1741164879939'
+      position:
+        x: 942
+        y: 494
+      positionAbsolute:
+        x: 942
+        y: 494
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({output}) {\n    return {\n        text: String(output).replaceAll(/<think>[\\\
+          s\\S]*?<\\/think>/g, '')\n            .replaceAll(/<details[\\s\\S]*?<\\\
+          /details>/g, '')\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          text:
+            children: null
+            type: string
+        selected: false
+        title: 删除思考过程
+        type: code
+        variables:
+        - value_selector:
+          - '1740015137490'
+          - output
+          variable: output
+      height: 54
+      id: '1742528860746'
+      position:
+        x: 10612
+        y: 315
+      positionAbsolute:
+        x: 10612
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({text}) {\n    return {\n        text: String(text).replaceAll(/<think>[\\\
+          s\\S]*?<\\/think>/g, '')\n            .replaceAll(/<details[\\s\\S]*?<\\\
+          /details>/g, '')\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          text:
+            children: null
+            type: string
+        selected: false
+        title: 删除思考过程
+        type: code
+        variables:
+        - value_selector:
+          - '1741164879939'
+          - result
+          variable: text
+      height: 54
+      id: '1742528937900'
+      position:
+        x: 1261.4345448527783
+        y: 455.5
+      positionAbsolute:
+        x: 1261.4345448527783
+        y: 455.5
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -1732.8811854615506
+      y: -31.956312391267375
+      zoom: 0.8422664953194157

@@ -11,7 +11,7 @@ dependencies:
   value:
     marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
 kind: app
-version: 0.1.5
+version: 0.2.0
 workflow:
   conversation_variables: []
   environment_variables:
@@ -613,7 +613,7 @@ workflow:
         type: http-request
         url: '{{#env.path#}}'
         variables: []
-      height: 123
+      height: 127
       id: '17436599536740'
       position:
         x: 2215.1428571428573
@@ -999,7 +999,7 @@ workflow:
         type: http-request
         url: '{{#1743646903355.api#}}/walle/ai/device/list'
         variables: []
-      height: 139
+      height: 143
       id: '1744355038209'
       position:
         x: 1854
@@ -1106,7 +1106,7 @@ workflow:
         type: http-request
         url: '{{#1743646903355.api#}}{{#1744178241091.target_url#}}'
         variables: []
-      height: 142
+      height: 146
       id: '1744362095970'
       position:
         x: 1854

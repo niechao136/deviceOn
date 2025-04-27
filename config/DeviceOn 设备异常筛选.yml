@@ -11,7 +11,7 @@ dependencies:
   value:
     marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.12@a8d5448083aededa394d5940f878f6151f4a472e77766222e654840c74d10287
 kind: app
-version: 0.1.5
+version: 0.2.0
 workflow:
   conversation_variables: []
   environment_variables: []
@@ -206,7 +206,7 @@ workflow:
         type: http-request
         url: '{{#1744161008028.api#}}/walle/ai/device/eventList{{#1744161008028.params#}}'
         variables: []
-      height: 158
+      height: 162
       id: '1744161187667'
       position:
         x: 334
@@ -308,13 +308,14 @@ workflow:
             ```\n\n---\n\n## 设备筛选\n- 请根据`{device_array}`中每个设备的异常数量和`{query}`文本的描述来筛选设备，筛选出的设备设置为数组\
             \ `device`\n- 请根据`{query}`文本识别出要求筛选出的设备数量：\n    - 如果`{query}`中提及具体的设备数量，则设置`number\
             \ = 要求的数量`\n    - 如果`{query}`中没有提及具体的设备数量，但提及到了`最`等间接表明取1台设备的词，则设置`number\
-            \ = 1`\n    - 如果以上两点都不满足，则默认显示所有符合要求的设备，请根据实际情况设置`number = device的长度`\n\
+            \ = 1`\n    - 如果`{query}`中提及到了`最`等间接表明取1台设备的词，但满足条件的设备不止1台，则设置`number\
+            \ = 满足条件的设备数量`\n    - 如果以上情况都不满足，则默认显示所有符合要求的设备，请根据实际情况设置`number = 满足条件的设备数量`\n\
             - 请将输出的`device`根据`{query}`涉及的异常数量进行排序，并且只保留`device`中的前`number`条数据\n\n\
             ---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n```json\n{\n  \"number\": \"<数字>\"\
             ,\n  \"reason\": \"<number数量的依据>\",\n  \"device\": [\n    {\n      \"\
             id\": \"<设备ID，请保证id一定存在并且对应的设备正确>\",\n      \"name\": \"<设备名称，请保证id与name对应关系正确>\"\
             ,\n      \"reason\": \"<涉及异常的数目以及顺序>\"\n    }\n  ]\n}\n```\n"
-        selected: false
+        selected: true
         title: LLM 设备异常参数提取
         type: llm
         variables: []
@@ -328,7 +329,7 @@ workflow:
       positionAbsolute:
         x: 941.1294494367039
         y: 323
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -388,7 +389,7 @@ workflow:
       positionAbsolute:
         x: 1246
         y: 323
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom

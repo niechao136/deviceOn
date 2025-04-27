@@ -15,7 +15,7 @@ dependencies:
   value:
     marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.12@a8d5448083aededa394d5940f878f6151f4a472e77766222e654840c74d10287
 kind: app
-version: 0.1.5
+version: 0.2.0
 workflow:
   conversation_variables:
   - description: 缓存类型
@@ -678,7 +678,7 @@ workflow:
         type: http-request
         url: '{{#env.path#}}'
         variables: []
-      height: 123
+      height: 127
       id: '1743665976785'
       position:
         x: 638
@@ -990,7 +990,7 @@ workflow:
         type: http-request
         url: '{{#env.path#}}'
         variables: []
-      height: 123
+      height: 127
       id: '1744019507038'
       position:
         x: 2462

@@ -11,7 +11,7 @@ dependencies:
   value:
     marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.12@a8d5448083aededa394d5940f878f6151f4a472e77766222e654840c74d10287
 kind: app
-version: 0.1.5
+version: 0.2.0
 workflow:
   conversation_variables: []
   environment_variables:
@@ -258,7 +258,7 @@ workflow:
         type: http-request
         url: '{{#1743559189395.api#}}/walle/ai/device/list'
         variables: []
-      height: 139
+      height: 143
       id: '1743560003474'
       position:
         x: 334
@@ -272,8 +272,8 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "\nfunction convertToTimeZone(timezone) {\n  // 检查格式是否以 \"UTC\" 开头\n\
-          \  if (!timezone.startsWith(\"UTC\")) {\n    throw new Error(\"时区格式必须以 'UTC'\
+        code: "function convertToTimeZone(timezone) {\n  // 检查格式是否以 \"UTC\" 开头\n \
+          \ if (!timezone.startsWith(\"UTC\")) {\n    throw new Error(\"时区格式必须以 'UTC'\
           \ 开头\");\n  }\n  // 获取符号和小时、分钟部分\n  const sign = timezone[3]; // '+' 或 '-'\n\
           \  if (sign !== '+' && sign !== '-') {\n    throw new Error(\"无效的时区格式\"\
           );\n  }\n  const hourStr = timezone.substr(4, 2);\n  const minuteStr = timezone.substr(7,\
@@ -294,19 +294,21 @@ workflow:
           \ device = Array.isArray(res?.rows) ? Array.from(res.rows).map(o => {\n\
           \    return {\n      id: o.deviceId,\n      nm: o.deviceName,\n      os:\
           \ o.deviceOs,\n      ip: o.deviceIp,\n      l1: o.labelDeviceName1,\n  \
-          \    l2: o.labelDeviceName2,\n      st: o.onlineStatus,\n      tz: o.timezone,\n\
-          \      hw: o.hardwareError,\n      sw: o.softwareError,\n      bt: o.batteryError,\n\
-          \      pp: o.peripheralsError,\n      sc: o.securityError,\n    }\n  })\
-          \ : []\n  const id = Array.from(new Set(device.map(o => o.id).filter(o =>\
-          \ !!o)))\n  const name = Array.from(new Set(device.map(o => o.nm).filter(o\
+          \    l2: o.labelDeviceName2,\n      lo: o.locationName,\n      st: o.onlineStatus,\n\
+          \      tz: o.timezone,\n      hw: o.hardwareError,\n      sw: o.softwareError,\n\
+          \      bt: o.batteryError,\n      pp: o.peripheralsError,\n      sc: o.securityError,\n\
+          \    }\n  }) : []\n  const id = Array.from(new Set(device.map(o => o.id).filter(o\
+          \ => !!o)))\n  const name = Array.from(new Set(device.map(o => o.nm).filter(o\
           \ => !!o)))\n  const ip = Array.from(new Set(device.map(o => o.ip).filter(o\
           \ => !!o)))\n  const label1 = Array.from(new Set(device.map(o => o.l1).filter(o\
           \ => !!o)))\n  const label2 = Array.from(new Set(device.map(o => o.l2).filter(o\
+          \ => !!o)))\n  const location = Array.from(new Set(device.map(o => o.lo).filter(o\
           \ => !!o)))\n  const date = convertToTimeZone(timezone);\n  return {\n \
           \   device: JSON.stringify(device),\n    id: JSON.stringify(id, null, 2),\n\
           \    name: JSON.stringify(name, null, 2),\n    ip: JSON.stringify(ip, null,\
           \ 2),\n    label1: JSON.stringify(label1, null, 2),\n    label2: JSON.stringify(label2,\
-          \ null, 2),\n    date,\n  }\n}\n\n"
+          \ null, 2),\n    location: JSON.stringify(location, null, 2),\n    date,\n\
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -326,6 +328,9 @@ workflow:
             children: null
             type: string
           label2:
+            children: null
+            type: string
+          location:
             children: null
             type: string
           name:
@@ -373,8 +378,8 @@ workflow:
         - id: a813bf19-e687-459c-845f-aa2bd74cd972
           role: system
           text: "# 信息提取提示词\n\n## 输入数据\n- `{query}`: `{{#context#}}`\n\n---\n\n## 语言确定\n\
-            根据`{query}`文本语言自动确定 `lang` 值，**请注意区分简体中文与繁體中文**：\n- 简体中文 → `zh-CN`\n-\
-            \ 繁體中文 → `zh-TW`\n- 英文 → `en-US`\n- 日文 → `ja-JP`\n\n---\n\n## 处理流程\n\n\
+            请整体分析并识别`{query}`文本的主要语言确定`lang`值；**请注意区分简体中文与繁體中文**：\n- 简体中文 → `zh-CN`\n\
+            - 繁體中文 → `zh-TW`\n- 英文 → `en-US`\n- 日文 → `ja-JP`\n\n---\n\n## 处理流程\n\n\
             ### 语言自适应\n如果`{query}`文本语言为非简体中文，请自动将下文中的简体中文提示逻辑，应用于`lang`语言场景\n\n---\n\
             \n### 设备信息提取\n\n- **异常状态分析：**\n    - **assign_error**：当`{query}`中匹配到`异常`、`错误`等类似描述时，设置\
             \ `assign_error = true`\n    - **assign_offline**：当`{query}`中匹配到`上下线异常`、`离线(Offline)`、`断线中(Disconnected)`等类似描述时，设置\
@@ -416,7 +421,7 @@ workflow:
         - id: a0934cdb-518e-4a39-a761-4205162e116d
           role: user
           text: '{{#context#}}'
-        selected: false
+        selected: true
         title: LLM 远程桌面参数提取
         type: llm
         variables: []
@@ -430,7 +435,7 @@ workflow:
       positionAbsolute:
         x: 942
         y: 310
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -486,47 +491,52 @@ workflow:
           \ : []\n    const label1 = Array.isArray(llm_result?.targetDevices?.label1)\
           \ ? Array.from(llm_result.targetDevices.label1) : []\n    const label2 =\
           \ Array.isArray(llm_result?.targetDevices?.label2) ? Array.from(llm_result.targetDevices.label2)\
-          \ : []\n    const assign_id = !!llm_result?.targetDevices?.assign_id\n \
-          \   const assign_name = !!llm_result?.targetDevices?.assign_name\n    const\
-          \ assign_ip = !!llm_result?.targetDevices?.assign_ip\n    const assign_os\
-          \ = !!llm_result?.targetDevices?.assign_os\n    const assign_label1 = !!llm_result?.targetDevices?.assign_label1\n\
-          \    const assign_label2 = !!llm_result?.targetDevices?.assign_label2\n\
-          \    const assign_online = !!llm_result?.targetDevices?.assign_online\n\
-          \    const assign_index = Number(llm_result?.targetDevices?.assign_index)\n\
-          \    let not_prop = id.length === 0 && name.length === 0 && ip.length ===\
-          \ 0 && os.length === 0 && label1.length === 0 && label2.length === 0\n \
-          \   let has_prop = assign_id || assign_name || assign_ip || assign_os ||\
-          \ assign_label1 || assign_label2\n    let use_cache = not_prop && !has_prop\
-          \ && !assign_online && !has_error\n    if (flow === 'remote_desktop') {\n\
-          \      not_prop = id.length === 0 && name.length === 0 && ip.length ===\
-          \ 0\n      has_prop = assign_id || assign_name || assign_ip\n      use_cache\
-          \ = not_prop && !has_prop && !has_error\n    }\n    let filter_id = []\n\
-          \    // 处理已存在设备筛选结果的情况\n    if (!!content && (type === 'find_device' ||\
-          \ type === 'find_error')) {\n      const cache = JSON.parse(content)\n \
-          \     let cache_device = Array.isArray(cache?.data?.targetDevices) ? Array.from(cache?.data?.targetDevices)\
-          \ : []\n      cache_device = cache_device.filter(o => !!device_by_id[o.id]).map(o\
-          \ => device_by_id[o.id])\n      // 处理使用下标指定设备的情况\n      const assign_last\
-          \ = !!llm_result?.targetDevices?.assign_last\n      if (!Number.isNaN(assign_index)\
-          \ && assign_index > 0 && assign_index <= cache_device.length) {\n      \
-          \  let index = assign_index - 1\n        if (assign_last) index = cache_device.length\
-          \ - 1 - index\n        filter_id = [cache_device[index].id]\n      }\n \
-          \     else {\n        filter_id = cache_device.filter(o => {\n         \
-          \ const match_id = id.includes(o.id)\n          const match_name = name.includes(o.nm)\n\
-          \          const match_ip = ip.includes(o.ip)\n          const match_os\
-          \ = os.includes(o.os)\n          const match_label1 = label1.includes(o.l1)\n\
-          \          const match_label2 = label2.includes(o.l2)\n          // 当没有指定具体栏位时，只要满足一个条件就行\n\
-          \          if (!has_prop) {\n            if (flow === 'remote_desktop')\
-          \ return match_id || match_name || match_ip\n            return match_id\
-          \ || match_name || match_ip || match_os || match_label1 || match_label2\n\
-          \          }\n          // 当有指定具体栏位时，需要满足所有指定栏位\n          let match = true\n\
-          \          if (assign_id) match = match && match_id\n          if (assign_name)\
-          \ match = match && match_name\n          if (assign_ip) match = match &&\
-          \ match_ip\n          if (flow === 'remote_desktop') return match\n    \
-          \      if (assign_os) match = match && match_os\n          if (assign_label1\
-          \ && !assign_label2) match = match && match_label1\n          if (!assign_label1\
-          \ && assign_label2) match = match && match_label2\n          if (assign_label1\
-          \ && assign_label2) match = match && (match_label2 || match_label1)\n  \
-          \        return match\n        }).map(o => o.id)\n        if (filter_id.length\
+          \ : []\n    const location = Array.isArray(llm_result?.targetDevices?.location)\
+          \ ? Array.from(llm_result.targetDevices.location) : []\n    const assign_id\
+          \ = !!llm_result?.targetDevices?.assign_id\n    const assign_name = !!llm_result?.targetDevices?.assign_name\n\
+          \    const assign_ip = !!llm_result?.targetDevices?.assign_ip\n    const\
+          \ assign_os = !!llm_result?.targetDevices?.assign_os\n    const assign_label1\
+          \ = !!llm_result?.targetDevices?.assign_label1\n    const assign_label2\
+          \ = !!llm_result?.targetDevices?.assign_label2\n    const assign_location\
+          \ = !!llm_result?.targetDevices?.assign_location\n    const assign_online\
+          \ = !!llm_result?.targetDevices?.assign_online\n    const assign_index =\
+          \ Number(llm_result?.targetDevices?.assign_index)\n    let not_prop = id.length\
+          \ === 0 && name.length === 0 && ip.length === 0 && os.length === 0\n   \
+          \   && label1.length === 0 && label2.length === 0 && location.length ===\
+          \ 0\n    let has_prop = assign_id || assign_name || assign_ip || assign_os\n\
+          \      || assign_label1 || assign_label2 || assign_location\n    let use_cache\
+          \ = not_prop && !has_prop && !assign_online && !has_error\n    if (flow\
+          \ === 'remote_desktop') {\n      not_prop = id.length === 0 && name.length\
+          \ === 0 && ip.length === 0\n      has_prop = assign_id || assign_name ||\
+          \ assign_ip\n      use_cache = not_prop && !has_prop && !has_error\n   \
+          \ }\n    let filter_id = []\n    // 处理已存在设备筛选结果的情况\n    if (!!content &&\
+          \ (type === 'find_device' || type === 'find_error')) {\n      const cache\
+          \ = JSON.parse(content)\n      let cache_device = Array.isArray(cache?.data?.targetDevices)\
+          \ ? Array.from(cache?.data?.targetDevices) : []\n      cache_device = cache_device.filter(o\
+          \ => !!device_by_id[o.id]).map(o => device_by_id[o.id])\n      // 处理使用下标指定设备的情况\n\
+          \      const assign_last = !!llm_result?.targetDevices?.assign_last\n  \
+          \    if (!Number.isNaN(assign_index) && assign_index > 0 && assign_index\
+          \ <= cache_device.length) {\n        let index = assign_index - 1\n    \
+          \    if (assign_last) index = cache_device.length - 1 - index\n        filter_id\
+          \ = [cache_device[index].id]\n      }\n      else {\n        filter_id =\
+          \ cache_device.filter(o => {\n          const match_id = id.includes(o.id)\n\
+          \          const match_name = name.includes(o.nm)\n          const match_ip\
+          \ = ip.includes(o.ip)\n          const match_os = os.includes(o.os)\n  \
+          \        const match_label1 = label1.includes(o.l1)\n          const match_label2\
+          \ = label2.includes(o.l2)\n          const match_location = location.includes(o.lo)\n\
+          \          // 当没有指定具体栏位时，只要满足一个条件就行\n          if (!has_prop) {\n      \
+          \      if (flow === 'remote_desktop') return match_id || match_name || match_ip\n\
+          \            return match_id || match_name || match_ip || match_os || match_label1\
+          \ || match_label2 || match_location\n          }\n          // 当有指定具体栏位时，需要满足所有指定栏位\n\
+          \          let match = true\n          if (assign_id) match = match && match_id\n\
+          \          if (assign_name) match = match && match_name\n          if (assign_ip)\
+          \ match = match && match_ip\n          if (flow === 'remote_desktop') return\
+          \ match\n          if (assign_os) match = match && match_os\n          if\
+          \ (assign_label1 && !assign_label2) match = match && match_label1\n    \
+          \      if (!assign_label1 && assign_label2) match = match && match_label2\n\
+          \          if (assign_label1 && assign_label2) match = match && (match_label2\
+          \ || match_label1)\n          if (assign_location) match = match && match_location\n\
+          \          return match\n        }).map(o => o.id)\n        if (filter_id.length\
           \ === 0 && use_cache && flow !== 'find_device') {\n          filter_id =\
           \ cache_device.map(o => o.id)\n        }\n      }\n    }\n    // 如果经过之前的筛选后，结果仍然为空，则从所有设备中筛选\n\
           \    if (filter_id.length === 0) {\n      filter_id = Object.values(device_by_id).filter(o\
@@ -545,32 +555,34 @@ workflow:
           \ = id.includes(o.id)\n        const match_name = name.includes(o.nm)\n\
           \        const match_ip = ip.includes(o.ip)\n        const match_os = os.includes(o.os)\n\
           \        const match_label1 = label1.includes(o.l1)\n        const match_label2\
-          \ = label2.includes(o.l2)\n        const match_online = assign_online &&\
-          \ Number(o.st) === 1\n        const match_status = match_online || (!assign_online)\n\
-          \        // 当没有匹配任何属性时，只筛选status\n        if (not_prop) return match_status\n\
-          \        // 当没有指定具体栏位时，只要满足一个条件就行\n        if (!has_prop) {\n          if\
-          \ (flow === 'remote_desktop') return match_id || match_name || match_ip\n\
-          \          return (match_id || match_name || match_ip || match_os || match_label1\
-          \ || match_label2) && match_status\n        }\n        // 当有指定具体栏位时，需要满足所有指定栏位\n\
-          \        if (assign_id) match = match && match_id\n        if (assign_name)\
-          \ match = match && match_name\n        if (assign_ip) match = match && match_ip\n\
+          \ = label2.includes(o.l2)\n        const match_location = location.includes(o.lo)\n\
+          \        const match_online = assign_online && Number(o.st) === 1\n    \
+          \    const match_status = match_online || (!assign_online)\n        // 当没有匹配任何属性时，只筛选status\n\
+          \        if (not_prop) return match_status\n        // 当没有指定具体栏位时，只要满足一个条件就行\n\
+          \        if (!has_prop) {\n          if (flow === 'remote_desktop') return\
+          \ match_id || match_name || match_ip\n          return (match_id || match_name\
+          \ || match_ip || match_os || match_label1 || match_label2 || match_location)\
+          \ && match_status\n        }\n        // 当有指定具体栏位时，需要满足所有指定栏位\n        if\
+          \ (assign_id) match = match && match_id\n        if (assign_name) match\
+          \ = match && match_name\n        if (assign_ip) match = match && match_ip\n\
           \        if (flow === 'remote_desktop') return match\n        match = match\
           \ && match_status\n        if (assign_os) match = match && match_os\n  \
           \      if (assign_label1 && !assign_label2) match = match && match_label1\n\
           \        if (!assign_label1 && assign_label2) match = match && match_label2\n\
           \        if (assign_label1 && assign_label2) match = match && (match_label2\
-          \ || match_label1)\n        return match\n      }).map(o => o.id)\n    }\n\
-          \    filter = filter_id.map(id => {\n      const o = device_by_id[id]\n\
-          \      if (String(flow).endsWith('task')) {\n        return {\n        \
-          \  id: o.id,\n          name: o.nm,\n          os: o.os,\n          timezone:\
-          \ o.tz,\n        }\n      }\n      return {\n        id: o.id,\n       \
-          \ name: o.nm,\n        os: o.os,\n        timezone: o.tz,\n        ip: o.ip,\n\
-          \        status: o.st,\n      }\n    })\n    is_find_device = assign_index\
-          \ !== -1 || !not_prop || assign_online || has_error ? 1 : 0\n  }\n  // 如果涉及之前的异常，就需要再结合事件列表进行筛选\n\
-          \  else {\n    const assign_time = !!llm_result?.targetDevices?.assign_time\n\
-          \    const start_date = String(llm_result?.targetDevices?.start_date ??\
-          \ '')\n    const end_date = String(llm_result?.targetDevices?.end_date ??\
-          \ '')\n    const zone = String(timezone).slice(3)\n    let sd = new Date(`${start_date}\
+          \ || match_label1)\n        if (assign_location) match = match && match_location\n\
+          \        return match\n      }).map(o => o.id)\n    }\n    filter = filter_id.map(id\
+          \ => {\n      const o = device_by_id[id]\n      if (String(flow).endsWith('task'))\
+          \ {\n        return {\n          id: o.id,\n          name: o.nm,\n    \
+          \      os: o.os,\n          timezone: o.tz,\n        }\n      }\n      return\
+          \ {\n        id: o.id,\n        name: o.nm,\n        os: o.os,\n       \
+          \ timezone: o.tz,\n        ip: o.ip,\n        status: o.st,\n      }\n \
+          \   })\n    is_find_device = assign_index !== -1 || !not_prop || assign_online\
+          \ || has_error ? 1 : 0\n  }\n  // 如果涉及之前的异常，就需要再结合事件列表进行筛选\n  else {\n \
+          \   const assign_time = !!llm_result?.targetDevices?.assign_time\n    const\
+          \ start_date = String(llm_result?.targetDevices?.start_date ?? '')\n   \
+          \ const end_date = String(llm_result?.targetDevices?.end_date ?? '')\n \
+          \   const zone = String(timezone).slice(3)\n    let sd = new Date(`${start_date}\
           \ 00:00:00${zone}`)\n    let ed = new Date(`${end_date} 00:00:00${zone}`)\n\
           \    if (!assign_time) {\n      const now = convertToTimeZone(timezone)\n\
           \      const dt = now.split(' ')[0]\n      ed = new Date(`${dt} 00:00:00${zone}`)\n\
@@ -615,7 +627,7 @@ workflow:
           type:
             children: null
             type: string
-        selected: true
+        selected: false
         title: 处理远程桌面
         type: code
         variables:
@@ -659,7 +671,7 @@ workflow:
       positionAbsolute:
         x: 1246
         y: 310
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -751,7 +763,7 @@ workflow:
         type: http-request
         url: '{{#env.path#}}'
         variables: []
-      height: 123
+      height: 127
       id: '1744169435902'
       position:
         x: 1854

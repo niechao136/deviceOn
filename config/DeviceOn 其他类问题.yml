@@ -7,7 +7,7 @@ app:
   use_icon_as_answer_icon: false
 dependencies: []
 kind: app
-version: 0.1.5
+version: 0.2.0
 workflow:
   conversation_variables: []
   environment_variables:
@@ -272,7 +272,7 @@ workflow:
         type: http-request
         url: '{{#env.path#}}'
         variables: []
-      height: 123
+      height: 127
       id: '1743561775497'
       position:
         x: 942
