@@ -18,9 +18,8 @@
 ## 预测分析
 - 如果{query}涉及到预测的相关描述，设置 `predict = true`
 - 如果{query}涉及到预测的具体时间，则根据当前时间（`{{#1745891380321.date#}}`），计算出预测时间的开始日期和结束日期，并设置 `predict_start = 开始日期（格式：YYYY/MM/DD）; predict_end = 结束日期（格式：YYYY/MM/DD）`
-- 如果{query}提及到预测的参考条件：
-    - 设置 `history = true`
-    - 根据当前时间（`{{#1745891380321.date#}}`），计算出参考条件的开始日期和结束日期，并设置 `history_start = 开始日期（格式：YYYY/MM/DD）; history_end = 结束日期（格式：YYYY/MM/DD）`
+- 如果{query}提及到预测的参考条件，设置 `history = true`
+- 如果{query}涉及到参考条件的具体时间，则根据当前时间（`{{#1745891380321.date#}}`），计算出参考条件的开始日期和结束日期，并设置 `history_start = 开始日期（格式：YYYY/MM/DD）; history_end = 结束日期（格式：YYYY/MM/DD）`
 
 ---
 

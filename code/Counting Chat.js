@@ -721,9 +721,10 @@ function format(timestamp) {
 function formatQueuing(output, site, monitor) {
   const obj = {}
   site.forEach(o => {
+    const queuing_unit = {}
     obj[o.id] = {
       ...o,
-      queuing_unit: {}
+      ...(Array.isArray(output) ? { queuing_unit } : {})
     }
   })
   Array.isArray(output) && output.forEach(str => {
@@ -946,19 +947,30 @@ function main({queuing, label, weather_label, widget, weather, new_obj}) {
   const weather1 = JSON.parse(widget)
   const weather2 = JSON.parse(weather)
   const i18n = {
-    traffic: 'traffic',
-    outside: 'outside',
-    turn_in_rate: 'turn_in_rate',
-    total_amount: 'total_amount',
-    transaction_count: 'transaction_count',
-    avg_amount: 'avg_amount',
-    convert_rate: 'convert_rate',
-    avg_item: 'avg_item',
+    traffic: '来店人数',
+    outside: '店外人数',
+    turn_in_rate: '进店率',
+    total_amount: '营业额',
+    transaction_count: '交易数',
+    avg_amount: '客单价',
+    convert_rate: '转化率',
+    avg_item: '客单量',
+  }
+  const en = {
+    traffic: 'Traffic',
+    outside: 'Outside Traffic',
+    turn_in_rate: 'Turn in Rate',
+    total_amount: 'Sales',
+    transaction_count: 'Transaction',
+    avg_amount: 'Average Transaction Value',
+    convert_rate: 'Conversion Rate',
+    avg_item: 'Average Basket Size',
   }
   const lang = new_obj?.lang
   const history = [], predict = []
   let predict_data = ''
-  const head = ['site name', 'date', 'weekday', 'weather']
+  const head = ['地点名称', '日期', '星期', '天气']
+  const md_head = ['Date', 'Weekday', 'Weather']
   output.forEach((o, index) => {
     const wea1 = weather1?.['retrived']?.[0]?.['data']?.find(i => i.store_id === o.id) ?? {}
     const wea2 = weather2?.['retrived']?.[0]?.['data']?.find(i => i.store_id === o.id) ?? {}
@@ -969,7 +981,10 @@ function main({queuing, label, weather_label, widget, weather, new_obj}) {
       const weather = getWeather(wea1?.conditions?.row?.[i])
       const data = []
       keys.forEach(key => {
-        if (index === 0 && i === 0) head.push(i18n[key])
+        if (index === 0 && i === 0) {
+          head.push(i18n[key])
+          md_head.push('Predict ' + en[key])
+        }
         data.push(o[key][i])
       })
       history.push([i === 0 ? o.name : '', time, weekday, weather].concat(data))
@@ -981,11 +996,13 @@ function main({queuing, label, weather_label, widget, weather, new_obj}) {
       predict.push(['', time, weekday, weather].concat(data))
     })
   })
+  const markdown = arrayToMarkdownTable([md_head])
   return {
     history: arrayToMarkdownTable([head].concat(history)),
     predict: arrayToMarkdownTable([head].concat(predict)),
     data: predict_data,
     lang,
+    markdown,
   }
 }
 
