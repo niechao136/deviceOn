@@ -6,7 +6,7 @@
 ---
 
 ## 语言确定
-请整体分析并识别{query}文本的主要语言确定`lang`值；**请注意区分简体中文与繁體中文**：
+请整体分析并识别{query}文本的主要语言确定`lang`值；**请注意区分简体中文与繁體中文，在区分简体中文与繁體中文时，只要文本中存在一个繁体，就将文本识别为繁体**：
 - 简体中文 → `zh-CN`
 - 繁體中文 → `zh-TW`
 - 英文 → `en-US`
@@ -71,6 +71,7 @@
 ```json
 {
   "lang": "<zh-CN | zh-TW | ko-KR | ja-JP | en-US>",
+  "lang_reason": "<简要解释语言识别的依据>",
   "predict": "<boolean>",
   "predict_start": "<日期字符串，格式 YYYY/MM/DD>",
   "predict_end": "<日期字符串，格式 YYYY/MM/DD>",

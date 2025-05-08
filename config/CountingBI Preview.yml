@@ -3,7 +3,7 @@ app:
   icon: 🤖
   icon_background: '#FFEAD5'
   mode: advanced-chat
-  name: CountingBI ChatBot
+  name: CountingBI Preview
   use_icon_as_answer_icon: false
 dependencies:
 - current_identifier: null
@@ -683,9 +683,6 @@ workflow:
             \   `\"我是研华人工智能，很高兴为您服务\"`\n   其中，\"研华\" 在简体中文保持原名称，在繁体中文翻译为 \"研華\"，其他所有语言统一译为\
             \ \"Advantech\"\n\n3. **格式要求**\n    - 仅输出翻译结果，无需添加解释或标注\n    - 保持原有语义完整性和礼貌语气\n\
             \    - 适应目标语言的文化表达习惯\n\n4. **错误处理**  \n   若语言检测失败，默认翻译为英语版本\n\n\n"
-        - id: 7ffbefec-c141-4cf3-b6b2-a5feefdf7aac
-          role: user
-          text: '{{#context#}}'
         selected: false
         title: 元信息类问题回答
         type: llm
@@ -895,7 +892,7 @@ workflow:
         type: http-request
         url: '{{#1745890925820.api#}}/api/store/list'
         variables: []
-      height: 113
+      height: 143
       id: '1745891316938'
       position:
         x: 942
@@ -1016,7 +1013,7 @@ workflow:
             : \"<string>\",\n    \"site_error\": \"<string>\",\n    \"date_enter\"\
             : \"<string>\",\n    \"date_error\": \"<string>\",\n    \"data_enter\"\
             : \"<string>\",\n    \"data_error\": \"<string>\",\n  }\n}\n```\n\n---\n"
-        - id: 46678076-7899-4d14-be46-bf8303f46c20
+        - id: a279bf9b-88fb-471a-b2b3-5138105bd135
           role: user
           text: '{{#context#}}'
         selected: false
@@ -1029,10 +1026,10 @@ workflow:
       id: '1745891466552'
       position:
         x: 1871.4285714285716
-        y: 319.64285714285717
+        y: 316.7857142857143
       positionAbsolute:
         x: 1871.4285714285716
-        y: 319.64285714285717
+        y: 316.7857142857143
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1317,7 +1314,7 @@ workflow:
         type: http-request
         url: '{{#1745890925820.api#}}/api/widget/data'
         variables: []
-      height: 113
+      height: 143
       id: '1745891908284'
       position:
         x: 3689.4285714285706
@@ -2218,7 +2215,7 @@ workflow:
             \n**输出格式**：\n- 仅返回 markdown 表格，不展示中间过程\n- 重点翻译以下内容为`{{#1745905418618.lang#}}`，请注意区分简体中文与繁體中文\n\
             \    - 表格的**表头行**（即标题行）\n    - 所有行的「星期」列（即第二列）和「天气」列（即第三列）内容\n- 表格中的*表头这一行*和*星期、天气这两列*必须严格使用`{{#1745905418618.lang#}}`生成，请注意区分简体中文与繁體中文\n\
             - 表格中的*表头这一行*和*星期、天气这两列*必须翻译为`{{#1745905418618.lang#}}`后再输出，请注意区分简体中文与繁體中文\n\
-            {{#1745894132634.markdown#}}\n\n---\n"
+            \  {{#1745894132634.markdown#}}\n\n---\n"
         selected: false
         title: LLM 回答预测问题
         type: llm
@@ -2305,10 +2302,10 @@ workflow:
       id: '1745894339597'
       position:
         x: 8779
-        y: 580.5
+        y: 582.5
       positionAbsolute:
         x: 8779
-        y: 580.5
+        y: 582.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2447,7 +2444,7 @@ workflow:
       type: custom
       width: 244
     - data:
-        code: "function handleLLM(text) {\n  const regex = /```json([\\s\\S]*?)```/\n\
+        code: "\nfunction handleLLM(text) {\n  const regex = /```json([\\s\\S]*?)```/\n\
           \  const _res = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '')\n  const\
           \ match = _res.match(regex);\n  const res = !!match ? match[1].trim() :\
           \ _res\n  const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\/\\\
@@ -2676,6 +2673,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: -6217.099999999999
-      y: 78
-      zoom: 0.7
+      x: 137.16821010991225
+      y: -33.946046458218234
+      zoom: 0.923655537541026

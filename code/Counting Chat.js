@@ -102,6 +102,7 @@ function main({text, llm_obj, site_name, query}) {
       break
   }
   let reply = ''
+  const lang = new_obj?.lang
   const predict = !!new_obj?.predict
   if (predict) {
     const list = Array.isArray(new_obj?.site) ? Array.from(new_obj.site) : []
@@ -160,6 +161,7 @@ function main({text, llm_obj, site_name, query}) {
     }
   }
   return {
+    lang,
     reply,
     new_obj,
   }
@@ -940,7 +942,7 @@ function arrayToMarkdownTable(data) {
 
   return markdown;
 }
-function main({queuing, label, weather_label, widget, weather, new_obj}) {
+function main({queuing, label, weather_label, widget, weather}) {
   const output = Array.from(JSON.parse(queuing))
   label = Object.keys(label)
   weather_label = Object.keys(weather_label)
@@ -966,7 +968,6 @@ function main({queuing, label, weather_label, widget, weather, new_obj}) {
     convert_rate: 'Conversion Rate',
     avg_item: 'Average Basket Size',
   }
-  const lang = new_obj?.lang
   const history = [], predict = []
   let predict_data = ''
   const head = ['地点名称', '日期', '星期', '天气']
@@ -1001,7 +1002,6 @@ function main({queuing, label, weather_label, widget, weather, new_obj}) {
     history: arrayToMarkdownTable([head].concat(history)),
     predict: arrayToMarkdownTable([head].concat(predict)),
     data: predict_data,
-    lang,
     markdown,
   }
 }
@@ -1015,6 +1015,8 @@ function main({output, predict}) {
       .replaceAll(/<details[\s\S]*?<\/details>/g, '')
   }
 }
+
+//#endregion
 //#region 处理问题关键信息
 
 
