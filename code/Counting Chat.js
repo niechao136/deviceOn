@@ -110,7 +110,7 @@ function main({text, llm_obj, site_name, query}) {
     if (site.length === 0) {
       if (new_obj?.step === 'site_enter') {
         reply = new_obj?.error?.site_error ?? '没有找到匹配的地点，请重新提问'
-        new_obj = null
+        new_obj = {}
       }
       else {
         reply = new_obj?.error?.site_enter ?? '请输入预测的地点'
@@ -126,7 +126,7 @@ function main({text, llm_obj, site_name, query}) {
       if (!predict_start || !predict_end) {
         if (new_obj?.step === 'date_enter') {
           reply = new_obj?.error?.date_error ?? '预测的日期应在未来7天之内，请重新提问'
-          new_obj = null
+          new_obj = {}
         }
         else {
           reply = new_obj?.error?.date_enter ?? '请输入预测的日期(请选择未来7天内的日期)'
@@ -138,7 +138,7 @@ function main({text, llm_obj, site_name, query}) {
       }
       else if (!isWithinNext7Days(predict_start) || !isWithinNext7Days(predict_end)) {
         reply = new_obj?.error?.date_error ?? '预测的日期应在未来7天之内，请重新提问'
-        new_obj = null
+        new_obj = {}
       }
       else {
         const DATA = ['traffic', 'outside', 'turn_in_rate', 'total_amount', 'transaction_count', 'avg_amount', 'convert_rate', 'avg_item', 'queuing']
@@ -147,7 +147,7 @@ function main({text, llm_obj, site_name, query}) {
         if (data.length === 0) {
           if (new_obj?.step === 'data_enter') {
             reply = new_obj?.error?.data_error ?? '没有找到匹配的数据类型，请重新提问'
-            new_obj = null
+            new_obj = {}
           }
           else {
             reply = new_obj?.error?.data_enter ?? '请输入预测的数据类型'
@@ -239,7 +239,7 @@ function buildWidget(start, end, unit) {
         const monday = format(start)
         start.setDate(start.getDate() + 6)
         label.push(`${monday} - ${format(start)}`)
-        wsd.setDate(sd.getDate() + 7)
+        wsd.setDate(wsd.getDate() + 7)
       }
       data_range = 'any'
       data_unit = 'ww'
@@ -762,7 +762,42 @@ function main({output, pos, monitor}) {
 //#endregion
 //#region 处理非预测问题数据
 
-function main({queuing, label}) {
+function arrayToMarkdownTable(data) {
+  if (!data || data.length === 0) return '';
+
+  let markdown = '';
+
+  // 如果数组中的元素是对象，则取对象的键作为表头
+  if (typeof data[0] === 'object' && !Array.isArray(data[0])) {
+    const headers = Object.keys(data[0]);
+    // 构造表头行
+    markdown += `| ${headers.join(' | ')} |\n`;
+    // 构造分隔符行
+    markdown += `| ${headers.map(() => '---').join(' | ')} |\n`;
+    // 构造数据行
+    data.forEach(item => {
+      const row = headers.map(header => item[header] !== undefined ? item[header] : '').join(' | ');
+      markdown += `| ${row} |\n`;
+    });
+  } else if (Array.isArray(data[0])) {
+    // 如果数组中的元素也是数组，则默认第一行为表头
+    markdown += `| ${data[0].join(' | ')} |\n`;
+    markdown += `| ${data[0].map(() => '---').join(' | ')} |\n`;
+    for (let i = 1; i < data.length; i++) {
+      markdown += `| ${data[i].join(' | ')} |\n`;
+    }
+  } else {
+    // 其他情况：将每个元素作为一行（单列表格）
+    markdown += '| Value |\n';
+    markdown += '| --- |\n';
+    data.forEach(item => {
+      markdown += `| ${item} |\n`;
+    });
+  }
+
+  return markdown;
+}
+function main({queuing, label, new_obj}) {
   const output = Array.from(JSON.parse(queuing))
   label = Object.keys(label)
   const site_key = {
@@ -775,89 +810,191 @@ function main({queuing, label}) {
     convert_rate: 'c',
     avg_item: 'u',
   }
-  const site_data = []
-  let description = ''
-  output.forEach((o, index) => {
-    const keys = Object.keys(o)
-    const has_queuing = keys.includes('queuing_unit')
-    const site = keys.filter(s => !!site_key[s])
-    const item = {
-      n: o.name
-    }
-    if (site.length > 0) {
-      if (index === 0) {
-        description += '    - **"m"：** 地点指标数组，每个对象包含：  \n'
-        description += '        - **"t"：** 时间  \n'
-        site.forEach(key => {
-          switch (key) {
-            case 'traffic':
-              description += '        - **"a"：** 来点人数  \n'
-              break
-            case 'outside':
-              description += '        - **"o"：** 店外人数  \n'
-              break
-            case 'turn_in_rate':
-              description += '        - **"i"：** 进店率  \n'
-              break
-            case 'total_amount':
-              description += '        - **"r"：** 营业额  \n'
-              break
-            case 'transaction_count':
-              description += '        - **"n"：** 交易数  \n'
-              break
-            case 'avg_amount':
-              description += '        - **"p"：** 客单价  \n'
-              break
-            case 'convert_rate':
-              description += '        - **"c"：** 转化率  \n'
-              break
-            case 'avg_item':
-              description += '        - **"u"：** 客单量  \n'
-              break
-          }
-        })
-      }
-      item['m'] = label.map((t, i) => {
-        const obj = {}
-        site.forEach(key => {
-          obj[site_key[key]] = o[key][i]
-        })
-        return {
-          t,
-          ...obj,
-        }
+  const i18n_key = {
+    traffic: '来店人数',
+    outside: '店外人数',
+    turn_in_rate: '进店率',
+    total_amount: '营业额',
+    transaction_count: '交易数',
+    avg_amount: '客单价',
+    convert_rate: '转化率',
+    avg_item: '客单量',
+  }
+  const keys = Object.keys(Object(output?.[0] ?? {}))
+  const has_queuing = keys.includes('queuing_unit')
+  const site = keys.filter(s => !!site_key[s])
+
+  let prompts = ''
+  if (!!new_obj?.is_time && !new_obj?.is_site && !has_queuing) {
+    const head = ['时间'].concat(site.map(o => i18n_key[o]))
+    const data = {}
+    label.forEach(o => {
+      data[o] = {}
+      site.forEach(k => {
+        data[o][k] = null
       })
-    }
-    if (has_queuing) {
-      if (index === 0) {
-        description +=
-          '    - **"q"：** 排队单元数组，每个单元包含：  \n' +
-          '        - **"n"：** 排队单元名称  \n' +
-          '        - **"m"：** 排队指标数组，每个对象包含：  \n' +
-          '            - **"t"：** 时间  \n' +
-          '            - **"m"：** 最大排队人数  \n' +
-          '            - **"i"：** 最小排队人数  \n' +
-          '            - **"a"：** 平均排队人数  \n'
-      }
-      item['q'] = Object.values(o.queuing_unit ).map(u => {
-        return {
-          n: u.queuing_name,
-          m: Object.keys(u.max_queuing).map(t => {
-            return {
-              t,
-              a: u.avg_queuing[t],
-              m: u.max_queuing[t],
-              i: u.min_queuing[t],
+    })
+    output.forEach(o => {
+      site.forEach(k => {
+        if (Array.isArray(o?.[k])) {
+          label.forEach((l, i) => {
+            if (data[l][k] === null) {
+              data[l][k] = o[k][i]
+            } else {
+              data[l][k] += (o[k][i] ?? 0)
             }
           })
         }
       })
-    }
-    site_data.push(item)
-  })
+    })
+    const body = label.map(o => {
+      const obj = { '时间': o }
+      site.forEach(s => {
+        obj[i18n_key[s]] = data[o][s]
+      })
+      return obj
+      // return [o].concat(site.map(s => data[o][s]))
+    })
+
+    // const markdown = arrayToMarkdownTable([head].concat(body))
+    const markdown = JSON.stringify(body, null, 2)
+    const indentedTable = markdown
+      .split('\n')             // 按行拆分
+      .map(line => '    ' + line) // 每行前添加4个空格
+      .join('\n') + '\n'             // 再拼接回来
+    prompts += '    ```json\n'
+    prompts += indentedTable
+    prompts += '    ```\n'
+  }
+  else if (!new_obj?.is_time && !!new_obj?.is_site && !has_queuing) {
+    const head = ['地点名称'].concat(site.map(o => i18n_key[o]))
+    const body = output.map(o => {
+      const obj = { '地点名称': o.name }
+      site.forEach(s => {
+        obj[i18n_key[s]] = Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t, sum) => {
+          return sum === null ? t : (sum + (t ?? 0))
+        }, null) : null
+      })
+      return obj
+      // const data = site.map(s => {
+      //   return Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t, sum) => {
+      //     return sum === null ? t : (sum + (t ?? 0))
+      //   }, null) : null
+      // })
+      // return [o.name].concat(data)
+    })
+    // const markdown = arrayToMarkdownTable([head].concat(body))
+    const markdown = JSON.stringify(body, null, 2)
+    const indentedTable = markdown
+      .split('\n')             // 按行拆分
+      .map(line => '    ' + line) // 每行前添加4个空格
+      .join('\n') + '\n'             // 再拼接回来
+    prompts += '    ```json\n'
+    prompts += indentedTable
+    prompts += '    ```\n'
+  }
+  else {
+    const site_data = []
+    let description = ''
+    description += '- **顶层：** 地点数组，每个地点包含：\n'
+    description += '    - **"n"：** 地点名称  \n'
+    output.forEach((o, index) => {
+      const keys = Object.keys(o)
+      const has_queuing = keys.includes('queuing_unit')
+      const site = keys.filter(s => !!site_key[s])
+      const item = {
+        n: o.name
+      }
+      if (site.length > 0) {
+        if (index === 0) {
+          description += '    - **"m"：** 地点指标数组，每个对象包含：  \n'
+          description += '        - **"t"：** 时间  \n'
+          site.forEach(key => {
+            switch (key) {
+              case 'traffic':
+                description += '        - **"a"：** 来点人数  \n'
+                break
+              case 'outside':
+                description += '        - **"o"：** 店外人数  \n'
+                break
+              case 'turn_in_rate':
+                description += '        - **"i"：** 进店率  \n'
+                break
+              case 'total_amount':
+                description += '        - **"r"：** 营业额  \n'
+                break
+              case 'transaction_count':
+                description += '        - **"n"：** 交易数  \n'
+                break
+              case 'avg_amount':
+                description += '        - **"p"：** 客单价  \n'
+                break
+              case 'convert_rate':
+                description += '        - **"c"：** 转化率  \n'
+                break
+              case 'avg_item':
+                description += '        - **"u"：** 客单量  \n'
+                break
+            }
+          })
+        }
+        item['m'] = label.map((t, i) => {
+          const obj = {}
+          site.forEach(key => {
+            obj[site_key[key]] = o[key][i]
+          })
+          return {
+            t,
+            ...obj,
+          }
+        })
+      }
+      if (has_queuing) {
+        if (index === 0) {
+          description +=
+            '    - **"q"：** 排队单元数组，每个单元包含：  \n' +
+            '        - **"n"：** 排队单元名称  \n' +
+            '        - **"m"：** 排队指标数组，每个对象包含：  \n' +
+            '            - **"t"：** 时间  \n' +
+            '            - **"m"：** 最大排队人数  \n' +
+            '            - **"i"：** 最小排队人数  \n' +
+            '            - **"a"：** 平均排队人数  \n'
+        }
+        item['q'] = Object.values(o.queuing_unit ).map(u => {
+          return {
+            n: u.queuing_name,
+            m: Object.keys(u.max_queuing).map(t => {
+              return {
+                t,
+                a: u.avg_queuing[t],
+                m: u.max_queuing[t],
+                i: u.min_queuing[t],
+              }
+            })
+          }
+        })
+      }
+      site_data.push(item)
+    })
+    const data = JSON.stringify(site_data, null, 2)
+    const indentedTable = data
+      .split('\n')             // 按行拆分
+      .map(line => '    ' + line) // 每行前添加4个空格
+      .join('\n') + '\n'             // 再拼接回来
+    prompts += '    ```json\n'
+    prompts += indentedTable
+    prompts += '    ```\n'
+    prompts += '\n'
+    prompts += '---\n'
+    prompts += '\n'
+    prompts += '## `参考数据`结构说明：\n'
+    prompts += '\n'
+    prompts += '```markdown\n'
+    prompts += description
+    prompts += '```\n'
+  }
   return {
-    description,
-    site_data: JSON.stringify(site_data, null, 2),
+    prompts,
   }
 }
 
@@ -1009,9 +1146,9 @@ function main({queuing, label, weather_label, widget, weather}) {
 //#endregion
 //#region 删除思考过程
 
-function main({output, predict}) {
+function main({output, predict, other}) {
   return {
-    text: String(output ?? predict).replaceAll(/<think>[\s\S]*?<\/think>/g, '')
+    text: String(output ?? (predict ?? other)).replaceAll(/<think>[\s\S]*?<\/think>/g, '')
       .replaceAll(/<details[\s\S]*?<\/details>/g, '')
   }
 }
