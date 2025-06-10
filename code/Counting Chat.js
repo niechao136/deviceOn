@@ -8,10 +8,16 @@ function main({body, llm_obj}) {
       store_id: o.store_id,
       store_name: o.store_name,
       register_key: o.register_key,
+      province: o.province,
+      city: o.city,
+      country: o.country,
       sensor_ids: o?.sensors?.filter(s => s?.device_type.toLowerCase() === 'v-pos')
         ?.map(s => s?.sensor_id) ?? []
     }
   }) ?? []
+  const province = Array.from(new Set(site.map(o => o.province).filter(o => !!o)))
+  const city = Array.from(new Set(site.map(o => o.city).filter(o => !!o)))
+  const country = Array.from(new Set(site.map(o => o.country).filter(o => !!o)))
   const name = site.map(o => o.store_name)
   let need_llm = 1
   switch (llm_obj?.step) {
@@ -29,6 +35,9 @@ function main({body, llm_obj}) {
     need_llm,
     site: JSON.stringify(site),
     site_name: JSON.stringify(name, null, 2),
+    province: JSON.stringify(province, null, 2),
+    city: JSON.stringify(city, null, 2),
+    country: JSON.stringify(country, null, 2),
     date: `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
   }
 }
@@ -324,8 +333,16 @@ function buildQueuing(start, end) {
 function main({new_obj, site, token, acc_id}) {
   const site_list = Array.from(JSON.parse(site))
   const site_name = Array.isArray(new_obj?.site) ?  Array.from(new_obj?.site) : []
+  const province = Array.isArray(new_obj?.province) ?  Array.from(new_obj?.province) : []
+  const city = Array.isArray(new_obj?.city) ?  Array.from(new_obj?.city) : []
+  const country = Array.isArray(new_obj?.country) ?  Array.from(new_obj?.country) : []
   const store = site_list.filter(o => {
-    return site_name.length === 0 || site_name.includes(o.store_name)
+    const mention_none = site_name.length === 0 && province.length === 0 && city.length === 0 && country.length === 0
+    const mention_name = site_name.length > 0 && site_name.includes(o.store_name)
+    const mention_province = province.length > 0 && province.includes(o.province)
+    const mention_city = city.length > 0 && city.includes(o.city)
+    const mention_country = country.length > 0 && country.includes(o.country)
+    return mention_none || mention_name || mention_province || mention_city || mention_country
   })
   const sources = store.map(o => {
     return { target_id: o.store_id }
@@ -762,6 +779,22 @@ function main({output, pos, monitor}) {
 //#endregion
 //#region 处理非预测问题数据
 
+function array2DToCSV(data, delimiter = ',') {
+  if (!Array.isArray(data) || data.length === 0) return '';
+
+  // 假设第一行为标题行，生成新的标题行（为新添加的列 "No" 和原标题）
+  // const header = ['No', ...data[0]];
+  // 数据部分：如果原数据带有标题行，则从第二行开始处理
+  // const rows = [header, ...data.slice(1).map((row, i) => [i + 1, ...row])];
+
+  return data.map(row => row.join(delimiter)
+    // row.map(cell => {
+    //   const val = cell === null || cell === undefined ? 'null' : String(cell);
+    //   const escaped = val.replace(/"/g, '""'); // 转义双引号
+    //   return `"${escaped}"`;
+    // }).join(delimiter)
+  ).join('\n');
+}
 function arrayToMarkdownTable(data) {
   if (!data || data.length === 0) return '';
 
@@ -797,8 +830,16 @@ function arrayToMarkdownTable(data) {
 
   return markdown;
 }
-function main({queuing, label, new_obj}) {
+function main({queuing, label, new_obj, site}) {
   const output = Array.from(JSON.parse(queuing))
+  const site_list = Array.from(JSON.parse(site))
+  const by_id = {}
+  site_list.forEach(o => {
+    by_id[o.store_id] = o
+  })
+  const province = Array.isArray(new_obj?.province) ?  Array.from(new_obj?.province) : []
+  const city = Array.isArray(new_obj?.city) ?  Array.from(new_obj?.city) : []
+  const country = Array.isArray(new_obj?.country) ?  Array.from(new_obj?.country) : []
   label = Object.keys(label)
   const site_key = {
     traffic: 'a',
@@ -822,20 +863,20 @@ function main({queuing, label, new_obj}) {
   }
   const keys = Object.keys(Object(output?.[0] ?? {}))
   const has_queuing = keys.includes('queuing_unit')
-  const site = keys.filter(s => !!site_key[s])
+  const site_keys = keys.filter(s => !!site_key[s])
 
   let prompts = ''
   if (!!new_obj?.is_time && !new_obj?.is_site && !has_queuing) {
-    const head = ['时间'].concat(site.map(o => i18n_key[o]))
+    const head = ['时间'].concat(site_keys.map(o => i18n_key[o]))
     const data = {}
     label.forEach(o => {
       data[o] = {}
-      site.forEach(k => {
+      site_keys.forEach(k => {
         data[o][k] = null
       })
     })
     output.forEach(o => {
-      site.forEach(k => {
+      site_keys.forEach(k => {
         if (Array.isArray(o?.[k])) {
           label.forEach((l, i) => {
             if (data[l][k] === null) {
@@ -848,48 +889,61 @@ function main({queuing, label, new_obj}) {
       })
     })
     const body = label.map(o => {
-      const obj = { '时间': o }
-      site.forEach(s => {
-        obj[i18n_key[s]] = data[o][s]
-      })
-      return obj
-      // return [o].concat(site.map(s => data[o][s]))
+      // const obj = { '时间': o }
+      // site_keys.forEach(s => {
+      //   obj[i18n_key[s]] = data[o][s]
+      // })
+      // return obj
+      return [o].concat(site_keys.map(s => data[o][s] ?? 'null'))
     })
 
     // const markdown = arrayToMarkdownTable([head].concat(body))
-    const markdown = JSON.stringify(body, null, 2)
+    // const markdown = JSON.stringify(body, null, 2)
+    const markdown = array2DToCSV([head].concat(body))
     const indentedTable = markdown
       .split('\n')             // 按行拆分
       .map(line => '    ' + line) // 每行前添加4个空格
       .join('\n') + '\n'             // 再拼接回来
-    prompts += '    ```json\n'
+    prompts += '    ```csv\n'
     prompts += indentedTable
     prompts += '    ```\n'
   }
   else if (!new_obj?.is_time && !!new_obj?.is_site && !has_queuing) {
-    const head = ['地点名称'].concat(site.map(o => i18n_key[o]))
+    const site_head = ['地点']
+    if (country.length > 0) site_head.push('国家')
+    if (province.length > 0) site_head.push('区域一')
+    if (city.length > 0) site_head.push('区域二')
+    const head = site_head.concat(site_keys.map(o => i18n_key[o]))
     const body = output.map(o => {
-      const obj = { '地点名称': o.name }
-      site.forEach(s => {
-        obj[i18n_key[s]] = Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t, sum) => {
-          return sum === null ? t : (sum + (t ?? 0))
-        }, null) : null
-      })
-      return obj
-      // const data = site.map(s => {
-      //   return Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t, sum) => {
+      // const obj = { '地点': o.name }
+      // if (country.length > 0) obj['国家'] = by_id[o.id].country
+      // if (province.length > 0) obj['区域一'] = by_id[o.id].country
+      // if (city.length > 0) obj['区域二'] = by_id[o.id].country
+      // site_keys.forEach(s => {
+      //   obj[i18n_key[s]] = Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t, sum) => {
       //     return sum === null ? t : (sum + (t ?? 0))
       //   }, null) : null
       // })
-      // return [o.name].concat(data)
+      // return obj
+      const data = site_keys.map(s => {
+        return Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t, sum) => {
+          return sum === null ? t : (sum + (t ?? 0))
+        }, null) : null
+      })
+      const site_data = [o.name]
+      if (country.length > 0) site_data.push(by_id[o.id].country)
+      if (province.length > 0) site_data.push(by_id[o.id].province)
+      if (city.length > 0) site_data.push(by_id[o.id].city)
+      return site_data.concat(data.map(o => o ?? 'null'))
     })
     // const markdown = arrayToMarkdownTable([head].concat(body))
-    const markdown = JSON.stringify(body, null, 2)
+    // const markdown = JSON.stringify(body, null, 2)
+    const markdown = array2DToCSV([head].concat(body))
     const indentedTable = markdown
       .split('\n')             // 按行拆分
       .map(line => '    ' + line) // 每行前添加4个空格
       .join('\n') + '\n'             // 再拼接回来
-    prompts += '    ```json\n'
+    prompts += '    ```csv\n'
     prompts += indentedTable
     prompts += '    ```\n'
   }
@@ -898,6 +952,9 @@ function main({queuing, label, new_obj}) {
     let description = ''
     description += '- **顶层：** 地点数组，每个地点包含：\n'
     description += '    - **"n"：** 地点名称  \n'
+    if (country.length > 0)  description += '    - **"co"：** 国家  \n'
+    if (province.length > 0)  description += '    - **"pr"：** 区域一  \n'
+    if (city.length > 0)  description += '    - **"ci"：** 区域二  \n'
     output.forEach((o, index) => {
       const keys = Object.keys(o)
       const has_queuing = keys.includes('queuing_unit')
@@ -905,6 +962,9 @@ function main({queuing, label, new_obj}) {
       const item = {
         n: o.name
       }
+      if (country.length > 0)  item['co'] = by_id[o.id].country
+      if (province.length > 0)  item['pr'] = by_id[o.id].province
+      if (city.length > 0)  item['ci'] = by_id[o.id].city
       if (site.length > 0) {
         if (index === 0) {
           description += '    - **"m"：** 地点指标数组，每个对象包含：  \n'
