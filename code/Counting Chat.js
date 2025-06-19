@@ -554,7 +554,7 @@ function main({new_obj, site, token, acc_id}) {
 //#endregion
 //#region 处理widget数据
 
-function formatWidget(body, site, widget_unit, data) {
+function formatWidget(body, site, widget_unit, data, new_obj) {
   const res = !!body ? JSON.parse(body) : {}
   const obj = {}
   site.forEach(o => {
@@ -596,11 +596,52 @@ function formatWidget(body, site, widget_unit, data) {
   if (data.includes('turn_in_rate')) {
     format(res?.['analytic']?.[0]?.['data'], 'turn_in_rate', 'pin', 100)
   }
+  let res_obj = {}
+  const has_queuing = Array.from(new_obj?.data).includes('queuing')
+  if (!!new_obj?.is_time && !new_obj?.is_site && !has_queuing) {
+    res_obj['all'] = {
+      name: 'all',
+      id: 'all',
+      rk: 'all',
+    }
+    Object.values(obj).forEach(site => {
+      Object.keys(Object(site)).forEach(key => {
+        if (!['name', 'id', 'rk'].includes(key)) {
+          if (!res_obj['all'][key]) {
+            res_obj['all'][key] = []
+          }
+          Array.from(site[key]).forEach((value, index) => {
+            const old = res_obj['all'][key][index] ?? null
+            res_obj['all'][key][index] = old === null ? value : (old + (value ?? 0))
+          })
+        }
+      })
+    })
+    return res_obj
+  }
+  if (!new_obj?.is_time && !!new_obj?.is_site && !has_queuing) {
+    Object.values(obj).forEach(site => {
+      res_obj[site.id] = {
+        name: site.name,
+        id: site.id,
+        rk: site.rk,
+      }
+      Object.keys(Object(site)).forEach(key => {
+        if (!['name', 'id', 'rk'].includes(key)) {
+          const sum = Array.from(site[key]).reduce((s, o) => {
+            return s === null ? o : (s + (o ?? 0))
+          }, null)
+          res_obj[site.id][key] = [sum]
+        }
+      })
+    })
+    return res_obj
+  }
   return obj
 }
-function main({site, body, data, widget_unit}) {
+function main({site, body, data, widget_unit, new_obj}) {
   site = JSON.parse(site)
-  const obj = formatWidget(body, site, widget_unit, data)
+  const obj = formatWidget(body, site, widget_unit, data, new_obj)
   return {
     widget: JSON.stringify(Object.values(obj))
   }
@@ -640,7 +681,7 @@ function getDivision(target, data, rate = 1) {
     return division(target[k], v, rate)
   })
 }
-function formatPos(label, output, site, data, widget_unit) {
+function formatPos(label, output, site, data, widget_unit, new_obj) {
   const obj = {}
   const label_obj = {}
   label.forEach((v, k) => {
@@ -654,36 +695,91 @@ function formatPos(label, output, site, data, widget_unit) {
       item_count: Array(label.length).fill(0),
     }
   })
-  Array.isArray(output) && output.forEach(str => {
-    const body = JSON.parse(str)
-    Array.isArray(body?.datas) && body.datas.forEach(pos => {
-      Array.isArray(pos?.retrived) && pos.retrived.forEach(o => {
-        const date_time = new Date(o.date_time)
-        let text = ''
-        switch (widget_unit) {
-          case 'hh':
-            text = format(date_time, true, true)
-            break
-          case 'dd':
-            text = format(date_time)
-            break
-          case 'ww':
-            text = getDateOfWeek(date_time)
-            break
-          case 'mm':
-            text = format(date_time, false)
-            break
-          case 'yyyy':
-            text = date_time.getFullYear()
-            break
-        }
-        const index = label_obj[text]
-        obj[pos.rk].item_count[index] += parseFloat(o.item_count)
-        obj[pos.rk].total_amount[index] += parseFloat(o.total_amount)
-        obj[pos.rk].transaction_count[index] += parseFloat(o.transaction_count)
+  const has_queuing = Array.from(new_obj?.data).includes('queuing')
+  if (!!new_obj?.is_time && !new_obj?.is_site && !has_queuing) {
+    Array.isArray(output) && output.forEach(str => {
+      const body = JSON.parse(str)
+      Array.isArray(body?.datas) && body.datas.forEach(pos => {
+        Array.isArray(pos?.retrived) && pos.retrived.forEach(o => {
+          const date_time = new Date(o.date_time)
+          let text = ''
+          switch (widget_unit) {
+            case 'hh':
+              text = format(date_time, true, true)
+              break
+            case 'dd':
+              text = format(date_time)
+              break
+            case 'ww':
+              text = getDateOfWeek(date_time)
+              break
+            case 'mm':
+              text = format(date_time, false)
+              break
+            case 'yyyy':
+              text = date_time.getFullYear()
+              break
+          }
+          const index = label_obj[text]
+          obj['all'].item_count[index] += parseFloat(o.item_count)
+          obj['all'].total_amount[index] += parseFloat(o.total_amount)
+          obj['all'].transaction_count[index] += parseFloat(o.transaction_count)
+        })
       })
     })
-  })
+  }
+  else if (!new_obj?.is_time && !!new_obj?.is_site && !has_queuing) {
+    site.forEach(o => {
+      obj[o.rk] = {
+        ...o,
+        total_amount: [0],
+        transaction_count: [0],
+        item_count: [0],
+      }
+    })
+    Array.isArray(output) && output.forEach(str => {
+      const body = JSON.parse(str)
+      Array.isArray(body?.datas) && body.datas.forEach(pos => {
+        Array.isArray(pos?.retrived) && pos.retrived.forEach(o => {
+          obj[pos.rk].item_count[0] += parseFloat(o.item_count)
+          obj[pos.rk].total_amount[0] += parseFloat(o.total_amount)
+          obj[pos.rk].transaction_count[0] += parseFloat(o.transaction_count)
+        })
+      })
+    })
+  }
+  else {
+    Array.isArray(output) && output.forEach(str => {
+      const body = JSON.parse(str)
+      Array.isArray(body?.datas) && body.datas.forEach(pos => {
+        Array.isArray(pos?.retrived) && pos.retrived.forEach(o => {
+          const date_time = new Date(o.date_time)
+          let text = ''
+          switch (widget_unit) {
+            case 'hh':
+              text = format(date_time, true, true)
+              break
+            case 'dd':
+              text = format(date_time)
+              break
+            case 'ww':
+              text = getDateOfWeek(date_time)
+              break
+            case 'mm':
+              text = format(date_time, false)
+              break
+            case 'yyyy':
+              text = date_time.getFullYear()
+              break
+          }
+          const index = label_obj[text]
+          obj[pos.rk].item_count[index] += parseFloat(o.item_count)
+          obj[pos.rk].total_amount[index] += parseFloat(o.total_amount)
+          obj[pos.rk].transaction_count[index] += parseFloat(o.transaction_count)
+        })
+      })
+    })
+  }
   return Object.values(obj).map(o => {
     const data_obj = {}
     if (data.includes('traffic')) {
@@ -718,10 +814,10 @@ function formatPos(label, output, site, data, widget_unit) {
     }
   })
 }
-function main({label, output, widget, data, widget_unit}) {
+function main({label, output, widget, data, widget_unit, new_obj}) {
   label = Object.keys(label)
   widget = JSON.parse(widget)
-  const res = formatPos(label, output, widget, data, widget_unit)
+  const res = formatPos(label, output, widget, data, widget_unit, new_obj)
   return {
     pos: JSON.stringify(res)
   }
