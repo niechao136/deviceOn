@@ -111,7 +111,7 @@ function main({text, llm_obj, site_name, query}) {
       break
   }
   let reply = ''
-  const lang = new_obj?.lang
+  const lang = String(new_obj?.lang_cn).trim() === String(query).trim() ? String(new_obj?.lang) : 'zh-TW'
   const predict = !!new_obj?.predict
   if (predict) {
     const list = Array.isArray(new_obj?.site) ? Array.from(new_obj.site) : []
