@@ -11,6 +11,7 @@ function main({body, llm_obj}) {
       province: o.province,
       city: o.city,
       country: o.country,
+      address: o.address,
       sensor_ids: o?.sensors?.filter(s => s?.device_type.toLowerCase() === 'v-pos')
         ?.map(s => s?.sensor_id) ?? []
     }
@@ -1009,6 +1010,7 @@ function main({queuing, label, new_obj, site}) {
     if (country.length > 0) site_head.push('国家')
     if (province.length > 0) site_head.push('区域一')
     if (city.length > 0) site_head.push('区域二')
+    if (!!new_obj?.need_address) site_head.push('地址')
     const head = site_head.concat(site_keys.map(o => i18n_key[o]))
     const body = output.map(o => {
       // const obj = { '地点': o.name }
@@ -1030,10 +1032,54 @@ function main({queuing, label, new_obj, site}) {
       if (country.length > 0) site_data.push(by_id[o.id].country)
       if (province.length > 0) site_data.push(by_id[o.id].province)
       if (city.length > 0) site_data.push(by_id[o.id].city)
+      if (!!new_obj?.need_address) site_data.push(by_id[o.id].address)
       return site_data.concat(data.map(o => o ?? 'null'))
     })
     // const markdown = arrayToMarkdownTable([head].concat(body))
     // const markdown = JSON.stringify(body, null, 2)
+    const markdown = array2DToCSV([head].concat(body))
+    const indentedTable = markdown
+      .split('\n')             // 按行拆分
+      .map(line => '    ' + line) // 每行前添加4个空格
+      .join('\n') + '\n'             // 再拼接回来
+    prompts += '    ```csv\n'
+    prompts += indentedTable
+    prompts += '    ```\n'
+  }
+  else if (!has_queuing) {
+    const head = ['时间']
+    const data = {}
+    label.forEach(o => {
+      data[o] = {}
+      output.forEach(v => {
+        site_keys.forEach(k => {
+          data[o][v.id + k] = null
+        })
+      })
+    })
+    output.forEach(o => {
+      site_keys.forEach(k => {
+        head.push(`${o.name}: ${i18n_key[k]}`)
+        if (Array.isArray(o?.[k])) {
+          label.forEach((l, i) => {
+            if (data[l][o.id + k] === null) {
+              data[l][o.id + k] = o[k][i]
+            } else {
+              data[l][o.id + k] += (o[k][i] ?? 0)
+            }
+          })
+        }
+      })
+    })
+    const body = label.map(o => {
+      const arr = []
+      output.forEach(v => {
+        site_keys.forEach(k => {
+          arr.push(data[o][v.id + k] ?? 'null')
+        })
+      })
+      return [o].concat(arr)
+    })
     const markdown = array2DToCSV([head].concat(body))
     const indentedTable = markdown
       .split('\n')             // 按行拆分
