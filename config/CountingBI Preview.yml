@@ -9,13 +9,9 @@ dependencies:
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
-- current_identifier: null
-  type: marketplace
-  value:
     marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.12@a8d5448083aededa394d5940f878f6151f4a472e77766222e654840c74d10287
 kind: app
-version: 0.2.0
+version: 0.3.0
 workflow:
   conversation_variables:
   - description: ''
@@ -72,65 +68,6 @@ workflow:
       voice: ''
   graph:
     edges:
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: start
-        targetType: question-classifier
-      id: 1745890925820-source-1745891042342-target
-      source: '1745890925820'
-      sourceHandle: source
-      target: '1745891042342'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: question-classifier
-        targetType: llm
-      id: 1745891042342-1-llm-target
-      source: '1745891042342'
-      sourceHandle: '1'
-      target: llm
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: llm
-        targetType: code
-      id: llm-source-1745891142262-target
-      source: llm
-      sourceHandle: source
-      target: '1745891142262'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: code
-        targetType: code
-      id: 1745891142262-source-1745891200195-target
-      source: '1745891142262'
-      sourceHandle: source
-      target: '1745891200195'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: question-classifier
-        targetType: code
-      id: 1745891042342-2-1745891278896-target
-      source: '1745891042342'
-      sourceHandle: '2'
-      target: '1745891278896'
-      targetHandle: target
-      type: custom
-      zIndex: 0
     - data:
         isInIteration: false
         isInLoop: false
@@ -302,36 +239,12 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: if-else
-        targetType: code
-      id: 1745893881007-false-1745894339597-target
-      source: '1745893881007'
-      sourceHandle: 'false'
-      target: '1745894339597'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: code
         targetType: llm
       id: 1745894339597-source-1745894395713-target
       source: '1745894339597'
       sourceHandle: source
       target: '1745894395713'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: code
-        targetType: answer
-      id: 1745894586238-source-1745894659883-target
-      source: '1745894586238'
-      sourceHandle: source
-      target: '1745894659883'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -568,23 +481,150 @@ workflow:
       zIndex: 0
     - data:
         isInLoop: false
-        sourceType: llm
+        sourceType: if-else
         targetType: code
-      id: 1745894259507-source-1745894586238-target
-      source: '1745894259507'
-      sourceHandle: source
-      target: '1745894586238'
+      id: 1745893881007-e9b9e8d5-69b2-4895-9d3f-1261a13e7601-1745894339597-target
+      source: '1745893881007'
+      sourceHandle: e9b9e8d5-69b2-4895-9d3f-1261a13e7601
+      target: '1745894339597'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1745893881007-false-1747819187551-target
+      source: '1745893881007'
+      sourceHandle: 'false'
+      target: '1747819187551'
       targetHandle: target
       type: custom
       zIndex: 0
     - data:
         isInLoop: false
         sourceType: llm
-        targetType: code
-      id: 1745894395713-source-1745894586238-target
+        targetType: answer
+      id: llm-source-answer-target
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1745894259507-source-1745894659883-target
+      source: '1745894259507'
+      sourceHandle: source
+      target: '1745894659883'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1745894395713-source-1747876778527-target
       source: '1745894395713'
       sourceHandle: source
-      target: '1745894586238'
+      target: '1747876778527'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1747819187551-source-1747876799700-target
+      source: '1747819187551'
+      sourceHandle: source
+      target: '1747876799700'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1745891042342-1-1745891278896-target
+      source: '1745891042342'
+      sourceHandle: '1'
+      target: '1745891278896'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1747962829205-source-1747962838048-target
+      source: '1747962829205'
+      sourceHandle: source
+      target: '1747962838048'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1745890925820-source-1747963363573-target
+      source: '1745890925820'
+      sourceHandle: source
+      target: '1747963363573'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1747963363573-true-1745891042342-target
+      source: '1747963363573'
+      sourceHandle: 'true'
+      target: '1745891042342'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1747963363573-false-1745891278896-target
+      source: '1747963363573'
+      sourceHandle: 'false'
+      target: '1745891278896'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1745891042342-2-llm-target
+      source: '1745891042342'
+      sourceHandle: '2'
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: code
+      id: 1745891042342-1747962721291-1749434630964-target
+      source: '1745891042342'
+      sourceHandle: '1747962721291'
+      target: '1749434630964'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -592,23 +632,11 @@ workflow:
         isInIteration: false
         isInLoop: false
         sourceType: code
-        targetType: assigner
-      id: 1745891200195-source-1745921202315-target
-      source: '1745891200195'
+        targetType: llm
+      id: 1749434630964-source-1747962829205-target
+      source: '1749434630964'
       sourceHandle: source
-      target: '1745921202315'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: assigner
-        targetType: answer
-      id: 1745921202315-source-answer-target
-      source: '1745921202315'
-      sourceHandle: source
-      target: answer
+      target: '1747962829205'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -653,10 +681,10 @@ workflow:
       id: '1745890925820'
       position:
         x: 30
-        y: 297
+        y: 300
       positionAbsolute:
         x: 30
-        y: 297
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -664,10 +692,8 @@ workflow:
       width: 244
     - data:
         context:
-          enabled: true
-          variable_selector:
-          - sys
-          - query
+          enabled: false
+          variable_selector: []
         desc: ''
         model:
           completion_params:
@@ -678,13 +704,49 @@ workflow:
         prompt_template:
         - id: c8006c1b-4c06-4368-829d-32a4d28071e6
           role: system
-          text: "# 翻译指令\n\n## 输入问题：\n{{#context#}}\n\n## 处理流程\n\n1. **语言检测**  \n \
-            \  自动检测用户输入问题的源语言类型。\n\n2. **定向翻译**  \n   将以下固定文本精准翻译为与输入问题相同的目标语言：  \n\
-            \   `\"我是研华人工智能，很高兴为您服务\"`\n   其中，\"研华\" 在简体中文保持原名称，在繁体中文翻译为 \"研華\"，其他所有语言统一译为\
-            \ \"Advantech\"\n\n3. **格式要求**\n    - 仅输出翻译结果，无需添加解释或标注\n    - 保持原有语义完整性和礼貌语气\n\
-            \    - 适应目标语言的文化表达习惯\n\n4. **错误处理**  \n   若语言检测失败，默认翻译为英语版本\n\n\n"
+          text: '你是一个精准的翻译引擎，请根据以下规则完成翻译任务：
+
+
+            💡 任务说明：无论用户说什么，你都需要根据用户的语言，将固定句子 「我是研华人工智能，很高兴为您服务」翻译为用户的语言版本。
+
+
+            📌 翻译规则：
+
+            - 如果用户语言是 **简体中文**，品牌名保持为“研华”，翻译为简体中文；
+
+            - 如果用户语言是 **繁體中文**，品牌名替换为“研華”，翻译为繁體中文；
+
+            - 如果用户语言是 **其他语言**，品牌名替换为“Advantech”，翻译为用户语言（必须是用户语言，不得默认英文）。
+
+
+            📌 输出要求：
+
+            - **仅输出翻译后的完整句子**（不得包含解释、标签或其他说明文字）
+
+            - 语气专业、商务、清晰
+
+            - 必须使用用户输入的语言作为目标语言
+
+
+            ✅ 示例：
+
+            用户：你是谁
+
+            [检测到简体中文]
+
+            系统：我是研华人工智能，很高兴为您服务
+
+
+            用户：Who are you
+
+            [检测到英语]
+
+            系统：I am Advantech AI, pleased to assist you'
+        - id: ef1eb47f-5dbb-4e27-9898-5ad69151d0f4
+          role: user
+          text: '{{#sys.query#}}'
         selected: false
-        title: 元信息类问题回答
+        title: 元信息问题回答
         type: llm
         variables: []
         vision:
@@ -692,18 +754,18 @@ workflow:
       height: 90
       id: llm
       position:
-        x: 638
-        y: 297
+        x: 942
+        y: 464
       positionAbsolute:
-        x: 638
-        y: 297
+        x: 942
+        y: 464
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        answer: '{{#1745891200195.text#}}'
+        answer: '{{#llm.text#}}'
         desc: ''
         selected: false
         title: 直接回复
@@ -712,11 +774,11 @@ workflow:
       height: 105
       id: answer
       position:
-        x: 1871.4285714285716
-        y: 139.64285714285705
+        x: 1246
+        y: 464
       positionAbsolute:
-        x: 1871.4285714285716
-        y: 139.64285714285705
+        x: 1246
+        y: 464
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -725,20 +787,25 @@ workflow:
     - data:
         classes:
         - id: '1'
-          name: 元信息类
+          name: 业务问题
         - id: '2'
-          name: 其他类
+          name: 元信息问题
+        - id: '1747962721291'
+          name: 其他问题
         desc: ''
-        instruction: '请将问题归类为：元信息类、其他类。
-
-          元信息类包含关键词：["你是谁", "模型", "功能", "训练", "原理", "开发者","引擎","深度求索","DeepSeek","deepseek","OpenAI","ChatGPT","openai","chatgpt"]'
+        instruction: "你是一个智能问题分类器，负责将用户提出的问题准确地归类为以下三类之一：\n\n1. **业务问题**：涉及与门店或地点相关的业务数据的查询、分析、排序或预测。这些数据包括但不限于：\n\
+          \   - 来店人数、店外人数、进店率\n   - 营业额、交易数、客单价\n   - 转化率、客单量、排队人数、排队时长\n   - 对上述任意指标的历史查询、未来趋势预测、排名、同比环比分析等\n\
+          \   - 资料检查相关问题\n\n2. **元信息问题**：关于AI身份/背景/开发者等信息的问题：\n   - 包含关键词：[\"你是谁\"\
+          , \"模型\", \"功能\", \"训练\", \"原理\", \"开发者\",\"引擎\",\"深度求索\",\"DeepSeek\",\"\
+          deepseek\",\"OpenAI\",\"ChatGPT\",\"openai\",\"chatgpt\"]\n\n3. **其他问题**：所有不属于上述两类的问题，包括但不限于：\n\
+          \    - 闲聊、模糊请求、无上下文的问题；"
         instructions: ''
         model:
           completion_params:
             temperature: 0
           mode: chat
-          name: deepseek-r1:14b
-          provider: langgenius/ollama/ollama
+          name: gpt-4o
+          provider: langgenius/azure_openai/azure_openai
         query_variable_selector:
         - '1745890925820'
         - sys.query
@@ -748,82 +815,15 @@ workflow:
         type: question-classifier
         vision:
           enabled: false
-      height: 172
+      height: 210
       id: '1745891042342'
       position:
-        x: 334
-        y: 297
+        x: 638
+        y: 444
       positionAbsolute:
-        x: 334
-        y: 297
-      selected: true
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        code: "def case_insensitive_replace(text, old, new):\n    lower_text = text.lower()\
-          \  # 转换为小写以进行匹配\n    lower_old = old.lower()    # 目标字符串也转换为小写\n    result\
-          \ = []\n    \n    i = 0\n    while i < len(text):\n        if lower_text[i:i+len(old)]\
-          \ == lower_old:\n            result.append(new)  # 替换为新字符串\n           \
-          \ i += len(old)  # 跳过已匹配的部分\n        else:\n            result.append(text[i])\
-          \  # 保留原字符\n            i += 1\n\n    return ''.join(result)\n\ndef main(arg1:\
-          \ str) -> dict:\n    result = case_insensitive_replace(arg1, \"deepseek\"\
-          , \"Advantech\")\n    result1 = case_insensitive_replace(result, \"深度求索\"\
-          , \"研华科技\")\n    return {\n        \"result\": result1,\n    }\n"
-        code_language: python3
-        desc: ''
-        outputs:
-          result:
-            children: null
-            type: string
-        selected: false
-        title: 关键字替换
-        type: code
-        variables:
-        - value_selector:
-          - llm
-          - text
-          variable: arg1
-      height: 54
-      id: '1745891142262'
-      position:
-        x: 942
-        y: 297
-      positionAbsolute:
-        x: 942
-        y: 297
+        x: 638
+        y: 444
       selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        code: "\n\nfunction main({result}) {\n    return {\n        text: String(result).replaceAll(/<think>[\\\
-          s\\S]*?<\\/think>/g, '')\n            .replaceAll(/<details[\\s\\S]*?<\\\
-          /details>/g, '')\n    }\n}\n"
-        code_language: javascript
-        desc: ''
-        outputs:
-          text:
-            children: null
-            type: string
-        selected: false
-        title: 删除思考过程
-        type: code
-        variables:
-        - value_selector:
-          - '1745891142262'
-          - result
-          variable: result
-      height: 54
-      id: '1745891200195'
-      position:
-        x: 1246
-        y: 297
-      positionAbsolute:
-        x: 1246
-        y: 297
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -853,11 +853,11 @@ workflow:
       height: 54
       id: '1745891278896'
       position:
-        x: 638
-        y: 442
+        x: 942
+        y: 318
       positionAbsolute:
-        x: 638
-        y: 442
+        x: 942
+        y: 318
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -895,38 +895,54 @@ workflow:
       height: 143
       id: '1745891316938'
       position:
-        x: 942
-        y: 442
+        x: 1246
+        y: 281
       positionAbsolute:
-        x: 942
-        y: 442
+        x: 1246
+        y: 281
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        code: "function main({body, llm_obj}) {\n  const date = new Date()\n  const\
+        code: "\nfunction main({body, llm_obj}) {\n  const date = new Date()\n  const\
           \ result = JSON.parse(body)\n  const site = result?.['stores']?.map(o =>\
           \ {\n    return {\n      store_id: o.store_id,\n      store_name: o.store_name,\n\
-          \      register_key: o.register_key,\n      sensor_ids: o?.sensors?.filter(s\
-          \ => s?.device_type.toLowerCase() === 'v-pos')\n        ?.map(s => s?.sensor_id)\
-          \ ?? []\n    }\n  }) ?? []\n  const name = site.map(o => o.store_name)\n\
-          \  let need_llm = 1\n  switch (llm_obj?.step) {\n    case 'site_enter':\n\
-          \      need_llm = 0\n      break\n    case 'date_enter':\n      need_llm\
-          \ = 1\n      break\n    case 'data_enter':\n      need_llm = 1\n      break\n\
-          \  }\n  return {\n    need_llm,\n    site: JSON.stringify(site),\n    site_name:\
-          \ JSON.stringify(name, null, 2),\n    date: `${date.getFullYear()}/${date.getMonth()\
-          \ + 1}/${date.getDate()}`\n  }\n}"
+          \      register_key: o.register_key,\n      province: o.province,\n    \
+          \  city: o.city,\n      country: o.country,\n      address: o.address,\n\
+          \      sensor_ids: o?.sensors?.filter(s => s?.device_type.toLowerCase()\
+          \ === 'v-pos')\n        ?.map(s => s?.sensor_id) ?? []\n    }\n  }) ?? []\n\
+          \  const province = Array.from(new Set(site.map(o => o.province).filter(o\
+          \ => !!o)))\n  const city = Array.from(new Set(site.map(o => o.city).filter(o\
+          \ => !!o)))\n  const country = Array.from(new Set(site.map(o => o.country).filter(o\
+          \ => !!o)))\n  const name = site.map(o => o.store_name)\n  let need_llm\
+          \ = 1\n  switch (llm_obj?.step) {\n    case 'site_enter':\n      need_llm\
+          \ = 0\n      break\n    case 'date_enter':\n      need_llm = 1\n      break\n\
+          \    case 'data_enter':\n      need_llm = 1\n      break\n  }\n  return\
+          \ {\n    need_llm,\n    site: JSON.stringify(site),\n    site_name: JSON.stringify(name,\
+          \ null, 2),\n    province: JSON.stringify(province, null, 2),\n    city:\
+          \ JSON.stringify(city, null, 2),\n    country: JSON.stringify(country, null,\
+          \ 2),\n    date: `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`\n\
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
+          city:
+            children: null
+            type: string
+          country:
+            children: null
+            type: string
           date:
             children: null
             type: string
           need_llm:
             children: null
             type: number
+          province:
+            children: null
+            type: string
           site:
             children: null
             type: string
@@ -948,11 +964,11 @@ workflow:
       height: 54
       id: '1745891380321'
       position:
-        x: 1246
-        y: 442
+        x: 1550
+        y: 317
       positionAbsolute:
-        x: 1246
-        y: 442
+        x: 1550
+        y: 317
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -974,45 +990,61 @@ workflow:
         prompt_template:
         - id: 7e647ec9-286e-42af-b52e-0ca25295378c
           role: system
-          text: "# 信息提取提示词\n\n## 输入数据\n- query: `{{#context#}}`\n\n---\n\n## 语言确定\n\
-            请整体分析并识别{query}文本的主要语言确定`lang`值；**请注意区分简体中文与繁體中文，在区分简体中文与繁體中文时，只要文本中存在一个繁体，就将文本识别为繁体**：\n\
-            - 简体中文 → `zh-CN`\n- 繁體中文 → `zh-TW`\n- 英文 → `en-US`\n- 日文 → `ja-JP`\n-\
-            \ 韩文 → `ko-KR`\n\n---\n\n## 预测分析\n- 如果{query}涉及到预测的相关描述，设置 `predict =\
-            \ true`\n- 如果{query}涉及到预测的具体时间，则根据当前时间（`{{#1745891380321.date#}}`），计算出预测时间的开始日期和结束日期，并设置\
-            \ `predict_start = 开始日期（格式：YYYY/MM/DD）; predict_end = 结束日期（格式：YYYY/MM/DD）`\n\
-            - 如果{query}提及到预测的参考条件，设置 `history = true`\n- 如果{query}涉及到参考条件的具体时间，则根据当前时间（`{{#1745891380321.date#}}`），计算出参考条件的开始日期和结束日期，并设置\
-            \ `history_start = 开始日期（格式：YYYY/MM/DD）; history_end = 结束日期（格式：YYYY/MM/DD）`\n\
-            \n---\n\n## 数据类型分析\n请根据{query}文本内容，确定数据类型数组(`data`)，若无匹配则为空数组\n- 如果{query}涉及到来店人数的相关描述，如来店人数、Visitor、Traffic等，则将`traffic`加入`data`\n\
-            - 如果{query}涉及到店外人数的相关描述，如店外人数、Outside Traffic等，则将`outside`加入`data`\n-\
-            \ 如果{query}涉及到进店率的相关描述，如进店率、Turn in Rate等，则将`turn_in_rate`加入`data`\n-\
-            \ 如果{query}涉及到营业额的相关描述，如营业额、Sales等，则将`total_amount`加入`data`\n- 如果{query}涉及到交易数的相关描述，如交易数、Transaction等，则将`transaction_count`加入`data`\n\
-            - 如果{query}涉及到客单价的相关描述，如客单价、Average Transaction Value等，则将`avg_amount`加入`data`\n\
-            - 如果{query}涉及到转化率的相关描述，如转换率、Conversion Rate等，则将`convert_rate`加入`data`\n\
-            - 如果{query}涉及到客单量的相关描述，如客单量、Average Basket Size等，则将`avg_item`加入`data`\n\
-            - 如果{query}涉及到排队的相关描述，如排队人数、排队时间、Queuing等，则将`queuing`加入`data`\n\n---\n\
-            \n## 时间分析\n请根据{query}文本内容，确定问题需求数据的开始日期(`start`)、结束日期(`end`)、时间单位(`unit`)\n\
-            - 请根据当前时间（`{{#1745891380321.date#}}`），计算出需求数据的开始日期和结束日期，并设置 `start = 开始日期（格式：YYYY/MM/DD）;\
-            \ end = 结束日期（格式：YYYY/MM/DD）`\n- 请根据问题需求数据的时间单位，设置`unit`：\n    - `年` →\
-            \ `yyyy`\n    - `月` → `mm`\n    - `周` → `ww`\n    - `日` → `dd`\n    -\
-            \ `小时` → `hh`\n\n---\n\n## 地点分析\n请根据{query}文本内容，确定涉及地点数组(`site`)，若无匹配则为空数组\n\
-            - 在{query}文本中**精确匹配** `{{#1745891380321.site_name#}}` 内的任一元素，将所有匹配项存入\
-            \ `site`\n\n---\n\n## 语言翻译\n请根据`lang`值，将下列语句翻译到`lang`对应的语言\n- 翻译\"请输入预测的地点\"\
-            ，将结果存入`site_enter`\n- 翻译\"没有找到匹配的地点，请重新提问\"，将结果存入`site_error`\n- 翻译\"\
-            请输入预测的日期(请选择未来7天内的日期)\"，将结果存入`date_enter`\n- 翻译\"预测的日期应在未来7天之内，请重新提问\"\
-            ，将结果存入`date_error`\n- 翻译\"请输入预测的数据类型\"，将结果存入`data_enter`\n- 翻译\"没有找到匹配的数据类型，请重新提问\"\
-            ，将结果存入`data_error`\n\n---\n\n## 输出格式\n输出 JSON 格式必须符合以下结构：\n```json\n{\n\
-            \  \"lang\": \"<zh-CN | zh-TW | ko-KR | ja-JP | en-US>\",\n  \"lang_reason\"\
-            : \"<简要解释语言识别的依据>\",\n  \"predict\": \"<boolean>\",\n  \"predict_start\"\
-            : \"<日期字符串，格式 YYYY/MM/DD>\",\n  \"predict_end\": \"<日期字符串，格式 YYYY/MM/DD>\"\
-            ,\n  \"history\": \"<boolean>\",\n  \"history_start\": \"<日期字符串，格式 YYYY/MM/DD>\"\
-            ,\n  \"history_end\": \"<日期字符串，格式 YYYY/MM/DD>\",\n  \"data\": \"<array，traffic\
-            \ | outside | turn_in_rate | total_amount | transaction_count | avg_amount\
-            \ | convert_rate | avg_item | queuing>\",\n  \"start\": \"<日期字符串，格式 YYYY/MM/DD>\"\
-            ,\n  \"end\": \"<日期字符串，格式 YYYY/MM/DD>\",\n  \"unit\": \"<string，yyyy |\
-            \ mm | ww | dd>\",\n  \"site\": \"<array>\",\n  \"error\": {\n    \"site_enter\"\
+          text: "\n# 信息提取提示词\n\n## 输入\n- query: {{#context#}}\n\n---\n\n## 1. 语言识别（字段：`lang`）\n\
+            \n请输出以下字段：\n- `lang`: 使用 BCP 47 格式的语言代码（如 `zh-TW`, `zh-CN`, `en` 等）\n\
+            - `lang_cn`: 使用 OpenCC (t2s) 将 query 转换为简体后的结果\n- `lang_reason`: 语言判断说明\n\
+            \n**判断规则：**\n\n1. 若 `lang_cn !== query`（即 query 含繁体字），**直接输出 `lang = zh-TW`，不要使用自动语言判断**\n\
+            2. 否则，执行自动语言识别\n\n---\n\n## 2. 预测与历史判断\n\n### 预测字段：\n当 query 同时满足以下**全部条件**时，才判定为预测问题（`predict\
+            \ = true`），并输出预测区间：`predict_start` ~ `predict_end`：\n1. **明确出现预测关键词**（如「预测」「预估」等，**不包括「可能」「适合」「建议」等弱意图词**）\n\
+            2. 预测区间需明确，**且完整预测区间严格晚于 {{#1745891380321.date#}}**；\n\n### 历史字段：\n仅在\
+            \ predict = true 时才进行此项判断：\n- 若提及「历史数据」「根据以往数据」等表明参考区间的关键词，则 `history\
+            \ = true`，并输出参考区间：`history_start` ~ `history_end`\n\n输出说明字段：`predict_reason`、`history_reason`\n\
+            \n---\n\n## 3. 数据类型识别（字段：`data`）\n\n请判断 query 涉及的数据类型（可多选）：\n\n| 字段名 \
+            \                | 关键词示例                         |\n|---------------------|-------------------------------|\n\
+            | `traffic`           | 来店人数、访客数、顾客数、Visitor、Traffic  |\n| `outside` \
+            \          | 店外人数、Outside                  |\n| `turn_in_rate`      |\
+            \ 进店率、Turn in Rate              |\n| `total_amount`      | 营业额、销售额、Sales\
+            \                 |\n| `transaction_count` | 交易数、Transaction         \
+            \      |\n| `avg_amount`        | 客单价、Average Transaction Value |\n| `convert_rate`\
+            \      | 转换率、Conversion Rate           |\n| `avg_item`          | 客单量、Average\
+            \ Basket Size       |\n| `queuing`           | 排队人数、排队时间、Queuing     \
+            \        |\n\n若无匹配 → 输出空数组 `[]`\n\n输出说明：`data_reason`\n\n---\n\n## 4.\
+            \ 时间识别\n\n请参考当前时间`{{#1745891380321.date#}}`并根据 query 中的时间信息，解析以下字段：\n\
+            - `start` / `end`（格式：YYYY/MM/DD）\n  - 提取时间范围\n  - 若含「去年同期」等表示比较的关键词，**请补全对比所需的全部时间段**\n\
+            \  - 输出的 `start` / `end` 应**涵盖所有涉及的时间段**\n- `unit`（最小时间粒度：`yyyy`, `mm`,\
+            \ `ww`, `dd`, `hh`）\n  - 若含「趋势」「变化」「波动」「长期平均」等表示时间序列趋势分析的关键词，**将时间粒度细化一级**\n\
+            \  - 若涉及「节日」「周末」「平时」「活动」「天气」等表示需要按天获取数据的关键词，应设置`unit = dd`\n\n\n输出说明：`time_reason`\n\
+            \n---\n\n## 5. 地点识别（`site`、`province`、`city`、`country`）\n\n1. 请根据以下字段列表，**精确匹配**\
+            \ query 中地点关键词：\n   - `site`：门店名（列表：{{#1745891380321.site_name#}}）\n \
+            \  - `province`：区域一（列表：{{#1745891380321.province#}}）\n   - `city`：区域二（列表：{{#1745891380321.city#}}）\n\
+            \   - `country`：国家名（列表：{{#1745891380321.country#}}）\n   - 未匹配则返回对应空数组\n\
+            2. 若 query 中包含「位置」「地址」等与地点地址有关的关键词 -> `need_address = true`\n3. 输出说明：`site_reason`\n\
+            \n---\n\n## 6. 聚合维度判断（字段：`is_time`, `is_site`）\n\n请判断 query 是否涉及**时间比较分析**或**地点比较分析**：\n\
+            \n- `is_time = true`：\n  - 若涉及**多个**「时间点」「时间段」之间的比较、分组或排行\n  - 若涉及「趋势」「变化」「波动」「长期平均」等表示需分析时间变化的关键词\n\
+            \  - 若涉及「节日」「周末」「平时」「活动」「天气」等表示需要按天获取数据的关键词\n\n- `is_site = true`：\n \
+            \ - 若涉及**多个**「地点」「门店」「区域」之间的比较、分组或排行\n  - 若涉及「哪个地点」「有地点」等表示需按地点分析数据的关键词\n\
+            \  - 若涉及「天气」等表示需要按地点获取数据的关键词\n\n输出说明字段：`is_time_reason`, `is_site_reason`\n\
+            \n---\n\n## 7. 错误提示翻译（字段：`error`）\n\n请将以下提示语翻译为 query 对应语言（根据 `lang`）：\n\
+            \n```json\n{\n  \"site_enter\": \"请输入预测的地点\",\n  \"site_error\": \"没有找到匹配的地点，请重新提问\"\
+            ,\n  \"date_enter\": \"请输入预测的日期(请选择未来7天内的日期)\",\n  \"date_error\": \"\
+            预测的日期应在未来7天之内，请重新提问\",\n  \"data_enter\": \"请输入预测的数据类型\",\n  \"data_error\"\
+            : \"没有找到匹配的数据类型，请重新提问\"\n}\n````\n\n---\n\n## 8. 输出 JSON\n\n```json\n\
+            {\n  \"lang\": \"<语言代码>\",\n  \"lang_reason\": \"<语言识别说明>\",\n  \"lang_cn\"\
+            : \"<转换为简体的文本>\",\n  \"predict\": <bool>,\n  \"predict_start\": \"<YYYY/MM/DD>\"\
+            ,\n  \"predict_end\": \"<YYYY/MM/DD>\",\n  \"predict_reason\": \"<预测识别说明>\"\
+            ,\n  \"history\": <bool>,\n  \"history_start\": \"<YYYY/MM/DD>\",\n  \"\
+            history_end\": \"<YYYY/MM/DD>\",\n  \"history_reason\": \"<参考历史识别说明>\"\
+            ,\n  \"data\": [\"traffic\", ...],\n  \"data_reason\": \"<数据类型识别说明>\"\
+            ,\n  \"start\": \"<YYYY/MM/DD>\",\n  \"end\": \"<YYYY/MM/DD>\",\n  \"\
+            unit\": \"<yyyy | mm | ww | dd | hh>\",\n  \"time_reason\": \"<时间识别说明>\"\
+            ,\n  \"site\": [\"<匹配的门店名>\", ...],\n  \"province\": [\"<匹配的区域一>\", ...],\n\
+            \  \"city\": [\"<匹配的区域二>\", ...],\n  \"country\": [\"<匹配的国家>\", ...],\n\
+            \  \"need_address\": <bool>,\n  \"site_reason\": \"<门店名、区域一、区域二、国家识别说明>\"\
+            ,\n  \"is_time\": <bool>,\n  \"is_time_reason\": \"<识别说明>\",\n  \"is_site\"\
+            : <bool>,\n  \"is_site_reason\": \"<识别说明>\",\n  \"error\": {\n    \"site_enter\"\
             : \"<string>\",\n    \"site_error\": \"<string>\",\n    \"date_enter\"\
             : \"<string>\",\n    \"date_error\": \"<string>\",\n    \"data_enter\"\
-            : \"<string>\",\n    \"data_error\": \"<string>\",\n  }\n}\n```\n\n---\n"
+            : \"<string>\",\n    \"data_error\": \"<string>\"\n  }\n}\n```\n\n---\n"
         - id: a279bf9b-88fb-471a-b2b3-5138105bd135
           role: user
           text: '{{#context#}}'
@@ -1025,18 +1057,18 @@ workflow:
       height: 90
       id: '1745891466552'
       position:
-        x: 1871.4285714285716
-        y: 316.7857142857143
+        x: 2146.8513016450024
+        y: 195.27987307357444
       positionAbsolute:
-        x: 1871.4285714285716
-        y: 316.7857142857143
+        x: 2146.8513016450024
+        y: 195.27987307357444
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        code: "\nfunction fm(num) {\n  return `${num > 9 ? '' : '0'}${num}`\n}\nfunction\
+        code: "function fm(num) {\n  return `${num > 9 ? '' : '0'}${num}`\n}\nfunction\
           \ format(date, show = true) {\n  return `${date.getFullYear()}/${fm(date.getMonth()\
           \ + 1)}${show ? ('/' + fm(date.getDate())) : ''}`\n}\nfunction isValidDate(dateString)\
           \ {\n  const date = new Date(dateString)\n  return !!dateString && date\
@@ -1064,7 +1096,7 @@ workflow:
           \ wed = getStartOfWeek(ed)\n      date.push(format(wsd))\n      date.push(format(wed))\n\
           \      while (!isSameDay(wsd, wed)) {\n        const start = new Date(wsd)\n\
           \        const monday = format(start)\n        start.setDate(start.getDate()\
-          \ + 6)\n        label.push(`${monday} - ${format(start)}`)\n        wsd.setDate(sd.getDate()\
+          \ + 6)\n        label.push(`${monday} - ${format(start)}`)\n        wsd.setDate(wsd.getDate()\
           \ + 7)\n      }\n      data_range = 'any'\n      data_unit = 'ww'\n    \
           \  break\n    case 'mm':\n      sd.setDate(1)\n      ed.setDate(1)\n   \
           \   ed.setMonth(ed.getMonth() + 1)\n      date.push(format(sd))\n      date.push(format(ed))\n\
@@ -1094,53 +1126,63 @@ workflow:
           \ + ' 00:00:00', format(ed) + ' 23:59:59']))\n  return periods\n}\nfunction\
           \ main({new_obj, site, token, acc_id}) {\n  const site_list = Array.from(JSON.parse(site))\n\
           \  const site_name = Array.isArray(new_obj?.site) ?  Array.from(new_obj?.site)\
-          \ : []\n  const store = site_list.filter(o => {\n    return site_name.length\
-          \ === 0 || site_name.includes(o.store_name)\n  })\n  const sources = store.map(o\
-          \ => {\n    return { target_id: o.store_id }\n  })\n  const rks = store.map(o\
-          \ => o.register_key)\n  const sensor_ids = store.reduce((arr, o) => arr.concat(o?.sensor_ids\
-          \ ?? []), [])\n  const store_ids = store.map(o => o.store_id)\n  const DATA\
-          \ = [\n    'traffic', 'outside', 'turn_in_rate', 'total_amount', 'transaction_count',\n\
-          \    'avg_amount', 'convert_rate', 'avg_item', 'queuing'\n  ]\n  const data\
-          \ = (Array.isArray(new_obj?.data) ? Array.from(new_obj?.data) : []).filter(o\
-          \ => DATA.includes(o))\n  const predict = !!new_obj?.['predict']\n  let\
-          \ widget_request = '', pos_request = [], queuing_request = [], weather_request\
-          \ = ''\n  let predict_request = '', space_request = '', label, weather_label\
-          \ = {}, widget_unit\n  const widget_base = {\n    analytic: [\n      {\n\
-          \        caption: '',\n        method: 'convert_rate',\n        preprocess_data:\
-          \ ['pin', 'crosscnt']\n      }\n    ],\n    date_display: 'specific',\n\
-          \    date_end: '',\n    folding_unit: '',\n    is_aggregate: false,\n  \
-          \  row_type: 'chart',\n    tags: [],\n    source: [\n      {\n        caption:\
-          \ '',\n        chart_type: ['line'],\n        monitor_type: 'ppc_store_entry',\n\
-          \        preprocess_data: ['pin'],\n        merge_type: 'none',\n      \
-          \  sources\n      },\n      {\n        caption: '',\n        chart_type:\
-          \ ['line'],\n        monitor_type: 'ppc_store_outside',\n        preprocess_data:\
-          \ ['crosscnt'],\n        merge_type: 'none',\n        sources\n      }\n\
-          \    ]\n  }\n  if (predict) {\n    widget_unit = 'dd'\n    const predict_start\
-          \ = String(new_obj?.['predict_start'])\n    const predict_end = String(new_obj?.['predict_end'])\n\
-          \    let history_start = String(new_obj?.['history_start'])\n    let history_end\
-          \ = String(new_obj?.['history_end'])\n    const history = !!new_obj?.['history']\n\
-          \    if (!history || !isValidDate(history_start) || !isValidDate(history_end))\
-          \ {\n      history_end = format(new Date())\n      const sd = new Date()\n\
-          \      sd.setFullYear(sd.getFullYear() - 1)\n      history_start = format(sd)\n\
-          \    }\n    const weather_base = {\n      analytic: [],\n      date_display:\
-          \ 'specific',\n      date_end: '',\n      folding_unit: '',\n      is_aggregate:\
-          \ false,\n      row_type: 'chart',\n      tags: [],\n      source: [\n \
-          \       {\n          caption: '',\n          chart_type: ['line'],\n   \
-          \       preprocess_type: 'weather',\n          preprocess_data: ['conditions'],\n\
-          \          merge_type: 'none',\n          sources\n        }\n      ]\n\
-          \    }\n    const history_widget = buildWidget(history_start, history_end,\
-          \ 'dd')\n    const predict_widget = buildWidget(predict_start, predict_end,\
-          \ 'dd')\n    label = history_widget.label\n    weather_label = predict_widget.label\n\
-          \    weather_request = JSON.stringify({\n      data_source: {\n        ...weather_base,\n\
-          \        ...history_widget.widget,\n      },\n      module_id: 0,\n    \
-          \  token: JSON.parse(token)\n    })\n    predict_request = JSON.stringify({\n\
-          \      data_source: {\n        ...weather_base,\n        ...predict_widget.widget,\n\
+          \ : []\n  const province = Array.isArray(new_obj?.province) ?  Array.from(new_obj?.province)\
+          \ : []\n  const city = Array.isArray(new_obj?.city) ?  Array.from(new_obj?.city)\
+          \ : []\n  const country = Array.isArray(new_obj?.country) ?  Array.from(new_obj?.country)\
+          \ : []\n  const store = site_list.filter(o => {\n    const mention_none\
+          \ = site_name.length === 0 && province.length === 0 && city.length === 0\
+          \ && country.length === 0\n    const mention_name = site_name.length > 0\
+          \ && site_name.includes(o.store_name)\n    const mention_province = province.length\
+          \ > 0 && province.includes(o.province)\n    const mention_city = city.length\
+          \ > 0 && city.includes(o.city)\n    const mention_country = country.length\
+          \ > 0 && country.includes(o.country)\n    return mention_none || mention_name\
+          \ || mention_province || mention_city || mention_country\n  })\n  const\
+          \ sources = store.map(o => {\n    return { target_id: o.store_id }\n  })\n\
+          \  const rks = store.map(o => o.register_key)\n  const sensor_ids = store.reduce((arr,\
+          \ o) => arr.concat(o?.sensor_ids ?? []), [])\n  const store_ids = store.map(o\
+          \ => o.store_id)\n  const DATA = [\n    'traffic', 'outside', 'turn_in_rate',\
+          \ 'total_amount', 'transaction_count',\n    'avg_amount', 'convert_rate',\
+          \ 'avg_item', 'queuing'\n  ]\n  const data = (Array.isArray(new_obj?.data)\
+          \ ? Array.from(new_obj?.data) : []).filter(o => DATA.includes(o))\n  const\
+          \ predict = !!new_obj?.['predict']\n  let widget_request = '', pos_request\
+          \ = [], queuing_request = [], weather_request = ''\n  let predict_request\
+          \ = '', space_request = '', label, weather_label = {}, widget_unit\n  const\
+          \ widget_base = {\n    analytic: [\n      {\n        caption: '',\n    \
+          \    method: 'convert_rate',\n        preprocess_data: ['pin', 'crosscnt']\n\
+          \      }\n    ],\n    date_display: 'specific',\n    date_end: '',\n   \
+          \ folding_unit: '',\n    is_aggregate: false,\n    row_type: 'chart',\n\
+          \    tags: [],\n    source: [\n      {\n        caption: '',\n        chart_type:\
+          \ ['line'],\n        monitor_type: 'ppc_store_entry',\n        preprocess_data:\
+          \ ['pin'],\n        merge_type: 'none',\n        sources\n      },\n   \
+          \   {\n        caption: '',\n        chart_type: ['line'],\n        monitor_type:\
+          \ 'ppc_store_outside',\n        preprocess_data: ['crosscnt'],\n       \
+          \ merge_type: 'none',\n        sources\n      }\n    ]\n  }\n  if (predict)\
+          \ {\n    widget_unit = 'dd'\n    const predict_start = String(new_obj?.['predict_start'])\n\
+          \    const predict_end = String(new_obj?.['predict_end'])\n    let history_start\
+          \ = String(new_obj?.['history_start'])\n    let history_end = String(new_obj?.['history_end'])\n\
+          \    const history = !!new_obj?.['history']\n    if (!history || !isValidDate(history_start)\
+          \ || !isValidDate(history_end)) {\n      history_end = format(new Date())\n\
+          \      const sd = new Date()\n      sd.setFullYear(sd.getFullYear() - 1)\n\
+          \      history_start = format(sd)\n    }\n    const weather_base = {\n \
+          \     analytic: [],\n      date_display: 'specific',\n      date_end: '',\n\
+          \      folding_unit: '',\n      is_aggregate: false,\n      row_type: 'chart',\n\
+          \      tags: [],\n      source: [\n        {\n          caption: '',\n \
+          \         chart_type: ['line'],\n          preprocess_type: 'weather',\n\
+          \          preprocess_data: ['conditions'],\n          merge_type: 'none',\n\
+          \          sources\n        }\n      ]\n    }\n    const history_widget\
+          \ = buildWidget(history_start, history_end, 'dd')\n    const predict_widget\
+          \ = buildWidget(predict_start, predict_end, 'dd')\n    label = history_widget.label\n\
+          \    weather_label = predict_widget.label\n    weather_request = JSON.stringify({\n\
+          \      data_source: {\n        ...weather_base,\n        ...history_widget.widget,\n\
           \      },\n      module_id: 0,\n      token: JSON.parse(token)\n    })\n\
-          \    if (data.includes('traffic') || data.includes('outside') || data.includes('turn_in_rate')\
-          \ || data.includes('convert_rate')) {\n      widget_request = JSON.stringify({\n\
-          \        data_source: {\n          ...widget_base,\n          ...history_widget.widget,\n\
-          \        },\n        module_id: 0,\n        token: JSON.parse(token)\n \
-          \     })\n    }\n    if (data.includes('total_amount') || data.includes('transaction_count')\
+          \    predict_request = JSON.stringify({\n      data_source: {\n        ...weather_base,\n\
+          \        ...predict_widget.widget,\n      },\n      module_id: 0,\n    \
+          \  token: JSON.parse(token)\n    })\n    if (data.includes('traffic') ||\
+          \ data.includes('outside') || data.includes('turn_in_rate') || data.includes('convert_rate'))\
+          \ {\n      widget_request = JSON.stringify({\n        data_source: {\n \
+          \         ...widget_base,\n          ...history_widget.widget,\n       \
+          \ },\n        module_id: 0,\n        token: JSON.parse(token)\n      })\n\
+          \    }\n    if (data.includes('total_amount') || data.includes('transaction_count')\
           \ || data.includes('avg_amount')\n      || data.includes('convert_rate')\
           \ || data.includes('avg_item')) {\n      const history_pos = buildPos(history_start,\
           \ history_end, 'dd')\n      pos_request = history_pos.periods.map(item =>\
@@ -1182,7 +1224,7 @@ workflow:
           \        })\n      })\n    }\n  }\n  return {\n    data,\n    predict: predict\
           \ ? 1 : 0,\n    site: JSON.stringify(store),\n    widget_unit,\n    weather_label,\n\
           \    label,\n    widget_request,\n    pos_request,\n    queuing_request,\n\
-          \    weather_request,\n    predict_request,\n    space_request,\n  }\n}\n"
+          \    weather_request,\n    predict_request,\n    space_request,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -1245,11 +1287,11 @@ workflow:
       height: 54
       id: '1745891539919'
       position:
-        x: 3070
-        y: 452.5
+        x: 3374
+        y: 300
       positionAbsolute:
-        x: 3070
-        y: 452.5
+        x: 3374
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1275,11 +1317,11 @@ workflow:
       height: 126
       id: '1745891724963'
       position:
-        x: 3374
-        y: 452.5
+        x: 3678
+        y: 300
       positionAbsolute:
-        x: 3374
-        y: 452.5
+        x: 3678
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1317,20 +1359,20 @@ workflow:
       height: 143
       id: '1745891908284'
       position:
-        x: 3689.4285714285706
-        y: 301.0714285714286
+        x: 3957
+        y: 162.9285714285715
       positionAbsolute:
-        x: 3689.4285714285706
-        y: 301.0714285714286
+        x: 3957
+        y: 162.9285714285715
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        code: "function formatWidget(body, site, widget_unit, data) {\n  const res\
-          \ = !!body ? JSON.parse(body) : {}\n  const obj = {}\n  site.forEach(o =>\
-          \ {\n    obj[o.store_id] = {\n      name: o.store_name,\n      id: o.store_id,\n\
+        code: "\nfunction formatWidget(body, site, widget_unit, data, new_obj) {\n\
+          \  const res = !!body ? JSON.parse(body) : {}\n  const obj = {}\n  site.forEach(o\
+          \ => {\n    obj[o.store_id] = {\n      name: o.store_name,\n      id: o.store_id,\n\
           \      rk: o.register_key\n    }\n  })\n  function format(arr, type, key,\
           \ rate = 1) {\n    arr?.forEach(o => {\n      if (!Array.isArray(obj[o.target_id][type]))\
           \ {\n        obj[o.target_id][type] = []\n      }\n      const row = o?.[key]?.row?.map(v\
@@ -1346,10 +1388,27 @@ workflow:
           \  if (data.includes('outside')) {\n    format(res?.['retrived']?.[1]?.['data'],\
           \ 'outside', 'crosscnt')\n  }\n  if (data.includes('turn_in_rate')) {\n\
           \    format(res?.['analytic']?.[0]?.['data'], 'turn_in_rate', 'pin', 100)\n\
-          \  }\n  return obj\n}\nfunction main({site, body, data, widget_unit}) {\n\
-          \  site = JSON.parse(site)\n  const obj = formatWidget(body, site, widget_unit,\
-          \ data)\n  return {\n    widget: JSON.stringify(Object.values(obj))\n  }\n\
-          }"
+          \  }\n  let res_obj = {}\n  const has_queuing = Array.from(new_obj?.data).includes('queuing')\n\
+          \  if (!!new_obj?.is_time && !new_obj?.is_site && !has_queuing) {\n    res_obj['all']\
+          \ = {\n      name: 'all',\n      id: 'all',\n      rk: 'all',\n    }\n \
+          \   Object.values(obj).forEach(site => {\n      Object.keys(Object(site)).forEach(key\
+          \ => {\n        if (!['name', 'id', 'rk'].includes(key)) {\n          if\
+          \ (!res_obj['all'][key]) {\n            res_obj['all'][key] = []\n     \
+          \     }\n          Array.from(site[key]).forEach((value, index) => {\n \
+          \           const old = res_obj['all'][key][index] ?? null\n           \
+          \ res_obj['all'][key][index] = old === null ? value : (old + (value ?? 0))\n\
+          \          })\n        }\n      })\n    })\n    return res_obj\n  }\n  if\
+          \ (!new_obj?.is_time && !!new_obj?.is_site && !has_queuing) {\n    Object.values(obj).forEach(site\
+          \ => {\n      res_obj[site.id] = {\n        name: site.name,\n        id:\
+          \ site.id,\n        rk: site.rk,\n      }\n      Object.keys(Object(site)).forEach(key\
+          \ => {\n        if (!['name', 'id', 'rk'].includes(key)) {\n          const\
+          \ sum = Array.from(site[key]).reduce((s, o) => {\n            return s ===\
+          \ null ? o : (s + (o ?? 0))\n          }, null)\n          res_obj[site.id][key]\
+          \ = [sum]\n        }\n      })\n    })\n    return res_obj\n  }\n  return\
+          \ obj\n}\nfunction main({site, body, data, widget_unit, new_obj}) {\n  site\
+          \ = JSON.parse(site)\n  const obj = formatWidget(body, site, widget_unit,\
+          \ data, new_obj)\n  return {\n    widget: JSON.stringify(Object.values(obj))\n\
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -1376,14 +1435,18 @@ workflow:
           - '1745891539919'
           - widget_unit
           variable: widget_unit
+        - value_selector:
+          - '1745905418618'
+          - new_obj
+          variable: new_obj
       height: 54
       id: '1745891974878'
       position:
-        x: 3982
-        y: 452.5
+        x: 4286
+        y: 300
       positionAbsolute:
-        x: 3982
-        y: 452.5
+        x: 4286
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1409,11 +1472,11 @@ workflow:
       height: 126
       id: '1745892212732'
       position:
-        x: 4286
-        y: 452.5
+        x: 4590
+        y: 300
       positionAbsolute:
-        x: 4286
-        y: 452.5
+        x: 4590
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1440,11 +1503,11 @@ workflow:
       height: 263
       id: '1745892541252'
       position:
-        x: 4570
-        y: 166.78571428571428
+        x: 4894
+        y: 461.5
       positionAbsolute:
-        x: 4570
-        y: 166.78571428571428
+        x: 4894
+        y: 461.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1465,9 +1528,10 @@ workflow:
         x: 60
         y: 107.5
       positionAbsolute:
-        x: 4630
-        y: 274.2857142857143
+        x: 4954
+        y: 569
       selectable: false
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom-iteration-start
@@ -1509,11 +1573,11 @@ workflow:
       id: '1745892643404'
       parentId: '1745892541252'
       position:
-        x: 188.28571428571468
-        y: 65
+        x: 204
+        y: 60
       positionAbsolute:
-        x: 4758.285714285715
-        y: 231.78571428571428
+        x: 5098
+        y: 521.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1535,29 +1599,55 @@ workflow:
           \ return null\n  if (data === 0 || target === 0) return 0\n  return Math.round(target\
           \ * 100 * rate / data) / 100\n}\nfunction getDivision(target, data, rate\
           \ = 1) {\n  return data.map((v, k) => {\n    return division(target[k],\
-          \ v, rate)\n  })\n}\nfunction formatPos(label, output, site, data, widget_unit)\
-          \ {\n  const obj = {}\n  const label_obj = {}\n  label.forEach((v, k) =>\
-          \ {\n    label_obj[v] = k\n  })\n  site.forEach(o => {\n    obj[o.rk] =\
-          \ {\n      ...o,\n      total_amount: Array(label.length).fill(0),\n   \
-          \   transaction_count: Array(label.length).fill(0),\n      item_count: Array(label.length).fill(0),\n\
-          \    }\n  })\n  Array.isArray(output) && output.forEach(str => {\n    const\
-          \ body = JSON.parse(str)\n    Array.isArray(body?.datas) && body.datas.forEach(pos\
-          \ => {\n      Array.isArray(pos?.retrived) && pos.retrived.forEach(o =>\
-          \ {\n        const date_time = new Date(o.date_time)\n        let text =\
-          \ ''\n        switch (widget_unit) {\n          case 'hh':\n           \
-          \ text = format(date_time, true, true)\n            break\n          case\
-          \ 'dd':\n            text = format(date_time)\n            break\n     \
-          \     case 'ww':\n            text = getDateOfWeek(date_time)\n        \
-          \    break\n          case 'mm':\n            text = format(date_time, false)\n\
-          \            break\n          case 'yyyy':\n            text = date_time.getFullYear()\n\
-          \            break\n        }\n        const index = label_obj[text]\n \
-          \       obj[pos.rk].item_count[index] += parseFloat(o.item_count)\n    \
-          \    obj[pos.rk].total_amount[index] += parseFloat(o.total_amount)\n   \
-          \     obj[pos.rk].transaction_count[index] += parseFloat(o.transaction_count)\n\
-          \      })\n    })\n  })\n  return Object.values(obj).map(o => {\n    const\
-          \ data_obj = {}\n    if (data.includes('traffic')) {\n      data_obj.traffic\
-          \ = o.traffic\n    }\n    if (data.includes('outside')) {\n      data_obj.outside\
-          \ = o.outside\n    }\n    if (data.includes('turn_in_rate')) {\n      data_obj.turn_in_rate\
+          \ v, rate)\n  })\n}\nfunction formatPos(label, output, site, data, widget_unit,\
+          \ new_obj) {\n  const obj = {}\n  const label_obj = {}\n  label.forEach((v,\
+          \ k) => {\n    label_obj[v] = k\n  })\n  site.forEach(o => {\n    obj[o.rk]\
+          \ = {\n      ...o,\n      total_amount: Array(label.length).fill(0),\n \
+          \     transaction_count: Array(label.length).fill(0),\n      item_count:\
+          \ Array(label.length).fill(0),\n    }\n  })\n  const has_queuing = Array.from(new_obj?.data).includes('queuing')\n\
+          \  if (!!new_obj?.is_time && !new_obj?.is_site && !has_queuing) {\n    Array.isArray(output)\
+          \ && output.forEach(str => {\n      const body = JSON.parse(str)\n     \
+          \ Array.isArray(body?.datas) && body.datas.forEach(pos => {\n        Array.isArray(pos?.retrived)\
+          \ && pos.retrived.forEach(o => {\n          const date_time = new Date(o.date_time)\n\
+          \          let text = ''\n          switch (widget_unit) {\n           \
+          \ case 'hh':\n              text = format(date_time, true, true)\n     \
+          \         break\n            case 'dd':\n              text = format(date_time)\n\
+          \              break\n            case 'ww':\n              text = getDateOfWeek(date_time)\n\
+          \              break\n            case 'mm':\n              text = format(date_time,\
+          \ false)\n              break\n            case 'yyyy':\n              text\
+          \ = date_time.getFullYear()\n              break\n          }\n        \
+          \  const index = label_obj[text]\n          obj['all'].item_count[index]\
+          \ += parseFloat(o.item_count)\n          obj['all'].total_amount[index]\
+          \ += parseFloat(o.total_amount)\n          obj['all'].transaction_count[index]\
+          \ += parseFloat(o.transaction_count)\n        })\n      })\n    })\n  }\n\
+          \  else if (!new_obj?.is_time && !!new_obj?.is_site && !has_queuing) {\n\
+          \    site.forEach(o => {\n      obj[o.rk] = {\n        ...o,\n        total_amount:\
+          \ [0],\n        transaction_count: [0],\n        item_count: [0],\n    \
+          \  }\n    })\n    Array.isArray(output) && output.forEach(str => {\n   \
+          \   const body = JSON.parse(str)\n      Array.isArray(body?.datas) && body.datas.forEach(pos\
+          \ => {\n        Array.isArray(pos?.retrived) && pos.retrived.forEach(o =>\
+          \ {\n          obj[pos.rk].item_count[0] += parseFloat(o.item_count)\n \
+          \         obj[pos.rk].total_amount[0] += parseFloat(o.total_amount)\n  \
+          \        obj[pos.rk].transaction_count[0] += parseFloat(o.transaction_count)\n\
+          \        })\n      })\n    })\n  }\n  else {\n    Array.isArray(output)\
+          \ && output.forEach(str => {\n      const body = JSON.parse(str)\n     \
+          \ Array.isArray(body?.datas) && body.datas.forEach(pos => {\n        Array.isArray(pos?.retrived)\
+          \ && pos.retrived.forEach(o => {\n          const date_time = new Date(o.date_time)\n\
+          \          let text = ''\n          switch (widget_unit) {\n           \
+          \ case 'hh':\n              text = format(date_time, true, true)\n     \
+          \         break\n            case 'dd':\n              text = format(date_time)\n\
+          \              break\n            case 'ww':\n              text = getDateOfWeek(date_time)\n\
+          \              break\n            case 'mm':\n              text = format(date_time,\
+          \ false)\n              break\n            case 'yyyy':\n              text\
+          \ = date_time.getFullYear()\n              break\n          }\n        \
+          \  const index = label_obj[text]\n          obj[pos.rk].item_count[index]\
+          \ += parseFloat(o.item_count)\n          obj[pos.rk].total_amount[index]\
+          \ += parseFloat(o.total_amount)\n          obj[pos.rk].transaction_count[index]\
+          \ += parseFloat(o.transaction_count)\n        })\n      })\n    })\n  }\n\
+          \  return Object.values(obj).map(o => {\n    const data_obj = {}\n    if\
+          \ (data.includes('traffic')) {\n      data_obj.traffic = o.traffic\n   \
+          \ }\n    if (data.includes('outside')) {\n      data_obj.outside = o.outside\n\
+          \    }\n    if (data.includes('turn_in_rate')) {\n      data_obj.turn_in_rate\
           \ = o.turn_in_rate\n    }\n    if (data.includes('total_amount')) {\n  \
           \    data_obj.total_amount = o.total_amount\n    }\n    if (data.includes('transaction_count'))\
           \ {\n      data_obj.transaction_count = o.transaction_count\n    }\n   \
@@ -1567,10 +1657,10 @@ workflow:
           \    }\n    if (data.includes('avg_item')) {\n      data_obj.avg_item =\
           \ getDivision(o.item_count, o.transaction_count)\n    }\n    return {\n\
           \      name: o.name,\n      id: o.id,\n      rk: o.rk,\n      ...data_obj\n\
-          \    }\n  })\n}\nfunction main({label, output, widget, data, widget_unit})\
-          \ {\n  label = Object.keys(label)\n  widget = JSON.parse(widget)\n  const\
-          \ res = formatPos(label, output, widget, data, widget_unit)\n  return {\n\
-          \    pos: JSON.stringify(res)\n  }\n}\n"
+          \    }\n  })\n}\nfunction main({label, output, widget, data, widget_unit,\
+          \ new_obj}) {\n  label = Object.keys(label)\n  widget = JSON.parse(widget)\n\
+          \  const res = formatPos(label, output, widget, data, widget_unit, new_obj)\n\
+          \  return {\n    pos: JSON.stringify(res)\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -1601,14 +1691,18 @@ workflow:
           - '1745891974878'
           - widget
           variable: widget
+        - value_selector:
+          - '1745905418618'
+          - new_obj
+          variable: new_obj
       height: 54
       id: '1745892731255'
       position:
-        x: 5125.142857142858
-        y: 452.5
+        x: 5462
+        y: 300
       positionAbsolute:
-        x: 5125.142857142858
-        y: 452.5
+        x: 5462
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1634,11 +1728,11 @@ workflow:
       height: 126
       id: '1745892962964'
       position:
-        x: 5396.285714285715
-        y: 452.5
+        x: 5766
+        y: 300
       positionAbsolute:
-        x: 5396.285714285715
-        y: 452.5
+        x: 5766
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1676,11 +1770,11 @@ workflow:
       height: 143
       id: '1745893060159'
       position:
-        x: 5707.428571428572
-        y: 139.64285714285705
+        x: 6070
+        y: 461.5
       positionAbsolute:
-        x: 5707.428571428572
-        y: 139.64285714285705
+        x: 6070
+        y: 461.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1718,11 +1812,11 @@ workflow:
       height: 54
       id: '1745893124683'
       position:
-        x: 6037.142857142857
-        y: 139.64285714285705
+        x: 6374
+        y: 461.5
       positionAbsolute:
-        x: 6037.142857142857
-        y: 139.64285714285705
+        x: 6374
+        y: 461.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1760,11 +1854,11 @@ workflow:
       height: 143
       id: '1745893170098'
       position:
-        x: 6342.5714285714275
-        y: 139.64285714285705
+        x: 6678
+        y: 461.5
       positionAbsolute:
-        x: 6342.5714285714275
-        y: 139.64285714285705
+        x: 6678
+        y: 461.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1796,11 +1890,11 @@ workflow:
       height: 54
       id: '1745893239519'
       position:
-        x: 6646.571428571429
-        y: 139.64285714285705
+        x: 6982
+        y: 461.5
       positionAbsolute:
-        x: 6646.571428571429
-        y: 139.64285714285705
+        x: 6982
+        y: 461.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1827,11 +1921,11 @@ workflow:
       height: 263
       id: '1745893362725'
       position:
-        x: 6946.285714285714
-        y: 139.64285714285705
+        x: 7286
+        y: 461.5
       positionAbsolute:
-        x: 6946.285714285714
-        y: 139.64285714285705
+        x: 7286
+        y: 461.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1852,9 +1946,10 @@ workflow:
         x: 60
         y: 107.5
       positionAbsolute:
-        x: 7006.285714285714
-        y: 247.14285714285705
+        x: 7346
+        y: 569
       selectable: false
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom-iteration-start
@@ -1899,8 +1994,8 @@ workflow:
         x: 204
         y: 60
       positionAbsolute:
-        x: 7150.285714285714
-        y: 199.64285714285705
+        x: 7490
+        y: 521.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1953,11 +2048,11 @@ workflow:
       height: 54
       id: '1745893713521'
       position:
-        x: 7563
-        y: 452.5
+        x: 7867
+        y: 300
       positionAbsolute:
-        x: 7563
-        y: 452.5
+        x: 7867
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1983,18 +2078,30 @@ workflow:
             - data
           id: 'true'
           logical_operator: and
+        - case_id: e9b9e8d5-69b2-4895-9d3f-1261a13e7601
+          conditions:
+          - comparison_operator: not empty
+            id: bfd74b5a-efa3-4b36-9212-9c899e071d4c
+            value: ''
+            varType: array[string]
+            variable_selector:
+            - '1745891539919'
+            - data
+          id: e9b9e8d5-69b2-4895-9d3f-1261a13e7601
+          logical_operator: and
         desc: ''
         selected: false
         title: 判断是否预测
         type: if-else
-      height: 152
+      height: 200
       id: '1745893881007'
       position:
-        x: 7867
-        y: 452.5
+        x: 8171
+        y: 300
       positionAbsolute:
-        x: 7867
-        y: 452.5
+        x: 8171
+        y: 300
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -2031,11 +2138,11 @@ workflow:
       height: 143
       id: '1745894008905'
       position:
-        x: 8168.142857142857
-        y: 385.35714285714283
+        x: 8475
+        y: 300
       positionAbsolute:
-        x: 8168.142857142857
-        y: 385.35714285714283
+        x: 8475
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2073,11 +2180,11 @@ workflow:
       height: 143
       id: '1745894060160'
       position:
-        x: 8475
-        y: 385.35714285714283
+        x: 8779
+        y: 300
       positionAbsolute:
-        x: 8475
-        y: 385.35714285714283
+        x: 8779
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2181,11 +2288,11 @@ workflow:
       height: 54
       id: '1745894132634'
       position:
-        x: 8779
-        y: 385.35714285714283
+        x: 9083
+        y: 300
       positionAbsolute:
-        x: 8779
-        y: 385.35714285714283
+        x: 9083
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2225,65 +2332,170 @@ workflow:
       height: 90
       id: '1745894259507'
       position:
-        x: 9083
-        y: 385.35714285714283
+        x: 9387
+        y: 300
       positionAbsolute:
-        x: 9083
-        y: 385.35714285714283
+        x: 9387
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        code: "\nfunction main({queuing, label}) {\n  const output = Array.from(JSON.parse(queuing))\n\
-          \  label = Object.keys(label)\n  const site_key = {\n    traffic: 'a',\n\
-          \    outside: 'o',\n    turn_in_rate: 'i',\n    total_amount: 'r',\n   \
-          \ transaction_count: 'n',\n    avg_amount: 'p',\n    convert_rate: 'c',\n\
-          \    avg_item: 'u',\n  }\n  const site_data = []\n  let description = ''\n\
-          \  output.forEach((o, index) => {\n    const keys = Object.keys(o)\n   \
-          \ const has_queuing = keys.includes('queuing_unit')\n    const site = keys.filter(s\
-          \ => !!site_key[s])\n    const item = {\n      n: o.name\n    }\n    if\
-          \ (site.length > 0) {\n      if (index === 0) {\n        description +=\
-          \ '    - **\"m\"：** 地点指标数组，每个对象包含：  \\n'\n        description += '     \
-          \   - **\"t\"：** 时间  \\n'\n        site.forEach(key => {\n          switch\
-          \ (key) {\n            case 'traffic':\n              description += ' \
-          \       - **\"a\"：** 来点人数  \\n'\n              break\n            case 'outside':\n\
-          \              description += '        - **\"o\"：** 店外人数  \\n'\n       \
-          \       break\n            case 'turn_in_rate':\n              description\
-          \ += '        - **\"i\"：** 进店率  \\n'\n              break\n            case\
-          \ 'total_amount':\n              description += '        - **\"r\"：** 营业额\
-          \  \\n'\n              break\n            case 'transaction_count':\n  \
-          \            description += '        - **\"n\"：** 交易数  \\n'\n          \
-          \    break\n            case 'avg_amount':\n              description +=\
-          \ '        - **\"p\"：** 客单价  \\n'\n              break\n            case\
-          \ 'convert_rate':\n              description += '        - **\"c\"：** 转化率\
-          \  \\n'\n              break\n            case 'avg_item':\n           \
-          \   description += '        - **\"u\"：** 客单量  \\n'\n              break\n\
-          \          }\n        })\n      }\n      item['m'] = label.map((t, i) =>\
-          \ {\n        const obj = {}\n        site.forEach(key => {\n          obj[site_key[key]]\
-          \ = o[key][i]\n        })\n        return {\n          t,\n          ...obj,\n\
-          \        }\n      })\n    }\n    if (has_queuing) {\n      if (index ===\
-          \ 0) {\n        description +=\n          '    - **\"q\"：** 排队单元数组，每个单元包含：\
-          \  \\n' +\n          '        - **\"n\"：** 排队单元名称  \\n' +\n          ' \
-          \       - **\"m\"：** 排队指标数组，每个对象包含：  \\n' +\n          '            - **\"\
-          t\"：** 时间  \\n' +\n          '            - **\"m\"：** 最大排队人数  \\n' +\n\
-          \          '            - **\"i\"：** 最小排队人数  \\n' +\n          '       \
-          \     - **\"a\"：** 平均排队人数  \\n'\n      }\n      item['q'] = Object.values(o.queuing_unit\
-          \ ).map(u => {\n        return {\n          n: u.queuing_name,\n       \
-          \   m: Object.keys(u.max_queuing).map(t => {\n            return {\n   \
-          \           t,\n              a: u.avg_queuing[t],\n              m: u.max_queuing[t],\n\
-          \              i: u.min_queuing[t],\n            }\n          })\n     \
-          \   }\n      })\n    }\n    site_data.push(item)\n  })\n  return {\n   \
-          \ description,\n    site_data: JSON.stringify(site_data, null, 2),\n  }\n\
-          }\n"
+        code: "\nfunction array2DToCSV(data, delimiter = ',') {\n  if (!Array.isArray(data)\
+          \ || data.length === 0) return '';\n\n  // 假设第一行为标题行，生成新的标题行（为新添加的列 \"No\"\
+          \ 和原标题）\n  // const header = ['No', ...data[0]];\n  // 数据部分：如果原数据带有标题行，则从第二行开始处理\n\
+          \  // const rows = [header, ...data.slice(1).map((row, i) => [i + 1, ...row])];\n\
+          \n  return data.map(row => row.join(delimiter)\n    // row.map(cell => {\n\
+          \    //   const val = cell === null || cell === undefined ? 'null' : String(cell);\n\
+          \    //   const escaped = val.replace(/\"/g, '\"\"'); // 转义双引号\n    // \
+          \  return `\"${escaped}\"`;\n    // }).join(delimiter)\n  ).join('\\n');\n\
+          }\nfunction arrayToMarkdownTable(data) {\n  if (!data || data.length ===\
+          \ 0) return '';\n\n  let markdown = '';\n\n  // 如果数组中的元素是对象，则取对象的键作为表头\n\
+          \  if (typeof data[0] === 'object' && !Array.isArray(data[0])) {\n    const\
+          \ headers = Object.keys(data[0]);\n    // 构造表头行\n    markdown += `| ${headers.join('\
+          \ | ')} |\\n`;\n    // 构造分隔符行\n    markdown += `| ${headers.map(() => '---').join('\
+          \ | ')} |\\n`;\n    // 构造数据行\n    data.forEach(item => {\n      const row\
+          \ = headers.map(header => item[header] !== undefined ? item[header] : '').join('\
+          \ | ');\n      markdown += `| ${row} |\\n`;\n    });\n  } else if (Array.isArray(data[0]))\
+          \ {\n    // 如果数组中的元素也是数组，则默认第一行为表头\n    markdown += `| ${data[0].join('\
+          \ | ')} |\\n`;\n    markdown += `| ${data[0].map(() => '---').join(' | ')}\
+          \ |\\n`;\n    for (let i = 1; i < data.length; i++) {\n      markdown +=\
+          \ `| ${data[i].join(' | ')} |\\n`;\n    }\n  } else {\n    // 其他情况：将每个元素作为一行（单列表格）\n\
+          \    markdown += '| Value |\\n';\n    markdown += '| --- |\\n';\n    data.forEach(item\
+          \ => {\n      markdown += `| ${item} |\\n`;\n    });\n  }\n\n  return markdown;\n\
+          }\nfunction main({queuing, label, new_obj, site}) {\n  const output = Array.from(JSON.parse(queuing))\n\
+          \  const site_list = Array.from(JSON.parse(site))\n  const by_id = {}\n\
+          \  site_list.forEach(o => {\n    by_id[o.store_id] = o\n  })\n  const province\
+          \ = Array.isArray(new_obj?.province) ?  Array.from(new_obj?.province) :\
+          \ []\n  const city = Array.isArray(new_obj?.city) ?  Array.from(new_obj?.city)\
+          \ : []\n  const country = Array.isArray(new_obj?.country) ?  Array.from(new_obj?.country)\
+          \ : []\n  label = Object.keys(label)\n  const site_key = {\n    traffic:\
+          \ 'a',\n    outside: 'o',\n    turn_in_rate: 'i',\n    total_amount: 'r',\n\
+          \    transaction_count: 'n',\n    avg_amount: 'p',\n    convert_rate: 'c',\n\
+          \    avg_item: 'u',\n  }\n  const i18n_key = {\n    traffic: '来店人数',\n \
+          \   outside: '店外人数',\n    turn_in_rate: '进店率',\n    total_amount: '营业额',\n\
+          \    transaction_count: '交易数',\n    avg_amount: '客单价',\n    convert_rate:\
+          \ '转化率',\n    avg_item: '客单量',\n  }\n  const keys = Object.keys(Object(output?.[0]\
+          \ ?? {}))\n  const has_queuing = keys.includes('queuing_unit')\n  const\
+          \ site_keys = keys.filter(s => !!site_key[s])\n\n  let prompts = ''\n  if\
+          \ (!!new_obj?.is_time && !new_obj?.is_site && !has_queuing) {\n    const\
+          \ head = ['时间'].concat(site_keys.map(o => i18n_key[o]))\n    const data\
+          \ = {}\n    label.forEach(o => {\n      data[o] = {}\n      site_keys.forEach(k\
+          \ => {\n        data[o][k] = null\n      })\n    })\n    output.forEach(o\
+          \ => {\n      site_keys.forEach(k => {\n        if (Array.isArray(o?.[k]))\
+          \ {\n          label.forEach((l, i) => {\n            if (data[l][k] ===\
+          \ null) {\n              data[l][k] = o[k][i]\n            } else {\n  \
+          \            data[l][k] += (o[k][i] ?? 0)\n            }\n          })\n\
+          \        }\n      })\n    })\n    const body = label.map(o => {\n      //\
+          \ const obj = { '时间': o }\n      // site_keys.forEach(s => {\n      // \
+          \  obj[i18n_key[s]] = data[o][s]\n      // })\n      // return obj\n   \
+          \   return [o].concat(site_keys.map(s => data[o][s] ?? 'null'))\n    })\n\
+          \n    // const markdown = arrayToMarkdownTable([head].concat(body))\n  \
+          \  // const markdown = JSON.stringify(body, null, 2)\n    const markdown\
+          \ = array2DToCSV([head].concat(body))\n    const indentedTable = markdown\n\
+          \      .split('\\n')             // 按行拆分\n      .map(line => '    ' + line)\
+          \ // 每行前添加4个空格\n      .join('\\n') + '\\n'             // 再拼接回来\n    prompts\
+          \ += '    ```csv\\n'\n    prompts += indentedTable\n    prompts += '   \
+          \ ```\\n'\n  }\n  else if (!new_obj?.is_time && !!new_obj?.is_site && !has_queuing)\
+          \ {\n    const site_head = ['地点']\n    if (country.length > 0) site_head.push('国家')\n\
+          \    if (province.length > 0) site_head.push('区域一')\n    if (city.length\
+          \ > 0) site_head.push('区域二')\n    if (!!new_obj?.need_address) site_head.push('地址')\n\
+          \    const head = site_head.concat(site_keys.map(o => i18n_key[o]))\n  \
+          \  const body = output.map(o => {\n      // const obj = { '地点': o.name }\n\
+          \      // if (country.length > 0) obj['国家'] = by_id[o.id].country\n    \
+          \  // if (province.length > 0) obj['区域一'] = by_id[o.id].country\n      //\
+          \ if (city.length > 0) obj['区域二'] = by_id[o.id].country\n      // site_keys.forEach(s\
+          \ => {\n      //   obj[i18n_key[s]] = Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t,\
+          \ sum) => {\n      //     return sum === null ? t : (sum + (t ?? 0))\n \
+          \     //   }, null) : null\n      // })\n      // return obj\n      const\
+          \ data = site_keys.map(s => {\n        return Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t,\
+          \ sum) => {\n          return sum === null ? t : (sum + (t ?? 0))\n    \
+          \    }, null) : null\n      })\n      const site_data = [o.name]\n     \
+          \ if (country.length > 0) site_data.push(by_id[o.id].country)\n      if\
+          \ (province.length > 0) site_data.push(by_id[o.id].province)\n      if (city.length\
+          \ > 0) site_data.push(by_id[o.id].city)\n      if (!!new_obj?.need_address)\
+          \ site_data.push(by_id[o.id].address)\n      return site_data.concat(data.map(o\
+          \ => o ?? 'null'))\n    })\n    // const markdown = arrayToMarkdownTable([head].concat(body))\n\
+          \    // const markdown = JSON.stringify(body, null, 2)\n    const markdown\
+          \ = array2DToCSV([head].concat(body))\n    const indentedTable = markdown\n\
+          \      .split('\\n')             // 按行拆分\n      .map(line => '    ' + line)\
+          \ // 每行前添加4个空格\n      .join('\\n') + '\\n'             // 再拼接回来\n    prompts\
+          \ += '    ```csv\\n'\n    prompts += indentedTable\n    prompts += '   \
+          \ ```\\n'\n  }\n  else if (!has_queuing) {\n    const head = ['时间']\n  \
+          \  const data = {}\n    label.forEach(o => {\n      data[o] = {}\n     \
+          \ output.forEach(v => {\n        site_keys.forEach(k => {\n          data[o][v.id\
+          \ + k] = null\n        })\n      })\n    })\n    output.forEach(o => {\n\
+          \      site_keys.forEach(k => {\n        head.push(`${o.name}: ${i18n_key[k]}`)\n\
+          \        if (Array.isArray(o?.[k])) {\n          label.forEach((l, i) =>\
+          \ {\n            if (data[l][o.id + k] === null) {\n              data[l][o.id\
+          \ + k] = o[k][i]\n            } else {\n              data[l][o.id + k]\
+          \ += (o[k][i] ?? 0)\n            }\n          })\n        }\n      })\n\
+          \    })\n    const body = label.map(o => {\n      const arr = []\n     \
+          \ output.forEach(v => {\n        site_keys.forEach(k => {\n          arr.push(data[o][v.id\
+          \ + k] ?? 'null')\n        })\n      })\n      return [o].concat(arr)\n\
+          \    })\n    const markdown = array2DToCSV([head].concat(body))\n    const\
+          \ indentedTable = markdown\n      .split('\\n')             // 按行拆分\n  \
+          \    .map(line => '    ' + line) // 每行前添加4个空格\n      .join('\\n') + '\\\
+          n'             // 再拼接回来\n    prompts += '    ```csv\\n'\n    prompts +=\
+          \ indentedTable\n    prompts += '    ```\\n'\n  }\n  else {\n    const site_data\
+          \ = []\n    let description = ''\n    description += '- **顶层：** 地点数组，每个地点包含：\\\
+          n'\n    description += '    - **\"n\"：** 地点名称  \\n'\n    if (country.length\
+          \ > 0)  description += '    - **\"co\"：** 国家  \\n'\n    if (province.length\
+          \ > 0)  description += '    - **\"pr\"：** 区域一  \\n'\n    if (city.length\
+          \ > 0)  description += '    - **\"ci\"：** 区域二  \\n'\n    output.forEach((o,\
+          \ index) => {\n      const keys = Object.keys(o)\n      const has_queuing\
+          \ = keys.includes('queuing_unit')\n      const site = keys.filter(s => !!site_key[s])\n\
+          \      const item = {\n        n: o.name\n      }\n      if (country.length\
+          \ > 0)  item['co'] = by_id[o.id].country\n      if (province.length > 0)\
+          \  item['pr'] = by_id[o.id].province\n      if (city.length > 0)  item['ci']\
+          \ = by_id[o.id].city\n      if (site.length > 0) {\n        if (index ===\
+          \ 0) {\n          description += '    - **\"m\"：** 地点指标数组，每个对象包含：  \\n'\n\
+          \          description += '        - **\"t\"：** 时间  \\n'\n          site.forEach(key\
+          \ => {\n            switch (key) {\n              case 'traffic':\n    \
+          \            description += '        - **\"a\"：** 来点人数  \\n'\n         \
+          \       break\n              case 'outside':\n                description\
+          \ += '        - **\"o\"：** 店外人数  \\n'\n                break\n         \
+          \     case 'turn_in_rate':\n                description += '        - **\"\
+          i\"：** 进店率  \\n'\n                break\n              case 'total_amount':\n\
+          \                description += '        - **\"r\"：** 营业额  \\n'\n      \
+          \          break\n              case 'transaction_count':\n            \
+          \    description += '        - **\"n\"：** 交易数  \\n'\n                break\n\
+          \              case 'avg_amount':\n                description += '    \
+          \    - **\"p\"：** 客单价  \\n'\n                break\n              case 'convert_rate':\n\
+          \                description += '        - **\"c\"：** 转化率  \\n'\n      \
+          \          break\n              case 'avg_item':\n                description\
+          \ += '        - **\"u\"：** 客单量  \\n'\n                break\n          \
+          \  }\n          })\n        }\n        item['m'] = label.map((t, i) => {\n\
+          \          const obj = {}\n          site.forEach(key => {\n           \
+          \ obj[site_key[key]] = o[key][i]\n          })\n          return {\n   \
+          \         t,\n            ...obj,\n          }\n        })\n      }\n  \
+          \    if (has_queuing) {\n        if (index === 0) {\n          description\
+          \ +=\n            '    - **\"q\"：** 排队单元数组，每个单元包含：  \\n' +\n           \
+          \ '        - **\"n\"：** 排队单元名称  \\n' +\n            '        - **\"m\"：**\
+          \ 排队指标数组，每个对象包含：  \\n' +\n            '            - **\"t\"：** 时间  \\n'\
+          \ +\n            '            - **\"m\"：** 最大排队人数  \\n' +\n            '\
+          \            - **\"i\"：** 最小排队人数  \\n' +\n            '            - **\"\
+          a\"：** 平均排队人数  \\n'\n        }\n        item['q'] = Object.values(o.queuing_unit\
+          \ ).map(u => {\n          return {\n            n: u.queuing_name,\n   \
+          \         m: Object.keys(u.max_queuing).map(t => {\n              return\
+          \ {\n                t,\n                a: u.avg_queuing[t],\n        \
+          \        m: u.max_queuing[t],\n                i: u.min_queuing[t],\n  \
+          \            }\n            })\n          }\n        })\n      }\n     \
+          \ site_data.push(item)\n    })\n    const data = JSON.stringify(site_data,\
+          \ null, 2)\n    const indentedTable = data\n      .split('\\n')        \
+          \     // 按行拆分\n      .map(line => '    ' + line) // 每行前添加4个空格\n      .join('\\\
+          n') + '\\n'             // 再拼接回来\n    prompts += '    ```json\\n'\n    prompts\
+          \ += indentedTable\n    prompts += '    ```\\n'\n    prompts += '\\n'\n\
+          \    prompts += '---\\n'\n    prompts += '\\n'\n    prompts += '## `参考数据`结构说明：\\\
+          n'\n    prompts += '\\n'\n    prompts += '```markdown\\n'\n    prompts +=\
+          \ description\n    prompts += '```\\n'\n  }\n  return {\n    prompts,\n\
+          \  }\n}"
         code_language: javascript
         desc: ''
         outputs:
-          description:
-            children: null
-            type: string
-          site_data:
+          prompts:
             children: null
             type: string
         selected: false
@@ -2298,14 +2510,22 @@ workflow:
           - '1745893713521'
           - queuing
           variable: queuing
+        - value_selector:
+          - '1745905418618'
+          - new_obj
+          variable: new_obj
+        - value_selector:
+          - '1745891380321'
+          - site
+          variable: site
       height: 54
       id: '1745894339597'
       position:
-        x: 8779
-        y: 582.5
+        x: 8475
+        y: 500.34024604461354
       positionAbsolute:
-        x: 8779
-        y: 582.5
+        x: 8475
+        y: 500.34024604461354
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2321,24 +2541,48 @@ workflow:
         model:
           completion_params:
             temperature: 0
+            top_p: 0
           mode: chat
           name: gpt-4o
           provider: langgenius/azure_openai/azure_openai
         prompt_template:
         - id: 49f3c5e9-2667-4677-a755-75f99abf6f0a
           role: system
-          text: "# 问题回答\n\n## 输入数据\n- `问题`: {{#context#}}\n- `地点数组`:\n    ```json\n\
-            \    {{#1745894339597.site_data#}}\n    ```\n\n---\n\n## `地点数组`结构说明：\n\
-            ```markdown\n- **顶层：** 地点数组，每个地点包含：\n    - **\"n\"：** 地点名称  \n{{#1745894339597.description#}}\n\
-            ```\n\n---\n\n## 回答问题\n- 参考今天的日期为：{{#1745891380321.date#}}\n- 在回答`排队`相关问题时：排队人数越多，意味着排队时间越长。\n\
-            - **门店视为地点**。\n- 遍历整个`地点数组`，分析`地点数组`每一项的各个属性，回答用户提出的`问题`\n- 请严格使用`{{#1745905418618.lang#}}`回答`问题`\n\
-            - **所有出现的`地点名称`和`排队单元名称`都必须严格保持原文，严格禁止任何形式的翻译或转换**（例如：Taipei 绝对不得转换为台北，Tokyo\
-            \ 绝对不得转换为东京）。\n- 请注意区分`地点名称`和`排队单元名称`，不要把`排队单元名称`当成`地点名称`\n- 在回答诸如`哪个门店`、`哪家门店`这样的问题时，只需要回答`地点名称`即可，回答的`地点名称`必须严格保持原文，严格禁止任何形式的翻译或转换。\n\
-            - 最终答案只需要输出结论即可，不需要包括过程，内容清晰、准确、简洁，**不附加额外解释**，答案中的`地点名称`必须严格保持原文，严格禁止任何形式的翻译或转换。\n\
-            \n---\n"
+          text: '
+
+            你是一位数据分析专家，请根据用户问题与参考数据，进行数据分析并回答用户问题。
+
+
+            注意事项：
+
+            - 仅根据参考数据中可用的栏位与数值做推论；
+
+            - 若需进行比较（如最大、最小、排序等），**务必完整遍历并且比较所有数据，确保没有任何遗漏后再进行判断**；
+
+            - 所有加总、比较等涉及数值的操作，**必须逐项列出中间步骤，并最终合并为总和，禁止直接给出结果或估算**；
+
+            - 所有數值需轉為數字進行比較；禁止任何語意生成方式估算結果；
+
+            - 使用清晰、简洁、结构化的语言呈现；
+
+            - 保留所有原始名称（如地点、排队单元），禁止翻译或简化；
+
+            - **所有回答必须严格使用 {{#1745905418618.lang#}} 语言**；严禁使用其他语言；不可根据语境自动简化、翻译或转换用词或用字；
+
+            - 以 {{#1745891380321.date#}} 为「今天」进行时间判断；
+
+            - 遇到排队问题时，遵循「人数越多，时间越长」原则；
+
+            '
         - id: 93d58d61-2453-4426-a7a0-1cd22347f95b
           role: user
-          text: '{{#context#}}'
+          text: '问题: {{#context#}}
+
+            使用 {{#1745905418618.lang#}} 语言回答问题
+
+            参考数据:
+
+            {{#1745894339597.prompts#}}'
         selected: false
         title: LLM 回答非预测问题
         type: llm
@@ -2348,53 +2592,18 @@ workflow:
       height: 90
       id: '1745894395713'
       position:
-        x: 9083
-        y: 580.5
+        x: 8779
+        y: 483
       positionAbsolute:
-        x: 9083
-        y: 580.5
+        x: 8779
+        y: 483
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
-        code: "\nfunction main({output, predict}) {\n  return {\n    text: String(output\
-          \ ?? predict).replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '')\n      .replaceAll(/<details[\\\
-          s\\S]*?<\\/details>/g, '')\n  }\n}\n"
-        code_language: javascript
-        desc: ''
-        outputs:
-          text:
-            children: null
-            type: string
-        selected: false
-        title: 删除思考过程
-        type: code
-        variables:
-        - value_selector:
-          - '1745894259507'
-          - text
-          variable: predict
-        - value_selector:
-          - '1745894395713'
-          - text
-          variable: output
-      height: 54
-      id: '1745894586238'
-      position:
-        x: 9387
-        y: 452.5
-      positionAbsolute:
-        x: 9387
-        y: 452.5
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 244
-    - data:
-        answer: '{{#1745894586238.text#}}'
+        answer: '{{#1745894259507.text#}}'
         desc: ''
         selected: false
         title: 回答问题
@@ -2404,10 +2613,10 @@ workflow:
       id: '1745894659883'
       position:
         x: 9691
-        y: 452.5
+        y: 300
       positionAbsolute:
         x: 9691
-        y: 452.5
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2433,11 +2642,11 @@ workflow:
       height: 126
       id: '1745905182736'
       position:
-        x: 1550
-        y: 442
+        x: 1854
+        y: 300
       positionAbsolute:
-        x: 1550
-        y: 442
+        x: 1854
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2466,34 +2675,34 @@ workflow:
           \      break\n    case 'data_enter':\n      new_obj = {\n        ...llm_obj,\n\
           \        data: llm?.data,\n      }\n      break\n    default:\n      new_obj\
           \ = {\n        ...llm\n      }\n      break\n  }\n  let reply = ''\n  const\
-          \ lang = new_obj?.lang\n  const predict = !!new_obj?.predict\n  if (predict)\
-          \ {\n    const list = Array.isArray(new_obj?.site) ? Array.from(new_obj.site)\
+          \ lang = String(new_obj?.lang_cn).trim() === String(query).trim() ? String(new_obj?.lang)\
+          \ : 'zh-TW'\n  const predict = !!new_obj?.predict\n  if (predict) {\n  \
+          \  const list = Array.isArray(new_obj?.site) ? Array.from(new_obj.site)\
           \ : []\n    const site = list.filter(o => name.includes(o))\n    if (site.length\
           \ === 0) {\n      if (new_obj?.step === 'site_enter') {\n        reply =\
-          \ new_obj?.error?.site_error ?? '没有找到匹配的地点，请重新提问'\n        new_obj = null\n\
+          \ new_obj?.error?.site_error ?? '没有找到匹配的地点，请重新提问'\n        new_obj = {}\n\
           \      }\n      else {\n        reply = new_obj?.error?.site_enter ?? '请输入预测的地点'\n\
           \        new_obj = {\n          ...new_obj,\n          step: 'site_enter',\n\
           \        }\n      }\n    }\n    else {\n      const predict_start = String(new_obj?.predict_start\
           \ ?? '')\n      const predict_end = String(new_obj?.predict_end ?? '')\n\
           \      if (!predict_start || !predict_end) {\n        if (new_obj?.step\
           \ === 'date_enter') {\n          reply = new_obj?.error?.date_error ?? '预测的日期应在未来7天之内，请重新提问'\n\
-          \          new_obj = null\n        }\n        else {\n          reply =\
-          \ new_obj?.error?.date_enter ?? '请输入预测的日期(请选择未来7天内的日期)'\n          new_obj\
-          \ = {\n            ...new_obj,\n            step: 'date_enter',\n      \
-          \    }\n        }\n      }\n      else if (!isWithinNext7Days(predict_start)\
-          \ || !isWithinNext7Days(predict_end)) {\n        reply = new_obj?.error?.date_error\
-          \ ?? '预测的日期应在未来7天之内，请重新提问'\n        new_obj = null\n      }\n      else\
-          \ {\n        const DATA = ['traffic', 'outside', 'turn_in_rate', 'total_amount',\
-          \ 'transaction_count', 'avg_amount', 'convert_rate', 'avg_item', 'queuing']\n\
-          \        const list = Array.isArray(new_obj?.data) ? Array.from(new_obj.data)\
-          \ : []\n        const data = list.filter(o => DATA.includes(o))\n      \
-          \  if (data.length === 0) {\n          if (new_obj?.step === 'data_enter')\
-          \ {\n            reply = new_obj?.error?.data_error ?? '没有找到匹配的数据类型，请重新提问'\n\
-          \            new_obj = null\n          }\n          else {\n           \
-          \ reply = new_obj?.error?.data_enter ?? '请输入预测的数据类型'\n            new_obj\
-          \ = {\n              ...new_obj,\n              step: 'data_enter',\n  \
-          \          }\n          }\n        }\n      }\n    }\n  }\n  return {\n\
-          \    lang,\n    reply,\n    new_obj,\n  }\n}"
+          \          new_obj = {}\n        }\n        else {\n          reply = new_obj?.error?.date_enter\
+          \ ?? '请输入预测的日期(请选择未来7天内的日期)'\n          new_obj = {\n            ...new_obj,\n\
+          \            step: 'date_enter',\n          }\n        }\n      }\n    \
+          \  else if (!isWithinNext7Days(predict_start) || !isWithinNext7Days(predict_end))\
+          \ {\n        reply = new_obj?.error?.date_error ?? '预测的日期应在未来7天之内，请重新提问'\n\
+          \        new_obj = {}\n      }\n      else {\n        const DATA = ['traffic',\
+          \ 'outside', 'turn_in_rate', 'total_amount', 'transaction_count', 'avg_amount',\
+          \ 'convert_rate', 'avg_item', 'queuing']\n        const list = Array.isArray(new_obj?.data)\
+          \ ? Array.from(new_obj.data) : []\n        const data = list.filter(o =>\
+          \ DATA.includes(o))\n        if (data.length === 0) {\n          if (new_obj?.step\
+          \ === 'data_enter') {\n            reply = new_obj?.error?.data_error ??\
+          \ '没有找到匹配的数据类型，请重新提问'\n            new_obj = {}\n          }\n         \
+          \ else {\n            reply = new_obj?.error?.data_enter ?? '请输入预测的数据类型'\n\
+          \            new_obj = {\n              ...new_obj,\n              step:\
+          \ 'data_enter',\n            }\n          }\n        }\n      }\n    }\n\
+          \  }\n  return {\n    lang,\n    reply,\n    new_obj,\n  }\n}"
         code_language: javascript
         desc: ''
         outputs:
@@ -2529,11 +2738,11 @@ workflow:
       height: 54
       id: '1745905418618'
       position:
-        x: 2158
-        y: 452.5
+        x: 2462
+        y: 300
       positionAbsolute:
-        x: 2158
-        y: 452.5
+        x: 2462
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2559,11 +2768,11 @@ workflow:
       height: 126
       id: '1745908818123'
       position:
-        x: 2462
-        y: 452.5
+        x: 2766
+        y: 300
       positionAbsolute:
-        x: 2462
-        y: 452.5
+        x: 2766
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2588,11 +2797,11 @@ workflow:
       height: 88
       id: '1745909073026'
       position:
-        x: 2766
-        y: 580.5
+        x: 3070
+        y: 428
       positionAbsolute:
-        x: 2766
-        y: 580.5
+        x: 3070
+        y: 428
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2608,11 +2817,11 @@ workflow:
       height: 105
       id: '1745909097312'
       position:
-        x: 3070
-        y: 580.5
+        x: 3374
+        y: 402.5
       positionAbsolute:
-        x: 3070
-        y: 580.5
+        x: 3374
+        y: 402.5
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -2635,44 +2844,269 @@ workflow:
       height: 88
       id: '1745909214969'
       position:
-        x: 2766
-        y: 452.5
+        x: 3070
+        y: 300
       positionAbsolute:
-        x: 2766
-        y: 452.5
+        x: 3070
+        y: 300
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     - data:
+        context:
+          enabled: false
+          variable_selector: []
         desc: ''
-        items:
-        - input_type: variable
-          operation: clear
-          value: ''
-          variable_selector:
-          - conversation
-          - llm_obj
-          write_mode: over-write
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/azure_openai/azure_openai
+        prompt_template:
+        - id: 5369a2a7-b9bd-4a5f-9559-04a8e84fa62e
+          role: system
+          text: '你是一位多语言智能问答助手。请根据用户输入的问题内容自动识别其主要语言，并使用相同语言进行回答。你的任务包括：
+
+
+            1. 精准、直接地回答用户提出的问题。
+
+            2. 如果问题不完整，请提供一条相关建议或提示，帮助用户深入了解问题或引导其提出更具体的问题。
+
+            3. 参考今天的日期为：{{#1745891380321.date#}}
+
+
+            语言识别规则：
+
+            - 默认使用英语；
+
+            - 如果用户问题明确包含中文（简体或繁體）或其他非英语特征，则使用对应语言；
+
+            - 简体中文和繁體中文须精确区分。
+
+
+            输出格式要求：
+
+            - 仅使用识别出的语言输出回答和建议；
+
+            - 语言表达要清晰、简洁、结构化（可使用分段或编号）；
+
+            - 禁止使用冗余修饰或复杂句式；
+
+            - 禁止添加额外说明或推测性内容；
+
+            - 输出内容只包含回答和建议两部分。'
+        - id: 2eae4485-5801-4fb3-9978-07b21bc98cb8
+          role: user
+          text: '{{#sys.query#}}'
         selected: false
-        title: 清空缓存
-        type: assigner
-        version: '2'
-      height: 88
-      id: '1745921202315'
+        title: LLM 回答其它问题
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1747819187551'
       position:
-        x: 1550
-        y: 139.64285714285705
+        x: 8475
+        y: 613
       positionAbsolute:
-        x: 1550
-        y: 139.64285714285705
+        x: 8475
+        y: 613
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1745894395713.text#}}'
+        desc: ''
+        selected: false
+        title: 回答问题
+        type: answer
+        variables: []
+      height: 105
+      id: '1747876778527'
+      position:
+        x: 9083
+        y: 431
+      positionAbsolute:
+        x: 9083
+        y: 431
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1747819187551.text#}}'
+        desc: ''
+        selected: false
+        title: 回答问题
+        type: answer
+        variables: []
+      height: 105
+      id: '1747876799700'
+      position:
+        x: 8779
+        y: 613
+      positionAbsolute:
+        x: 8779
+        y: 613
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/azure_openai/azure_openai
+        prompt_template:
+        - id: 7d2754e6-0470-4772-831e-6d1e63f30837
+          role: system
+          text: '你是一位多语言智能问答助手。请根据用户输入的问题内容自动识别其主要语言，并使用相同语言进行回答。你的任务包括：
+
+
+            1. 精准、直接地回答用户提出的问题。
+
+            2. 如果问题不完整，请提供一条相关建议或提示，帮助用户深入了解问题或引导其提出更具体的问题。
+
+            3. 参考今天的日期为：{{#1749434630964.date#}}
+
+
+            语言识别规则：
+
+            - 默认使用英语；
+
+            - 如果用户问题明确包含中文（简体或繁體）或其他非英语特征，则使用对应语言；
+
+            - 简体中文和繁體中文须精确区分。
+
+
+            输出格式要求：
+
+            - 仅使用识别出的语言输出回答和建议；
+
+            - 语言表达要清晰、简洁、结构化（可使用分段或编号）；
+
+            - 禁止使用冗余修饰或复杂句式；
+
+            - 禁止添加额外说明或推测性内容；
+
+            - 输出内容只包含回答和建议两部分。
+
+
+            请开始根据用户问题生成回答。'
+        - id: 623c666e-9c2d-463d-92ad-34330f6a3fdc
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 其他问题回答
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1747962829205'
+      position:
+        x: 1242
+        y: 609
+      positionAbsolute:
+        x: 1242
+        y: 609
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1747962829205.text#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 105
+      id: '1747962838048'
+      position:
+        x: 1546
+        y: 609
+      positionAbsolute:
+        x: 1546
+        y: 609
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 33041bee-62fc-403b-bcda-db002e3deef4
+            value: ''
+            varType: object
+            variable_selector:
+            - conversation
+            - llm_obj
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否在进行多轮确认
+        type: if-else
+      height: 126
+      id: '1747963363573'
+      position:
+        x: 334
+        y: 300
+      positionAbsolute:
+        x: 334
+        y: 300
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\nfunction main({}) {\n    const date = new Date()\n    return {\n\
+          \       date: `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`\n\
+          \    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          date:
+            children: null
+            type: string
+        selected: false
+        title: 获取当前日期
+        type: code
+        variables: []
+      height: 54
+      id: '1749434630964'
+      position:
+        x: 942
+        y: 609
+      positionAbsolute:
+        x: 942
+        y: 609
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 244
     viewport:
-      x: 137.16821010991225
-      y: -33.946046458218234
-      zoom: 0.923655537541026
+      x: -7096.7705638988045
+      y: -147.85139987357093
+      zoom: 0.8705505632961246
