@@ -1361,5 +1361,65 @@ function main({output, predict, other}) {
 
 
 //#endregion
+//#region 错误提示-处理错误语句
+
+function main({error}) {
+  const res = !!error ? error : 'I\'m handling a lot of requests right now and making some adjustments. Please ask again in a little while—thanks for your patience!'
+  return {
+    error: res
+  }
+}
+
+//#endregion
+//#region 错误
+const size = {
+  "event": "workflow_finished",
+  "conversation_id": "24ac337f-9624-4365-911d-f5e4936172d0",
+  "message_id": "20f469ff-8204-42df-a4ca-89ef9c068123",
+  "created_at": 1750751867,
+  "task_id": "4ce510cd-297e-4b8d-8769-8ba8e1195295",
+  "workflow_run_id": "c677ac41-df2f-4021-bf0f-4a9108f1c619",
+  "data": {
+    "id": "c677ac41-df2f-4021-bf0f-4a9108f1c619",
+    "workflow_id": "756100d8-8f83-40a8-afce-5405eee73444",
+    "sequence_number": 1633,
+    "status": "failed",
+    "outputs": null,
+    "error": "The length of output variable `widget` must be less than 80000 characters",
+    "elapsed_time": 17.211624725023285,
+    "total_tokens": 4387,
+    "total_steps": 15,
+    "created_by": {"id": "d9a262ea-a530-496b-a16e-f9ed20a00815", "user": "6Xsnckr5CA9P"},
+    "created_at": 1750751867,
+    "finished_at": 1750751884,
+    "exceptions_count": 0,
+    "files": []
+  }
+}
+const token = {
+  "event": "workflow_finished",
+  "conversation_id": "24ac337f-9624-4365-911d-f5e4936172d0",
+  "message_id": "6ba9d339-66ea-4216-a6b5-aafde3f5e538",
+  "created_at": 1750752025,
+  "task_id": "9c6ec4ee-aca7-4201-b030-f16dfe027357",
+  "workflow_run_id": "1c25d1c6-f4f9-4f30-bf6f-82abd6d6c3dd",
+  "data": {
+    "id": "1c25d1c6-f4f9-4f30-bf6f-82abd6d6c3dd",
+    "workflow_id": "756100d8-8f83-40a8-afce-5405eee73444",
+    "sequence_number": 1634,
+    "status": "failed",
+    "outputs": null,
+    "error": "[models] Rate Limit Error, Error code: 429 - {'error': {'code': '429', 'message': 'Requests to the ChatCompletions_Create Operation under Azure OpenAI API version 2025-01-01-preview have exceeded token rate limit of your current AIServices S0 pricing tier. Please retry after 60 seconds. Please go here: https://aka.ms/oai/quotaincrease if you would like to further increase the default rate limit. For Free Account customers, upgrade to Pay as you Go here: https://aka.ms/429TrialUpgrade.'}}",
+    "elapsed_time": 77.32588301016949,
+    "total_tokens": 4378,
+    "total_steps": 23,
+    "created_by": {"id": "d9a262ea-a530-496b-a16e-f9ed20a00815", "user": "6Xsnckr5CA9P"},
+    "created_at": 1750752024,
+    "finished_at": 1750752102,
+    "exceptions_count": 0,
+    "files": []
+  }
+}
+//#endregion
 //#region Test
 //#endregion

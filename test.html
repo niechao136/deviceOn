@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>检测本地微信登录状态</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        img { width: 100px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+<h2>尝试检测本地 PC 微信是否已登录</h2>
+<p id="status">正在尝试访问本地微信服务...</p>
+<div id="userInfo" style="display:none;">
+    <p><strong>昵称：</strong><span id="nickname"></span></p>
+    <p><img id="avatar" src="" alt="头像"></p>
+</div>
+<script>
+  // 这是微信 PC 端可能监听的端口之一
+  const url = "http://127.0.0.1:13013/wxlogin/info";
+  const statusEl = document.getElementById("status");
+  const userInfoEl = document.getElementById("userInfo");
+  const nicknameEl = document.getElementById("nickname");
+  const avatarEl = document.getElementById("avatar");
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      console.log("微信数据：", data);
+      if (data && data.nickname && data.avatarUrl) {
+        statusEl.textContent = "成功获取本地微信信息：";
+        nicknameEl.textContent = data.nickname;
+        avatarEl.src = data.avatarUrl;
+        userInfoEl.style.display = "block";
+      } else {
+        statusEl.textContent = "本地微信接口未返回完整用户信息。";
+      }
+    })
+    .catch(err => {
+      console.warn("访问失败：", err);
+      statusEl.textContent = "无法访问本地微信接口（可能未登录微信或被浏览器拦截）。";
+    });
+</script>
+</body>
+</html>
