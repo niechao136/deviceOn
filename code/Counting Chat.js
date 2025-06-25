@@ -79,7 +79,7 @@ function isWithinNext7Days(dateString) {
   const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
   return diffMs >= 0 && diffMs <= sevenDaysMs;
 }
-function main({text, llm_obj, site_name, query}) {
+function main({text, llm_obj, site_name, query, class_name}) {
   const llm = !!text ? handleLLM(text) : {}
   const name = Array.from(JSON.parse(site_name))
   let new_obj
@@ -114,6 +114,7 @@ function main({text, llm_obj, site_name, query}) {
   let reply = ''
   const lang = String(new_obj?.lang_cn).trim() === String(query).trim() ? String(new_obj?.lang) : 'zh-TW'
   const predict = !!new_obj?.predict
+  const DATA = ['traffic', 'outside', 'turn_in_rate', 'total_amount', 'transaction_count', 'avg_amount', 'convert_rate', 'avg_item', 'queuing']
   if (predict) {
     const list = Array.isArray(new_obj?.site) ? Array.from(new_obj.site) : []
     const site = list.filter(o => name.includes(o))
@@ -151,7 +152,6 @@ function main({text, llm_obj, site_name, query}) {
         new_obj = {}
       }
       else {
-        const DATA = ['traffic', 'outside', 'turn_in_rate', 'total_amount', 'transaction_count', 'avg_amount', 'convert_rate', 'avg_item', 'queuing']
         const list = Array.isArray(new_obj?.data) ? Array.from(new_obj.data) : []
         const data = list.filter(o => DATA.includes(o))
         if (data.length === 0) {
@@ -167,6 +167,22 @@ function main({text, llm_obj, site_name, query}) {
             }
           }
         }
+      }
+    }
+  }
+  else {
+    const list = Array.isArray(new_obj?.data) ? Array.from(new_obj.data) : []
+    const data = list.filter(o => DATA.includes(o))
+    if (data.length === 0) {
+      new_obj = {
+        ...new_obj,
+        data: ['traffic', 'total_amount']
+      }
+    }
+    if (class_name === '时效表现分析问题') {
+      new_obj = {
+        ...new_obj,
+        is_site: true,
       }
     }
   }
@@ -892,48 +908,14 @@ function array2DToCSV(data, delimiter = ',') {
     // }).join(delimiter)
   ).join('\n');
 }
-function arrayToMarkdownTable(data) {
-  if (!data || data.length === 0) return '';
-
-  let markdown = '';
-
-  // 如果数组中的元素是对象，则取对象的键作为表头
-  if (typeof data[0] === 'object' && !Array.isArray(data[0])) {
-    const headers = Object.keys(data[0]);
-    // 构造表头行
-    markdown += `| ${headers.join(' | ')} |\n`;
-    // 构造分隔符行
-    markdown += `| ${headers.map(() => '---').join(' | ')} |\n`;
-    // 构造数据行
-    data.forEach(item => {
-      const row = headers.map(header => item[header] !== undefined ? item[header] : '').join(' | ');
-      markdown += `| ${row} |\n`;
-    });
-  } else if (Array.isArray(data[0])) {
-    // 如果数组中的元素也是数组，则默认第一行为表头
-    markdown += `| ${data[0].join(' | ')} |\n`;
-    markdown += `| ${data[0].map(() => '---').join(' | ')} |\n`;
-    for (let i = 1; i < data.length; i++) {
-      markdown += `| ${data[i].join(' | ')} |\n`;
-    }
-  } else {
-    // 其他情况：将每个元素作为一行（单列表格）
-    markdown += '| Value |\n';
-    markdown += '| --- |\n';
-    data.forEach(item => {
-      markdown += `| ${item} |\n`;
-    });
-  }
-
-  return markdown;
-}
-function main({queuing, label, new_obj, site}) {
+function main({queuing, label, new_obj, site, class_name}) {
   const output = Array.from(JSON.parse(queuing))
   const site_list = Array.from(JSON.parse(site))
   const by_id = {}
   site_list.forEach(o => {
     by_id[o.store_id] = o
   })
+  const region = class_name === '时效表现分析问题'
   const province = Array.isArray(new_obj?.province) ?  Array.from(new_obj?.province) : []
   const city = Array.isArray(new_obj?.city) ?  Array.from(new_obj?.city) : []
   const country = Array.isArray(new_obj?.country) ?  Array.from(new_obj?.country) : []
@@ -964,6 +946,7 @@ function main({queuing, label, new_obj, site}) {
 
   let prompts = ''
   if (!!new_obj?.is_time && !new_obj?.is_site && !has_queuing) {
+    prompts += '参考数据：\n'
     const head = ['时间'].concat(site_keys.map(o => i18n_key[o]))
     const data = {}
     label.forEach(o => {
@@ -986,117 +969,120 @@ function main({queuing, label, new_obj, site}) {
       })
     })
     const body = label.map(o => {
-      // const obj = { '时间': o }
-      // site_keys.forEach(s => {
-      //   obj[i18n_key[s]] = data[o][s]
-      // })
-      // return obj
       return [o].concat(site_keys.map(s => data[o][s] ?? 'null'))
     })
-
-    // const markdown = arrayToMarkdownTable([head].concat(body))
-    // const markdown = JSON.stringify(body, null, 2)
     const markdown = array2DToCSV([head].concat(body))
     const indentedTable = markdown
       .split('\n')             // 按行拆分
-      .map(line => '    ' + line) // 每行前添加4个空格
+      .map(line => '' + line) // 每行前添加4个空格
       .join('\n') + '\n'             // 再拼接回来
-    prompts += '    ```csv\n'
+    prompts += '```csv\n'
     prompts += indentedTable
-    prompts += '    ```\n'
+    prompts += '```\n'
   }
   else if (!new_obj?.is_time && !!new_obj?.is_site && !has_queuing) {
+    if (region) {
+      prompts += '回答问题请按照先分区域分析，再分析总体的步骤进行分析。\n'
+    }
+    prompts += '参考数据：\n'
     const site_head = ['地点']
-    if (country.length > 0) site_head.push('国家')
-    if (province.length > 0) site_head.push('区域一')
-    if (city.length > 0) site_head.push('区域二')
+    if (region || country.length > 0) site_head.push('国家/地区')
+    if (region || province.length > 0) site_head.push('区域一')
+    if (region || city.length > 0) site_head.push('区域二')
     if (!!new_obj?.need_address) site_head.push('地址')
     const head = site_head.concat(site_keys.map(o => i18n_key[o]))
     const body = output.map(o => {
-      // const obj = { '地点': o.name }
-      // if (country.length > 0) obj['国家'] = by_id[o.id].country
-      // if (province.length > 0) obj['区域一'] = by_id[o.id].country
-      // if (city.length > 0) obj['区域二'] = by_id[o.id].country
-      // site_keys.forEach(s => {
-      //   obj[i18n_key[s]] = Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t, sum) => {
-      //     return sum === null ? t : (sum + (t ?? 0))
-      //   }, null) : null
-      // })
-      // return obj
       const data = site_keys.map(s => {
         return Array.isArray(o?.[s]) ? Array.from(o[s]).reduce((t, sum) => {
           return sum === null ? t : (sum + (t ?? 0))
         }, null) : null
       })
       const site_data = [o.name]
-      if (country.length > 0) site_data.push(by_id[o.id].country)
-      if (province.length > 0) site_data.push(by_id[o.id].province)
-      if (city.length > 0) site_data.push(by_id[o.id].city)
+      if (region || country.length > 0) site_data.push(by_id[o.id].country)
+      if (region || province.length > 0) site_data.push(by_id[o.id].province)
+      if (region || city.length > 0) site_data.push(by_id[o.id].city)
       if (!!new_obj?.need_address) site_data.push(by_id[o.id].address)
       return site_data.concat(data.map(o => o ?? 'null'))
     })
-    // const markdown = arrayToMarkdownTable([head].concat(body))
-    // const markdown = JSON.stringify(body, null, 2)
     const markdown = array2DToCSV([head].concat(body))
     const indentedTable = markdown
       .split('\n')             // 按行拆分
-      .map(line => '    ' + line) // 每行前添加4个空格
+      .map(line => '' + line) // 每行前添加4个空格
       .join('\n') + '\n'             // 再拼接回来
-    prompts += '    ```csv\n'
+    prompts += '```csv\n'
     prompts += indentedTable
-    prompts += '    ```\n'
+    prompts += '```\n'
   }
   else if (!has_queuing) {
-    const head = ['时间']
+    if (region) {
+      prompts += '回答问题请按照先分区域分析，再分析总体的步骤进行分析。\n'
+    }
+    prompts += '参考数据：\n'
+    const head = ['地点']
+    if (region || country.length > 0) head.push('国家/地区')
+    if (region || province.length > 0) head.push('区域一')
+    if (region || city.length > 0) head.push('区域二')
+    if (!!new_obj?.need_address) head.push('地址')
     const data = {}
     label.forEach(o => {
-      data[o] = {}
-      output.forEach(v => {
-        site_keys.forEach(k => {
-          data[o][v.id + k] = null
-        })
+      site_keys.forEach(k => {
+        head.push(`${o}: ${i18n_key[k]}`)
       })
     })
     output.forEach(o => {
+      data[o.id] = {}
+      label.forEach(l => {
+        site_keys.forEach(k => {
+          data[o.id][l + k] = null
+        })
+      })
       site_keys.forEach(k => {
-        head.push(`${o.name}: ${i18n_key[k]}`)
         if (Array.isArray(o?.[k])) {
           label.forEach((l, i) => {
-            if (data[l][o.id + k] === null) {
-              data[l][o.id + k] = o[k][i]
+            if (data[o.id][l + k] === null) {
+              data[o.id][l + k] = o[k][i]
             } else {
-              data[l][o.id + k] += (o[k][i] ?? 0)
+              data[o.id][l + k] += (o[k][i] ?? 0)
             }
           })
         }
       })
     })
-    const body = label.map(o => {
+    const body = output.map(o => {
       const arr = []
-      output.forEach(v => {
+      label.forEach(v => {
         site_keys.forEach(k => {
-          arr.push(data[o][v.id + k] ?? 'null')
+          arr.push(data[o.id][v + k] ?? 'null')
         })
       })
-      return [o].concat(arr)
+      const site_data = [o.name]
+      if (region || country.length > 0) site_data.push(by_id[o.id].country)
+      if (region || province.length > 0) site_data.push(by_id[o.id].province)
+      if (region || city.length > 0) site_data.push(by_id[o.id].city)
+      if (!!new_obj?.need_address) site_data.push(by_id[o.id].address)
+      return site_data.concat(arr)
     })
     const markdown = array2DToCSV([head].concat(body))
     const indentedTable = markdown
       .split('\n')             // 按行拆分
-      .map(line => '    ' + line) // 每行前添加4个空格
+      .map(line => '' + line) // 每行前添加4个空格
       .join('\n') + '\n'             // 再拼接回来
-    prompts += '    ```csv\n'
+    prompts += '```csv\n'
     prompts += indentedTable
-    prompts += '    ```\n'
+    prompts += '```\n'
   }
   else {
+    if (region) {
+      prompts += '回答问题请按照先分区域分析，再分析总体的步骤进行分析。\n'
+    }
+    prompts += '参考数据：\n'
     const site_data = []
     let description = ''
     description += '- **顶层：** 地点数组，每个地点包含：\n'
     description += '    - **"n"：** 地点名称  \n'
-    if (country.length > 0)  description += '    - **"co"：** 国家  \n'
-    if (province.length > 0)  description += '    - **"pr"：** 区域一  \n'
-    if (city.length > 0)  description += '    - **"ci"：** 区域二  \n'
+    if (region || country.length > 0)  description += '    - **"co"：** 国家/地区  \n'
+    if (region || province.length > 0)  description += '    - **"pr"：** 区域一  \n'
+    if (region || city.length > 0)  description += '    - **"ci"：** 区域二  \n'
     output.forEach((o, index) => {
       const keys = Object.keys(o)
       const has_queuing = keys.includes('queuing_unit')
@@ -1104,9 +1090,9 @@ function main({queuing, label, new_obj, site}) {
       const item = {
         n: o.name
       }
-      if (country.length > 0)  item['co'] = by_id[o.id].country
-      if (province.length > 0)  item['pr'] = by_id[o.id].province
-      if (city.length > 0)  item['ci'] = by_id[o.id].city
+      if (region || country.length > 0)  item['co'] = by_id[o.id].country
+      if (region || province.length > 0)  item['pr'] = by_id[o.id].province
+      if (region || city.length > 0)  item['ci'] = by_id[o.id].city
       if (site.length > 0) {
         if (index === 0) {
           description += '    - **"m"：** 地点指标数组，每个对象包含：  \n'
@@ -1181,11 +1167,11 @@ function main({queuing, label, new_obj, site}) {
     const data = JSON.stringify(site_data, null, 2)
     const indentedTable = data
       .split('\n')             // 按行拆分
-      .map(line => '    ' + line) // 每行前添加4个空格
+      .map(line => '' + line) // 每行前添加4个空格
       .join('\n') + '\n'             // 再拼接回来
-    prompts += '    ```json\n'
+    prompts += '```json\n'
     prompts += indentedTable
-    prompts += '    ```\n'
+    prompts += '```\n'
     prompts += '\n'
     prompts += '---\n'
     prompts += '\n'
@@ -1419,6 +1405,9 @@ const token = {
     "exceptions_count": 0,
     "files": []
   }
+}
+const res = {
+  "prompts": "参考数据：\n```csv\n地点,2024: 来店人数,2024: 营业额\n優尼聖-信義誠品,null,0\n優尼聖-台北統一時代,217982,0\n優尼聖-大江購物中心,563610,0\n優尼聖-秀泰影城,97451,0\n優尼聖-高島屋,188574,0\n全舜行中壢EXP,36285,0\n動力主義-中友百貨,330912,0\n動力主義-信義遠東A13,184353,0\n動力主義-台中三井 lalaport,496426,0\n動力主義-台中遠東,1012884,0\n動力主義-台南大遠百,25155,0\n動力主義-尚順購物中心店,35372,0\n動力主義-廣三百貨,130777,0\n動力主義-彰化專賣店,48631,0\n動力主義-文心秀泰,267104,0\n動力主義-新竹大魯閣,140241,0\n動力主義-新竹遠東,115130,0\n動力主義-板橋大遠百,357130,0\n動力主義-桃園遠東,104169,0\n動力主義-遠東百貨竹北店,234026,0\n動力主義-高雄遠東,117062,0\n動力主義-麗寶outlet,540246,0\n哈林-中和環球,157292,0\n哈林-南港潤泰購物中心,779135,0\n哈林-台中三井 lalaport,null,0\n哈林-台北京站,null,0\n哈林-宏匯廣場,250784,0\n哈林-新竹遠東,null,0\n哈林-板橋誠品,83189,0\n哈林-板橋遠東,160383,0\n哈林-板橋遠東(待處理),null,0\n哈林-桃園環球A19,157045,0\n哈林-桃園統領,25405,0\n哈林-桃園遠東,null,0\n哈林-樹林秀泰,190979,0\n哈林-正義北,32377,0\n哈林-裕隆城,358170,0\n哈林-高雄SOGO,null,0\n哈林-高雄遠東,null,0\n哈林比漾購物廣場,50702,0\n尚亨-義享天地,146053,0\n尚亨-高雄SOGO,63385,0\n尚亨-鳳山專賣店,65593,0\n尚亨台南南紡,285082,0\n尚亨新崛江中山專賣店,44745,0\n尚亨明誠,24420,0\n尚智公館EXP,84443,0\n尚智太平8,191871,0\n微笑-嘉義NB專賣店,91744,0\n微笑-豐原中正NB,57242,0\n微笑-逢甲NB專賣,112889,0\n微笑-逢甲六復古專賣,58264,0\n微笑東海NB專賣,35603,0\n摩曼頓 基隆東岸,145355,0\n摩曼頓-三越南西三館,429470,0\n摩曼頓-台南民族二,22840,0\n摩曼頓-台茂,313927,0\n摩曼頓-夢時代高雄,471190,0\n摩曼頓-美麗華,169586,0\n摩曼頓-義大,332682,0\n摩曼頓-西寧五,216860,0\n摩曼頓新月廣場,202774,0\n紅番-草屯EXP,45208,0\n紅番-草屯EXP(已關閉),null,0\n雷根三民B-EXP,57853,0\n```\n"
 }
 //#endregion
 //#region Test
