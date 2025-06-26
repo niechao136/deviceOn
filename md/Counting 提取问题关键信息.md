@@ -49,7 +49,7 @@
 | `avg_amount`        | 客单价、Average Transaction Value |
 | `convert_rate`      | 转换率、Conversion Rate           |
 | `avg_item`          | 客单量、Average Basket Size       |
-| `queuing`           | 排队人数、排队时间、Queuing             |
+| `queuing`           | 排队人数、Queuing                  |
 
 若无匹配 → 输出空数组 `[]`
 
