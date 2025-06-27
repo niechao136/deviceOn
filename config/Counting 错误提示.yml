@@ -1,0 +1,255 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: Counting 错误提示
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.12@a8d5448083aededa394d5940f878f6151f4a472e77766222e654840c74d10287
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1747889980387-source-1747890030272-target
+      source: '1747889980387'
+      sourceHandle: source
+      target: '1747890030272'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1747885724762-source-1750746110874-target
+      source: '1747885724762'
+      sourceHandle: source
+      target: '1750746110874'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1750746110874-source-1747889980387-target
+      source: '1750746110874'
+      sourceHandle: source
+      target: '1747889980387'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - label: question
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: question
+        - label: error
+          max_length: 256
+          options: []
+          required: false
+          type: text-input
+          variable: error
+      height: 116
+      id: '1747885724762'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1747885724762'
+          - question
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/azure_openai/azure_openai
+        prompt_template:
+        - id: 592fdc24-a3c9-4322-95b3-e4e3cb353c81
+          role: system
+          text: '你是一个多语言翻译助手。请根据用户输入文本的语言，自动识别其主要语言，并将以下固定句子翻译为该语言：
+
+
+            **{{#1750746110874.error#}}**
+
+
+            ## 语言识别规则：
+
+
+            * 若用户输入中包含繁体字（与其 OpenCC 转换为简体后的结果不同），则使用**繁体中文**作答；
+
+            * 否则，自动判断用户语言，使用对应语言作答；
+
+            * 若语言无法判断，默认使用**英文**作答。
+
+
+            ## 翻译要求：
+
+
+            * 确保**所有输出都必须严格使用同一种语言**；
+
+            * 禁止切换语言或混用，特别是**禁止混用或自动转换繁简体**；
+
+            * 仅输出翻译结果，不添加解释或语言标注；
+
+            * 保持语义完整、语气礼貌；
+
+            * 翻译应符合目标语言的表达习惯；'
+        - id: 6a47eb6c-36cd-45c5-8888-0f6325646ab5
+          role: user
+          text: '{{#context#}}'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1747889980387'
+      position:
+        x: 684
+        y: 282
+      positionAbsolute:
+        x: 684
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1747889980387'
+          - text
+          variable: text
+        selected: false
+        title: 结束
+        type: end
+      height: 90
+      id: '1747890030272'
+      position:
+        x: 988
+        y: 282
+      positionAbsolute:
+        x: 988
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({error}) {\n  const res = !!error ? error : 'I\\'m handling\
+          \ a lot of requests right now and making some adjustments. Please ask again\
+          \ in a little while—thanks for your patience!'\n  return {\n    error: res\n\
+          \  }\n}"
+        code_language: javascript
+        desc: ''
+        outputs:
+          error:
+            children: null
+            type: string
+        selected: false
+        title: 处理错误语句
+        type: code
+        variables:
+        - value_selector:
+          - '1747885724762'
+          - error
+          variable: error
+      height: 54
+      id: '1750746110874'
+      position:
+        x: 384
+        y: 282
+      positionAbsolute:
+        x: 384
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 217
+      y: 123.5
+      zoom: 1
