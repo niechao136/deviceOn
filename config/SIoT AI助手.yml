@@ -1,0 +1,972 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: SIoT AI助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.12@a8d5448083aededa394d5940f878f6151f4a472e77766222e654840c74d10287
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: e09a0bf9-9c1e-4887-ab57-5553f6abe762
+    name: unprocessed
+    selector:
+    - conversation
+    - unprocessed
+    value: {}
+    value_type: object
+  - description: ''
+    id: d61b1c6d-fb77-4898-bae5-5ae42b228cf6
+    name: processed
+    selector:
+    - conversation
+    - processed
+    value: {}
+    value_type: object
+  - description: ''
+    id: af16c682-a082-4c56-8af6-27de39550226
+    name: conversation_i18
+    selector:
+    - conversation
+    - conversation_i18
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions: []
+      allowed_file_types:
+      - image
+      - document
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: if-else
+      id: 1749189524563-1-1749190379880-target
+      selected: false
+      source: '1749189524563'
+      sourceHandle: '1'
+      target: '1749190379880'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1749190379880-true-1749190571706-target
+      selected: false
+      source: '1749190379880'
+      sourceHandle: 'true'
+      target: '1749190571706'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1749190571706-source-1749111458202-target
+      selected: false
+      source: '1749190571706'
+      sourceHandle: source
+      target: '1749111458202'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: answer
+      id: 1749189524563-1749344478379-1749344495241-target
+      selected: false
+      source: '1749189524563'
+      sourceHandle: '1749344478379'
+      target: '1749344495241'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1749189524563-1749344639358-1749345769951-target
+      selected: false
+      source: '1749189524563'
+      sourceHandle: '1749344639358'
+      target: '1749345769951'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1749345769951-source-1749346434794-target
+      selected: false
+      source: '1749345769951'
+      sourceHandle: source
+      target: '1749346434794'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1749346434794-source-1749345826595-target
+      selected: false
+      source: '1749346434794'
+      sourceHandle: source
+      target: '1749345826595'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: question-classifier
+        targetType: llm
+      id: 1749189524563-1749346784707-1749346801908-target
+      selected: false
+      source: '1749189524563'
+      sourceHandle: '1749346784707'
+      target: '1749346801908'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1749346801908-source-17493468298990-target
+      selected: false
+      source: '1749346801908'
+      sourceHandle: source
+      target: '17493468298990'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 17493468298990-source-1749346854981-target
+      selected: false
+      source: '17493468298990'
+      sourceHandle: source
+      target: '1749346854981'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1749109786818-source-1749462585718-target
+      selected: false
+      source: '1749109786818'
+      sourceHandle: source
+      target: '1749462585718'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: question-classifier
+      id: 1749462585718-false-1749189524563-target
+      selected: false
+      source: '1749462585718'
+      sourceHandle: 'false'
+      target: '1749189524563'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1749462585718-true-1749698378260-target
+      selected: false
+      source: '1749462585718'
+      sourceHandle: 'true'
+      target: '1749698378260'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1749190379880-false-1749698378260-target
+      selected: false
+      source: '1749190379880'
+      sourceHandle: 'false'
+      target: '1749698378260'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: 1749698378260-source-1749698438393-target
+      selected: false
+      source: '1749698378260'
+      sourceHandle: source
+      target: '1749698438393'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1749698438393'
+        sourceType: iteration-start
+        targetType: llm
+      id: 1749698438393start-source-1749698449299-target
+      selected: false
+      source: 1749698438393start
+      sourceHandle: source
+      target: '1749698449299'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1749698438393'
+        sourceType: llm
+        targetType: code
+      id: 1749698449299-source-1749957619750-target
+      selected: false
+      source: '1749698449299'
+      sourceHandle: source
+      target: '1749957619750'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: assigner
+      id: 1749698438393-source-1749983438502-target
+      source: '1749698438393'
+      sourceHandle: source
+      target: '1749983438502'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1749983438502-source-1749537383793-target
+      source: '1749983438502'
+      sourceHandle: source
+      target: '1749537383793'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: file_md
+          max_length: null
+          options: []
+          required: false
+          type: text-input
+          variable: file_md
+      height: 90
+      id: '1749109786818'
+      position:
+        x: 61.870898711131645
+        y: 116.99999999999994
+      positionAbsolute:
+        x: 61.870898711131645
+        y: 116.99999999999994
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 请上传i8n文件
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 102
+      id: '1749111458202'
+      position:
+        x: 1989.0869190163241
+        y: -164.39767786899807
+      positionAbsolute:
+        x: 1989.0869190163241
+        y: -164.39767786899807
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        classes:
+        - id: '1'
+          name: 翻译i18文件
+        - id: '2'
+          name: 生成测试用例
+        - id: '1749344478379'
+          name: 解锁更多功能
+        - id: '1749344639358'
+          name: '关于你 / 关于助手
+
+            about_assistant'
+        - id: '1749346784707'
+          name: 其他类
+        desc: ''
+        instructions: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/azure_openai/azure_openai
+        query_variable_selector:
+        - '1749109786818'
+        - sys.query
+        selected: false
+        title: 问题分类器
+        topics: []
+        type: question-classifier
+        vision:
+          enabled: false
+      height: 286
+      id: '1749189524563'
+      position:
+        x: 907.4798560623354
+        y: 196.2601864947954
+      positionAbsolute:
+        x: 907.4798560623354
+        y: 196.2601864947954
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: a029063e-d173-4943-a776-68275a5d9e87
+            value: ''
+            varType: string
+            variable_selector:
+            - '1749109786818'
+            - file_md
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 126
+      id: '1749190379880'
+      position:
+        x: 1263.3611029965946
+        y: -193.6197888354376
+      positionAbsolute:
+        x: 1263.3611029965946
+        y: -193.6197888354376
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: 'true'
+          variable_selector:
+          - conversation
+          - conversation_i18
+          write_mode: over-write
+        selected: false
+        title: 变量赋值
+        type: assigner
+        version: '2'
+      height: 88
+      id: '1749190571706'
+      position:
+        x: 1640.8415881064486
+        y: -164.39767786899807
+      positionAbsolute:
+        x: 1640.8415881064486
+        y: -164.39767786899807
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 欢迎联系Jack Xu，提出建议和需求，谢谢！
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 118
+      id: '1749344495241'
+      position:
+        x: 1332.482370052738
+        y: 265.14577255823116
+      positionAbsolute:
+        x: 1332.482370052738
+        y: 265.14577255823116
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: dc77b868-c608-431a-af10-ec1425dfdb6e
+          role: system
+          text: '你是一个精准的翻译引擎，请根据以下规则完成翻译任务：
+
+
+            💡 任务说明：无论用户说什么，你都需要根据用户的语言，将固定句子 「我是研华人工智能，很高兴为您服务」翻译为用户的语言版本。
+
+
+            📌 翻译规则：
+
+            - 如果用户语言是 **简体中文**，品牌名保持为“研华”，翻译为简体中文；
+
+            - 如果用户语言是 **繁體中文**，品牌名替换为“研華”，翻译为繁體中文；
+
+            - 如果用户语言是 **其他语言**，品牌名替换为“Advantech”，翻译为用户语言（必须是用户语言，不得默认英文）。
+
+
+            📌 输出要求：
+
+            - **仅输出翻译后的完整句子**（不得包含解释、标签或其他说明文字）
+
+            - 语气专业、商务、清晰
+
+            - 必须使用用户输入的语言作为目标语言
+
+
+
+            ✅ 示例：
+
+            用户：你是谁
+
+            [检测到简体中文]
+
+            系统：我是研华人工智能，很高兴为您服务
+
+
+            用户：Who are you
+
+            [检测到英语]
+
+            系统：I am Advantech AI, pleased to assist you'
+        - id: 89fe52e0-adc2-4664-944e-c1fead5f6c1a
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 元信息类问题回答
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1749345769951'
+      position:
+        x: 1332.482370052738
+        y: 408.1457725582312
+      positionAbsolute:
+        x: 1332.482370052738
+        y: 408.1457725582312
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1749346434794.text#}}'
+        desc: ''
+        selected: false
+        title: 元信息类问题回复
+        type: answer
+        variables: []
+      height: 105
+      id: '1749345826595'
+      position:
+        x: 1936.482370052738
+        y: 408.1457725582312
+      positionAbsolute:
+        x: 1936.482370052738
+        y: 408.1457725582312
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({text}) {\n    return {\n        text: String(text).replaceAll(/<think>[\\\
+          s\\S]*?<\\/think>/g, '')\n            .replaceAll(/<details[\\s\\S]*?<\\\
+          /details>/g, '')\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          text:
+            children: null
+            type: string
+        selected: false
+        title: 删除思考过程
+        type: code
+        variables:
+        - value_selector:
+          - '1749345769951'
+          - text
+          variable: text
+      height: 54
+      id: '1749346434794'
+      position:
+        x: 1630.5445844542598
+        y: 408.1457725582312
+      positionAbsolute:
+        x: 1630.5445844542598
+        y: 408.1457725582312
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 081e7c75-da92-4699-887b-c5562314139a
+          role: system
+          text: ''
+        - id: 23abd1af-b070-427b-9e86-09b38bf5d529
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: 其他类问题回复
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1749346801908'
+      position:
+        x: 1332.482370052738
+        y: 537.1457725582312
+      positionAbsolute:
+        x: 1332.482370052738
+        y: 537.1457725582312
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({text}) {\n    return {\n        text: String(text).replaceAll(/<think>[\\\
+          s\\S]*?<\\/think>/g, '')\n            .replaceAll(/<details[\\s\\S]*?<\\\
+          /details>/g, '')\n    }\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          text:
+            children: null
+            type: string
+        selected: false
+        title: 删除其他类思考过程
+        type: code
+        variables:
+        - value_selector:
+          - '1749346801908'
+          - text
+          variable: text
+      height: 54
+      id: '17493468298990'
+      position:
+        x: 1630.5445844542598
+        y: 537.1457725582312
+      positionAbsolute:
+        x: 1630.5445844542598
+        y: 537.1457725582312
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#17493468298990.text#}}'
+        desc: ''
+        selected: false
+        title: 其他类回复
+        type: answer
+        variables: []
+      height: 105
+      id: '1749346854981'
+      position:
+        x: 1929.5445844542598
+        y: 537.1457725582312
+      positionAbsolute:
+        x: 1929.5445844542598
+        y: 537.1457725582312
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: dce66950-1452-406f-a6dc-2fc10c49dea0
+            value: 'true'
+            varType: string
+            variable_selector:
+            - conversation
+            - conversation_i18
+          - comparison_operator: not empty
+            id: dbbe0554-2d9e-4515-8fa3-538153865204
+            value: ''
+            varType: string
+            variable_selector:
+            - '1749109786818'
+            - file_md
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 判断是否同一个会话
+        type: if-else
+      height: 152
+      id: '1749462585718'
+      position:
+        x: 442.0672929427625
+        y: 116.99999999999994
+      positionAbsolute:
+        x: 442.0672929427625
+        y: 116.99999999999994
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{"md":"{{#1749698438393.output#}}","source":"md-excel"}'
+        desc: ''
+        selected: false
+        title: i18回复
+        type: answer
+        variables: []
+      height: 121
+      id: '1749537383793'
+      position:
+        x: 3141.9828985356485
+        y: -400.10960097825773
+      positionAbsolute:
+        x: 3141.9828985356485
+        y: -400.10960097825773
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def split_markdown_table(markdown: str, max_rows: int):\n    lines\
+          \ = markdown.strip().splitlines()\n    if len(lines) < 3:\n        return\
+          \ [markdown]  # 没有足够内容可切分\n\n    header = lines[:2]   # 表头 + 分隔线\n    body\
+          \ = lines[2:]\n\n    chunks = []\n    for i in range(0, len(body), max_rows):\n\
+          \        chunk_body = body[i:i + max_rows]\n        chunk = \"\\n\".join(header\
+          \ + chunk_body)\n        chunks.append(chunk)\n    return chunks\n\ndef\
+          \ main(markdown_text: str) -> dict:\n    markdown_text = markdown_text.replace(\"\
+          \\\\n\",\"\\n\")\n    # 拆分表格为 chunks\n    chunks = split_markdown_table(markdown_text,\
+          \ 20)\n\n    return {\n        \"result\": chunks,\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: array[string]
+        selected: false
+        title: MD切片
+        type: code
+        variables:
+        - value_selector:
+          - '1749109786818'
+          - file_md
+          variable: markdown_text
+      height: 54
+      id: '1749698378260'
+      position:
+        x: 1640.8415881064486
+        y: -400.10960097825773
+      positionAbsolute:
+        x: 1640.8415881064486
+        y: -400.10960097825773
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 178
+        is_parallel: false
+        iterator_selector:
+        - '1749698378260'
+        - result
+        output_selector:
+        - '1749957619750'
+        - result
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1749698438393start
+        title: 迭代
+        type: iteration
+        width: 691.9999999999998
+      height: 178
+      id: '1749698438393'
+      position:
+        x: 2029.2913614412203
+        y: -400.10960097825773
+      positionAbsolute:
+        x: 2029.2913614412203
+        y: -400.10960097825773
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 692
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1749698438393start
+      parentId: '1749698438393'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 2053.29136144122
+        y: -332.10960097825773
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1749698438393'
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-r1:14b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 394a83f0-92c4-43d0-86d3-d870a39e6bb5
+          role: system
+          text: "\n# Role 你是一名专业的多语言翻译专家\n\n## Goals\n- 以下是一个多语言翻译表格，表格中只有 \"zh-TW\"\
+            \ 栏有内容，请你根据 \"zh-TW\" 栏的文字，将内容翻译到其对应语言的栏位中（zh-CN、en-US、ja-JP、ko-KR）\n\
+            - 请翻译以下表格：\n  {{#1749698438393.item#}}}\n\n## Constrains：\n- 保持原文含义准确，不要翻译表头，已填写内容不需更改\n\
+            - 保留格式符号（如变量、占位符、标点），保留空白单元格位置\n- 翻译风格应符合目标语言的本地表达方式\n- 你处于非思考模式，请直接给出最终答案，无需解释过程\n\
+            - 翻译内容用于软件UI，符合软件UI使用规范\n- 输出的表格必须和原始表格行数一致\n- 仅翻译 zh-TW 列的内容，其他列保持不变\n\
+            - **最终输出必须为原始格式的纯文本表格，不要包含任何解释、代码块、引号（禁止使用半角或全角 \" 符号）**\n- 严格禁止自动添加或保留任何形式的引号符号，包括在表格中、占位符周围、值周围、代码框中等\n"
+        selected: false
+        title: i18翻译
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1749698449299'
+      parentId: '1749698438393'
+      position:
+        x: 127.99999999999977
+        y: 65
+      positionAbsolute:
+        x: 2157.29136144122
+        y: -335.10960097825773
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "function main({text}) {\n  return {\n    result: String(text).replaceAll(/<think>[\\\
+          s\\S]*?<\\/think>/g, '').replaceAll(/<details[\\s\\S]*?<\\/details>/g, ''),\n\
+          \  }\n}"
+        code_language: javascript
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1749698438393'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 删除i18思考过程
+        type: code
+        variables:
+        - value_selector:
+          - '1749698449299'
+          - text
+          variable: text
+      height: 54
+      id: '1749957619750'
+      parentId: '1749698438393'
+      position:
+        x: 431.9999999999998
+        y: 65
+      positionAbsolute:
+        x: 2461.29136144122
+        y: -335.10960097825773
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: 'false'
+          variable_selector:
+          - conversation
+          - conversation_i18
+          write_mode: over-write
+        selected: false
+        title: 变量赋值 2
+        type: assigner
+        version: '2'
+      height: 88
+      id: '1749983438502'
+      position:
+        x: 2841.9828985356485
+        y: -400.10960097825773
+      positionAbsolute:
+        x: 2841.9828985356485
+        y: -400.10960097825773
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -640.5389750798022
+      y: 610.5267177781868
+      zoom: 0.7476814760669019
