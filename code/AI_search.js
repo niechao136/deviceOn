@@ -20,9 +20,8 @@ function main({result, item}) {
   const format = Array.from(result).map(o => {
     const obj = {}
     String(o.content).split('\";\"').forEach(s => {
-      const str = s.replaceAll('\"', '')
-      const map = str.split(':')
-      obj[map[0].trim()] = map[1].trim()
+      const map = s.split('\":\"').map(o => o.replaceAll('\"', '').trim())
+      obj[map[0]] = map[1]
     })
     return obj
   })
