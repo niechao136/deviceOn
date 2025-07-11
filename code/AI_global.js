@@ -75,15 +75,40 @@ function main({output, head}) {
 
 function main({output, processed, unprocessed, length, head}) {
   const head_arr = String(head[0]).split('|').map(o => o.trim())
+  const tw_index = String(head[0]).split('|').findIndex(o => o.trim() === 'zh-TW')
   const lang_arr = head_arr.filter(o => !!o && !o.startsWith('Main') && !o.startsWith('i18') && !o.startsWith('History'))
+  const tw_idx = lang_arr.findIndex(o => o.trim() === 'zh-TW')
+  const un_obj = {}, tw_obj = {}
+  Object.values(unprocessed).forEach(value => {
+    const list = String(value).split('|')
+    const i18n_key = list[2]
+    const tw_text = list[tw_index]
+    un_obj[i18n_key] = tw_text
+    tw_obj[tw_text] = i18n_key
+  })
   const obj = {}
   Array.from(output).forEach(item => {
     const arr = String(item).split('\n').filter(o => !!o.trim() && (o.trim().startsWith('|') || o.trim().endsWith('|')))
     arr.slice(2).forEach(text => {
       const list = String(text).split('|')
-      const func_key = !!list[1].trim() ? list[1].trim() : ' '
-      const i18n_key = list[2].trim()
-      const lang_text = list.filter((o, k) => k > 2 && !!o.trim()).map(o => o.trim())
+      let index = 0, i18n_key = '', i18n_index = 0
+      while (index < 4) {
+        if (!!un_obj[list[index].trim()]) {
+          i18n_key = list[index].trim()
+          i18n_index = index
+        }
+        index++
+      }
+      if (i18n_key === '') {
+        i18n_key = list[2].trim()
+        i18n_index = 2
+      }
+      const func_key = i18n_index > 0 && !!list[1].trim() ? list[1].trim() : ' '
+      const lang_text = list.filter((o, k) => k > i18n_index && !!o.trim()).map(o => o.trim())
+      const tw_text = lang_text[tw_idx]
+      if (!un_obj[i18n_key] && !!tw_obj[tw_text]) {
+        i18n_key = tw_obj[tw_text]
+      }
       const trans = ['', func_key, i18n_key].concat(lang_arr.map((o, k) => {
         return lang_text?.[k] ?? ' '
       })).concat([' ', '']).join('|')
