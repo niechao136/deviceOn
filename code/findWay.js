@@ -155,7 +155,9 @@ function main({result, text}) {
   })
   return {
     store: str_s,
-    product: str_p
+    product: str_p,
+    store_obj: store,
+    product_obj: product,
   }
 }
 //#endregion
@@ -175,17 +177,37 @@ function handleLLM(text) {
   }
   return obj
 }
-function main({text, query}) {
+function main({text, query, store_obj, product_obj}) {
   const obj = handleLLM(text)
+  const product_id = {}
+  Array.from(product_obj).forEach(o => {
+    product_id[o.product_id] = o
+  })
+  const store_id = {}
+  Array.from(store_obj).forEach(o => {
+    store_id[o.store_id] = o
+  })
   const product = Array.isArray(obj.product) ? Array.from(obj.product) : []
   const store = Array.isArray(obj.store) ? Array.from(obj.store) : []
   const answer = obj.answer
   const need = !!obj.need_confirm
+  const str_s = store.map(id => {
+    const obj = store_id[id] || {}
+    return Object.entries(obj)
+      .map(([key, val]) => `${key}: ${val}`)
+      .join('; ')
+  })
+  const str_p = product.map(id => {
+    const obj = product_id[id] || {}
+    return Object.entries(obj)
+      .map(([key, val]) => `${key}: ${val}`)
+      .join('; ')
+  })
   const history = {
     question: query,
     answer,
-    product,
-    store,
+    product: str_p,
+    store: str_s,
   }
   return {
     history,
@@ -197,12 +219,52 @@ function main({text, query}) {
 //#endregion
 //#region 解析缓存
 
+function parseToObject(str) {
+  const obj = {};
+
+  // 只把出现在 行首、分号或换行 后的 "key:" 识别为字段名
+  const regex = /(^|;|\n)\s*([A-Za-z0-9_]+)\s*:/g;
+  let match;
+  const keys = [];
+
+  while ((match = regex.exec(str)) !== null) {
+    // match.index 是整个 match 的起始（包含前缀），
+    // 找到 key 在 match[0] 中的偏移以算出 key 的全局起始位置
+    const fullMatch = match[0];
+    const keyName = match[2];
+    const offsetInFull = fullMatch.indexOf(keyName);
+    const keyIndex = match.index + offsetInFull;
+    keys.push({ key: keyName, index: keyIndex });
+  }
+
+  for (let i = 0; i < keys.length; i++) {
+    const current = keys[i];
+    const next = keys[i + 1];
+
+    const start = current.index + current.key.length + 1; // skip `key:`
+    const end = next ? next.index : str.length;
+
+    // 取片段并去掉收尾的分号与空白
+    let value = str.slice(start, end).trim();
+    value = value.replace(/^\s*;|;\s*$/g, "").trim();
+
+    obj[current.key] = value;
+  }
+
+  return obj;
+}
 function main({history}) {
+  const product = Array.from(history.product).map(o => typeof o === 'string' ? o : JSON.stringify(o))
+  const store = Array.from(history.store).map(o => typeof o === 'string' ? o : JSON.stringify(o))
+  const product_obj = product.map(o => parseToObject(o))
+  const store_obj = store.map(o => parseToObject(o))
   return {
     question: history.question,
     answer: history.answer,
-    product: Array.from(history.product).map(o => typeof o === 'string' ? o : JSON.stringify(o)),
-    store: Array.from(history.store).map(o => typeof o === 'string' ? o : JSON.stringify(o)),
+    product,
+    store,
+    product_obj,
+    store_obj,
   }
 }
 
@@ -223,18 +285,38 @@ function handleLLM(text) {
   }
   return obj
 }
-function main({text, query}) {
+function main({text, query, store_obj, product_obj}) {
   const obj = handleLLM(text)
   const action = obj.action
+  const product_id = {}
+  Array.from(product_obj).forEach(o => {
+    product_id[o.product_id] = o
+  })
+  const store_id = {}
+  Array.from(store_obj).forEach(o => {
+    store_id[o.store_id] = o
+  })
   const product = Array.isArray(obj.product) ? Array.from(obj.product) : []
   const store = Array.isArray(obj.store) ? Array.from(obj.store) : []
   const answer = obj.answer
   const need = action === 'further_filter'
+  const str_s = store.map(id => {
+    const obj = store_id[id] || {}
+    return Object.entries(obj)
+      .map(([key, val]) => `${key}: ${val}`)
+      .join('; ')
+  })
+  const str_p = product.map(id => {
+    const obj = product_id[id] || {}
+    return Object.entries(obj)
+      .map(([key, val]) => `${key}: ${val}`)
+      .join('; ')
+  })
   const history = {
     question: query,
     answer,
-    product,
-    store,
+    product: str_p,
+    store: str_s,
   }
   return {
     action,
